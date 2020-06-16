@@ -1,0 +1,44 @@
+.topBar{
+    padding-top:10px;
+    border-bottom:1px solid #ccc;
+}
+.topBar p{
+    color:#777777;
+    font-size: 14px;
+    margin-bottom:10px;
+}
+.topBar p span{
+    color:#1385a7;
+    font-size:14px;
+  }
+.topBar .menuitems{
+
+}
+.topBar .menuitems ul, .mainHeader .menuitems ul{
+    padding-left:0;
+    margin-bottom: 0;
+}
+.topBar .menuitems.rightmenu ul{
+    float:right;
+}
+.topBar .menuitems ul li, .mainHeader .menuitems ul li{
+    list-style: none;
+    float:left;
+    margin-right:15px;
+    font-size:14px;
+    color:#858585;
+}
+.topBar .menuitems.rightmenu ul li{
+    text-transform: uppercase;
+}
+.mainHeader{
+    padding: 10px 0;
+}
+.mainHeader .menuitems ul li{
+    color:#5b5c5d;
+    font-size:14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 50px;
+    margin-right: 25px;
+}

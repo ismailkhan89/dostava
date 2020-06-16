@@ -25,7 +25,7 @@ class Auth extends React.Component {
     return (
       <>
         <div className="main-content">
-          <Container className="mt--8 pb-5">
+          <Container className="mt--8 pb-5" fluid>
             <Row className="justify-content-center">
               <Switch>{this.getRoutes(routes)}</Switch>
             </Row>
