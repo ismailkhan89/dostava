@@ -1,11 +1,11 @@
-import Homepage from '../Views/Homepage.jsx';
-import Product from '../Views/Product.jsx';
+import HomePage from './Views/HomePage';
+import Product from './Views/Product.jsx';
 
 var routes = [
     {
-      path: "/homepage",
-      name: "Homepage",
-      component: Homepage,
+      path: "/home",
+      name: "HomePage",
+      component: HomePage,
       layout: "/",
       
     },

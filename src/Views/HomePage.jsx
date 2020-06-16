@@ -1,5 +1,5 @@
 import React from "react";
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import {
     Card,
     CardHeader,
@@ -17,18 +17,16 @@ import {
     Input
 } from "reactstrap";
 
-function App() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            This is homepage
-          </p>
-         
-        </header>
-      </div>
-    );
+class HomePage extends React.Component{
+  render(){
+    console.log('inside HomePage')
+    return(
+      <Container>
+        <div> <span>asjkdhfakljsdhfklajsdh</span> </div>
+      </Container>
+    )
   }
 
-  export default App;
+}
+
+  export default HomePage;
