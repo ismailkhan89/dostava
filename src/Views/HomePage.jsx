@@ -1,30 +1,34 @@
-import React from "react";
+import React, {Component} from "react";
+
+
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css';
 import '../Style.css';
 import logo from '../logo.png';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 // import logo from './logo.svg';
 import {
     Card,
+    CardImg,
+    CardText,
+    CardBody,
+    CardTitle,
     CardHeader,
     Container,
     Row,
     Col,
-    Table,
-    Media,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    Modal,
-    FormGroup,
-    Input
+    Button,
+    
 } from "reactstrap";
 
 class HomePage extends React.Component{
 
   
   render(){
+
+    
     console.log('inside HomePage')
     const MenuItems = ['About us', 'Contact Us', 'Gallery', 'My Account'];
     const listItems = MenuItems.map((items) =>
@@ -34,8 +38,27 @@ class HomePage extends React.Component{
     const MenuList = MainMenu.map((items) =>
       <li>{items}</li>
     );
+    var settings = {
+      dots: true,
+      autoplay:true,
+      arrows:true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    };
+    var settingsFeatureProducts = {
+      dots: true,
+      autoplay:false,
+      arrows:true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 6,
+      slidesToScroll: 1
+    };
     return(
-      
+        <Container className="wrapper" fluid>
+        
         <Container className="header-area" fluid>
           <Row className="topBar">
             <Col lg="6">
@@ -66,6 +89,228 @@ class HomePage extends React.Component{
             </Col>
           </Row>
         </Container>
+        <Container className="slider-area" fluid>
+          <Row>
+            <Col lg="12">
+              <Slider {...settings}>
+                <div>
+                  <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+              </Slider>
+            </Col>
+          </Row>
+        </Container>
+        <Container className="feature-products" fluid>
+          <Row>
+            <Col lg="12">
+              <h3>Feature Products</h3>
+            </Col>
+            <Col lg="12">
+              <Slider {...settingsFeatureProducts}>
+                <div>
+                  <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+              </Slider>
+            </Col>
+          </Row>
+        </Container>
+        <Container className="download-app" fluid>
+          <Row>
+            <Col lg="3" className="download-app-img">
+              <img src='../Assets/Img/iphone.png'></img>
+            </Col>
+            <Col lg="4" className="download-app-text">
+              <h3>Download Our <strong>Application</strong></h3>
+              <p>A location-based online marketplace that connects people with 
+small businesses and neighborhood stores in their locality. Dostava 
+has its fleet of drivers who will be available for delivery within minutes
+like every other ride-sharing app.</p>
+              <img src="../Assets/Img/googleplay.png"></img>
+              <img src="../Assets/Img/ios.png"></img>
+            </Col>
+          </Row>
+        </Container>
+        <Container className="categories-area" fluid>
+          <Row className="categories-header">
+            <Col lg="12">
+              <h3>Categories</h3>
+              </Col>
+          </Row>
+          <Row className="product-list">
+            <Col lg="6">
+              <Card className="single-product">
+                <Row>
+                  <Col lg="4">
+                    <CardImg src='../Assets/Img/product-img.png'></CardImg>
+                  </Col>
+                  <Col lg="8">
+                    <CardBody>
+                      <CardTitle>
+                          Meats <span>(Featured Category)</span>
+                      </CardTitle>
+                      <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pretium quam et massa facilisis, quis cursus nisl </CardText>
+                      <Button>View More</Button>
+                    </CardBody>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+            <Col lg="6">
+              <Card className="single-product">
+                <Row>
+                  <Col lg="4">
+                    <CardImg src='../Assets/Img/product-img.png'></CardImg>
+                  </Col>
+                  <Col lg="8">
+                    <CardBody>
+                      <CardTitle>
+                          Meats <span>(Featured Category)</span>
+                      </CardTitle>
+                      <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pretium quam et massa facilisis, quis cursus nisl </CardText>
+                      <Button>View More</Button>
+                    </CardBody>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+          </Row>
+          <Row className="product-list">
+            <Col lg="6">
+              <Card className="single-product">
+                <Row>
+                  <Col lg="4">
+                    <CardImg src='../Assets/Img/product-img.png'></CardImg>
+                  </Col>
+                  <Col lg="8">
+                    <CardBody>
+                      <CardTitle>
+                          Meats <span>(Featured Category)</span>
+                      </CardTitle>
+                      <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pretium quam et massa facilisis, quis cursus nisl </CardText>
+                      <Button>View More</Button>
+                    </CardBody>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+            <Col lg="6">
+              <Card className="single-product">
+                <Row>
+                  <Col lg="4">
+                    <CardImg src='../Assets/Img/product-img.png'></CardImg>
+                  </Col>
+                  <Col lg="8">
+                    <CardBody>
+                      <CardTitle>
+                          Meats <span>(Featured Category)</span>
+                      </CardTitle>
+                      <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pretium quam et massa facilisis, quis cursus nisl </CardText>
+                      <Button>View More</Button>
+                    </CardBody>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+          </Row>
+          <Row className="categories-footer">
+            <Col lg="12" className="text-center">
+              <Button>View More</Button>
+            </Col>
+          </Row>
+        </Container>
+        <Container className="footer-area" fluid>
+          <Row className="widget-area">
+            <Col lg="3" className="footer-logo">
+                <div>
+                  <img src="../Assets/Img/logo.png"></img>
+                </div>
+                <ul>
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">Shop</a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Contact Us</a></li>
+                  <li><a href="#">About Us</a></li>
+                </ul>
+            </Col>
+            <Col lg="2" className="quickmenu">
+              <h3>Help/Support</h3>
+              <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">How it works</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">FAQs</a></li>
+              </ul>
+            </Col>
+            <Col lg="3" className="quickmenu half">
+              <h3>Category</h3>
+                <ul>
+                  <li><a href="#">Meets</a></li>
+                  <li><a href="#">Greens</a></li>
+                  <li><a href="#">Snacks</a></li>
+                  <li><a href="#">Cleaning</a></li>
+                </ul>
+                <ul>
+                  <li><a href="#">Meets</a></li>
+                  <li><a href="#">Greens</a></li>
+                  <li><a href="#">Snacks</a></li>
+                  <li><a href="#">Cleaning</a></li>
+                </ul>
+            </Col>
+            <Col lg="2" className="quickmenu footer-app half">
+              <h3>Download Our App</h3>
+              <img src="../Assets/Img/footer-appstore.png"></img>
+              <img src="../Assets/Img/footer-googleplay.png"></img>
+            </Col>
+            <Col lg="2" className="quickmenu social">
+              <h3>Address</h3>
+              <p>208 Columbus St, Hicksville, OH, 4352</p>
+              <h3>Social Media links</h3>
+            </Col>
+          </Row>
+        </Container>
+
+      
+      </Container>
      
       
     )

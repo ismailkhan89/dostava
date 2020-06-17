@@ -1,5 +1,10 @@
+.wrapper{
+    padding:0;
+}
 .topBar{
     padding-top:10px;
+    padding-left:15px;
+    padding-right:15px;
     border-bottom:1px solid #ccc;
 }
 .topBar p{
@@ -32,7 +37,7 @@
     text-transform: uppercase;
 }
 .mainHeader{
-    padding: 10px 0;
+    padding: 10px 15px;
 }
 .mainHeader .menuitems ul li{
     color:#5b5c5d;
@@ -42,3 +47,248 @@
     line-height: 50px;
     margin-right: 25px;
 }
+/* Slider */
+.feature-products{
+    margin-bottom: 110px;
+}
+.slider-area .row, .feature-products .row{
+    padding-left:15px;
+    padding-right:15px;
+}
+.slider-area .slick-slider button, .feature-products .slick-slider button{
+    background-color: rgba(255,255,255,0.7);
+    width: 50px;
+    z-index: 1;
+    height: 50px;
+}
+.slider-area .slick-slider img{
+    height:500px;
+}
+.feature-products .slick-slider img{
+    height:250px;
+}
+.feature-products h3{
+    color:#3f3f3f;
+    font-size:20px;
+    text-transform: uppercase;
+    margin-bottom:20px;
+    margin-top:30px;
+    position: relative;
+}
+.feature-products h3:before{
+    position: absolute;
+    bottom:-10px;
+    content:'';
+    background:#00a99d;
+    width:100px;
+    height:2px;
+    left:0;
+
+}
+.slider-area .slick-slider button:hover{
+    background-color:#1385a7;
+}
+.slider-area .slick-slider button.slick-prev, .feature-products .slick-slider button.slick-prev{
+    left:0
+}
+.slider-area .slick-slider button.slick-next, .feature-products .slick-slider button.slick-next{
+    right:0;
+}
+.slider-area .slick-slider button:before, .feature-products .slick-slider button:before{
+    color:#fff;
+}
+/*Categories Section */
+.categories-area{
+    background:#efefef;
+    padding:30px;
+}
+.categories-header h3{
+    color:#3f3f3f;
+    text-transform:uppercase;
+    font-weight:300;
+    font-size:24px;
+    margin-bottom:10px;
+}
+.product-list{
+    margin-bottom:30px;
+}
+.single-product{
+    padding:15px;
+}
+.single-product .card-body{
+    padding:0;
+}
+.single-product .card-body .card-title{
+    color:#111111;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+.single-product .card-body .card-title span{
+    color:#888888;
+    font-weight:normal;
+}
+.single-product .card-body .card-text{
+    color:#666666;
+    font-size:15px;
+    line-height:24px;
+    margin-bottom:25px;
+}
+.single-product .card-body button{
+    background:#e7e7e7;
+    border:1px solid #e7e7e7;
+    border-radius:6px;
+    padding:5px 25px;
+    font-weight:500;
+    text-transform: uppercase;
+    color:#676767;
+}
+.categories-footer{
+    margin-top:30px;
+}
+.categories-footer button{
+    background-color:transparent;
+    border: 1px solid transparent;
+    font-size:24px;
+    text-transform: uppercase;
+    color:#3f3f3f;
+    font-weight:500;
+}
+.categories-footer button:hover{
+    background-color:transparent;
+    border: 1px solid transparent;
+    color:#3f3f3f;
+}
+.download-app{
+    margin-top:60px;
+    margin-bottom:120px;
+}
+.download-app .download-app-img img{
+    position: absolute;
+    margin-top:-60px;
+}
+.download-app > .row{
+    background: url(../src/Assets/Img/download-app-banner.png);
+    margin-left: 15px;
+    margin-right: 15px;
+    min-height:350px;
+    background-size: cover;
+    background-position: 100%;
+}
+.download-app-text{
+    padding-top:60px;
+    padding-bottom:30px;
+    padding-right:0;
+}
+.download-app-text h3{
+    color:#ffffff;
+    font-size:28px;
+    text-transform: uppercase;
+    font-weight: 300;
+    position:relative;
+    margin-bottom:20px;
+}
+.download-app-text h3::after{
+    position: absolute;
+    bottom:-10px;
+    content:'';
+    background:#00a99d;
+    width:100px;
+    height:2px;
+    left:0;
+}
+.download-app-text h3 strong{
+    font-weight:700;
+}
+.download-app-text p{
+    font-size: 14px;
+    color: #fff;
+    line-height: 24px;
+}
+.download-app-text img{
+    margin-right:15px;
+}
+/* Footer Area */
+.footer-area .widget-area{
+    background:#f0f6f6;
+    padding-top:60px;
+    padding-bottom:30px;
+}
+.footer-area .widget-area .footer-logo{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+}
+.footer-area .widget-area .footer-logo img{
+    margin-bottom:20px;
+}
+.footer-area .widget-area .footer-logo ul{
+    padding-left:0;
+    display: inline-block;
+    margin-bottom:0;
+}
+.footer-area .widget-area .footer-logo ul li{
+    float:left;
+    margin-right:29px;
+}
+.footer-area .widget-area .footer-logo ul li:first-child{
+    list-style:none;
+}
+.footer-area .widget-area .footer-logo ul li:last-child{
+    margin-right:0;
+}
+.footer-area .widget-area .footer-logo ul li a{
+    font-size:12px;
+    color:#333333;
+}
+.footer-area .widget-area .quickmenu{}
+.footer-area .widget-area .quickmenu h3{
+    font-weight:bold;
+    font-size:14px;
+    color:#455a5f;
+    padding-left:40px;
+    text-transform: uppercase;
+}
+.footer-area .widget-area .quickmenu ul{
+    margin-bottom:0;
+}
+.footer-area .widget-area .quickmenu.half ul{
+    width:50%;
+    float:left;
+    padding-left:0;
+}
+.footer-area .widget-area .quickmenu.half h3, .footer-area .widget-area .quickmenu.social h3{
+    padding-left:0;
+}
+.footer-area .widget-area .quickmenu ul li{
+    list-style:none;
+}
+.footer-area .widget-area .quickmenu ul li a{
+    font-size:13px;
+    color:#455a5f;
+    font-weight:300;
+    line-height:24px;
+}
+.footer-area .widget-area .footer-app{
+
+}
+.footer-area .widget-area .footer-app h3,
+.footer-area .widget-area .quickmenu.social h3{
+    margin-bottom:20px;
+}
+.footer-area .widget-area .footer-app img{
+    display: block;
+    margin-bottom:10px;
+}
+
+.footer-area .widget-area .quickmenu.social p{
+    font-size:16px;
+    color:#455a5f;
+    font-weight:300;
+    line-height:21px;
+}
+
+
+
+
