@@ -1,4 +1,16 @@
 @import 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: url('Assets/Fonts/Montserrat-Regular.eot'); 
+    src: local('Montserrat'), local('Montserrat'),
+         url('Assets/Fonts/Montserrat-Regular.otf') format('embedded-opentype'), 
+         url('Assets/Fonts/Montserrat-Regular.woff') format('woff'), 
+         url('Assets/Fonts/Montserrat-Regular.ttf') format('truetype'), 
+         url('Assets/Fonts/Montserrat-Regular.svg') format('svg'); 
+  }
 .wrapper{
     padding:0;
 }
@@ -16,6 +28,7 @@
 .topBar p span{
     color:#1385a7;
     font-size:14px;
+    font-weight:bold;
   }
 .topBar .menuitems{
 
@@ -27,6 +40,20 @@
 .topBar .menuitems.rightmenu ul{
     float:right;
 }
+.topBar .wishlist{
+    text-transform: uppercase;
+    color:#777777;
+    font-size:14px;
+}
+.topBar .login span, .topBar .wishlist span, .topBar .myprofile span{
+    margin-right:5px;
+}
+.topBar .login strong, .topBar .myprofile strong{
+    text-transform: uppercase;
+    font-size:12px;
+    color:#777777;
+}
+.topBAr .myprofile{}
 .topBar .menuitems ul li, .mainHeader .menuitems ul li{
     list-style: none;
     float:left;
@@ -34,8 +61,22 @@
     font-size:14px;
     color:#858585;
 }
-.topBar .menuitems.rightmenu ul li{
-    text-transform: uppercase;
+.topBar .wishlist, .topBar .myprofile{
+    padding-left:0;
+    padding-right:5px;
+}
+
+.topBar .wishlist span.favorites{
+    background-color: #1385a7;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    color: #fff;
+    font-size: 12px;
+    margin-right: 0;
+    margin-left: 5px;
+    text-align: center;
+    border-radius: 50%;
 }
 .mainHeader{
     padding: 10px 15px;
@@ -43,7 +84,7 @@
 .mainHeader .menuitems ul li{
     color:#5b5c5d;
     font-size:14px;
-    font-weight: bold;
+    font-weight: 500;
     text-transform: uppercase;
     line-height: 50px;
     margin-right: 25px;
@@ -81,7 +122,7 @@
     right:-20px;
 }
 .slider-area .slick-slider img{
-    height:500px;
+    width:100%;
 }
 .feature-products .slick-slider img{
     height:250px;
@@ -145,11 +186,14 @@
 }
 .feature-products .single-slider-product .RightIcons{
     position: absolute;
-    right:0;
+    right:10px;
     top:10px;
 }
 .single-slider-product .RightIcons span{
     display: block;
+    color:#bcbcbc;
+    margin-bottom:10px;
+    font-size:20px;
 }
 .feature-products .slick-slide{
     margin-right:15px;
@@ -334,6 +378,7 @@ margin-bottom:10px;
     background:#f0f6f6;
     padding-top:60px;
     padding-bottom:30px;
+    box-shadow:1px 1px 10px 1px #e5e5e5;
 }
 .footer-area .widget-area .footer-logo{
     display: flex;
@@ -382,6 +427,14 @@ margin-bottom:10px;
 .footer-area .widget-area .quickmenu.half h3, .footer-area .widget-area .quickmenu.social h3{
     padding-left:0;
 }
+.footer-area .widget-area .quickmenu.social a{
+    margin-right:15px;
+    color:#aaaaaa;
+    font-size:20px;
+}
+.footer-area .widget-area .quickmenu.social a:hover{
+    color:#1f8bab;
+}
 .footer-area .widget-area .quickmenu ul li{
     list-style:none;
 }
@@ -408,6 +461,13 @@ margin-bottom:10px;
     color:#455a5f;
     font-weight:300;
     line-height:21px;
+}
+.copyright-area{
+    padding:15px 0;
+}
+.copyright-area p{
+    font-size:13px;
+    color:#455a5f;
 }
 
 
