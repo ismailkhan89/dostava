@@ -1,5 +1,6 @@
 import HomePage from './Views/HomePage';
 import Product from './Views/Product.jsx';
+import TestView from './Views/TestView.jsx';
 
 var routes = [
     {
@@ -16,5 +17,12 @@ var routes = [
         layout: "/",
        
       },
+      {
+        path: "/test",
+        name: "TestView",
+        component: TestView,
+        layout: "/",
+       
+      }
 ];
 export default routes;

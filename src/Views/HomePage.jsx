@@ -20,9 +20,9 @@ import {
     Row,
     Col,
     Button,
-    
+    // Link
 } from "reactstrap";
-
+import {Link } from 'react-router-dom';
 class HomePage extends React.Component{
 
   
@@ -31,12 +31,12 @@ class HomePage extends React.Component{
     
     console.log('inside HomePage')
     const MenuItems = ['About us', 'Contact Us', 'Gallery', 'My Account'];
-    const listItems = MenuItems.map((items) =>
-      <li>{items}</li>
+    const listItems = MenuItems.map((items, keys) =>
+      <li key = {keys}>{items}</li>
     );
     const MainMenu = ['Meets', 'Greens', 'Snacks', 'Cleaning', 'Bakery', 'and many more..'];
-    const MenuList = MainMenu.map((items) =>
-      <li>{items}</li>
+    const MenuList = MainMenu.map((items, keys) =>
+      <li key = {keys} >{items}</li>
     );
     var settings = {
       dots: true,
@@ -58,12 +58,14 @@ class HomePage extends React.Component{
     };
     return(
         <Container className="wrapper" fluid>
-        
+         <Link to="/test" >Click to login</Link>
+         <Link to="/product" >Click to product</Link>
         <Container className="header-area" fluid>
           <Row className="topBar">
             <Col lg="6">
               <p>
                 <span>FREE SHIPPING AND RETURNS </span>ON ALL ORDERS ABOVE $199</p>
+                
             </Col>
             <Col lg="3" className="menuitems">
               <ul>{listItems}</ul>
