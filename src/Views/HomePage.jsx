@@ -48,7 +48,7 @@ class HomePage extends React.Component{
       slidesToScroll: 1
     };
     var settingsFeatureProducts = {
-      dots: true,
+      dots: false,
       autoplay:false,
       arrows:true,
       infinite: true,
@@ -123,31 +123,220 @@ class HomePage extends React.Component{
             <Col lg="12">
               <Slider {...settingsFeatureProducts}>
                 <div>
-                  <img src="../Assets/Img/slider-pic.png"></img>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <span>Heart</span>
+                      <span>Share</span>
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <span>Heart</span>
+                      <span>Share</span>
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <span>Heart</span>
+                      <span>Share</span>
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <span>Heart</span>
+                      <span>Share</span>
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <span>Heart</span>
+                      <span>Share</span>
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <span>Heart</span>
+                      <span>Share</span>
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <span>Heart</span>
+                      <span>Share</span>
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <span>Heart</span>
+                      <span>Share</span>
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <span>Heart</span>
+                      <span>Share</span>
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
                 </div>
               </Slider>
             </Col>
