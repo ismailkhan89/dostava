@@ -157,16 +157,16 @@
 .slider-area .slick-slider button:before{
     color:#fff;
 }
-.feature-products .single-slider-product{
+.single-slider-product{
     position:relative;
     border:1px solid #eeeeee;
 }
-.feature-products .single-slider-product img{
+.single-slider-product img{
     position:relative; 
     width:100%; 
     height:auto;
 }
-.feature-products .single-slider-product .leftIcons{
+.single-slider-product .leftIcons{
     position: absolute;
     left:-10px;
     top:20px;
@@ -184,7 +184,7 @@
 .single-slider-product .leftIcons span.Salebg{
     background: #e84545;
 }
-.feature-products .single-slider-product .RightIcons{
+.single-slider-product .RightIcons{
     position: absolute;
     right:10px;
     top:10px;
@@ -201,7 +201,7 @@
     
 }
 .single-slider-product-detail{
-
+    margin-top:15px;
 }
 .single-slider-product-detail .leftDetails{
     width:70%;
@@ -258,9 +258,76 @@ margin-bottom:10px;
     margin-top:10px;
 }
 .feature-products .slick-slider .slick-list{
-    height:350px;
+    /* height:350px; */
+}
+.feature-products .slick-slider .slick-list .slick-track{
+    display:flex;
+    margin-bottom:60px;
+}
+.feature-products .slick-slider .slick-list .slick-track .slick-slide{
+    display: flex;
+    height: auto;
+    align-items: center; 
+    justify-content: center; 
 }
 
+/* Breadcrumb Area */
+.breadcrumb-area .row{
+    background: url(../src/Assets/Img/breadcrumb-bg.png);
+    margin-left:15px;
+    margin-right:15px;
+    min-height:300px;
+    background-size: cover;
+    background-position: 100%;
+    position: relative;
+}
+.breadcrumb-area .breadcrumb-section{
+    position: relative;
+    bottom:20px;
+    display:flex;
+    flex-direction: column;
+    justify-content:flex-end;
+}
+.breadcrumb-area .breadcrumb-section h3{
+    font-size:50px;
+    color:#ffffff;
+    text-transform: uppercase;
+    font-weight:bold;
+    margin-bottom:0;
+}
+.content-area{
+    padding-top:60px;
+    background-color:#f6f6f6;
+    padding-bottom:60px;
+}
+.content-area > .row{
+    margin-right:0;
+    margin-left:0;
+}
+.breadcrumb-area .breadcrumb-section ul{
+    padding-left:0;
+    
+}
+.breadcrumb-area .breadcrumb-section ul li{
+    list-style:none;
+    float:left;
+    margin-right:25px;
+    position: relative;
+}
+.breadcrumb-area .breadcrumb-section ul li:first-child:before{
+    position: absolute;
+    content:'\f105';
+    font-family:fontawesome;
+    right:-15px;
+    top:0;
+    color:#fff;
+}
+.breadcrumb-area .breadcrumb-section ul li a{
+    color:#fff;
+    font-size:16px;
+    text-transform: uppercase;
+    font-weight:bold;
+}
 
 /*Categories Section */
 .categories-area{
@@ -308,6 +375,57 @@ margin-bottom:10px;
     text-transform: uppercase;
     color:#676767;
 }
+.single-filter{
+    background-color:#fff;
+    padding:15px 15px 0 15px;
+    margin-bottom:30px;
+}
+.single-filter h3{
+    color:#0e4056;
+    font-size:15px;
+    font-weight:500;
+    text-transform: uppercase;
+    border-bottom:1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom:0;
+}
+.single-filter ul{
+    padding-left:0;
+}
+.single-filter >ul > li{
+    border-bottom:1px solid #eee;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.single-filter >ul > li > a{
+    font-weight:500;
+}
+.single-filter ul li{
+    list-style:none;
+    padding-left:20px;
+    position:relative;
+    
+}
+.single-filter ul li:before{
+    position: absolute;
+    content:'\f105';
+    font-family:fontawesome;
+    left:0px;
+}
+.single-filter ul li a{
+    color:#333333;
+    font-size:14px;
+}
+.single-filter ul li a span{
+    color:#999999;
+    float:right;
+}
+.single-filter ul li ul li a{
+    line-height:30px;
+}
+
+
+
 .categories-footer{
     margin-top:30px;
 }
