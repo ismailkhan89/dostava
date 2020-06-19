@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 
-
+import gql from "graphql-tag";
+import { Query, Mutation } from "react-apollo";
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css';
 import '../Style.css';
@@ -23,6 +24,10 @@ import {
     // Link
 } from "reactstrap";
 import {Link } from 'react-router-dom';
+import { getCategories } from "../apollo/server";
+
+const GET_CATEGORIES = gql`${getCategories}`;
+
 class HomePage extends React.Component{
 
   
@@ -367,81 +372,32 @@ like every other ride-sharing app.</p>
               </Col>
           </Row>
           <Row className="product-list">
-            <Col lg="6">
-              <Card className="single-product">
-                <Row>
-                  <Col lg="4">
-                    <CardImg src='../Assets/Img/product-img.png'></CardImg>
-                  </Col>
-                  <Col lg="8">
-                    <CardBody>
-                      <CardTitle>
-                          Meats <span>(Featured Category)</span>
-                      </CardTitle>
-                      <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pretium quam et massa facilisis, quis cursus nisl </CardText>
-                      <Button>View More</Button>
-                    </CardBody>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col lg="6">
-              <Card className="single-product">
-                <Row>
-                  <Col lg="4">
-                    <CardImg src='../Assets/Img/product-img.png'></CardImg>
-                  </Col>
-                  <Col lg="8">
-                    <CardBody>
-                      <CardTitle>
-                          Meats <span>(Featured Category)</span>
-                      </CardTitle>
-                      <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pretium quam et massa facilisis, quis cursus nisl </CardText>
-                      <Button>View More</Button>
-                    </CardBody>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-          </Row>
-          <Row className="product-list">
-            <Col lg="6">
-              <Card className="single-product">
-                <Row>
-                  <Col lg="4">
-                    <CardImg src='../Assets/Img/product-img.png'></CardImg>
-                  </Col>
-                  <Col lg="8">
-                    <CardBody>
-                      <CardTitle>
-                          Meats <span>(Featured Category)</span>
-                      </CardTitle>
-                      <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pretium quam et massa facilisis, quis cursus nisl </CardText>
-                      <Button>View More</Button>
-                    </CardBody>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col lg="6">
-              <Card className="single-product">
-                <Row>
-                  <Col lg="4">
-                    <CardImg src='../Assets/Img/product-img.png'></CardImg>
-                  </Col>
-                  <Col lg="8">
-                    <CardBody>
-                      <CardTitle>
-                          Meats <span>(Featured Category)</span>
-                      </CardTitle>
-                      <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pretium quam et massa facilisis, quis cursus nisl </CardText>
-                      <Button>View More</Button>
-                    </CardBody>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-          </Row>
+          <Query query={GET_CATEGORIES}>
+            {({ loading, error, data }) => {
+              if (loading) return <tr><td>{"Loading"}...</td></tr>;
+              if (error) return <tr><td>`${"Error"}! ${error.message}`</td></tr>;
+              return data.categories.map((category, index) =>
+                <Col lg="6" key = {index}>
+                  <Card className="single-product">
+                    <Row>
+                      <Col lg="4">
+                        <CardImg src= {category.img_menu !== null ? category.img_menu : '../Assets/Img/product-img.png'} ></CardImg>
+                      </Col>
+                      <Col lg="8">
+                        <CardBody>
+                          <CardTitle>
+                          {category.title} <span>(Featured Category)</span>
+                          </CardTitle>
+                          <CardText>{category.description} </CardText>
+                          <Button>View More</Button>
+                        </CardBody>
+                      </Col>
+                    </Row>
+                  </Card>
+                </Col>)
+              }}
+            </Query>
+            </Row>
           <Row className="categories-footer">
             <Col lg="12" className="text-center">
               <Button>View More</Button>

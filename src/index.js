@@ -1,13 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ApolloClient } from 'apollo-client';
+import { ApolloProvider } from "react-apollo";
+import gql from "graphql-tag";
+import { createUploadLink } from 'apollo-upload-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { server_url } from "./config/config";
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+const cache = new InMemoryCache()
+const httpLink = createUploadLink({
+  uri: `${server_url}graphql`,
+})
+
+const client = new ApolloClient({
+  link: httpLink,
+  cache
+});
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ApolloProvider client={client}>
     <App />
-  </React.StrictMode>,
+  </ApolloProvider >,
   document.getElementById('root')
 );
 
