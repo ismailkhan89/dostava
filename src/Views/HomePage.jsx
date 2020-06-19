@@ -62,6 +62,7 @@ class HomePage extends React.Component{
       slidesToScroll: 1
     };
     return(
+      
         <Container className="wrapper" fluid>
          <Link to="/test" >Click to login</Link>
          <Link to="/product" >Click to product</Link>
@@ -70,7 +71,7 @@ class HomePage extends React.Component{
             <Col lg="6">
               <p>
                 <span>FREE SHIPPING AND RETURNS </span>ON ALL ORDERS ABOVE $199</p>
-                
+                <H3>Test</H3>
             </Col>
             <Col lg="3" className="menuitems">
               <ul>{listItems}</ul>
