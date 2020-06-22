@@ -59,7 +59,9 @@ class Header extends React.Component{
             </Row>
             <Row className="mainHeader">
               <Col lg="3" className="logo">
-                <img src={logo} alt="Logo" />;
+                <Link to="/">
+                <img src={logo} alt="Logo" />
+                </Link>
               </Col>
               <Col lg="6" className="menuitems">
                 <ul>{MenuList}</ul>
