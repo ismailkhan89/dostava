@@ -491,6 +491,92 @@ margin-bottom:10px;
 .download-app-text img{
     margin-right:15px;
 }
+.form-area{
+    background-color: #ffffff;
+    padding:50px 30px;
+
+    float:left;
+    width:100%;
+}
+.form-area h2{
+    font-size:24px;
+    color:#000000;
+    font-weight:500;
+}
+.form-area h3{
+    font-size:13px;
+    color:#7d7d7d;
+    font-weight:400;
+    margin-bottom:20px;
+}
+.form-area form{}
+.form-area form .form-group{
+    width:100%;
+    float:left;
+}
+.form-area form .form-group.half{
+    width:45%;
+    margin-right:5%;
+}
+.form-area form input{
+    background-color:#f1f1f1;
+    border:1px solid #d7d7d7;
+    border-radius:4px;
+    width:100%;
+    padding-left:20px;
+    line-height: 55px;
+}
+.form-area form input::placeholder{
+    color:#b1b1b1;
+    font-size:14px;
+}
+.form-area form label{
+    float:left;
+    color:#7d7d7d;
+    font-size:12px;
+}
+.form-area form label input[type="checkbox"]{
+    width:auto;
+    margin-right:5px;
+}
+.form-area form .form-group label +  a{
+    float:right;
+    font-size:13px;
+    font-weight:500;
+    color:#66603c;
+}
+.form-area form .form-group input[type="submit"]{
+    background-color:#1385a7;
+    border:1px solid #1385a7;
+    border-radius:6px;
+    color:#fff;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight:bold;
+    font-size:14px;
+    width:auto;
+    line-height:45px;
+    padding:0px 25px;
+}
+
+.form-area form .or-login-with p{
+    color:#a1a1a1;
+    font-size:14px;
+    font-weight:400;
+}
+.form-area form .or-login-with p a{
+    display: inline;
+    margin-left:20px;
+}
+.form-area form .or-login-with p a span{
+    font-size:20px;
+    color:#959595;
+}
+.form-area form .or-login-with p a span:hover{
+    color:#1385a7;
+}
+
+
 /* Footer Area */
 .footer-area .widget-area{
     background:#f0f6f6;

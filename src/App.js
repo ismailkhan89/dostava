@@ -7,6 +7,7 @@ import './App.css';
 import HomePage from './Views/HomePage';
 import Product from './Views/Product.jsx';
 import TestView from './Views/TestView.jsx';
+import Login from './Views/Login';
 class App extends React.Component {
   render(){
     console.log('inside app')
@@ -27,6 +28,9 @@ class App extends React.Component {
 </Route> */}
 <Route path="/test">
 <TestView />
+</Route>
+<Route path="/login">
+<Login />
 </Route>
 </Switch>
               {/* <Route path="/home" component={props => <AuthLayout {...props} ></AuthLayout>}  />

@@ -1,11 +1,9 @@
 import React, {Component} from "react";
 import Footer from '../Views/Footer.jsx';
+import Header from '../Views/Header';
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
-import 'bootstrap/dist/css/bootstrap.css';
-import '../App.css';
-import '../Style.css';
-import logo from '../logo.png';
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -34,15 +32,7 @@ class HomePage extends React.Component{
   render(){
 
     
-    console.log('inside HomePage')
-    const MenuItems = ['About us', 'Contact Us', 'Gallery', 'My Account'];
-    const listItems = MenuItems.map((items, keys) =>
-      <li key = {keys}>{items}</li>
-    );
-    const MainMenu = ['Meets', 'Greens', 'Snacks', 'Cleaning', 'Bakery', 'and many more..'];
-    const MenuList = MainMenu.map((items, keys) =>
-      <li key = {keys} >{items}</li>
-    );
+    
     var settings = {
       dots: true,
       autoplay:true,
@@ -65,37 +55,7 @@ class HomePage extends React.Component{
       
         <Container className="wrapper" fluid>
         
-        <Container className="header-area" fluid>
-          <Row className="topBar">
-            <Col lg="6">
-              <p>
-                <span>FREE SHIPPING AND RETURNS </span>ON ALL ORDERS ABOVE $199</p>
-                
-            </Col>
-            <Col lg="3" className="menuitems">
-              <ul>{listItems}</ul>
-            </Col>
-            <Col lg="3" className="menuitems rightmenu">
-              <ul>
-                <li><strong>Login</strong></li>
-                <li>Wishlist</li>
-                <li>EN</li>
-                <li><strong>My Profile</strong></li>
-              </ul>
-            </Col>
-          </Row>
-          <Row className="mainHeader">
-            <Col lg="3" className="logo">
-              <img src={logo} alt="Logo" />;
-            </Col>
-            <Col lg="6" className="menuitems">
-              <ul>{MenuList}</ul>
-            </Col>
-            <Col lg="3">
-
-            </Col>
-          </Row>
-        </Container>
+        <Header />
         <Container className="slider-area" fluid>
           <Row>
             <Col lg="12">
