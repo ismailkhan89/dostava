@@ -116,7 +116,42 @@ export const editFood = `
         }
         }
       }`
-
+export const foods = `
+      query FoodByCategory($category:String!,$onSale:Boolean,$inStock:Boolean,$min:Float,$max:Float,$search:String){
+          foodByCategory(category:$category,onSale:$onSale,inStock:$inStock,min:$min,max:$max,search:$search){
+            _id
+            title
+            description
+            user{
+              _id
+              name
+            }
+            variations{
+              _id
+              title
+              price
+              discounted
+              addons{
+                _id
+                title
+                description
+                quantity_minimum
+                quantity_maximum
+                options{
+                  _id
+                  title
+                  description
+                  price
+                }
+              }
+            }
+            category{_id}
+            img_url
+            likes
+            liked
+            stock
+          }
+        }`
 export const deleteFood = `
       mutation DeleteFood($id:String!){
         deleteFood(id:$id){

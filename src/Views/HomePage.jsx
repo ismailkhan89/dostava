@@ -23,7 +23,7 @@ import {
     Button,
     // Link
 } from "reactstrap";
-import {Link } from 'react-router-dom';
+import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories } from "../apollo/server";
 
 const GET_CATEGORIES = gql`${getCategories}`;
@@ -389,6 +389,10 @@ like every other ride-sharing app.</p>
                           {category.title} <span>(Featured Category)</span>
                           </CardTitle>
                           <CardText>{category.description} </CardText>
+                          <Link to={`/product/${category._id}`} >
+                             SHOW PRODUCTS
+                          </Link>
+                          
                           <Button>View More</Button>
                         </CardBody>
                       </Col>
