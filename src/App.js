@@ -17,9 +17,14 @@ class App extends React.Component {
 <Route exact path="/">
 <HomePage />
 </Route>
-<Route path="/product">
+<Route
+  exact
+  path="/product/:id/"
+  component={Product}
+/>
+{/* <Route path="/product">
 <Product />
-</Route>
+</Route> */}
 <Route path="/test">
 <TestView />
 </Route>
