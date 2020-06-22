@@ -152,6 +152,42 @@ export const foods = `
             stock
           }
         }`
+export const getFeaturedProducts = `
+        query getFeaturedProducts{
+          getFeaturedProducts{
+          is_featured
+          title
+          is_active
+          img_url
+          tag
+          description
+          variations{
+            _id
+            title
+            price
+            discounted
+            addons{
+              _id
+              title
+              description
+              quantity_minimum
+              quantity_maximum
+              options{
+                _id
+                title
+                description
+                price
+              }
+            }
+          }
+          category{_id}
+          brand_name
+            category {
+            description
+            img_menu
+            }
+          }
+        }`
 export const deleteFood = `
       mutation DeleteFood($id:String!){
         deleteFood(id:$id){

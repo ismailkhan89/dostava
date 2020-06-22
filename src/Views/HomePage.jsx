@@ -24,9 +24,11 @@ import {
     // Link
 } from "reactstrap";
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
-import { getCategories } from "../apollo/server";
+import { getCategories, getFeaturedProducts } from "../apollo/server";
+import FeaturedProducts from "../Components/FeaturedProducts";
 
 const GET_CATEGORIES = gql`${getCategories}`;
+const GET_FEATURED_PRODUCTS = gql`${getFeaturedProducts}`;
 
 class HomePage extends React.Component{
 
@@ -127,11 +129,24 @@ class HomePage extends React.Component{
             <Col lg="12">
               <h3>Feature Products</h3>
             </Col>
+            <Col>
+            <FeaturedProducts />
+            </Col>
             <Col lg="12">
               <Slider {...settingsFeatureProducts}>
-                <div>
+
+                  <FeaturedProducts />
+              {/* <Query query={GET_FEATURED_PRODUCTS}>
+            {({ loading, error, data }) => {
+              console.log('data we have in home', data)
+              if (loading) return <div>{"Loading"}...</div>;
+              if (error) return <div>`${"Error"}! ${error.message}`</div>;
+              return data.getFeaturedProducts.map((product, index) =>
+
+                <div key = {index} >
+                  <p>{product.title}</p>
                   <div className="single-slider-product">
-                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <img src= {product.img_url}></img>
                     <div className="leftIcons">
                       <span>New</span>
                       <span className="Salebg">Sale</span>
@@ -143,7 +158,7 @@ class HomePage extends React.Component{
                   </div>
                   <div className="single-slider-product-detail">
                     <div className="leftDetails">
-                      <h3>Product Name are Here</h3>
+                      <h3>{product.product}</h3>
                       <button>Add to Cart</button>
                     </div>
                     <div className="rightDetails">
@@ -153,199 +168,9 @@ class HomePage extends React.Component{
                     </div>
                   </div>
                 </div>
-                <div>
-                  <div className="single-slider-product">
-                    <img src="../Assets/Img/product-1.jpg"></img>
-                    <div className="leftIcons">
-                      <span>New</span>
-                      <span className="Salebg">Sale</span>
-                    </div>
-                    <div className="RightIcons">
-                      <span>Heart</span>
-                      <span>Share</span>
-                    </div>
-                  </div>
-                  <div className="single-slider-product-detail">
-                    <div className="leftDetails">
-                      <h3>Product Name are Here</h3>
-                      <button>Add to Cart</button>
-                    </div>
-                    <div className="rightDetails">
-                      <span> $299.00</span>
-                      <strong>$199.00</strong>
-                      <a href="#">Buy Now</a>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div className="single-slider-product">
-                    <img src="../Assets/Img/product-1.jpg"></img>
-                    <div className="leftIcons">
-                      <span>New</span>
-                      <span className="Salebg">Sale</span>
-                    </div>
-                    <div className="RightIcons">
-                      <span>Heart</span>
-                      <span>Share</span>
-                    </div>
-                  </div>
-                  <div className="single-slider-product-detail">
-                    <div className="leftDetails">
-                      <h3>Product Name are Here</h3>
-                      <button>Add to Cart</button>
-                    </div>
-                    <div className="rightDetails">
-                      <span> $299.00</span>
-                      <strong>$199.00</strong>
-                      <a href="#">Buy Now</a>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div className="single-slider-product">
-                    <img src="../Assets/Img/product-1.jpg"></img>
-                    <div className="leftIcons">
-                      <span>New</span>
-                      <span className="Salebg">Sale</span>
-                    </div>
-                    <div className="RightIcons">
-                      <span>Heart</span>
-                      <span>Share</span>
-                    </div>
-                  </div>
-                  <div className="single-slider-product-detail">
-                    <div className="leftDetails">
-                      <h3>Product Name are Here</h3>
-                      <button>Add to Cart</button>
-                    </div>
-                    <div className="rightDetails">
-                      <span> $299.00</span>
-                      <strong>$199.00</strong>
-                      <a href="#">Buy Now</a>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div className="single-slider-product">
-                    <img src="../Assets/Img/product-1.jpg"></img>
-                    <div className="leftIcons">
-                      <span>New</span>
-                      <span className="Salebg">Sale</span>
-                    </div>
-                    <div className="RightIcons">
-                      <span>Heart</span>
-                      <span>Share</span>
-                    </div>
-                  </div>
-                  <div className="single-slider-product-detail">
-                    <div className="leftDetails">
-                      <h3>Product Name are Here</h3>
-                      <button>Add to Cart</button>
-                    </div>
-                    <div className="rightDetails">
-                      <span> $299.00</span>
-                      <strong>$199.00</strong>
-                      <a href="#">Buy Now</a>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div className="single-slider-product">
-                    <img src="../Assets/Img/product-1.jpg"></img>
-                    <div className="leftIcons">
-                      <span>New</span>
-                      <span className="Salebg">Sale</span>
-                    </div>
-                    <div className="RightIcons">
-                      <span>Heart</span>
-                      <span>Share</span>
-                    </div>
-                  </div>
-                  <div className="single-slider-product-detail">
-                    <div className="leftDetails">
-                      <h3>Product Name are Here</h3>
-                      <button>Add to Cart</button>
-                    </div>
-                    <div className="rightDetails">
-                      <span> $299.00</span>
-                      <strong>$199.00</strong>
-                      <a href="#">Buy Now</a>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div className="single-slider-product">
-                    <img src="../Assets/Img/product-1.jpg"></img>
-                    <div className="leftIcons">
-                      <span>New</span>
-                      <span className="Salebg">Sale</span>
-                    </div>
-                    <div className="RightIcons">
-                      <span>Heart</span>
-                      <span>Share</span>
-                    </div>
-                  </div>
-                  <div className="single-slider-product-detail">
-                    <div className="leftDetails">
-                      <h3>Product Name are Here</h3>
-                      <button>Add to Cart</button>
-                    </div>
-                    <div className="rightDetails">
-                      <span> $299.00</span>
-                      <strong>$199.00</strong>
-                      <a href="#">Buy Now</a>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div className="single-slider-product">
-                    <img src="../Assets/Img/product-1.jpg"></img>
-                    <div className="leftIcons">
-                      <span>New</span>
-                      <span className="Salebg">Sale</span>
-                    </div>
-                    <div className="RightIcons">
-                      <span>Heart</span>
-                      <span>Share</span>
-                    </div>
-                  </div>
-                  <div className="single-slider-product-detail">
-                    <div className="leftDetails">
-                      <h3>Product Name are Here</h3>
-                      <button>Add to Cart</button>
-                    </div>
-                    <div className="rightDetails">
-                      <span> $299.00</span>
-                      <strong>$199.00</strong>
-                      <a href="#">Buy Now</a>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div className="single-slider-product">
-                    <img src="../Assets/Img/product-1.jpg"></img>
-                    <div className="leftIcons">
-                      <span>New</span>
-                      <span className="Salebg">Sale</span>
-                    </div>
-                    <div className="RightIcons">
-                      <span>Heart</span>
-                      <span>Share</span>
-                    </div>
-                  </div>
-                  <div className="single-slider-product-detail">
-                    <div className="leftDetails">
-                      <h3>Product Name are Here</h3>
-                      <button>Add to Cart</button>
-                    </div>
-                    <div className="rightDetails">
-                      <span> $299.00</span>
-                      <strong>$199.00</strong>
-                      <a href="#">Buy Now</a>
-                    </div>
-                  </div>
-                </div>
-              </Slider>
+              )}}
+              </Query> */}
+               </Slider>
             </Col>
           </Row>
         </Container>
