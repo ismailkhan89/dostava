@@ -13,9 +13,18 @@ import {
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 
 class Header extends React.Component{
+  constructor(props){
+    super(props);
+    this.activeRoute.bind(this);
+    console.log("Header is here", props.history);
+  }
+  activeRoute(routeName) {
+    return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
+  }
     render(){
 
-        
+        let userObj =  JSON.parse(localStorage.getItem("user-dostava")) ;
+        console.log("userObj", userObj);
         const MenuItems = ['About us', 'Contact Us', 'Gallery', 'My Account'];
         const listItems = MenuItems.map((items, keys) =>
           <li key = {keys}>{items}</li>
@@ -24,7 +33,7 @@ class Header extends React.Component{
         const MenuList = MainMenu.map((items, keys) =>
           <li key = {keys} >{items}</li>
         );
-        
+        console.log("user-dostava>>",localStorage.getItem("user-dostava") );
         return(
             <Container className="header-area" fluid>
             <Row className="topBar">
@@ -36,11 +45,33 @@ class Header extends React.Component{
               <Col lg="3" className="menuitems">
                 <ul>{listItems}</ul>
               </Col>
+              <Col>
+              { userObj ? userObj.name : ' '} {' '}   { userObj ? userObj.last_name : ' '}
+              </Col>
               <Col lg="1" className="login">
-                <Link to="/login">
+                {
+                  localStorage.getItem("user-dostava") ? 
+                  <Link  to="/login" onClick={e => {
+                    e.preventDefault()
+                    localStorage.removeItem("user-dostava")
+                    this.props.history.push("/login")
+                  }}   >Logout <FontAwesome name="user"/></Link> 
+                   :
+ 
+                  <Link to="/login" >Login <FontAwesome name="user"/> </Link>
+
+                }
+                {/* <Link
+                 to="/login" 
+                 onClick={e => {
+                    e.preventDefault()
+                    localStorage.removeItem("user-dostava")
+                    // this.props.history.push("/login")
+                  }}                 
+                  >
                     <FontAwesome name="user"/>
-                    <strong>Login</strong>
-                </Link>
+                <strong>{localStorage.getItem("user-dostava") ? "Logout" : "Lgoin"}</strong>
+                </Link> */}
               </Col>
               <Col lg="1" className="wishlist">
                 <FontAwesome name="heart-o" />

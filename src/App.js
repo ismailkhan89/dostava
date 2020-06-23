@@ -16,26 +16,16 @@ class App extends React.Component {
             <BrowserRouter>
             {/* <Switch> */}
             <Switch>
-<Route exact path="/">
-<HomePage />
-</Route>
-<Route
-  exact
-  path="/product/:id/"
-  component={Product}
-/>
-{/* <Route path="/product">
-<Product />
-</Route> */}
-<Route path="/test">
-<TestView />
-</Route>
-<Route path="/login">
-<Login />
-</Route>
-<Route path="/cart">
-<Cart />
-</Route>
+              
+<Route exact path="/" component={props => <HomePage {...props} />} />
+
+
+<Route  exact  path="/product/:id/"  component={props => <Product {...props} />} />
+
+
+<Route path="/login" component={props => <Login {...props} />} />
+
+
 </Switch>
               {/* <Route path="/home" component={props => <AuthLayout {...props} ></AuthLayout>}  />
                 <Redirect from="/" to="/test"  /> */}
