@@ -7,6 +7,7 @@ import './App.css';
 import HomePage from './Views/HomePage';
 import Product from './Views/Product.jsx';
 import TestView from './Views/TestView.jsx';
+import Login from './Views/Login';
 class App extends React.Component {
   render(){
     console.log('inside app')
@@ -14,20 +15,16 @@ class App extends React.Component {
             <BrowserRouter>
             {/* <Switch> */}
             <Switch>
-<Route exact path="/">
-<HomePage />
-</Route>
-<Route
-  exact
-  path="/product/:id/"
-  component={Product}
-/>
-{/* <Route path="/product">
-<Product />
-</Route> */}
-<Route path="/test">
-<TestView />
-</Route>
+              
+<Route exact path="/" component={props => <HomePage {...props} />} />
+
+
+<Route  exact  path="/product/:id/"  component={props => <Product {...props} />} />
+
+
+<Route path="/login" component={props => <Login {...props} />} />
+
+
 </Switch>
               {/* <Route path="/home" component={props => <AuthLayout {...props} ></AuthLayout>}  />
                 <Redirect from="/" to="/test"  /> */}

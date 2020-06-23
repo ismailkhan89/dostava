@@ -1,11 +1,9 @@
 import React, {Component} from "react";
-
+import Footer from '../Views/Footer.jsx';
+import Header from '../Views/Header';
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
-import 'bootstrap/dist/css/bootstrap.css';
-import '../App.css';
-import '../Style.css';
-import logo from '../logo.png';
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -32,19 +30,15 @@ const GET_FEATURED_PRODUCTS = gql`${getFeaturedProducts}`;
 
 class HomePage extends React.Component{
 
+  constructor(props){
+    super(props);
+  }
+
+
   
   render(){
 
     
-    console.log('inside HomePage')
-    const MenuItems = ['About us', 'Contact Us', 'Gallery', 'My Account'];
-    const listItems = MenuItems.map((items, keys) =>
-      <li key = {keys}>{items}</li>
-    );
-    const MainMenu = ['Meets', 'Greens', 'Snacks', 'Cleaning', 'Bakery', 'and many more..'];
-    const MenuList = MainMenu.map((items, keys) =>
-      <li key = {keys} >{items}</li>
-    );
     var settings = {
       dots: true,
       autoplay:true,
@@ -67,37 +61,7 @@ class HomePage extends React.Component{
       
         <Container className="wrapper" fluid>
         
-        <Container className="header-area" fluid>
-          <Row className="topBar">
-            <Col lg="6">
-              <p>
-                <span>FREE SHIPPING AND RETURNS </span>ON ALL ORDERS ABOVE $199</p>
-                
-            </Col>
-            <Col lg="3" className="menuitems">
-              <ul>{listItems}</ul>
-            </Col>
-            <Col lg="3" className="menuitems rightmenu">
-              <ul>
-                <li><strong>Login</strong></li>
-                <li>Wishlist</li>
-                <li>EN</li>
-                <li><strong>My Profile</strong></li>
-              </ul>
-            </Col>
-          </Row>
-          <Row className="mainHeader">
-            <Col lg="3" className="logo">
-              <img src={logo} alt="Logo" />;
-            </Col>
-            <Col lg="6" className="menuitems">
-              <ul>{MenuList}</ul>
-            </Col>
-            <Col lg="3">
-
-            </Col>
-          </Row>
-        </Container>
+        <Header  {...this.props} />
         <Container className="slider-area" fluid>
           <Row>
             <Col lg="12">
@@ -129,20 +93,20 @@ class HomePage extends React.Component{
             <Col lg="12">
               <h3>Feature Products</h3>
             </Col>
-            <Col>
+            {/* <Col>
             <FeaturedProducts />
-            </Col>
+            </Col> */}
             <Col lg="12">
-              <Slider {...settingsFeatureProducts}>
+              {/* <Slider {...settingsFeatureProducts}> */}
 
                   <FeaturedProducts />
-              {/* <Query query={GET_FEATURED_PRODUCTS}>
+            {/* <Query query={GET_FEATURED_PRODUCTS}>
             {({ loading, error, data }) => {
               console.log('data we have in home', data)
               if (loading) return <div>{"Loading"}...</div>;
               if (error) return <div>`${"Error"}! ${error.message}`</div>;
               return data.getFeaturedProducts.map((product, index) =>
-
+<Slider {...settingsFeatureProducts}>
                 <div key = {index} >
                   <p>{product.title}</p>
                   <div className="single-slider-product">
@@ -168,9 +132,9 @@ class HomePage extends React.Component{
                     </div>
                   </div>
                 </div>
+                </Slider>
               )}}
               </Query> */}
-               </Slider>
             </Col>
           </Row>
         </Container>
@@ -199,8 +163,8 @@ like every other ride-sharing app.</p>
           <Row className="product-list">
           <Query query={GET_CATEGORIES}>
             {({ loading, error, data }) => {
-              if (loading) return <tr><td>{"Loading"}...</td></tr>;
-              if (error) return <tr><td>`${"Error"}! ${error.message}`</td></tr>;
+             if (loading) return <div>{"Loading"}...</div>;
+             if (error) return <div>`${"Error"}! ${error.message}`</div>;
               return data.categories.map((category, index) =>
                 <Col lg="6" key = {index}>
                   <Card className="single-product">
@@ -233,57 +197,7 @@ like every other ride-sharing app.</p>
             </Col>
           </Row>
         </Container>
-        <Container className="footer-area" fluid>
-          <Row className="widget-area">
-            <Col lg="3" className="footer-logo">
-                <div>
-                  <img src="../Assets/Img/logo.png"></img>
-                </div>
-                <ul>
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Shop</a></li>
-                  <li><a href="#">Blog</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                  <li><a href="#">About Us</a></li>
-                </ul>
-            </Col>
-            <Col lg="2" className="quickmenu">
-              <h3>Help/Support</h3>
-              <ul>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">How it works</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">FAQs</a></li>
-              </ul>
-            </Col>
-            <Col lg="3" className="quickmenu half">
-              <h3>Category</h3>
-                <ul>
-                  <li><a href="#">Meets</a></li>
-                  <li><a href="#">Greens</a></li>
-                  <li><a href="#">Snacks</a></li>
-                  <li><a href="#">Cleaning</a></li>
-                </ul>
-                <ul>
-                  <li><a href="#">Meets</a></li>
-                  <li><a href="#">Greens</a></li>
-                  <li><a href="#">Snacks</a></li>
-                  <li><a href="#">Cleaning</a></li>
-                </ul>
-            </Col>
-            <Col lg="2" className="quickmenu footer-app half">
-              <h3>Download Our App</h3>
-              <img src="../Assets/Img/footer-appstore.png"></img>
-              <img src="../Assets/Img/footer-googleplay.png"></img>
-            </Col>
-            <Col lg="2" className="quickmenu social">
-              <h3>Address</h3>
-              <p>208 Columbus St, Hicksville, OH, 4352</p>
-              <h3>Social Media links</h3>
-            </Col>
-          </Row>
-        </Container>
+        <Footer />
 
       
       </Container>

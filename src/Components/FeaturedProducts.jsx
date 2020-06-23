@@ -9,23 +9,43 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getFeaturedProducts } from "../apollo/server";
-
+import Slider from "react-slick";
 const GET_FEATURED_PRODUCTS = gql`${getFeaturedProducts}`;
 class FeaturedProducts  extends React.Component{
 
     render(){
+      var settings = {
+        dots: true,
+        autoplay:true,
+        arrows:true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+      };
+      var settingsFeatureProducts = {
+        dots: false,
+        autoplay:false,
+        arrows:true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 6,
+        slidesToScroll: 1
+      };
+      console.log('calling featured')
         return(
-            <div>
+          <Slider   {...settingsFeatureProducts}>
                 <Query query={GET_FEATURED_PRODUCTS}>
             {({ loading, error, data }) => {
               console.log('data we have in home', data)
               if (loading) return <div>{"Loading"}...</div>;
               if (error) return <div>`${"Error"}! ${error.message}`</div>;
+              if(data === undefined || data === 'undefined' ) return  <div>{"Loading"}...</div>;
               return data.getFeaturedProducts.map((product, index) =>
-
+                
                 <div key = {index} >
                   <p>{product.title}</p>
-                  {/* <div className="single-slider-product">
+                  <div className="single-slider-product">
                     <img src= {product.img_url}></img>
                     <div className="leftIcons">
                       <span>New</span>
@@ -46,11 +66,13 @@ class FeaturedProducts  extends React.Component{
                       <strong>$199.00</strong>
                       <a href="#">Buy Now</a>
                     </div>
-                  </div> */}
+                  </div>
                 </div>
+             
               )}}
               </Query>
-            </div>
+         
+               </Slider>
         );
     }
     

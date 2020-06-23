@@ -433,6 +433,20 @@ export const adminLogin = `mutation AdminLogin($email:String!,$password:String!)
   }
 }`
 
+export const login = `
+mutation Login($email:String,$password:String,$type:String!){
+    login(email:$email,password:$password,type:$type){
+     userId
+     token
+     tokenExpiration
+     name
+     email
+     phone
+     picture
+   }
+}
+`
+
 export const updateOrderStatus = `mutation UpdateOrderStatus($id:String!,$status:String!){
   updateOrderStatus(id:$id,status:$status){
     _id
@@ -506,33 +520,6 @@ export const resetPassword = `mutation ResetPassword($password:String!,$token:St
     result
   }
 }`
-// export const createUser = `
-//   mutation CreateUser($facebookId:String,$phone:String,$email:String,$password:String,$name:String,$picture:String,$notificationToken:String,$appleId:String){
-//       createUser(userInput:{
-//           facebookId:$facebookId,
-//           phone:$phone,
-//           email:$email,
-//           password:$password,
-//           name:$name,
-//           picture:$picture,
-//           notificationToken:$notificationToken,
-//           appleId:$appleId
-//       }){
-//           userId
-//           token
-//           tokenExpiration
-//           name
-//           email
-//           phone
-//           picture
-//           notificationToken
-//           location{
-//             longitude
-//             latitude
-//             delivery_address
-//           }
-//       }
-//     }`
     export const editUser = `
     mutation UpdateUser($name:String!,$phone:String!){
         updateUser(updateUserInput:{name:$name,phone:$phone}){
@@ -542,20 +529,34 @@ export const resetPassword = `mutation ResetPassword($password:String!,$token:St
         }
       }`
       export const createUser = `
-      mutation createUser($userInput:UserInput!){
-            createUser(
-              userInput:$userInput
-          ){
-            userId
-            token
-            tokenExpiration
-            name
-            email
-            phone
-            picture
-            notificationToken
+  mutation CreateUser($facebookId:String,$phone:String,$email:String,$password:String,$name:String,$last_name:String,$picture:String,$notificationToken:String,$appleId:String){
+      createUser(userInput:{
+          facebookId:$facebookId,
+          phone:$phone,
+          email:$email,
+          password:$password,
+          name:$name,
+          last_name:$last_name,
+          picture:$picture,
+          notificationToken:$notificationToken,
+          appleId:$appleId
+      }){
+          userId
+          token
+          tokenExpiration
+          name
+          email
+          phone
+          picture
+          notificationToken
+          location{
+            longitude
+            latitude
+            delivery_address
           }
-        }`
+      }
+    }`
+
       export const createRider = `
 mutation CreateRider($riderInput:RiderInput!){
     createRider(

@@ -1,6 +1,7 @@
 import HomePage from './Views/HomePage';
 import Product from './Views/Product.jsx';
 import TestView from './Views/TestView.jsx';
+import Login from './Views/Login';
 
 var routes = [
     {
@@ -21,6 +22,13 @@ var routes = [
         path: "/test",
         name: "TestView",
         component: TestView,
+        layout: "/",
+       
+      },
+      {
+        path: "/login",
+        name: "Login",
+        component: Login,
         layout: "/",
        
       }
