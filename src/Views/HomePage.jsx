@@ -2,12 +2,15 @@ import React, {Component} from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
 import gql from "graphql-tag";
+import ReactDOM from 'react-dom';
+import InfiniteCarousel from 'react-leaf-carousel';
 import { Query, Mutation } from "react-apollo";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-// import logo from './logo.svg';
+import FontAwesome from 'react-fontawesome'
+
 import {
     Card,
     CardImg,
@@ -27,6 +30,8 @@ import FeaturedProducts from "../Components/FeaturedProducts";
 
 const GET_CATEGORIES = gql`${getCategories}`;
 const GET_FEATURED_PRODUCTS = gql`${getFeaturedProducts}`;
+
+
 
 class HomePage extends React.Component{
 
@@ -88,6 +93,13 @@ class HomePage extends React.Component{
             </Col>
           </Row>
         </Container>
+        <Container fluid>
+          <Row>
+            <Col lg="12">
+          
+            </Col>
+          </Row>
+        </Container>
         <Container className="feature-products" fluid>
           <Row>
             <Col lg="12">
@@ -97,32 +109,46 @@ class HomePage extends React.Component{
             <FeaturedProducts />
             </Col> */}
             <Col lg="12">
-              {/* <Slider {...settingsFeatureProducts}> */}
-
-                  <FeaturedProducts />
-            {/* <Query query={GET_FEATURED_PRODUCTS}>
-            {({ loading, error, data }) => {
-              console.log('data we have in home', data)
-              if (loading) return <div>{"Loading"}...</div>;
-              if (error) return <div>`${"Error"}! ${error.message}`</div>;
-              return data.getFeaturedProducts.map((product, index) =>
-<Slider {...settingsFeatureProducts}>
-                <div key = {index} >
-                  <p>{product.title}</p>
+            <InfiniteCarousel
+              breakpoints={[
+                {
+                  breakpoint: 500,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                  },
+                },
+                {
+                  breakpoint: 768,
+                  settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                  },
+                },
+              ]}
+              dots={true}
+              showSides={true}
+              sidesOpacity={.5}
+              sideSize={.1}
+              slidesToScroll={1}
+              slidesToShow={6}
+              scrollOnDevice={true}
+            >
+                <div>
                   <div className="single-slider-product">
-                    <img src= {product.img_url}></img>
+                    <img src="../Assets/Img/product-1.jpg"></img>
                     <div className="leftIcons">
                       <span>New</span>
                       <span className="Salebg">Sale</span>
                     </div>
                     <div className="RightIcons">
-                      <span>Heart</span>
-                      <span>Share</span>
+                      <FontAwesome name="heart-o" />
+                      <FontAwesome name="share" />
                     </div>
                   </div>
                   <div className="single-slider-product-detail">
                     <div className="leftDetails">
-                      <h3>{product.product}</h3>
+                      <h3>Product Name are Here</h3>
                       <button>Add to Cart</button>
                     </div>
                     <div className="rightDetails">
@@ -132,12 +158,205 @@ class HomePage extends React.Component{
                     </div>
                   </div>
                 </div>
-                </Slider>
-              )}}
-              </Query> */}
+                <div>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <FontAwesome name="heart-o" />
+                      <FontAwesome name="share" />
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <FontAwesome name="heart-o" />
+                      <FontAwesome name="share" />
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <FontAwesome name="heart-o" />
+                      <FontAwesome name="share" />
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <FontAwesome name="heart-o" />
+                      <FontAwesome name="share" />
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <FontAwesome name="heart-o" />
+                      <FontAwesome name="share" />
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <FontAwesome name="heart-o" />
+                      <FontAwesome name="share" />
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <FontAwesome name="heart-o" />
+                      <FontAwesome name="share" />
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="single-slider-product">
+                    <img src="../Assets/Img/product-1.jpg"></img>
+                    <div className="leftIcons">
+                      <span>New</span>
+                      <span className="Salebg">Sale</span>
+                    </div>
+                    <div className="RightIcons">
+                      <FontAwesome name="heart-o" />
+                      <FontAwesome name="share" />
+                    </div>
+                  </div>
+                  <div className="single-slider-product-detail">
+                    <div className="leftDetails">
+                      <h3>Product Name are Here</h3>
+                      <button>Add to Cart</button>
+                    </div>
+                    <div className="rightDetails">
+                      <span> $299.00</span>
+                      <strong>$199.00</strong>
+                      <a href="#">Buy Now</a>
+                    </div>
+                  </div>
+                </div>
+                </InfiniteCarousel>
             </Col>
           </Row>
         </Container>
+
+
+
         <Container className="download-app" fluid>
           <Row>
             <Col lg="3" className="download-app-img">
