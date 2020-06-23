@@ -576,6 +576,120 @@ margin-bottom:10px;
     color:#1385a7;
 }
 
+.cart-section table{
+    border:1px solid #ccc;
+}
+.cart-section table thead tr th{
+    background:#f8f8f8;
+    border:0 none;
+    color:#262626;
+    font-size:14px;
+    font-weight:bold;
+}
+.cart-section table tbody tr td{
+    background:#fff;
+    border-top:0 none;
+    vertical-align: middle;
+    border-bottom:1px solid #ccc;
+    font-size:14px;
+    color:#707070;
+}
+.cart-section table tbody tr td strong{
+    color:#262626;
+    font-size:14px;
+}
+.cart-section table tbody tr td span{
+    color:#c25d5d;
+}
+
+.cart-section table tbody tr td img{
+    border:1px solid #eee;
+    padding:10px;
+}
+.cart-section table tfoot{
+    background:#1385a7;
+}
+.cart-section table tfoot tr td strong{
+    color:#fff;
+}
+.cart-page > .row{
+    background: #efefef;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-top:30px;
+    padding-bottom:60px;
+}
+.cart-section div.table-responsive + .row{
+    margin-top:40px;
+}
+.cart-section .voucher{}
+.cart-section .voucher h2{
+    color:#262626;
+    font-size:20px;
+    font-weight:300;
+}
+.cart-section .voucher input[type="text"]{
+    background-color:#fff;
+    border:1px solid #ccc;
+    border-radius:4px;
+    display: block;
+    min-width:300px;
+    min-height:40px;
+    margin-bottom:20px;
+    padding-left:20px;
+}
+.cart-section .voucher input[type="text"]::placeholder{
+    font-size:13px;
+    color:#b2b2b2;
+}
+.cart-section .voucher input[type="submit"]{
+    background-color:#262626;
+    color:#fff;
+    font-size:13px;
+    text-transform:uppercase;
+    border:0 none;
+    padding:5px 25px;
+}
+.cart-section > h3{
+    font-size:20px;
+    color:#262626;
+}
+.cart-section .subtotal div{
+    background:#fff;
+    padding:30px;
+}
+.cart-section .subtotal div h4{
+    font-size:13px;
+    color:#262626;
+    font-weight:500;
+    padding-bottom:10px;
+    border-bottom:1px solid #ccc;
+}
+.cart-section .subtotal div h4.blue{
+    color:#1385a7;
+    border-bottom:0 none;
+    text-transform: uppercase;
+    margin-bottom:40px;
+}
+.cart-section .subtotal div h4.blue span{
+    color:#1385a7;
+}
+.cart-section .subtotal div h4 span{
+    color:#707070;
+    float:right;
+}
+.cart-section .subtotal div input[type="submit"]{
+    background-color:#1385a7;
+    color:#fff;
+    text-align: center;
+    border:0 none;
+    width:100%;
+    height:40px;
+    text-transform: uppercase;
+}
+
+
+
 
 /* Footer Area */
 .footer-area .widget-area{
