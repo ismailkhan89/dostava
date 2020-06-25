@@ -26,7 +26,7 @@ import {
 } from "reactstrap";
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories, getFeaturedProducts } from "../apollo/server";
-import FeaturedProducts from "../Components/FeaturedProducts";
+import FeaturedProducts from "../components/FeaturedProducts";
 
 const GET_CATEGORIES = gql`${getCategories}`;
 const GET_FEATURED_PRODUCTS = gql`${getFeaturedProducts}`;
@@ -67,6 +67,8 @@ class HomePage extends React.Component{
         <Container className="wrapper" fluid>
         
         <Header  {...this.props} />
+        <Link to="/cart">Cart</Link>
+        <Link to="/checkout">Checkout</Link>
         <Container className="slider-area" fluid>
           <Row>
             <Col lg="12">

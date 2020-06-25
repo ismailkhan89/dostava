@@ -9,6 +9,7 @@ import Product from './Views/Product.jsx';
 import TestView from './Views/TestView.jsx';
 import Login from './Views/Login';
 import Cart from './Views/Cart';
+import Checkout from './Views/Checkout';
 class App extends React.Component {
   render(){
     console.log('inside app')
@@ -24,6 +25,10 @@ class App extends React.Component {
 
 
 <Route path="/login" component={props => <Login {...props} />} />
+
+<Route path="/cart" component={props => <Cart {...props} />} />
+
+<Route path="/checkout" component={props => <Checkout {...props} />} />
 
 
 </Switch>
