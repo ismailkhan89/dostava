@@ -15,6 +15,7 @@ import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import { Link, useParams } from 'react-router-dom';
 import { foods } from "../apollo/server";
+import { onAddToCart } from '../library/cart'
 const FOODS = gql`${foods}`;
 class Products extends React.Component {
 
@@ -23,6 +24,7 @@ class Products extends React.Component {
     console.log('useParams', useParams)
     super(props);
     this.state = {
+      message: '',
       _id: props.match.params?.id ?? null,
       filters: { onSale: false, inStock: false, min: 0, max: 1000 },
       search: ''
@@ -32,6 +34,15 @@ class Products extends React.Component {
     }
   }
 
+  onClickAddToCart = async (product) => {
+    let responseMessage = await  onAddToCart(product);
+    this.setState({ message: responseMessage })
+    window.setTimeout(() => {
+      this.setState({
+        message: ""
+      });
+    }, 10000);
+  }
 
   render() {
 
@@ -104,7 +115,13 @@ class Products extends React.Component {
             </Col>
           </Row>
         </Container>
-
+        <Container>
+          <Row>
+            <Col lg="12">
+              <h4>{this.state.message}</h4>
+            </Col>
+          </Row>
+        </Container>
         <Container className="content-area" fluid>
           <Row>
             <Col lg="3" className="sidebar-products">
@@ -174,7 +191,12 @@ class Products extends React.Component {
                         <div className="single-slider-product-detail">
                           <div className="leftDetails">
                             <h3> {product.title}</h3>
-                            <button>Add to Cart</button>
+                            <button onClick={e => {
+                                                        e.preventDefault()
+                                          // onAddToCart(product)
+                                          this.onClickAddToCart(product)
+                                                            
+                                                    }} >Add to Cart</button>
                           </div>
                           <div className="rightDetails">
                             {/* <span> $ {product.variations[0].price}</span> */}

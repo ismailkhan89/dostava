@@ -14,7 +14,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import FontAwesome from 'react-fontawesome'
-import { server_url } from  "../config/config"
+import { server_url } from  "../config/config";
+import { onAddToCart } from '../library/cart'
 import {
     Card,
     CardImg,
@@ -58,10 +59,6 @@ class HomePage extends React.Component{
     this.fetchProducts()
     
   }
-  UNSAFE_componentWillMount() {
-    console.log('=mount')
-      this.setState({count: 1});
-  }
   fetchProducts = () => {
     client.query({ query: GET_FEATURED_PRODUCTS, fetchPolicy: 'network-only' }).then(data => {
       console.log("loading fetau", data)
@@ -73,22 +70,7 @@ class HomePage extends React.Component{
 
   
   render(){
-    console.log("itemsArray",this.state.featuredProductsItems)
-var imagesArray = [
-  {
-    'image': "https://media.gettyimages.com/photos/drone-photo-of-lahore-city-pakistan-picture-id806900368?s=612x612"
-  },
-  {
-    'image': "https://media.gettyimages.com/photos/drone-photo-of-lahore-city-pakistan-picture-id806900368?s=612x612"
-  },
-  {
-    'image': "https://media.gettyimages.com/photos/drone-photo-of-lahore-city-pakistan-picture-id806900368?s=612x612"
-  },
-  {
-    'image': "https://media.gettyimages.com/photos/drone-photo-of-lahore-city-pakistan-picture-id806900368?s=612x612"
-  }
-]
-    var test = this.state.featuredProductsItems;
+
     var settings = {
       dots: true,
       autoplay:true,
@@ -104,19 +86,10 @@ var imagesArray = [
       arrows:true,
       infinite: true,
       speed: 500,
-      slidesToShow: 6,
+      slidesToShow: 1,
       slidesToScroll: 1
     };
-  var imagesAra =  this.state.featuredProductsItems.map((item, idx )=> <div key = {idx}> <p>{item.title}</p> <img src={item.img_url} /></div>) 
-  var imagesAr =  imagesArray.map((item, idx )=> <div key = {idx}><img src={item.image} ></img></div>) 
-
-console.log("imagesAra",imagesAra)
-console.log('this.state.featuredProductsItems.length',this.state.featuredProductsItems.length)
-// if(this.state.featuredProductsItems.length > 0 ){
-//   return imagesAra
-// }
-console.log("imagesAr",imagesAr)
-console.log('render twice')
+  
     return(
       
         <Container className="wrapper" fluid>
@@ -163,93 +136,10 @@ console.log('render twice')
               <h3>Feature Products</h3>
             </Col>
 
-            {/* <Col>
-            <FeaturedProducts />
-            </Col> */}
             <Col lg = "12">
-            
-            {/* <InfiniteCarousel
-              breakpoints={[
-                {
-                  breakpoint: 500,
-                  settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                  },
-                },
-                {
-                  breakpoint: 768,
-                  settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                  },
-                },
-              ]}
-              dots={true}
-              showSides={true}
-              sidesOpacity={.5}
-              sideSize={.1}
-              slidesToScroll={1}
-              slidesToShow={6}
-              scrollOnDevice={true}
-            >   */}
-           {this.state.featuredProductsItems.length > 0 ? <FeaturedProducts /> : 'loading...' } 
-            {/* { 
-            test.map((item, idx )=>{
-              console.log('item ar ', item)
-              return(
-                // <div key = {idx}> <p>{item.title}</p> <img src={item.img_url} /></div>
-                 <div key = {idx}> <p>{"Title"}</p> <img src={item.image} /></div>
-              )
-            }) 
-           } */}
-            {/* { 
-            imagesArray.map((item, idx )=>{
-              console.log('item image ar ', item)
-              return(
-                <div key = {idx}> <p>{"Title"}</p> <img src={item.image} /></div>
-              )
-            }) 
-           } */}
-            {/* {imagesAr} */}
-            {/* <Query query={GET_FEATURED_PRODUCTS}>
-      {({ loading, error, data }) => {
-        console.log('data we have in home', data)
-        if (loading) return <div>{"Loading"}...</div>;
-        if (error) return <div>`${"Error"}! ${error.message}`</div>;
-        if(data === undefined || data === 'undefined' ) return  <div>{"Loading"}...</div>;
-        return data.getFeaturedProducts.map((product, index) => 
-<div key = {index}>
-        <div className="single-slider-product">
-          <img src= {product.img_url}></img>
-          <div className="leftIcons">
-            <span>New</span>
-            <span className="Salebg">Sale</span>
-          </div>
-          <div className="RightIcons">
-            <span>Heart</span>
-            <span>Share</span>
-          </div>
-        </div>
-        <div className="single-slider-product-detail">
-          <div className="leftDetails">
-            <h3>{product.title}</h3>
-            <button>Add to Cart</button>
-          </div>
-          <div className="rightDetails">
-            <span> $299.00</span>
-            <strong>$199.00</strong>
-            <a href="#">Buy Now</a>
-          </div>
-        </div>
-        </div>
-   
-    )}}
-    
-    </Query> */}
-    {/* </InfiniteCarousel> */}
+           {this.state.featuredProductsItems.length > 0 ?  <FeaturedProducts /> : 'loading...' } 
             </Col>
- </Row>
+          </Row>
         </Container>
 
 

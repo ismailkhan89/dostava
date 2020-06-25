@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, useEffect, useState} from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
 import FontAwesome from 'react-fontawesome'
@@ -22,17 +22,167 @@ import {
     // Link
 } from "reactstrap";
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
+import { createUploadLink } from 'apollo-upload-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { server_url } from  "../config/config";
+import { ApolloClient } from 'apollo-client';
+import gql from "graphql-tag";
+import { getCategories, foodByIds, getCoupon } from "../apollo/server";
+import { useQuery, useMutation } from '@apollo/react-hooks'
+const GETCARTITEMS = gql`${getCategories}`;
+const GET_COUPON = gql`${getCoupon}`
+const cache = new InMemoryCache()
+const httpLink = createUploadLink({
+  uri: `${server_url}graphql`,
+})
 
-class Cart extends React.Component{
+const client = new ApolloClient({
+  link: httpLink,
+  cache
+});
+const FOOD_BY_IDS = gql`${foodByIds}`
 
+function Cart(props) {
   
-  render(){
-    
+
+  const [cartItems, setCartItems] = useState([])
+	const [foods, setFoods] = useState([])
+	const [coupon, setCoupon] = useState('')
+	const [discountPercent, setDiscountPercent] = useState(null)
+	const [validCoupon, setValidCoupon] = useState(null)
+	const [selectedAddress, setSelectedAddress] = useState(null)
+	const [loadingData, setLoadingData] = useState(true)
+	const [mutate, { loading: loadingMutation }] = useMutation(GET_COUPON, {onCompleted, onError})
+	// const addressObj = props.route.params?.AddressObject ?? null
+
+
+    useEffect(() => {
+      didFocus()
+    }, [])
+    function onCompleted({ coupon }) {
+      console.log("coupon>>",coupon)
+      if (coupon) {
+        if (coupon.enabled) {
+          setDiscountPercent(coupon.discount)
+          setValidCoupon(coupon.code)
+  
+          // showMessage({
+          //   message: 'Coupon discount applied',
+          //   type: 'success',
+          //   floating: true,
+          //   style: styles.alertboxGreen,
+          //   titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
+          // })
+        }
+        else {
+          // showMessage({
+          //   message: 'Coupon Unavailable',
+          //   type: 'warning',
+          //   floating: true,
+          //   style: styles.alertboxRed,
+          //   titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
+          // })
+        }
+      }
+    }
+
+    function onError(error) {
+      console.log("error>>",error)
+      // showMessage({
+      //   message: 'Invalid Coupon',
+      //   type: 'warning',
+      //   floating: true,
+      //   style: styles.alertboxRed,
+      //   titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
+      // })
+    }
+
+    async function didFocus() {
+      try {
+        const cartItemsStr = await localStorage.getItem('cartItems')
+        console.log("cartItemsStr>>>",cartItemsStr)
+        const cartItems = JSON.parse(cartItemsStr)
+        console.log("<<cartItems>>>",cartItems)
+        const validatedItems = []
+        if (cartItems && cartItems.length) {
+          const ids = cartItems.map(({ _id }) => _id)
+          const { data: { foodByIds } } = await client.query({ query: FOOD_BY_IDS, variables: { ids }, fetchPolicy: 'network-only' })
+          const transformCart = cartItems.map(cartItem => {
+            const food = foodByIds.find(food => food._id === cartItem._id)
+            if (!food)
+              return null
+            const variation = food.variations.find(variation => variation._id === cartItem.variation._id)
+            if (!variation)
+              return null
+            if (!food.stock)
+              return null
+            if (food.stock < cartItem.quantity) {
+              cartItem.quantity = food.stock
+            }
+            let title = `${food.title}(${variation.title})`
+            let price = variation.price
+            if (cartItem.addons)
+              cartItem.addons.forEach(addon => {
+                const cartAddon = variation.addons.find(add => add._id === addon._id)
+                addon.options.forEach(option => {
+                  const optionfound = cartAddon.options.find(opt => opt._id === option._id)
+                  price += optionfound.price
+                })
+              })
+            validatedItems.push(cartItem)
+            return {
+              ...cartItem,
+              img_url: food.img_url,
+              title: title,
+              price: price.toFixed(2)
+            }
+          })
+          client.writeQuery({ query: GETCARTITEMS, data: { cartItems: validatedItems.length } })
+          await localStorage.setItem('cartItems', JSON.stringify(validatedItems))
+  
+          // if (props.navigation.isFocused()) {
+            setCartItems(transformCart.filter(item => item))
+            setLoadingData(false)
+            setFoods(foodByIds)
+          // }
+        }
+        else {
+          if (props.navigation.isFocused()) {
+            setLoadingData(false)
+          }
+        }
+      } catch (e) {
+        // showMessage({
+        //   message: 'Error occured',
+        //   duration: 3000,
+        //   type: 'warning',
+        //   floating: true,
+        //   style: styles.alertboxRed,
+        //   titleStyle: { fontSize: scale(14), fontFamily: fontStyles.MuseoSans500 }
+        // })
+      }
+    }
+    function calculatePrice(deliveryCharges = 0, withDiscount) {
+      let itemTotal = 0
+      cartItems.forEach(cartItem => {
+        itemTotal += cartItem.price * cartItem.quantity
+      })
+      if (withDiscount && discountPercent) {
+        itemTotal = itemTotal - ((discountPercent / 100) * itemTotal)
+      }
+      return (itemTotal + deliveryCharges).toFixed(2)
+    }
+
+    async function removeCartItem (newItem){
+          const items = cartItems.filter((product) => product._id !== newItem._id)
+          await localStorage.setItem('cartItems', JSON.stringify(items))
+          setCartItems(items);
+    } 
     return(
       
         <Container className="wrapper" fluid>
         
-        <Header  {...this.props} />
+        <Header  {...props} />
         
         <Container className="breadcrumb-area" fluid>
           <Row>
@@ -69,38 +219,27 @@ class Cart extends React.Component{
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                      {
+                        cartItems.length > 0 ?  cartItems.map((cartItem, idx) => (
+                            <tr key ={idx}>
                             <td><input type="checkbox"></input></td>
-                            <td><img src="../Assets/Img/cart-product.png"></img></td>
-                            <td>Sample Product <br/>Image</td>
-                            <td><strong>$200.00</strong></td>
+                            <td><img style ={{ width: "100px" }} src={cartItem.img_url}></img></td>
+                            <td> {cartItem.title}</td>
+                            <td><strong>{cartItem.price}</strong></td>
                             <td>
-                                <select>
-                                    <option>1</option>
-                                    <option>1</option>
-                                    <option>1</option>
-                                    <option>1</option>
-                                </select>
-                                    </td>
-                            <td><strong>$200.00</strong></td>
-                            <td><FontAwesome name="trash" /></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></input></td>
-                            <td><img src="../Assets/Img/cart-product.png"></img></td>
-                            <td>Sample Product <br/>Image</td>
-                            <td><strong>$200.00</strong></td>
-                            <td>
-                                <select>
-                                    <option>1</option>
-                                    <option>1</option>
-                                    <option>1</option>
-                                    <option>1</option>
-                                </select>
-                                    </td>
-                            <td><strong>$200.00</strong></td>
-                            <td><FontAwesome name="trash" /></td>
-                        </tr>
+                              {cartItem.quantity}
+                            </td>
+                        <td><strong> { parseInt(cartItem.quantity)*parseInt(cartItem.price) }</strong></td>
+                            <td><FontAwesome 
+                             onClick={e => {
+                              e.preventDefault()
+                              removeCartItem(cartItem)
+                                  
+                          }}
+                            name="trash" /></td>
+                        </tr>)) : 'laoding...'
+                      }
+                       
                     </tbody>
                     <tfoot>
                         <tr>
@@ -109,7 +248,7 @@ class Cart extends React.Component{
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td><strong>Total $600.00</strong></td>
+                            <td><strong>Total {(calculatePrice(0, false))}</strong></td>
                             <td>&nbsp;</td>
                         </tr>
                     </tfoot>
@@ -118,8 +257,18 @@ class Cart extends React.Component{
                     <Col lg="8" className="voucher">
                         <h2>VOUCHER</h2>
                         <p>Enter your coupon code if you have one.</p>
-                        <input type="text" placeholder="Voucher Code"></input>
-                        <input type="submit" value="Apply" />
+                        <input
+                        onChangeText={(text) => {
+                          setCoupon(text)
+                        }}
+                        type="text" placeholder="Voucher Code"></input>
+                        <input type="submit" value="Apply" 
+                        onClick={() => {
+                          setValidCoupon(null)
+                          setDiscountPercent(null)
+                          if (coupon) mutate({ variables: { coupon: coupon } })
+                        }}
+                        />
                     </Col>
                     <Col lg="4" className="subtotal">
                         <div>
@@ -145,7 +294,6 @@ class Cart extends React.Component{
      
       
     )
-  }
 
 }
 

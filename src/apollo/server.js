@@ -41,6 +41,49 @@ export const getFoods = `query Foods{
     }
   }`
 
+  export const getCoupon = `mutation Coupon($coupon:String!){
+    coupon(coupon:$coupon){
+      _id
+      code
+      discount
+      enabled
+    }
+  }`
+  
+  export const foodByIds = `query FoodByIds($ids:[String!]!){
+    foodByIds(ids: $ids) {
+      _id
+      title
+      description
+      likes
+      liked
+      img_url
+      stock
+      category {
+        _id
+      }
+      variations {
+        _id
+        title
+        price
+        discounted
+        addons {
+          _id
+          title
+          description
+          quantity_minimum
+          quantity_maximum
+          options {
+            _id
+            title
+            description
+            price
+          }
+        }
+      }
+    }
+  }`
+
 export const createFood = `
   mutation CreateFood($foodInput:FoodInput!){
       createFood(
@@ -148,6 +191,7 @@ export const foods = `
             category{_id}
             img_url
             likes
+            stock
             liked
             stock
           }
