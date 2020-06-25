@@ -23,27 +23,16 @@ import {
 } from "reactstrap";
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 
-class Login extends React.Component{
+class Cart extends React.Component{
 
   
   render(){
-
-    console.log('asd');
-    console.log('inside HomePage')
-    const MenuItems = ['About us', 'Contact Us', 'Gallery', 'My Account'];
-    const listItems = MenuItems.map((items, keys) =>
-      <li key = {keys}>{items}</li>
-    );
-    const MainMenu = ['Meets', 'Greens', 'Snacks', 'Cleaning', 'Bakery', 'and many more..'];
-    const MenuList = MainMenu.map((items, keys) =>
-      <li key = {keys} >{items}</li>
-    );
     
     return(
       
         <Container className="wrapper" fluid>
         
-        <Header />
+        <Header  {...this.props} />
         
         <Container className="breadcrumb-area" fluid>
           <Row>
@@ -160,4 +149,4 @@ class Login extends React.Component{
 
 }
 
-  export default Login;
+  export default Cart;
