@@ -189,11 +189,11 @@ function Cart(props) {
             <Col lg="3">
             </Col>
             <Col lg="3" className="breadcrumb-section">
-              <h3>Login</h3>
+              <h3>My Cart</h3>
               <ul>
                 <li><Link>Home</Link></li>
 
-                <li><Link>Login</Link></li>
+                <li><Link>My Cart</Link></li>
               </ul>
             </Col>
           </Row>
@@ -205,6 +205,7 @@ function Cart(props) {
 
             </Col>
             <Col lg="8" className="cart-section">
+              <h1 className="flashmessage text-center"> Flash Message Here</h1>
                 <h3>My Cart</h3>
                 <Table responsive>
                     <thead>
@@ -227,7 +228,11 @@ function Cart(props) {
                             <td> {cartItem.title}</td>
                             <td><strong>{cartItem.price}</strong></td>
                             <td>
-                              {cartItem.quantity}
+                              <button>
+                                <FontAwesome name="minus"></FontAwesome>
+                              </button> <span>{cartItem.quantity}</span> <button>
+                                <FontAwesome name="plus"></FontAwesome>
+                              </button>
                             </td>
                         <td><strong> { parseInt(cartItem.quantity)*parseInt(cartItem.price) }</strong></td>
                             <td><FontAwesome 

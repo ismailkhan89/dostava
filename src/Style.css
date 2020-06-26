@@ -626,6 +626,20 @@ margin-bottom:10px;
     font-size:14px;
     color:#707070;
 }
+.cart-section table tbody tr td button{
+    border:0 none;
+    background-color:#1385a7;
+    color:#fff;
+}
+.cart-section table tbody tr td > span{
+    padding-right:5px;
+    padding-left:5px;
+    border:1px solid #ccc;
+}
+.cart-section table tbody tr td button span{
+    color:#fff;
+    font-size:13px;
+}
 .cart-section table tbody tr td strong{
     color:#262626;
     font-size:14px;
@@ -718,6 +732,10 @@ margin-bottom:10px;
     width:100%;
     height:40px;
     text-transform: uppercase;
+}
+.flashmessage{
+    font-size:20px;
+    color:#1385a7;
 }
 .content-area.checkout-page .grey-bg{
     background-color:#f1f1f1;
