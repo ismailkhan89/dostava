@@ -78,6 +78,28 @@
     text-align: center;
     border-radius: 50%;
 }
+.cart-icon-header a{
+    position:relative;
+}
+.cart-icon-header a strong{
+    position:absolute;
+    background-color:#1385a7;
+    color:#fff;
+    border-radius:50px;
+    font-size:9px;
+    width:20px;
+    height:20px;
+    text-align:center;
+    line-height:20px;
+    left:15px;
+    top:-10px;
+}
+.cart-icon-header a span{
+    font-size:25px;
+    color:#000;
+    line-height:55px;
+    margin-right:10px;
+}
 .mainHeader{
     padding: 10px 15px;
 }
@@ -347,8 +369,15 @@ margin-bottom:10px;
 .product-list{
     margin-bottom:30px;
 }
+.product-list .col-lg-6{
+    margin-bottom:20px;
+}
 .single-product{
     padding:15px;
+}
+.single-product .card-img{
+    max-height:130px;
+    height:130px;
 }
 .single-product .card-body{
     padding:0;

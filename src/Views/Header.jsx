@@ -45,10 +45,26 @@ class Header extends React.Component{
               <Col lg="3" className="menuitems">
                 <ul>{listItems}</ul>
               </Col>
-              <Col>
-              { userObj ? userObj.name : ' '} {' '}   { userObj ? userObj.last_name : ' '}
+
+              { userObj ? ' ' : <Col lg="2"></Col>
+              }
+
+              <Col lg="1" className="wishlist text-right">
+                <FontAwesome name="heart-o" />
+                Wishlist
+                  <span className="favorites">0</span>
               </Col>
-              <Col lg="1" className="login">
+              
+              { userObj ? 
+                <Col lg="2" className="text-right">
+                  {userObj.name}
+                </Col>
+                  : ' '}
+               
+              
+              
+
+              <Col lg="1" className="login text-right">
                 {
                   localStorage.getItem("user-dostava") ? 
                   <Link  to="/login" onClick={e => {
@@ -61,44 +77,27 @@ class Header extends React.Component{
                   <Link to="/login" >Login <FontAwesome name="user"/> </Link>
 
                 }
-                {/* <Link
-                 to="/login" 
-                 onClick={e => {
-                    e.preventDefault()
-                    localStorage.removeItem("user-dostava")
-                    // this.props.history.push("/login")
-                  }}                 
-                  >
-                    <FontAwesome name="user"/>
-                <strong>{localStorage.getItem("user-dostava") ? "Logout" : "Lgoin"}</strong>
-                </Link> */}
+                
               </Col>
-              <Col lg="1" className="wishlist">
-                <FontAwesome name="heart-o" />
-                Wishlist
-                  <span className="favorites">0</span>
-              </Col>
-              <Col lg="1" className="language">
-                EN
-              </Col>
-              <Col lg="1" className="myprofile">
-                <FontAwesome name="user"/>
-                <strong>My Profile</strong>
-              </Col>
+              
+              
   
   
             </Row>
             <Row className="mainHeader">
               <Col lg="3" className="logo">
                 <Link to="/">
-                <img src={logo} alt="Logo" />
+                  <img src={logo} alt="Logo" />
                 </Link>
               </Col>
               <Col lg="6" className="menuitems">
                 <ul>{MenuList}</ul>
               </Col>
-              <Col lg="3">
-  
+              <Col lg="3" className="cart-icon-header text-right">
+                  <Link to="/cart">
+                    <FontAwesome name="shopping-bag"/>
+                    <strong>15</strong>
+                  </Link>
               </Col>
             </Row>
           </Container>

@@ -6,6 +6,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { Query, Mutation } from "react-apollo";
 import 'bootstrap/dist/css/bootstrap.css';
+import FontAwesome from 'react-fontawesome'
 import '../App.css';
 import '../Style.css';
 import "slick-carousel/slick/slick.css";
@@ -61,8 +62,8 @@ function FeaturedProducts() {
             <span className="Salebg">Sale</span>
           </div>
           <div className="RightIcons">
-            <span>Heart</span>
-            <span>Share</span>
+          <FontAwesome name="heart-o" />
+          <FontAwesome name="share" />
           </div>
         </div>
         <div className="single-slider-product-detail">

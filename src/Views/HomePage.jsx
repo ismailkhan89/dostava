@@ -7,13 +7,13 @@ import gql from "graphql-tag";
 import { createUploadLink } from 'apollo-upload-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import ReactDOM from 'react-dom';
-import InfiniteCarousel from 'react-leaf-carousel';
+
 import { Query, Mutation } from "react-apollo";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import FontAwesome from 'react-fontawesome'
+
 import { server_url } from  "../config/config";
 import { onAddToCart } from '../library/cart'
 import {
@@ -32,7 +32,7 @@ import {
 } from "reactstrap";
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories, getFeaturedProducts } from "../apollo/server";
-import FeaturedProducts from "../Components/FeaturedProducts";
+import FeaturedProducts from "../components/FeaturedProducts";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
