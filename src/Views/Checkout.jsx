@@ -26,17 +26,16 @@ import {
 } from "reactstrap";
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 
-class Checkout extends React.Component{
+  function Checkout(props) {
 
-  
-  render(){
-
-    
+console.log("checkout screen",props)
+    const { cartItems, totalPriceExcDelivery, totalPriceIncDelivery, currency_symbol, delivery_charges } = props.location.state;
+    console.log("cartItems screen",cartItems)
     return(
       
         <Container className="wrapper" fluid>
         
-        <Header  {...this.props} />
+        <Header  {...props} />
         
         <Container className="breadcrumb-area" fluid>
           <Row>
@@ -137,64 +136,38 @@ class Checkout extends React.Component{
                     </form>
                   </Col>
                   <Col lg="5" className="cart-items">
-                    <Row>
-                      <Col lg="4">
-                        <img src="../Assets/Img/cart-product.png"></img>
-                      </Col>
-                      <Col lg="6">
-                        <h3>Fresh Packet of Rice</h3>
-                        <p>
-                          <strong>$10.49</strong>      
-                          <span>$12.49</span>
-                        </p>
-                      </Col>
-                      <Col lg="2">
-                        <FontAwesome name="heart-o" />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col lg="4">
-                        <img src="../Assets/Img/cart-product.png"></img>
-                      </Col>
-                      <Col lg="6">
-                        <h3>Fresh Packet of Rice</h3>
-                        <p>
-                          <strong>$10.49</strong>      
-                          <span>$12.49</span>
-                        </p>
-                      </Col>
-                      <Col lg="2">
-                        <FontAwesome name="heart-o" />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col lg="4">
-                        <img src="../Assets/Img/cart-product.png"></img>
-                      </Col>
-                      <Col lg="6">
-                        <h3>Fresh Packet of Rice</h3>
-                        <p>
-                          <strong>$10.49</strong>      
-                          <span>$12.49</span>
-                        </p>
-                      </Col>
-                      <Col lg="2">
-                        <FontAwesome name="heart-o" />
-                      </Col>
-                    </Row>
+                    {
+                      cartItems.map((item, index)=>(
+                        <Row key={index} >
+                          <Col lg="4">
+                            <img style = {{width: '200px'}} src= {item.img_url}></img>
+                          </Col>
+                          <Col lg="6">
+                            <h3>{item.title}e</h3>
+                            <p>
+                            <strong>{item.price}</strong>      
+                              {/* <span>$12.49</span> */}
+                            </p>
+                          </Col>
+                          <Col lg="2">
+                            <FontAwesome name="heart-o" />
+                          </Col>
+                        </Row>
+                      ))
+                    }
                     <Row>
                       <Col lg="12" className="cart-total">
                         <h6>
                           <strong>Subtotal</strong>
-                          <span>$400.00</span>
+                            <span>{currency_symbol} {totalPriceExcDelivery}</span>
                         </h6>
                         <h6>
                           <strong>Shipping</strong>
-                          <span>$20.00</span>
+                          <span>{currency_symbol} {delivery_charges}</span>
                         </h6>
                         <h2>
                           <strong>Total</strong>
-                          <span>$420.00</span>
+                          <span> {currency_symbol} {totalPriceIncDelivery}</span>
                         </h2>
                       </Col>
                     </Row>
@@ -211,6 +184,7 @@ class Checkout extends React.Component{
 
             </Col>
           </Row>
+        
           </Container>
         
         
@@ -222,7 +196,5 @@ class Checkout extends React.Component{
       
     )
   }
-
-}
 
   export default Checkout;

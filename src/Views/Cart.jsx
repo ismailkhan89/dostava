@@ -29,6 +29,7 @@ import { ApolloClient } from 'apollo-client';
 import gql from "graphql-tag";
 import { getCategories, foodByIds, getCoupon } from "../apollo/server";
 import { useQuery, useMutation } from '@apollo/react-hooks'
+import Checkout from "./Checkout.jsx";
 const GETCARTITEMS = gql`${getCategories}`;
 const GET_COUPON = gql`${getCoupon}`
 const cache = new InMemoryCache()
@@ -46,6 +47,7 @@ function Cart(props) {
   
 
   const [cartItems, setCartItems] = useState([])
+  const [configuration, setConfiguration] = useState([])
 	const [foods, setFoods] = useState([])
 	const [coupon, setCoupon] = useState('')
 	const [discountPercent, setDiscountPercent] = useState(null)
@@ -59,6 +61,15 @@ function Cart(props) {
     useEffect(() => {
       didFocus()
     }, [])
+    useEffect(() => {
+      setConfiguratoins()
+    }, [])
+
+    async function setConfiguratoins(){
+      let config = await localStorage.getItem("configuration");
+      console.log("config ", config);
+      setConfiguration(JSON.parse(config))
+    }
     function onCompleted({ coupon }) {
       console.log("coupon>>",coupon)
       if (coupon) {
@@ -95,6 +106,19 @@ function Cart(props) {
       //   style: styles.alertboxRed,
       //   titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
       // })
+    }
+    function onCLickCheckout(){
+      const totalPriceExcDelivery = calculatePrice(0, false);
+      const totalPriceIncDelivery = calculatePrice(configuration.delivery_charges, false) ;
+      props.history.push({
+        pathname: '/checkout',
+        state: { cartItems: cartItems, 
+          totalPriceExcDelivery: totalPriceExcDelivery, 
+          totalPriceIncDelivery: totalPriceIncDelivery,
+          currency_symbol: configuration.currency_symbol,
+          delivery_charges:configuration.delivery_charges
+         }
+      })
     }
 
     async function didFocus() {
@@ -178,6 +202,7 @@ function Cart(props) {
           await localStorage.setItem('cartItems', JSON.stringify(items))
           setCartItems(items);
     } 
+    console.log("get config", configuration)
     return(
       
         <Container className="wrapper" fluid>
@@ -272,10 +297,10 @@ function Cart(props) {
                     </Col>
                     <Col lg="4" className="subtotal">
                         <div>
-                            <h4>Subtotal <span>$600.00</span></h4>
-                            <h4>Shipping <span>$20.00</span></h4>
-                            <h4 className="blue">Total <span>$620.00</span></h4>
-                            <input type="submit" value="Checkout" />
+                            <h4>Subtotal <span>{configuration.currency_symbol} {calculatePrice(0, false)}</span></h4>
+                      <h4>Shipping <span>{configuration.currency_symbol} {configuration.delivery_charges} </span></h4>
+                      <h4 className="blue">Total <span>{configuration.currency_symbol} {calculatePrice(configuration.delivery_charges, false)}</span></h4>
+                            <input type="submit" value="Checkout" onClick = {onCLickCheckout} />
                         </div>
                     </Col>
                 </Row>
@@ -285,7 +310,6 @@ function Cart(props) {
             </Col>
           </Row>
           </Container>
-        
         
         <Footer />
 
