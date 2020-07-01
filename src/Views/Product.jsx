@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Footer from '../Views/Footer.jsx';
-import 'bootstrap/dist/css/bootstrap.css';
-import '../App.css';
-import '../Style.css';
-import logo from '../logo.png';
+import Header from '../Views/Header';
+
 import FontAwesome from 'react-fontawesome'
 import {
   Container,
@@ -60,47 +58,7 @@ class Products extends React.Component {
     const { _id, filters, search } = this.state;
     return (
       <Container className="wrapper" fluid>
-        <Container className="header-area" fluid>
-          <Row className="topBar">
-            <Col lg="5">
-              <p>
-                <span>FREE SHIPPING AND RETURNS </span>ON ALL ORDERS ABOVE $199</p>
-
-            </Col>
-            <Col lg="3" className="menuitems">
-              <ul>{listItems}</ul>
-            </Col>
-            <Col lg="1" className="login">
-              <FontAwesome name="user" size="xl" />
-              <strong>Login</strong>
-            </Col>
-            <Col lg="1" className="wishlist">
-              <FontAwesome name="heart-o" size="xl" />
-              Wishlist
-                <span className="favorites">0</span>
-            </Col>
-            <Col lg="1" className="language">
-              EN
-            </Col>
-            <Col lg="1" className="myprofile">
-              <FontAwesome name="user" size="xl" />
-              <strong>My Profile</strong>
-            </Col>
-
-
-          </Row>
-          <Row className="mainHeader">
-            <Col lg="3" className="logo">
-              <img src={logo} alt="Logo" />;
-            </Col>
-            <Col lg="6" className="menuitems">
-              <ul>{MenuList}</ul>
-            </Col>
-            <Col lg="3">
-
-            </Col>
-          </Row>
-        </Container>
+        <Header  {...this.props} />
         <Container className="breadcrumb-area" fluid>
           <Row>
             <Col lg="3">

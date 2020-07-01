@@ -10,6 +10,7 @@ import TestView from './Views/TestView.jsx';
 import Login from './Views/Login';
 import Cart from './Views/Cart';
 import Checkout from './Views/Checkout';
+import DetailsScreen from './Views/DetailsScreen';
 class App extends React.Component {
   render(){
     console.log('inside app')
@@ -29,6 +30,8 @@ class App extends React.Component {
 <Route path="/cart" component={props => <Cart {...props} />} />
 
 <Route path="/checkout" component={props => <Checkout {...props} />} />
+
+<Route path="/detailsscreen" component={props => <DetailsScreen {...props} />} />
 
 
 </Switch>

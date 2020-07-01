@@ -62,25 +62,17 @@ console.log("checkout screen",props)
               <TabList className="cart-tabs-head">
                 <Row>
                 <Tab> <FontAwesome name="check-circle-o" /> Shipping and Checkout</Tab>
-                <Tab disabled> <FontAwesome name="check-circle-o" /> Confirmation</Tab>
+                <Tab> <FontAwesome name="check-circle-o" /> Confirmation</Tab>
                 </Row>
               </TabList>
           
               <TabPanel>
-                <Row className="grey-bg">
-                  <Col lg="12">
-                    <Row className="checkout-head">
-                      <Col lg="7">
-                        <h3>Billing Details</h3>
-                      </Col>
-                      <Col lg="5">
-                        <h3>Your Order</h3>
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
+                
                 <Row>
                   <Col lg="7" className="shipping">
+                    <Col lg="12" className="grey-bg">
+                      <h3>Billing Details</h3>
+                    </Col>
                     <form>
                       <div className="form-group half">
                         <input type="text" placeholder="First Name"></input>
@@ -171,12 +163,99 @@ console.log("checkout screen",props)
                         </h2>
                       </Col>
                     </Row>
+                    <h4>Your Credit Card</h4>
+                    <form>
+                      <div className="form-group full">
+                        <input type="text" placeholder="Card Number"></input>
+                      </div>
+                      <div className="form-group full">
+                        <input type="text" placeholder="Name on Card"></input>
+                      </div>
+                      <div className="form-group half">
+                        <input type="text" placeholder="Expiration (MM / YY)"></input>
+                      </div>
+                      <div className="form-group half">
+                        <input type="text" placeholder="Security code"></input>
+                      </div>
+                      
+                      <div className="form-group half">
+                        <Link to="/">Back to Shopping</Link>
+                      </div>
+                      <div className="form-group half">
+                        <input type="submit" value="Payment"></input>
+                      </div>
+                    </form>
+                  </Col>
+                  <Col lg="5" className="cart-items">
+                    <Col lg="12" className="grey-bg">
+                      <h3>Billing Details</h3>
+                    </Col>
+                    <div class="carts">
+                      <Row>
+                        <Col lg="4">
+                          <img src="../Assets/Img/cart-product.png"></img>
+                        </Col>
+                        <Col lg="6">
+                          <h3>Fresh Packet of Rice</h3>
+                          <p>
+                            <strong>$10.49</strong>      
+                            <span>$12.49</span>
+                          </p>
+                        </Col>
+                        <Col lg="2">
+                          <FontAwesome name="heart-o" />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg="4">
+                          <img src="../Assets/Img/cart-product.png"></img>
+                        </Col>
+                        <Col lg="6">
+                          <h3>Fresh Packet of Rice</h3>
+                          <p>
+                            <strong>$10.49</strong>      
+                            <span>$12.49</span>
+                          </p>
+                        </Col>
+                        <Col lg="2">
+                          <FontAwesome name="heart-o" />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg="4">
+                          <img src="../Assets/Img/cart-product.png"></img>
+                        </Col>
+                        <Col lg="6">
+                          <h3>Fresh Packet of Rice</h3>
+                          <p>
+                            <strong>$10.49</strong>      
+                            <span>$12.49</span>
+                          </p>
+                        </Col>
+                        <Col lg="2">
+                          <FontAwesome name="heart-o" />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg="12" className="cart-total">
+                          <h6>
+                            <strong>Subtotal</strong>
+                            <span>$400.00</span>
+                          </h6>
+                          <h6>
+                            <strong>Shipping</strong>
+                            <span>$20.00</span>
+                          </h6>
+                          <h2>
+                            <strong>Total</strong>
+                            <span>$420.00</span>
+                          </h2>
+                        </Col>
+                      </Row>
+                    </div>
                   </Col>
                 </Row>
-                
-              </TabPanel>
-              <TabPanel>
-                <h2>Any content 2</h2>
+
               </TabPanel>
             </Tabs>
             </Col>
