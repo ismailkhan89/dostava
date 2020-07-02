@@ -82,7 +82,7 @@ class Login extends React.Component{
           <Row>
             <Col lg="3">
             </Col>
-            <Col lg="3" className="breadcrumb-section">
+            <Col lg="3" md="12" sm="12" xs="12" className="breadcrumb-section">
               <h3>Login</h3>
               <ul>
                 <li><Link to = "/">Home</Link></li>
@@ -98,7 +98,7 @@ class Login extends React.Component{
             <Col lg="2">
 
             </Col>
-            <Col lg="4">
+            <Col lg="4" md="6" sm="6" xs="12">
             <div className="form-area">
               <h2>Login your Account</h2>
               <h3>Login to your account to discovery all great features in this item</h3>
@@ -188,7 +188,7 @@ class Login extends React.Component{
               </form>
               </div>
             </Col>
-            <Col lg="4">
+            <Col lg="4" md="6" sm="6" xs="12">
               <div className="form-area register">
               <h2>Register Account Now</h2>
               <h3>Register to your account to discovery all great features in this item</h3>

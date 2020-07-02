@@ -42,7 +42,7 @@ class Checkout extends React.Component{
           <Row>
             <Col lg="3">
             </Col>
-            <Col lg="4" className="breadcrumb-section">
+            <Col lg="9" md="12" sm="12" xs="12" className="breadcrumb-section">
               <h3>My Checkout</h3>
               <ul>
                 <li><Link>Home</Link></li>
@@ -70,8 +70,8 @@ class Checkout extends React.Component{
               <TabPanel>
                 
                 <Row>
-                  <Col lg="7" className="shipping">
-                    <Col lg="12" className="grey-bg">
+                  <Col lg="7" md="7" sm="12" xs="12" className="shipping">
+                    <Col lg="12" md="12" sm="12" xs="12" className="grey-bg">
                       <h3>Billing Details</h3>
                     </Col>
                     <form>
@@ -128,58 +128,58 @@ class Checkout extends React.Component{
                       </div>
                     </form>
                   </Col>
-                  <Col lg="5" className="cart-items">
-                    <Col lg="12" className="grey-bg">
+                  <Col lg="5" md="5" sm="12" xs="12" className="cart-items">
+                    <Col lg="12" md="12" sm="12" xs="12" className="grey-bg">
                       <h3>Your Order</h3>
                     </Col>
                     <div class="carts">
                       <Row>
-                        <Col lg="4">
+                        <Col lg="4" md="4" xs="12" className="checkout-cart-img">
                           <img src="../Assets/Img/cart-product.png"></img>
                         </Col>
-                        <Col lg="6">
+                        <Col lg="6" md="6" xs="12">
                           <h3>Fresh Packet of Rice</h3>
                           <p>
                             <strong>$10.49</strong>      
                             <span>$12.49</span>
                           </p>
                         </Col>
-                        <Col lg="2">
+                        <Col lg="2" md="2" xs="12">
                           <FontAwesome name="heart-o" />
                         </Col>
                       </Row>
                       <Row>
-                        <Col lg="4">
+                        <Col lg="4" md="4" xs="12" className="checkout-cart-img">
                           <img src="../Assets/Img/cart-product.png"></img>
                         </Col>
-                        <Col lg="6">
+                        <Col lg="6" md="6" xs="12">
                           <h3>Fresh Packet of Rice</h3>
                           <p>
                             <strong>$10.49</strong>      
                             <span>$12.49</span>
                           </p>
                         </Col>
-                        <Col lg="2">
+                        <Col lg="2" md="2" xs="12">
                           <FontAwesome name="heart-o" />
                         </Col>
                       </Row>
                       <Row>
-                        <Col lg="4">
+                        <Col lg="4" md="4">
                           <img src="../Assets/Img/cart-product.png"></img>
                         </Col>
-                        <Col lg="6">
+                        <Col lg="6" md="6">
                           <h3>Fresh Packet of Rice</h3>
                           <p>
                             <strong>$10.49</strong>      
                             <span>$12.49</span>
                           </p>
                         </Col>
-                        <Col lg="2">
+                        <Col lg="2" md="2">
                           <FontAwesome name="heart-o" />
                         </Col>
                       </Row>
                       <Row>
-                        <Col lg="12" className="cart-total">
+                        <Col lg="12" md="12" sm="12" xs="12" className="cart-total">
                           <h6>
                             <strong>Subtotal</strong>
                             <span>$400.00</span>

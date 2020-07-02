@@ -19,7 +19,7 @@ class Footer extends React.Component{
   
         <Container className="footer-area" fluid>
           <Row className="widget-area">
-            <Col lg="3" className="footer-logo">
+            <Col lg="3" md="12" sm="12" xs="12" className="footer-logo">
                 <div>
                     <Link to="/">
                         <img src="../Assets/Img/logo.png"></img>
@@ -33,7 +33,7 @@ class Footer extends React.Component{
                   <li><Link to="/about">About Us</Link></li>
                 </ul>
             </Col>
-            <Col lg="2" className="quickmenu">
+            <Col lg="2" md="12" sm="12" xs="12" className="quickmenu">
               <h3>Help/Support</h3>
               <ul>
                 <li><Link to="/about">About Us</Link></li>
@@ -43,7 +43,7 @@ class Footer extends React.Component{
                 <li><Link to="/about">FAQs</Link></li>
               </ul>
             </Col>
-            <Col lg="3" className="quickmenu half">
+            <Col lg="3" md="12" sm="12" xs="12" className="quickmenu half">
               <h3>Category</h3>
                 <ul>
                   <li><Link to="/about">Meets</Link></li>
@@ -58,12 +58,12 @@ class Footer extends React.Component{
                   <li><Link to="/about">Cleaning</Link></li>
                 </ul>
             </Col>
-            <Col lg="2" className="quickmenu footer-app half">
+            <Col lg="2" md="12" sm="12" xs="12" className="quickmenu footer-app half">
               <h3>Download Our App</h3>
               <img src="../Assets/Img/footer-appstore.png"></img>
               <img src="../Assets/Img/footer-googleplay.png"></img>
             </Col>
-            <Col lg="2" className="quickmenu social">
+            <Col lg="2" md="12" sm="12" xs="12" className="quickmenu social">
               <h3>Address</h3>
               <p>208 Columbus St, Hicksville, OH, 4352</p>
               <h3>Social Media links</h3>
@@ -74,10 +74,10 @@ class Footer extends React.Component{
             </Col>
           </Row>
           <Row className="copyright-area">
-            <Col lg="6">
+            <Col lg="6" md="6" sm="7" xs="9">
               <p>Copyright © 2020 Dostava.com. All Rights Reserved.</p>
             </Col>
-            <Col lg="6" className="text-right">
+            <Col lg="6" md="6" sm="5" xs="3" className="text-right footer-payments">
               <img src="../Assets/Img/payment.png"></img>
             </Col>
           </Row>

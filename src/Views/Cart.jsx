@@ -188,7 +188,7 @@ function Cart(props) {
           <Row>
             <Col lg="3">
             </Col>
-            <Col lg="3" className="breadcrumb-section">
+            <Col lg="9" md="12" sm="12" xs="12" className="breadcrumb-section">
               <h3>My Cart</h3>
               <ul>
                 <li><Link>Home</Link></li>
@@ -210,7 +210,7 @@ function Cart(props) {
                 <Table responsive>
                     <thead>
                         <tr>
-                            <th>&nbsp;</th>
+                            
                             <th>Image</th>
                             <th>Product</th>
                             <th>Price</th>
@@ -223,7 +223,7 @@ function Cart(props) {
                       {
                         cartItems.length > 0 ?  cartItems.map((cartItem, idx) => (
                             <tr key ={idx}>
-                            <td><input type="checkbox"></input></td>
+                            
                             <td><img style ={{ width: "100px" }} src={cartItem.img_url}></img></td>
                             <td> {cartItem.title}</td>
                             <td><strong>{cartItem.price}</strong></td>
@@ -248,7 +248,7 @@ function Cart(props) {
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td>&nbsp;</td>
+                           
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -259,7 +259,7 @@ function Cart(props) {
                     </tfoot>
                 </Table>
                 <Row>
-                    <Col lg="8" className="voucher">
+                    <Col lg="8" md="7" sm="7" xs="12" className="voucher">
                         <h2>VOUCHER</h2>
                         <p>Enter your coupon code if you have one.</p>
                         <input
@@ -275,7 +275,7 @@ function Cart(props) {
                         }}
                         />
                     </Col>
-                    <Col lg="4" className="subtotal">
+                    <Col lg="4" md="5" sm="5" xs="12" className="subtotal">
                         <div>
                             <h4>Subtotal <span>$600.00</span></h4>
                             <h4>Shipping <span>$20.00</span></h4>

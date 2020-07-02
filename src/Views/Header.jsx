@@ -49,26 +49,26 @@ class Header extends React.Component{
         return(
             <Container className="header-area" fluid>
             <Row className="topBar">
-              <Col lg="5">
+              <Col lg="5" md="12" sm="12" xs="12">
                 <p>
                   <span>FREE SHIPPING AND RETURNS </span>ON ALL ORDERS ABOVE $199</p>
   
               </Col>
-              <Col lg="3" className="menuitems">
+              <Col lg="3" md="12" sm="12" xs="12" className="menuitems">
                 <ul>{listItems}</ul>
               </Col>
 
               { userObj ? ' ' : <Col lg="2"></Col>
               }
 
-              <Col lg="1" className="wishlist text-right">
+              <Col lg="1" md="6" sm="6" xs="6" className="wishlist text-right">
                 <FontAwesome name="heart-o" />
                 Wishlist
                   <span className="favorites">0</span>
               </Col>
               
               { userObj ? 
-                <Col lg="2" className="text-right">
+                <Col lg="2"  className="text-right">
                   {userObj.name}
                 </Col>
                   : ' '}
@@ -76,7 +76,7 @@ class Header extends React.Component{
               
               
 
-              <Col lg="1" className="login text-right">
+              <Col lg="1" md="6" sm="6" xs="6" className="login text-right">
                 {
                   localStorage.getItem("user-dostava") ? 
                   <Link  to="/login" onClick={e => {
@@ -97,9 +97,9 @@ class Header extends React.Component{
   
             </Row>
             <Row className="mainHeader ">
-              <Navbar sticky="top" bg="light" expand="lg" fluid>
+              <Navbar sticky="top" expand="lg" fluid>
               
-                  <Navbar.Brand lg="3" href="#home"><img src={logo} alt="Logo" /></Navbar.Brand>
+                  <Navbar.Brand href="/"><img src={logo} alt="Logo" /></Navbar.Brand>
                 
                   <Navbar.Toggle aria-controls="basic-navbar-nav" />
                   <Navbar.Collapse id="basic-navbar-nav">
@@ -107,9 +107,9 @@ class Header extends React.Component{
                       <ul>{MenuList}</ul>
                     </Nav>
                   </Navbar.Collapse>
-                  <Form inline className="text-right">
+                  <Form inline className="text-right search-form">
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button variant="outline-success">Search</Button>
+                    <Button variant="outline-success"><FontAwesome name="search"/></Button>
                   </Form>
                   <div className="cart-icon-header">
                   <Link to="/cart">
