@@ -31,8 +31,8 @@ import {
     // Link
 } from "reactstrap";
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
-import { getCategories, getFeaturedProducts } from "../apollo/server";
-import FeaturedProducts from "../components/FeaturedProducts";
+import { getCategories, getFeaturedProducts, getConfiguration } from "../apollo/server";
+import FeaturedProducts from "../Components/FeaturedProducts";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -43,6 +43,7 @@ const client = new ApolloClient({
   cache
 });
 const GET_CATEGORIES = gql`${getCategories}`;
+const GET_CONFIGURATION = gql`${getConfiguration}`;
 const GET_FEATURED_PRODUCTS = gql`${getFeaturedProducts}`;
 
 
@@ -53,13 +54,21 @@ class HomePage extends React.Component{
     super(props);
     this.state = {
       count: 0,
-      featuredProductsItems : []
+      featuredProductsItems : [],
+      configuration: null
     }
 
     this.fetchProducts()
     
   }
   fetchProducts = () => {
+    client.query({ query: GET_CONFIGURATION, fetchPolicy: 'network-only' }).then(res => {
+      console.log("GET_CONFIGURATION fetau", res.data)
+      localStorage.setItem("configuration",JSON.stringify(res.data.configuration))
+      this.setState({ 
+        configuration: res.data.configuration
+      }) 
+    })
     client.query({ query: GET_FEATURED_PRODUCTS, fetchPolicy: 'network-only' }).then(data => {
       console.log("loading fetau", data)
       this.setState({ 

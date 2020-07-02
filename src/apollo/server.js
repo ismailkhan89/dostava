@@ -447,6 +447,68 @@ export const savePaypalConfiguration = `mutation SavePaypalConfiguration($config
   }
 }`
 
+export const placeOrder = `
+mutation PlaceOrder($orderInput:[OrderInput!]!,$paymentMethod:String!,$couponCode:String,$address:AddressInput!){
+  placeOrder(orderInput: $orderInput,paymentMethod:$paymentMethod,couponCode:$couponCode,address:$address) {
+    _id
+    order_id
+    delivery_address{
+      latitude
+      longitude
+      delivery_address
+      details
+      label
+    }
+    delivery_charges
+    items {
+      _id
+      food {
+        _id
+        title
+      }
+      vendor {
+        _id
+      }
+      variation{
+        _id
+        title
+        price
+      }
+      addons{
+        _id
+        title
+        description
+        quantity_minimum
+        quantity_maximum
+        options{
+          _id
+          title
+          description
+          price
+        }
+      }
+      quantity
+    }
+    user {
+      _id
+      phone
+      email
+    }
+    payment_status
+    payment_method
+    paid_amount
+    order_amount
+    status_queue{
+      pending
+      preparing
+      picked
+      delivered
+      cancelled
+    }
+    createdAt
+  }
+}`
+
 export const saveStripeConfiguration = `mutation SaveStripeConfiguration($configurationInput:StripeConfigurationInput!){
   saveStripeConfiguration(configurationInput:$configurationInput){
     _id

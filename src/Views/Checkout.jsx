@@ -26,17 +26,16 @@ import {
 } from "reactstrap";
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 
-class Checkout extends React.Component{
+  function Checkout(props) {
 
-  
-  render(){
-
-    
+console.log("checkout screen",props)
+    const { cartItems, totalPriceExcDelivery, totalPriceIncDelivery, currency_symbol, delivery_charges } = props.location.state;
+    console.log("cartItems screen",cartItems)
     return(
       
         <Container className="wrapper" fluid>
         
-        <Header  {...this.props} />
+        <Header  {...props} />
         
         <Container className="breadcrumb-area" fluid>
           <Row>
@@ -128,113 +127,40 @@ class Checkout extends React.Component{
                       </div>
                     </form>
                   </Col>
-                  <Col lg="5" md="5" sm="12" xs="12" className="cart-items">
-                    <Col lg="12" md="12" sm="12" xs="12" className="grey-bg">
-                      <h3>Your Order</h3>
-                    </Col>
-                    <div class="carts">
-                      <Row>
-                        <Col lg="4" md="4" xs="12" className="checkout-cart-img">
-                          <img src="../Assets/Img/cart-product.png"></img>
-                        </Col>
-                        <Col lg="6" md="6" xs="12">
-                          <h3>Fresh Packet of Rice</h3>
-                          <p>
-                            <strong>$10.49</strong>      
-                            <span>$12.49</span>
-                          </p>
-                        </Col>
-                        <Col lg="2" md="2" xs="12">
-                          <FontAwesome name="heart-o" />
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg="4" md="4" xs="12" className="checkout-cart-img">
-                          <img src="../Assets/Img/cart-product.png"></img>
-                        </Col>
-                        <Col lg="6" md="6" xs="12">
-                          <h3>Fresh Packet of Rice</h3>
-                          <p>
-                            <strong>$10.49</strong>      
-                            <span>$12.49</span>
-                          </p>
-                        </Col>
-                        <Col lg="2" md="2" xs="12">
-                          <FontAwesome name="heart-o" />
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg="4" md="4">
-                          <img src="../Assets/Img/cart-product.png"></img>
-                        </Col>
-                        <Col lg="6" md="6">
-                          <h3>Fresh Packet of Rice</h3>
-                          <p>
-                            <strong>$10.49</strong>      
-                            <span>$12.49</span>
-                          </p>
-                        </Col>
-                        <Col lg="2" md="2">
-                          <FontAwesome name="heart-o" />
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg="12" md="12" sm="12" xs="12" className="cart-total">
-                          <h6>
-                            <strong>Subtotal</strong>
-                            <span>$400.00</span>
-                          </h6>
-                          <h6>
-                            <strong>Shipping</strong>
-                            <span>$20.00</span>
-                          </h6>
-                          <h2>
-                            <strong>Total</strong>
-                            <span>$420.00</span>
-                          </h2>
-                        </Col>
-                      </Row>
-                    </div>
-                  </Col>
-                </Row>
-                
-              </TabPanel>
-              <TabPanel>
-              <Row>
-                  <Col lg="7" className="shipping">
-                    <Col lg="12" className="grey-bg">
-                      <h3>Billing Details</h3>
-                    </Col>
-                    <Row className="light-grey-bg">
-                      <Col lg="12">
-                        <Row>
-                          <Col lg="6">
-                            <h6>Contact</h6>
+                  <Col lg="5" className="cart-items">
+                    {
+                      cartItems.map((item, index)=>(
+                        <Row key={index} >
+                          <Col lg="4">
+                            <img style = {{width: '200px'}} src= {item.img_url}></img>
                           </Col>
                           <Col lg="6">
-                            <strong>youremail@gmail.com</strong>
+                            <h3>{item.title}e</h3>
+                            <p>
+                            <strong>{item.price}</strong>      
+                              {/* <span>$12.49</span> */}
+                            </p>
+                          </Col>
+                          <Col lg="2">
+                            <FontAwesome name="heart-o" />
                           </Col>
                         </Row>
-                      </Col>
-                      <Col lg="12">
-                        <Row>
-                          <Col lg="6">
-                            <h6>Contact</h6>
-                          </Col>
-                          <Col lg="6">
-                            <strong>youremail@gmail.com</strong>
-                          </Col>
-                        </Row>
-                      </Col>
-                      <Col lg="12">
-                        <Row>
-                          <Col lg="6">
-                            <h6>Contact</h6>
-                          </Col>
-                          <Col lg="6">
-                            <strong>youremail@gmail.com</strong>
-                          </Col>
-                        </Row>
+                      ))
+                    }
+                    <Row>
+                      <Col lg="12" className="cart-total">
+                        <h6>
+                          <strong>Subtotal</strong>
+                            <span>{currency_symbol} {totalPriceExcDelivery}</span>
+                        </h6>
+                        <h6>
+                          <strong>Shipping</strong>
+                          <span>{currency_symbol} {delivery_charges}</span>
+                        </h6>
+                        <h2>
+                          <strong>Total</strong>
+                          <span> {currency_symbol} {totalPriceIncDelivery}</span>
+                        </h2>
                       </Col>
                     </Row>
                     <h4>Your Credit Card</h4>
@@ -337,6 +263,7 @@ class Checkout extends React.Component{
 
             </Col>
           </Row>
+        
           </Container>
         
         
@@ -348,7 +275,5 @@ class Checkout extends React.Component{
       
     )
   }
-
-}
 
   export default Checkout;
