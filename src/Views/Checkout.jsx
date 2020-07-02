@@ -41,7 +41,7 @@ console.log("checkout screen",props)
           <Row>
             <Col lg="3">
             </Col>
-            <Col lg="4" className="breadcrumb-section">
+            <Col lg="9" md="12" sm="12" xs="12" className="breadcrumb-section">
               <h3>My Checkout</h3>
               <ul>
                 <li><Link>Home</Link></li>
@@ -69,8 +69,8 @@ console.log("checkout screen",props)
               <TabPanel>
                 
                 <Row>
-                  <Col lg="7" className="shipping">
-                    <Col lg="12" className="grey-bg">
+                  <Col lg="7" md="7" sm="12" xs="12" className="shipping">
+                    <Col lg="12" md="12" sm="12" xs="12" className="grey-bg">
                       <h3>Billing Details</h3>
                     </Col>
                     <form>

@@ -132,10 +132,10 @@ function HomePage(props){
 
         <Container className="download-app" fluid>
           <Row>
-            <Col lg="3" className="download-app-img">
+            <Col lg="3" md="4" className="download-app-img">
               <img src='../Assets/Img/iphone.png'></img>
             </Col>
-            <Col lg="4" className="download-app-text">
+            <Col lg="6" md="8" className="download-app-text">
               <h3>Download Our <strong>Application</strong></h3>
               <p>A location-based online marketplace that connects people with 
 small businesses and neighborhood stores in their locality. Dostava 
@@ -158,7 +158,7 @@ like every other ride-sharing app.</p>
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
               return data.categories.map((category, index) =>
-                <Col lg="6" key = {index}>
+                <Col lg="6" md="6" sm="6" xs="12" key = {index}>
                   <Card className="single-product">
                     <Row>
                       <Col lg="4">
