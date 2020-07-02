@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, useState, useEffect } from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
 
@@ -15,7 +15,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import { server_url } from  "../config/config";
-import { onAddToCart } from '../library/cart'
 import {
     Card,
     CardImg,
@@ -48,50 +47,28 @@ const GET_FEATURED_PRODUCTS = gql`${getFeaturedProducts}`;
 
 
 
-class HomePage extends React.Component{
-  itemsArray = [];
-  constructor(props){
-    super(props);
-    this.state = {
-      count: 0,
-      featuredProductsItems : [],
-      configuration: null
-    }
-
-    this.fetchProducts()
-    
-  }
-  fetchProducts = () => {
+function HomePage(props){
+  useEffect(() => {
+    fetchProducts()
+  }, [])
+  const [count, setCount] = useState(0);
+  const [featuredProductsItems, setFeaturedProductsItems] = useState([]);
+  const [configuration, setConfiguration] = useState([]);
+  function fetchProducts() {
     client.query({ query: GET_CONFIGURATION, fetchPolicy: 'network-only' }).then(res => {
       console.log("GET_CONFIGURATION fetau", res.data)
       localStorage.setItem("configuration",JSON.stringify(res.data.configuration))
-      this.setState({ 
-        configuration: res.data.configuration
-      }) 
+      setConfiguration(res.data.configuration);
     })
     client.query({ query: GET_FEATURED_PRODUCTS, fetchPolicy: 'network-only' }).then(data => {
       console.log("loading fetau", data)
-      this.setState({ 
-        featuredProductsItems: data.data.getFeaturedProducts
-      }) 
+      setFeaturedProductsItems(data.data.getFeaturedProducts);
     })
   }
-
-  
-  render(){
 
     var settings = {
       dots: true,
       autoplay:true,
-      arrows:true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1
-    };
-    var settingsFeatureProducts = {
-      dots: false,
-      autoplay:false,
       arrows:true,
       infinite: true,
       speed: 500,
@@ -103,7 +80,7 @@ class HomePage extends React.Component{
       
         <Container className="wrapper" fluid>
         
-        <Header  {...this.props} />
+        <Header  {...props} />
         <Link to="/cart">Cart</Link>
         <Link to="/checkout">Checkout</Link>
         <Container className="slider-area" fluid>
@@ -146,7 +123,7 @@ class HomePage extends React.Component{
             </Col>
 
             <Col lg = "12">
-           {this.state.featuredProductsItems.length > 0 ?  <FeaturedProducts /> : 'loading...' } 
+           {featuredProductsItems.length > 0 ?  <FeaturedProducts /> : 'loading...' } 
             </Col>
           </Row>
         </Container>
@@ -219,7 +196,7 @@ like every other ride-sharing app.</p>
      
       
     )
-  }
+
 
 }
 

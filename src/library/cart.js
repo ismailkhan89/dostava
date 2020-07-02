@@ -1,21 +1,11 @@
 import { createUploadLink } from 'apollo-upload-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { server_url } from  "../config/config";
-import { ApolloClient } from 'apollo-client';
 import gql from "graphql-tag";
-import { getCategories, getFeaturedProducts } from "../apollo/server";
-const GETCARTITEMS = gql`${getCategories}`;
-const cache = new InMemoryCache()
-const httpLink = createUploadLink({
-  uri: `${server_url}graphql`,
-})
-
-const client = new ApolloClient({
-  link: httpLink,
-  cache
-});
+import { getCartItems } from '../apollo/client';
+const GETCARTITEMS = gql`${getCartItems}`;
 
 export  const onAddToCart = async (product) => {
+
+
     console.log('onAddToCart>>> ', product);
     if (product.stock < 1) {
         // showMessage({
@@ -27,7 +17,6 @@ export  const onAddToCart = async (product) => {
         // })
         return 'Item out of stock';
     }
-
     if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
         const newItem = {
             // key: uuid.v4(),

@@ -205,6 +205,11 @@ export const getFeaturedProducts = `
           img_url
           tag
           description
+          _id
+          user{
+            _id
+            name
+          }
           variations{
             _id
             title
@@ -232,6 +237,19 @@ export const getFeaturedProducts = `
             }
           }
         }`
+        export const like = `mutation LikeFood($foodId:String!){
+          likeFood(foodId:$foodId){
+             _id
+        }
+      }`
+      
+      export const likedFoods = `query{
+        likedFood{
+          _id
+          title
+          likes
+        }
+      }`
 export const deleteFood = `
       mutation DeleteFood($id:String!){
         deleteFood(id:$id){

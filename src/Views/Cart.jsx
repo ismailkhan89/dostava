@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css';
 import '../Style.css';
 import logo from '../logo.png';
-
+// import { addQuantityToCartItem, removeQuantityToCartItem } from '../library/cart'
 import {
     Card,
     CardImg,
@@ -23,29 +23,18 @@ import {
 } from "reactstrap";
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { createUploadLink } from 'apollo-upload-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { server_url } from  "../config/config";
-import { ApolloClient } from 'apollo-client';
 import gql from "graphql-tag";
 import { getCategories, foodByIds, getCoupon } from "../apollo/server";
+import { getCartItems } from '../apollo/client';
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import Checkout from "./Checkout.jsx";
-const GETCARTITEMS = gql`${getCategories}`;
+const GETCARTITEMS = gql`${getCartItems}`;
 const GET_COUPON = gql`${getCoupon}`
-const cache = new InMemoryCache()
-const httpLink = createUploadLink({
-  uri: `${server_url}graphql`,
-})
-
-const client = new ApolloClient({
-  link: httpLink,
-  cache
-});
 const FOOD_BY_IDS = gql`${foodByIds}`
 
 function Cart(props) {
   
-
+  const { client, data, loading } = useQuery(GETCARTITEMS)
   const [cartItems, setCartItems] = useState([])
   const [configuration, setConfiguration] = useState([])
 	const [foods, setFoods] = useState([])
@@ -116,7 +105,8 @@ function Cart(props) {
           totalPriceExcDelivery: totalPriceExcDelivery, 
           totalPriceIncDelivery: totalPriceIncDelivery,
           currency_symbol: configuration.currency_symbol,
-          delivery_charges:configuration.delivery_charges
+          delivery_charges:configuration.delivery_charges,
+          cartItemCount: cartItems.length
          }
       })
     }
@@ -202,7 +192,37 @@ function Cart(props) {
           await localStorage.setItem('cartItems', JSON.stringify(items))
           setCartItems(items);
     } 
+
+    async function addQuantityToCartItem (newItem) {
+      console.log("item quantity", newItem)
+          const cartItemsStr = localStorage.getItem('cartItems') || '[]'
+          const cartItems = JSON.parse(cartItemsStr)
+          const index = cartItems.findIndex((product) => product._id === newItem._id)
+          if (index < 0)
+              cartItems.push(newItem)
+          else {
+              cartItems[index].quantity = cartItems[index].quantity + 1
+          }
+          await localStorage.setItem('cartItems', JSON.stringify(cartItems))
+          setCartItems(cartItems);
+          client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
+      }
+      
+      async function removeQuantityToCartItem (newItem) {
+          const cartItemsStr = localStorage.getItem('cartItems') || '[]'
+          const cartItems = JSON.parse(cartItemsStr)
+          const index = cartItems.findIndex((product) => product._id === newItem._id)
+          if (index < 0)
+              cartItems.push(newItem)
+          else {
+              cartItems[index].quantity = cartItems[index].quantity - 1
+          }
+          await localStorage.setItem('cartItems', JSON.stringify(cartItems))
+          setCartItems(cartItems);
+          client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
+      }
     console.log("get config", configuration)
+    console.log("get props", props)
     return(
       
         <Container className="wrapper" fluid>
@@ -216,9 +236,9 @@ function Cart(props) {
             <Col lg="3" className="breadcrumb-section">
               <h3>My Cart</h3>
               <ul>
-                <li><Link>Home</Link></li>
+                <li><Link to = "/" >Home</Link></li>
 
-                <li><Link>My Cart</Link></li>
+                <li><Link to = "/cart" >My Cart</Link></li>
               </ul>
             </Col>
           </Row>
@@ -253,9 +273,15 @@ function Cart(props) {
                             <td> {cartItem.title}</td>
                             <td><strong>{cartItem.price}</strong></td>
                             <td>
-                              <button>
+                              <button   onClick={e => {
+                                        e.preventDefault()
+                                        removeQuantityToCartItem(cartItem)
+                                        }} >
                                 <FontAwesome name="minus"></FontAwesome>
-                              </button> <span>{cartItem.quantity}</span> <button>
+                              </button> <span>{cartItem.quantity}</span> <button onClick={e => {
+                                        e.preventDefault()
+                                        addQuantityToCartItem(cartItem)
+                                        }}>
                                 <FontAwesome name="plus"></FontAwesome>
                               </button>
                             </td>

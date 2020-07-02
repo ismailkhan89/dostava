@@ -15,17 +15,22 @@ import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getFeaturedProducts } from "../apollo/server";
 import { server_url } from  "../config/config"
 import Slider from "react-slick";
+import { getCartItems } from '../apollo/client';
+import { useQuery, useMutation } from '@apollo/react-hooks'
+
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
 })
 
-const client = new ApolloClient({
+const clients = new ApolloClient({
   link: httpLink,
   cache
 });
+const GETCARTITEMS = gql`${getCartItems}`;
 const GET_FEATURED_PRODUCTS = gql`${getFeaturedProducts}`;
 function FeaturedProducts() {
+  const { client, data, loading } = useQuery(GETCARTITEMS)
   const [products, setProducts] = useState(null);
   var settingsFeatureProducts = {
     dots: false,
@@ -37,7 +42,7 @@ function FeaturedProducts() {
     slidesToScroll: 1
   };
   useEffect(() => {
-    client.query({ query: GET_FEATURED_PRODUCTS, fetchPolicy: 'network-only' }).then(data => {
+    clients.query({ query: GET_FEATURED_PRODUCTS, fetchPolicy: 'network-only' }).then(data => {
       console.log("loading fetau", data)
       
       setProducts(data.data.getFeaturedProducts)
@@ -45,6 +50,52 @@ function FeaturedProducts() {
     })
     // fetchUser().then(u => setUser(u));
   }, []);
+  async function onAddToCart (product)  {
+
+    console.log('onAddToCart>>> ', product);
+    if (product.stock < 1) {
+        // showMessage({
+        //     message: 'Item out of stock',
+        //     type: 'warning',
+        //     floating: true,
+        //     style: styles.alertbox,
+        //     titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
+        // })
+        return 'Item out of stock';
+    }
+
+    if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
+        const newItem = {
+            // key: uuid.v4(),
+            __typename: 'CartItem',
+            _id: product._id,
+            vendor: product.user._id,
+            quantity: 1,
+            variation: {
+                __typename: 'ItemVariation',
+                _id: product.variations[0]._id,
+            },
+            addons: []
+        }
+        const cartItemsStr = localStorage.getItem('cartItems') || '[]'
+        const cartItems = JSON.parse(cartItemsStr)
+        console.log("<<cartItems>>",cartItems)
+        const index = cartItems.findIndex((product) => product._id === newItem._id)
+        if (index < 0)
+            cartItems.push(newItem)
+        else {
+            cartItems[index].quantity = cartItems[index].quantity + 1
+        }
+
+        client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
+        localStorage.setItem('cartItems', JSON.stringify(cartItems))
+        // props.navigation.navigate('Cart')
+        return 'Item Added';
+    }
+    else {
+        // props.navigation.navigate('ItemDetail', { product })
+    }
+  }
 
   if (products === null) {
     return <p>Loading Products...</p>;
@@ -69,7 +120,12 @@ function FeaturedProducts() {
         <div className="single-slider-product-detail">
           <div className="leftDetails">
             <h3>{product.title}</h3>
-            <button>Add to Cart</button>
+            <button  onClick={e => {
+                      e.preventDefault()
+                      onAddToCart(product)
+                      // this.onClickAddToCart(product)
+                                                          
+                                                  }}>Add to Cart</button>
           </div>
           <div className="rightDetails">
             <span> $299.00</span>
