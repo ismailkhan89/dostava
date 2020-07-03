@@ -13,9 +13,10 @@ import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import { Link, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { foods } from "../apollo/server";
+import { foods, like } from "../apollo/server";
 import { getCartItems } from '../apollo/client';
 const FOODS = gql`${foods}`;
+const LIKE_PRODUCT = gql`${like}`;
 const GETCARTITEMS = gql`${getCartItems}`;
 function Products(props) {
   const { client, data, loading } = useQuery(GETCARTITEMS)
@@ -81,7 +82,12 @@ function Products(props) {
     <li key={keys} >{items}</li>
   );
   // const { _id, filters, search } = this.state;
-
+  function onCompleted(data){
+    console.log(data)
+  }
+  function onError(data){
+    console.log(data)
+  }
   return (
     <Container className="wrapper" fluid>
       <Header  {...props} />
@@ -166,6 +172,33 @@ function Products(props) {
                         <div className="leftIcons">
                           <span>New</span>
                           <span className="Salebg">Sale</span>
+                          <Mutation mutation={LIKE_PRODUCT}
+                                            onCompleted={onCompleted}
+                                            onError={onError}>
+                                            {(saveConfiguration, { loading, error }) => {
+                                                if (loading) return "Saving"
+                                                if (error) return "Error"
+                                                return (<Button
+                                                    className="btn-block mb-2"
+                                                    type="button"
+                                                    color="primary"
+                                                    onClick={e => {
+                                                        e.preventDefault()
+                                                        // if (this.validateInput())
+                                                        saveConfiguration({
+                                                                variables: {
+                                                                  likeFood: {
+                                                                        foodId: String(product._id)
+                                                                    }
+                                                                }
+                                                            })
+                                                    }}
+                                                    size="lg"
+                                                >
+                                                    {"Favorate"}</Button>)
+                                            }}
+
+                                        </Mutation>
                         </div>
                         <div className="RightIcons">
                           <FontAwesome name="heart-o" />

@@ -29,7 +29,8 @@ import {Link, useRouteMatch, useParams } from 'react-router-dom';
   function Checkout(props) {
 
 console.log("checkout screen",props)
-    const { cartItems, totalPriceExcDelivery, totalPriceIncDelivery, currency_symbol, delivery_charges } = props.location.state;
+    const { cartItems, totalPriceExcDelivery, totalPriceIncDelivery,
+       currency_symbol, delivery_charges } =  props.location.state;
     console.log("cartItems screen",cartItems)
     return(
       
@@ -129,7 +130,7 @@ console.log("checkout screen",props)
                   </Col>
                   <Col lg="5" className="cart-items">
                     {
-                      cartItems.map((item, index)=>(
+                    cartItems && cartItems.length > 0 ?  cartItems.map((item, index)=>(
                         <Row key={index} >
                           <Col lg="4">
                             <img style = {{width: '200px'}} src= {item.img_url}></img>
@@ -145,7 +146,7 @@ console.log("checkout screen",props)
                             <FontAwesome name="heart-o" />
                           </Col>
                         </Row>
-                      ))
+                      )) : "No Items"
                     }
                     <Row>
                       <Col lg="12" className="cart-total">
