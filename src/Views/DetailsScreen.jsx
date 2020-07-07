@@ -8,97 +8,38 @@ import '../Style.css';
 import ReactDOM from 'react-dom';
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
-
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-
-
-
 import {
-    Card,
-    CardImg,
-    CardText,
-    CardBody,
-    CardTitle,
-    CardHeader,
     Container,
     Row,
-    Col,
-    Button,
-    Table,
-    // Link
+    Col
 } from "reactstrap";
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { render } from "@testing-library/react";
 
-
-  class DetailsScreen extends React.Component {
-
-    constructor(props) {
-      super(props);
-      this.state = {
-        showIndex: false,
-        showBullets: true,
-        infinite: true,
-        showThumbnails: true,
-        showFullscreenButton: false,
-        showGalleryFullscreenButton: false,
-        showPlayButton: false,
-        showGalleryPlayButton: false,
-        showNav: false,
-        isRTL: false,
-        slideDuration: 450,
-        slideInterval: 2000,
-        slideOnThumbnailOver: false,
-        thumbnailPosition: 'bottom',
-        showVideo: {},
-      };
-
-    this.images = [
-      {
-        original: '../Assets/Img/product-detail-img.png',
-        thumbnail: '../Assets/Img/product-detail-thumbnail.png',
-      },
-      {
-        original: '../Assets/Img/product-detail-img.png',
-        thumbnail: '../Assets/Img/product-detail-thumbnail.png',
-      },
-      {
-        original: '../Assets/Img/product-detail-img.png',
-        thumbnail: '../Assets/Img/product-detail-thumbnail.png',
-      },
-      {
-        original: '../Assets/Img/product-detail-img.png',
-        thumbnail: '../Assets/Img/product-detail-thumbnail.png',
-      },
-      {
-        original: '../Assets/Img/product-detail-img.png',
-        thumbnail: '../Assets/Img/product-detail-thumbnail.png',
-      },
-      {
-        original: '../Assets/Img/product-detail-img.png',
-        thumbnail: '../Assets/Img/product-detail-thumbnail.png',
-      },
-      {
-        original: '../Assets/Img/product-detail-img.png',
-        thumbnail: '../Assets/Img/product-detail-thumbnail.png',
-      },
-      {
-        original: '../Assets/Img/product-detail-img.png',
-        thumbnail: '../Assets/Img/product-detail-thumbnail.png',
-      },
-      {
-        original: '../Assets/Img/product-detail-img.png',
-        thumbnail: '../Assets/Img/product-detail-thumbnail.png',
-      },
-      {
-        original: '../Assets/Img/product-detail-img.png',
-        thumbnail: '../Assets/Img/product-detail-thumbnail.png',
-      }
-    ]
-  }
-
-  render(props){
+function DetailsScreen(props) {
+  const [selectedProduct] = useState(props.location.state?.product ?? null)
+  const [showIndex, setToggle] = useState(false)
+  const [showBullets, setShowBullets] = useState(true)
+  const [infinite, setinfinite] = useState(true)
+  const [showThumbnails, setshowThumbnails] = useState(true)
+  const [showFullscreenButton, setshowFullscreenButton] = useState(false)
+  const [showGalleryFullscreenButton, setshowGalleryFullscreenButton] = useState(false)
+  const [showPlayButton, setshowPlayButton] = useState(false)
+  const [showGalleryPlayButton, setshowGalleryPlayButton] = useState(false)
+  const [showNav, setshowNav] = useState(false)
+  const [isRTL, setisRTL] = useState(false)
+  const [slideDuration, setslideDuration] = useState(450)
+  const [slideInterval, setslideInterval] = useState(2000)
+  const [slideOnThumbnailOver, setslideOnThumbnailOver] = useState(false)
+  const [thumbnailPosition, setthumbnailPosition] = useState(false)
+  const [showVideo, setshowVideo] = useState(false)
+console.log("props inside details screen", selectedProduct);
+let imaages = [{
+  original: selectedProduct.img_url,
+  thumbnail: selectedProduct.img_url
+}]
 
     return(
       
@@ -116,7 +57,7 @@ import { render } from "@testing-library/react";
                 <li><Link>Home</Link></li>
 
                 <li><Link>Product</Link></li>
-                <li><Link>Product Name</Link></li>
+                <li><Link>{selectedProduct.title}</Link></li>
               </ul>
             </Col>
           </Row>
@@ -132,10 +73,10 @@ import { render } from "@testing-library/react";
               <Row>
                 <Col lg="6">
                   <ImageGallery 
-                    items={this.images}
-                    showFullscreenButton={this.state.showFullscreenButton && this.state.showGalleryFullscreenButton}
-                    showPlayButton={this.state.showPlayButton && this.state.showGalleryPlayButton}
-                    showNav={this.state.showNav}
+                    items={imaages}
+                    showFullscreenButton={showFullscreenButton && showGalleryFullscreenButton}
+                    showPlayButton={showPlayButton && showGalleryPlayButton}
+                    showNav={showNav}
                   />
                 </Col>
                 <Col lg="6">
@@ -156,10 +97,7 @@ import { render } from "@testing-library/react";
                   <TabPanel>
                     <Row>
                       <Col lg="12" className="description-tab">
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                        <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
-                        <p>The standard Lorem Ipsum passage, used since the 1500s</p>
-                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+    <p>{selectedProduct.description}</p>
                       </Col>
                     </Row>
                   </TabPanel>
@@ -278,60 +216,7 @@ import { render } from "@testing-library/react";
           
         </Container>
 
-        {/* <Container className="content-area product-details" fluid>
-          <Row>
-            <Col lg="2">
-
-            </Col>
-            <Col lg="4">
-              <ImageGallery 
-                items={this.images}
-                showFullscreenButton={this.state.showFullscreenButton && this.state.showGalleryFullscreenButton}
-                showPlayButton={this.state.showPlayButton && this.state.showGalleryPlayButton}
-                showNav={this.state.showNav}
-              />
-            </Col>
-            <Col lg="4">
-
-            </Col>
-            <Col lg="2"></Col>
-          </Row>
-          <Row>
-            <Col lg="2"></Col>
-            <Col lg="8">
-              <Tabs className="product-tabs">
-                <TabList className="product-tabs-head">
-                  <Row>
-                    <Col lg="12">
-                      <Tab> Description</Tab>
-                      <Tab> Information</Tab>
-                      <Tab> Reviews (0)</Tab>
-                    </Col>
-                  </Row>
-                </TabList>
-                <TabPanel>
-                  <Row>
-                    <Col lg="12" className="description-tab">
-                      <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                      <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
-                      <p>The standard Lorem Ipsum passage, used since the 1500s</p>
-                      <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                    </Col>
-                  </Row>
-                </TabPanel>
-              </Tabs>
-            </Col>
-          </Row>
-          <Row className="related">
-            <Col lg="12">
-              <h2>Related Products</h2>
-            </Col>
-            <Col lg="12">
-
-            </Col>
-          </Row>
-          
-        </Container> */}
+       
         
         
         <Footer />
@@ -343,6 +228,6 @@ import { render } from "@testing-library/react";
     )
 
   }
-}
+
 
   export default DetailsScreen;

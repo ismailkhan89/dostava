@@ -86,7 +86,7 @@ function FeaturedProducts() {
         else {
             cartItems[index].quantity = cartItems[index].quantity + 1
         }
-
+        console.log("<<new item entered>>",cartItems)
         client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
         // props.navigation.navigate('Cart')
@@ -125,12 +125,12 @@ function FeaturedProducts() {
                       onAddToCart(product)
                       // this.onClickAddToCart(product)
                                                           
-                                                  }}>Add to Cart</button>
+            }}>Add to Cart</button>
           </div>
           <div className="rightDetails">
-            <span> $299.00</span>
-            <strong>$199.00</strong>
-            <a href="#">Buy Now</a>
+              <strong> {product.variations[0].price}</strong>
+            {/* <strong>$199.00</strong> */}
+            {/* <a href="#">Buy Now</a> */}
           </div>
         </div>
         </div>

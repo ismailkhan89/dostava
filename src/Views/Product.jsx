@@ -25,27 +25,45 @@ const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
 })
 
-const clients = new ApolloClient({
+const client = new ApolloClient({
   link: authLink.concat(httpLink) ,
   cache
 });
-const FOODS = gql`${foods}`;
+const FOODS = gql`${foods}`; 
 const LIKE_PRODUCT = gql`${like}`;
 const GETCARTITEMS = gql`${getCartItems}`;
 function Products(props) {
-  const [mutate, { loading: loadingMutation }] = useMutation(LIKE_PRODUCT, { onCompleted, onError, clients } )
-  const { client, data, loading } = useQuery(GETCARTITEMS)
+  const [mutateLike, { loadingLike: loadingLikeMutation }] = useMutation(LIKE_PRODUCT, { onCompletedLike, onErrorLike, client } )
+  const { cartloading } = useQuery(GETCARTITEMS)
+  const [message, setMessages] = useState('');
+  const [_id, setId] = useState(props.match.params?.id ?? null);
+  const [filters, setFilter] = useState({ onSale: false, inStock: false, min: 0, max: 1000 });
+  const [search, setSearch] = useState('');
 
+const { data, loading } = useQuery(FOODS, { variables:{category: _id}, client: client })
+console.log("food data", data);
+console.log("foodloading",loading)
   async function onLikeProduct(product) {
-    mutate({
+    mutateLike({
       variables: {
-        LikeFood: {
-          foodId: String(product._id)
-        }
+          "foodId": String(product._id)
       }
-    })
+  })
+  }
+  async function onCompletedLike(data) {
+    console.log("data onCompletedLike", data);
   }
 
+  async function onErrorLike(data) {
+    console.log("data onErrorLike", data);
+  }
+  async function likeProduct(product){
+    mutateLike({
+      variables: {
+          "foodId": String(product._id)
+      }
+  })
+  }
   async function onError(data) { 
     console.log("onError data", data)
   }
@@ -82,12 +100,13 @@ function Products(props) {
         const cartItemsStr = localStorage.getItem('cartItems') || '[]'
         const cartItems = JSON.parse(cartItemsStr)
         console.log("<<cartItems>>",cartItems)
-        const index = cartItems && cartItems.length > 0 ? cartItems.findIndex((product) => product._id === newItem._id) : 0
-          if (index < 0)
-              cartItems.push(newItem)
-          else {
-              cartItems[index].quantity = cartItems[index].quantity + 1
-          }
+        const index = cartItems.findIndex((product) => product._id === newItem._id)
+        if (index < 0)
+            cartItems.push(newItem)
+        else {
+            cartItems[index].quantity = cartItems[index].quantity + 1
+        }
+        console.log("<<new item entered>>",cartItems)
         client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
         // props.navigation.navigate('Cart')
@@ -98,11 +117,12 @@ function Products(props) {
     }
   }
 
-  const [message, setMessages] = useState('');
-  const [_id, setId] = useState(props.match.params?.id ?? null);
-  const [filters, setFilter] = useState({ onSale: false, inStock: false, min: 0, max: 1000 });
-  const [search, setSearch] = useState('');
-
+   async function onCLickProudctDetails(product) {
+    props.history.push({
+      pathname: '/detailsscreen',
+      state: { product: product }
+    })
+   }  
 
   const MenuItems = ['About us', 'Contact Us', 'Gallery', 'My Account'];
   const listItems = MenuItems.map((items, keys) =>
@@ -129,7 +149,7 @@ function Products(props) {
           <Col lg="3" className="breadcrumb-section">
             <h3>Products</h3>
             <ul>
-              <li><Link>Home</Link></li>
+              <li><Link to="/" >Home</Link></li>
 
               <li><Link>Products</Link></li>
             </ul>
@@ -190,19 +210,23 @@ function Products(props) {
           </Col>
           <Col lg="9">
             <Row>
-              <Query query={FOODS}
+
+              {/* <Query query={FOODS}
                 variables={{ category: _id, ...filters, search: search }}
               >
-                {({ loading, error, data }) => {
-                  if (loading) return <tr><td>{"Loading"}...</td></tr>;
-                  if (error) return <tr><td>`${"Error"}! ${error.message}`</td></tr>;
-                  return data.foodByCategory.map((product, index) =>
+                {({ loading, error, data }) => { */}
+                 { loading === true ? <tr><td>{"Loading"}...</td></tr>  : 
+                  data.foodByCategory.map((product, index) =>
                     <Col lg="3" key={index}>
                       <div className="single-slider-product">
                         <img src={product.img_url}></img>
                         <div className="leftIcons">
                           <span>New</span>
                           <span className="Salebg">Sale</span>
+                          <Button onClick={e => { 
+                                      e.preventDefault()
+                                      likeProduct(product)
+                            }} >Like</Button>
                           <Button
                                                     className="btn-block mb-2"
                                                     type="button"
@@ -228,17 +252,25 @@ function Products(props) {
                                         // this.onClickAddToCart(product)
                                                           
                                                   }} >Add to Cart</button>
+
+<button onClick={e => {
+                                                      e.preventDefault()
+                                        onCLickProudctDetails(product)
+                                        // this.onClickAddToCart(product)
+                                                          
+                                                  }} >Go to details</button>
                         </div>
                         <div className="rightDetails">
                           {/* <span> $ {product.variations[0].price}</span> */}
                           <strong>{product.variations[0].price}</strong>
-                          <a href="#">Buy Now</a>
+                          {/* <a href="#">Buy Now</a> */}
                         </div>
                       </div>
                     </Col>
                   )
-                }}
-              </Query>
+                }
+                {/* }} */}
+              {/* </Query> */}
             </Row>
           </Col>
         </Row>

@@ -81,8 +81,8 @@ function HomePage(props){
         <Container className="wrapper" fluid>
         
         <Header  {...props} />
-        <Link to="/cart">Cart</Link>
-        <Link to="/checkout">Checkout</Link>
+        {/* <Link to="/cart">Cart</Link>
+        <Link to="/checkout">Checkout</Link> */}
         <Container className="slider-area" fluid>
           <Row>
             <Col lg="12">

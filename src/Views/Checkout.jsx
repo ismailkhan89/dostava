@@ -33,7 +33,7 @@ import { setContext } from 'apollo-link-context'
 import { createUploadLink } from 'apollo-upload-client';
 import { ApolloClient } from 'apollo-client';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
-import { getConfiguration, placeOrder } from "../apollo/server";
+import { getConfiguration, placeOrder, like } from "../apollo/server";
 // import { authLink } from '../library/authLink'
 import { getCartItems } from '../apollo/client';
 const authLink = setContext((_, { headers }) => {
@@ -63,6 +63,7 @@ const client = new ApolloClient({
   cache
 });
 const GETCARTITEMS = gql`${getCartItems}`;
+const LIKE_PRODUCT = gql`${like}`;
 const GETCONFIGURATION = gql`${getConfiguration}`
 const PLACEORDER = gql`${placeOrder}`
 const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
@@ -74,8 +75,10 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
 // console.log("clients>>", clients)
 console.log("client", client)
 console.log("clientRef", props)
+    const { cartLoading, cartError, cartData: cartDataConfig } = useQuery(GETCARTITEMS)
     const { loading, error, data: dataConfig } = useQuery(GETCONFIGURATION)
     const [mutate, { loading: loadingMutation }] = useMutation(PLACEORDER, { onCompleted, onError, client } )
+    const [mutateLike, { loadingLike: loadingLikeMutation }] = useMutation(LIKE_PRODUCT, { onCompletedLike, onErrorLike, client } )
     function transformOrder(cartItems) {
         return cartItems.map(food => {
             return {
@@ -87,6 +90,13 @@ console.log("clientRef", props)
         })
     }
 
+    async function onCompletedLike(data) {
+      console.log("data onCompletedLike", data);
+    }
+
+    async function onErrorLike(data) {
+      console.log("data onErrorLike", data);
+    }
     async function onPayment() {
       console.log("on payemnt called")
         //check payment method
@@ -165,6 +175,7 @@ console.log("clientRef", props)
   async function onCompleted(data) {
     // localStorage.setItem("cartItems",JSON.stringify([]))
     localStorage.removeItem("cartItems");   
+    client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0} })
     let trackingOpts = {
         id: data.placeOrder.user._id,
         usernameOrEmail: data.placeOrder.user.email,
@@ -191,6 +202,13 @@ console.log("clientRef", props)
     }
 }
 
+    async function likeProduct(product){
+      mutateLike({
+        variables: {
+            "foodId": String(product._id)
+        }
+    })
+    }
 console.log("checkout screen",props)
     const { cartItems, totalPriceExcDelivery, totalPriceIncDelivery,
        currency_symbol, delivery_charges } =  props.location.state;
@@ -306,8 +324,13 @@ console.log("checkout screen",props)
                             </p>
                           </Col>
                           <Col lg="2">
+                            <Button onClick={e => { 
+                                      e.preventDefault()
+                                      likeProduct(item)
+                            }} >Like</Button>
                             <FontAwesome onClick={e => { 
                                       e.preventDefault()
+                                      likeProduct(item)
                             }} name="heart-o" />
                           </Col>
                         </Row>

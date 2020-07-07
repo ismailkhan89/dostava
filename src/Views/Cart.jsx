@@ -313,7 +313,7 @@ function Cart(props) {
                                   
                           }}
                             name="trash" /></td>
-                        </tr>)) : 'laoding...'
+                        </tr>)) : 'Not item added yet!'
                       }
                        
                     </tbody>
