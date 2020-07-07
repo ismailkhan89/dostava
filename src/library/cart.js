@@ -40,7 +40,7 @@ export  const onAddToCart = async (product) => {
             cartItems[index].quantity = cartItems[index].quantity + 1
         }
 
-        client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
+        // client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
         // props.navigation.navigate('Cart')
         return 'Item Added';

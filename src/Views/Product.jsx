@@ -15,11 +15,43 @@ import { Link, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { foods, like } from "../apollo/server";
 import { getCartItems } from '../apollo/client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createUploadLink } from 'apollo-upload-client';
+import { server_url } from  "../config/config";
+import { authLink } from '../library/authLink';
+import { ApolloClient } from 'apollo-client';
+const cache = new InMemoryCache()
+const httpLink = createUploadLink({
+  uri: `${server_url}graphql`,
+})
+
+const clients = new ApolloClient({
+  link: authLink.concat(httpLink) ,
+  cache
+});
 const FOODS = gql`${foods}`;
 const LIKE_PRODUCT = gql`${like}`;
 const GETCARTITEMS = gql`${getCartItems}`;
 function Products(props) {
+  const [mutate, { loading: loadingMutation }] = useMutation(LIKE_PRODUCT, { onCompleted, onError, clients } )
   const { client, data, loading } = useQuery(GETCARTITEMS)
+
+  async function onLikeProduct(product) {
+    mutate({
+      variables: {
+        LikeFood: {
+          foodId: String(product._id)
+        }
+      }
+    })
+  }
+
+  async function onError(data) { 
+    console.log("onError data", data)
+  }
+  async function onCompleted(data) { 
+    console.log("complete data", data)
+  }
   async function onAddToCart (product)  {
 
     console.log('onAddToCart>>> ', product);
@@ -50,13 +82,12 @@ function Products(props) {
         const cartItemsStr = localStorage.getItem('cartItems') || '[]'
         const cartItems = JSON.parse(cartItemsStr)
         console.log("<<cartItems>>",cartItems)
-        const index = cartItems.findIndex((product) => product._id === newItem._id)
-        if (index < 0)
-            cartItems.push(newItem)
-        else {
-            cartItems[index].quantity = cartItems[index].quantity + 1
-        }
-
+        const index = cartItems && cartItems.length > 0 ? cartItems.findIndex((product) => product._id === newItem._id) : 0
+          if (index < 0)
+              cartItems.push(newItem)
+          else {
+              cartItems[index].quantity = cartItems[index].quantity + 1
+          }
         client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
         // props.navigation.navigate('Cart')
@@ -172,33 +203,16 @@ function Products(props) {
                         <div className="leftIcons">
                           <span>New</span>
                           <span className="Salebg">Sale</span>
-                          <Mutation mutation={LIKE_PRODUCT}
-                                            onCompleted={onCompleted}
-                                            onError={onError}>
-                                            {(saveConfiguration, { loading, error }) => {
-                                                if (loading) return "Saving"
-                                                if (error) return "Error"
-                                                return (<Button
+                          <Button
                                                     className="btn-block mb-2"
                                                     type="button"
                                                     color="primary"
                                                     onClick={e => {
-                                                        e.preventDefault()
-                                                        // if (this.validateInput())
-                                                        saveConfiguration({
-                                                                variables: {
-                                                                  likeFood: {
-                                                                        foodId: String(product._id)
-                                                                    }
-                                                                }
-                                                            })
+                                                       onLikeProduct(product)
                                                     }}
                                                     size="lg"
                                                 >
-                                                    {"Favorate"}</Button>)
-                                            }}
-
-                                        </Mutation>
+                                                    {"Favorate"}</Button>
                         </div>
                         <div className="RightIcons">
                           <FontAwesome name="heart-o" />

@@ -21,16 +21,29 @@ import {
     Table,
     // Link
 } from "reactstrap";
+import { ApolloClient } from 'apollo-client';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { createUploadLink } from 'apollo-upload-client';
 import gql from "graphql-tag";
 import { getCategories, foodByIds, getCoupon } from "../apollo/server";
 import { getCartItems } from '../apollo/client';
 import { useQuery, useMutation } from '@apollo/react-hooks'
+import { server_url } from  "../config/config";
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import Checkout from "./Checkout.jsx";
 const GETCARTITEMS = gql`${getCartItems}`;
 const GET_COUPON = gql`${getCoupon}`
 const FOOD_BY_IDS = gql`${foodByIds}`
+
+const cache = new InMemoryCache()
+const httpLink = createUploadLink({
+  uri: `${server_url}graphql`,
+})
+
+const clients = new ApolloClient({
+  link: httpLink,
+  cache
+});
 
 function Cart(props) {
   
@@ -120,9 +133,11 @@ function Cart(props) {
         const validatedItems = []
         if (cartItems && cartItems.length) {
           const ids = cartItems.map(({ _id }) => _id)
+          console.log("<<cartItems>>>ids",ids)
           const { data: { foodByIds } } = await client.query({ query: FOOD_BY_IDS, variables: { ids }, fetchPolicy: 'network-only' })
           const transformCart = cartItems.map(cartItem => {
             const food = foodByIds.find(food => food._id === cartItem._id)
+            console.log("<<cartItems>>>food",food)
             if (!food)
               return null
             const variation = food.variations.find(variation => variation._id === cartItem.variation._id)
@@ -143,7 +158,9 @@ function Cart(props) {
                   price += optionfound.price
                 })
               })
+              console.log("<<cartItems>>>ready to push",cartItem)
             validatedItems.push(cartItem)
+            console.log("<<validatedItems pushed>>>",validatedItems)
             return {
               ...cartItem,
               img_url: food.img_url,
@@ -151,6 +168,7 @@ function Cart(props) {
               price: price.toFixed(2)
             }
           })
+          console.log("<<updating client cart items>>>",validatedItems)
           client.writeQuery({ query: GETCARTITEMS, data: { cartItems: validatedItems.length } })
           await localStorage.setItem('cartItems', JSON.stringify(validatedItems))
   
@@ -190,7 +208,10 @@ function Cart(props) {
     async function removeCartItem (newItem){
           const items = cartItems.filter((product) => product._id !== newItem._id)
           await localStorage.setItem('cartItems', JSON.stringify(items))
+          console.log('items count', items)
+          client.writeQuery({ query: GETCARTITEMS, data: { cartItems: items.length } })
           setCartItems(items);
+         
     } 
 
     async function addQuantityToCartItem (newItem) {
@@ -205,7 +226,7 @@ function Cart(props) {
           }
           await localStorage.setItem('cartItems', JSON.stringify(cartItems))
           setCartItems(cartItems);
-          client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
+        
       }
       
       async function removeQuantityToCartItem (newItem) {
@@ -219,7 +240,6 @@ function Cart(props) {
           }
           await localStorage.setItem('cartItems', JSON.stringify(cartItems))
           setCartItems(cartItems);
-          client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
       }
     console.log("get config", configuration)
     console.log("get props", props)

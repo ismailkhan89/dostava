@@ -35,7 +35,7 @@ class Login extends React.Component{
       type: "default",
       firstName: '',
       lastName: '',
-      email: "zdamani15@gmail.com",
+      email: "zeeshan.damani@hotmail.com",
       password: "test@123",
       emailError: null,
       passwordError: null,

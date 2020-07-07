@@ -31,6 +31,7 @@ function Header(props) {
 
   async function getData() {
     const cartItems = await localStorage.getItem('cartItems')
+    console.log("items in header ", JSON.parse(cartItems))
     client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems ? JSON.parse(cartItems).length : 0 } })
   }
   function activeRoute(routeName) {
