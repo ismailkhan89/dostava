@@ -162,19 +162,21 @@ like every other ride-sharing app.</p>
                   <Card className="single-product">
                     <Row>
                       <Col lg="4">
-                        <CardImg src= {category.img_menu !== null ? category.img_menu : '../Assets/Img/product-img.png'} ></CardImg>
+                        <Link to={`/product/${category._id}`} >
+                          <CardImg src= {category.img_menu !== null ? category.img_menu : '../Assets/Img/product-img.png'} ></CardImg>
+                        </Link>
                       </Col>
                       <Col lg="8">
                         <CardBody>
+                        <Link to={`/product/${category._id}`} >
                           <CardTitle>
                           {category.title} <span>(Featured Category)</span>
                           </CardTitle>
-                          <CardText>{category.description} </CardText>
-                          <Link to={`/product/${category._id}`} >
-                             SHOW PRODUCTS
-                          </Link>
+                          <CardText>{category.description} </CardText>                         
+                       
                           
-                          <Button>View More</Button>
+                          <Button>View Products</Button>
+                          </Link>
                         </CardBody>
                       </Col>
                     </Row>
