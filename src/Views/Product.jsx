@@ -217,29 +217,29 @@ console.log("foodloading",loading)
                 {({ loading, error, data }) => { */}
                  { loading === true ? <tr><td>{"Loading"}...</td></tr>  : 
                   data.foodByCategory.map((product, index) =>
-                    <Col lg="3" key={index}>
+                    <Col lg="3" key={index}   >
                       <div className="single-slider-product">
-                        <img src={product.img_url}></img>
+                        <img src={product.img_url} onClick={e => {
+                      e.preventDefault()
+                      onCLickProudctDetails(product)
+                      // this.onClickAddToCart(product)
+                          
+                  }}></img>
                         <div className="leftIcons">
                           <span>New</span>
                           <span className="Salebg">Sale</span>
-                          <Button onClick={e => { 
-                                      e.preventDefault()
-                                      likeProduct(product)
-                            }} >Like</Button>
-                          <Button
-                                                    className="btn-block mb-2"
-                                                    type="button"
-                                                    color="primary"
-                                                    onClick={e => {
-                                                       onLikeProduct(product)
-                                                    }}
-                                                    size="lg"
-                                                >
-                                                    {"Favorate"}</Button>
                         </div>
                         <div className="RightIcons">
-                          <FontAwesome name="heart-o" />
+                          {
+                            product.liked === true ? <span  onClick={e => { 
+                              e.preventDefault()
+                              likeProduct(product)
+                              }}><FontAwesome name="heart" /></span> : <span  onClick={e => { 
+                                e.preventDefault()
+                                likeProduct(product)
+                              }}>  <FontAwesome name="heart-o" /></span>
+                          }
+                          
                           <FontAwesome name="share" />
                         </div>
                       </div>
@@ -247,23 +247,13 @@ console.log("foodloading",loading)
                         <div className="leftDetails">
                           <h3> {product.title}</h3>
                           <button onClick={e => {
-                                                      e.preventDefault()
+                                        e.preventDefault()
                                         onAddToCart(product)
-                                        // this.onClickAddToCart(product)
-                                                          
-                                                  }} >Add to Cart</button>
+                          }} >Add to Cart</button>
 
-<button onClick={e => {
-                                                      e.preventDefault()
-                                        onCLickProudctDetails(product)
-                                        // this.onClickAddToCart(product)
-                                                          
-                                                  }} >Go to details</button>
                         </div>
                         <div className="rightDetails">
-                          {/* <span> $ {product.variations[0].price}</span> */}
                           <strong>{product.variations[0].price}</strong>
-                          {/* <a href="#">Buy Now</a> */}
                         </div>
                       </div>
                     </Col>

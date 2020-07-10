@@ -243,13 +243,45 @@ export const getFeaturedProducts = `
         }
       }`
       
-      export const likedFoods = `query{
+      export const likedFoods = `query likedFood{
         likedFood{
-          _id
-          title
-          likes
-        }
-      }`
+            _id
+            title
+            likes
+            description
+            img_url
+            variations{
+                    title
+                    price
+                    discounted
+            }
+            category{
+                    title
+                    description
+                    img_menu
+                    is_active
+            }
+            is_active
+            createdAt
+            updatedAt
+            stock
+            tag
+            user{
+                    _id
+                    name
+                    last_name
+                    phone
+                    email
+            }
+            brand_name
+            package_weight
+            vendor_pricing
+            is_gst
+            is_featured
+            is_frozen
+       }
+    }
+    `
 export const deleteFood = `
       mutation DeleteFood($id:String!){
         deleteFood(id:$id){

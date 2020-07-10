@@ -89,7 +89,7 @@ function Header(props) {
               <Link to="/login" onClick={e => {
                 e.preventDefault()
                 localStorage.removeItem("user-dostava")
-                this.props.history.push("/login")
+                props.history.push("/login")
               }}   >Logout <FontAwesome name="user" /></Link>
               :
 

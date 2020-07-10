@@ -123,7 +123,7 @@ function HomePage(props){
             </Col>
 
             <Col lg = "12">
-           {featuredProductsItems.length > 0 ?  <FeaturedProducts /> : 'loading...' } 
+           {featuredProductsItems.length > 0 ?  <FeaturedProducts {...props} /> : 'loading...' } 
             </Col>
           </Row>
         </Container>

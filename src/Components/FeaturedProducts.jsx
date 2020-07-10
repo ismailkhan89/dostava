@@ -29,7 +29,7 @@ const clients = new ApolloClient({
 });
 const GETCARTITEMS = gql`${getCartItems}`;
 const GET_FEATURED_PRODUCTS = gql`${getFeaturedProducts}`;
-function FeaturedProducts() {
+function FeaturedProducts(props) {
   const { client, data, loading } = useQuery(GETCARTITEMS)
   const [products, setProducts] = useState(null);
   var settingsFeatureProducts = {
@@ -100,6 +100,12 @@ function FeaturedProducts() {
   if (products === null) {
     return <p>Loading Products...</p>;
   }
+  async function onCLickProudctDetails(product) {
+    props.history.push({
+      pathname: '/detailsscreen',
+      state: { product: product }
+    })
+   }  
   console.log("products return", products)
   return (
     <>
@@ -107,7 +113,12 @@ function FeaturedProducts() {
       {products.map((product, index) => (
         <div key = {index}>
         <div className="single-slider-product">
-          <img src= {product.img_url}></img>
+          <img onClick={e => {
+                      e.preventDefault()
+                      onCLickProudctDetails(product)
+                      // this.onClickAddToCart(product)
+                          
+                  }} src= {product.img_url}></img>
           <div className="leftIcons">
             <span>New</span>
             <span className="Salebg">Sale</span>
