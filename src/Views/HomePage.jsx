@@ -31,7 +31,7 @@ import {
 } from "reactstrap";
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories, getFeaturedProducts, getConfiguration } from "../apollo/server";
-import FeaturedProducts from "../Components/FeaturedProducts";
+import FeaturedProducts from "../components/FeaturedProducts";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,

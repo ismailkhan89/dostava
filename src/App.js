@@ -13,6 +13,7 @@ import Login from './Views/Login';
 import Cart from './Views/Cart';
 import Checkout from './Views/Checkout';
 import DetailsScreen from './Views/DetailsScreen';
+import Favorites from './Views/Favorites';
 import { server_url } from  "./config/config";
 import { createUploadLink } from 'apollo-upload-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -131,6 +132,8 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 <Route path="/checkout"  client = {clientRef}  component={props => <Checkout {...props} />} />
 
 <Route path="/detailsscreen" component={props => <DetailsScreen {...props} />} />
+
+<Route path="/pastorders" component={props => <PastOrders {...props} />} />
 
 
 </Switch>

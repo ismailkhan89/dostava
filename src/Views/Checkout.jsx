@@ -310,11 +310,15 @@ console.log("checkout screen",props)
                     </form>
                   </Col>
                   <Col lg="5" className="cart-items">
+                    <Col lg="12" md="12" sm="12" xs="12" className="grey-bg">
+                      <h3>YOur Order</h3>
+                    </Col>
+                    <div class="carts">
                     {
                     cartItems && cartItems.length > 0 ?  cartItems.map((item, index)=>(
                         <Row key={index} >
                           <Col lg="4">
-                            <img style = {{width: '200px'}} src= {item.img_url}></img>
+                            <img src= {item.img_url}></img>
                           </Col>
                           <Col lg="6">
                             <h3>{item.title}e</h3>
@@ -352,6 +356,32 @@ console.log("checkout screen",props)
                         </h2>
                       </Col>
                     </Row>
+                    </div>
+                    </Col>
+
+                    </Row>
+                  </TabPanel>
+                  <TabPanel>
+                    <Row>
+                  <Col lg="7" md="7" sm="12" xs="12" className="shipping credit-card-info">
+                    <div className="payment-options ">
+                    <Col lg="12" md="12" sm="12" xs="12" className="grey-bg">
+                      <h3>Payment Options</h3>
+                    </Col>
+                      
+                      <label>
+                        <input type="radio" name="credit-card"></input>
+                        COD
+                      </label>
+                      <label>
+                        <input type="radio" name="credit-card"></input>
+                        Credit Card
+                      </label>
+                      <label>
+                        <input type="radio" name="credit-card"></input>
+                        Paypal
+                      </label>
+                    </div>
                     <h4>Your Credit Card</h4>
                     <form>
                       <div className="form-group full">
@@ -378,80 +408,65 @@ console.log("checkout screen",props)
                                                   }} value="Payment">Payment</Button>
                       </div>
                     </form>
-                  </Col>
+                    </Col>
+                  
                   <Col lg="5" className="cart-items">
-                    <Col lg="12" className="grey-bg">
-                      <h3>Billing Details</h3>
+                  <Col lg="12" md="12" sm="12" xs="12" className="grey-bg">
+                      <h3>YOur Order</h3>
                     </Col>
                     <div class="carts">
-                      <Row>
-                        <Col lg="4">
-                          <img src="../Assets/Img/cart-product.png"></img>
-                        </Col>
-                        <Col lg="6">
-                          <h3>Fresh Packet of Rice</h3>
-                          <p>
-                            <strong>$10.49</strong>      
-                            <span>$12.49</span>
-                          </p>
-                        </Col>
-                        <Col lg="2">
-                          <FontAwesome name="heart-o" />
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg="4">
-                          <img src="../Assets/Img/cart-product.png"></img>
-                        </Col>
-                        <Col lg="6">
-                          <h3>Fresh Packet of Rice</h3>
-                          <p>
-                            <strong>$10.49</strong>      
-                            <span>$12.49</span>
-                          </p>
-                        </Col>
-                        <Col lg="2">
-                          <FontAwesome name="heart-o" />
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg="4">
-                          <img src="../Assets/Img/cart-product.png"></img>
-                        </Col>
-                        <Col lg="6">
-                          <h3>Fresh Packet of Rice</h3>
-                          <p>
-                            <strong>$10.49</strong>      
-                            <span>$12.49</span>
-                          </p>
-                        </Col>
-                        <Col lg="2">
-                          <FontAwesome name="heart-o" />
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg="12" className="cart-total">
-                          <h6>
-                            <strong>Subtotal</strong>
-                            <span>$400.00</span>
-                          </h6>
-                          <h6>
-                            <strong>Shipping</strong>
-                            <span>$20.00</span>
-                          </h6>
-                          <h2>
-                            <strong>Total</strong>
-                            <span>$420.00</span>
-                          </h2>
-                        </Col>
-                      </Row>
+                    {
+                    cartItems && cartItems.length > 0 ?  cartItems.map((item, index)=>(
+                        <Row key={index} >
+                          <Col lg="4">
+                            <img src= {item.img_url}></img>
+                          </Col>
+                          <Col lg="6">
+                            <h3>{item.title}e</h3>
+                            <p>
+                            <strong>{item.price}</strong>      
+                              {/* <span>$12.49</span> */}
+                            </p>
+                          </Col>
+                          <Col lg="2">
+                            <Button onClick={e => { 
+                                      e.preventDefault()
+                                      likeProduct(item)
+                            }} >Like</Button>
+                            <FontAwesome onClick={e => { 
+                                      e.preventDefault()
+                                      likeProduct(item)
+                            }} name="heart-o" />
+                          </Col>
+                        </Row>
+                      )) : "No Items"
+                    }
+                    <Row>
+                      <Col lg="12" className="cart-total">
+                        <h6>
+                          <strong>Subtotal</strong>
+                            <span>{currency_symbol} {totalPriceExcDelivery}</span>
+                        </h6>
+                        <h6>
+                          <strong>Shipping</strong>
+                          <span>{currency_symbol} {delivery_charges}</span>
+                        </h6>
+                        <h2>
+                          <strong>Total</strong>
+                          <span> {currency_symbol} {totalPriceIncDelivery}</span>
+                        </h2>
+                      </Col>
+                    </Row>
                     </div>
+                    
                   </Col>
                 </Row>
 
               </TabPanel>
+                  
             </Tabs>
             </Col>
+           
             <Col lg="2">
 
             </Col>
