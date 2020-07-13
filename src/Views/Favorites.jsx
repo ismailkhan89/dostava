@@ -44,7 +44,7 @@ const clients = new ApolloClient({
   cache
 });
 
-function PastOrders(props) {
+function Favorites(props) {
   
   
 
@@ -63,11 +63,11 @@ function PastOrders(props) {
             <Col lg="3">
             </Col>
             <Col lg="9" md="12" sm="12" xs="12" className="breadcrumb-section">
-              <h3>Past Orders</h3>
+              <h3>My Favorites</h3>
               <ul>
                 <li><Link to = "/" >Home</Link></li>
 
-                <li><Link to = "/cart" >Past Orders</Link></li>
+                <li><Link to = "/cart" >My Favorites</Link></li>
               </ul>
             </Col>
             </Row>
@@ -89,12 +89,12 @@ function PastOrders(props) {
                         <ul>
                           <li><Link>Edit Profile</Link></li>
                           <li><Link>My Orders</Link></li>
-                          <li><Link to="/pastorders" className="active">Past Orders</Link></li>
-                          <li><Link to="/favorites">My Favorites</Link></li>
+                          <li><Link to="/pastorders">Past Orders</Link></li>
+                          <li><Link to="/favorites" className="active">My Favorites</Link></li>
                         </ul>
                     </Col>
-            <Col lg="9" className="past-orders">
-              <h3>Past Orders</h3>
+            <Col lg="9" className="past-orders favorites">
+              <h3>My Favorites</h3>
               <div className="orders-list">
                 <Table responsive>
                     <thead>
@@ -103,32 +103,28 @@ function PastOrders(props) {
                             <th>Image</th>
                             <th>Product</th>
                             <th>Price</th>
-                            <th>Qty</th>
-                            <th>Total</th>
+                            <th>Favorite</th>
                             
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td width="22%"><img src="../Assets/Img/cart-product.png"></img></td>
-                            <td width="30%"><h4>Sample Product Image</h4></td>
-                            <td width="10%"><span className="price">$20.00</span></td>
-                            <td width="22%"><span className="date">24 Jan, 2020</span></td>
-                            <td width="18%"><strong>Delivered</strong></td>
+                            <td width="25%"><img src="../Assets/Img/cart-product.png"></img></td>
+                            <td width="35%"><h4>Sample Product Image</h4></td>
+                            <td width="15%"><span className="price">$20.00</span></td>
+                            <td width="25%"><FontAwesome name="heart"/></td>
                          </tr>
                          <tr>
                             <td><img src="../Assets/Img/cart-product.png"></img></td>
                             <td><h4>Sample Product Image</h4></td>
                             <td><span className="price">$20.00</span></td>
-                            <td><span className="date">24 Jan, 2020</span></td>
-                            <td><strong>Delivered</strong></td>
+                            <td><FontAwesome name="heart"/></td>
                          </tr>
                          <tr>
                             <td><img src="../Assets/Img/cart-product.png"></img></td>
                             <td><h4>Sample Product Image</h4></td>
                             <td><span className="price">$20.00</span></td>
-                            <td><span className="date">24 Jan, 2020</span></td>
-                            <td><strong>Delivered</strong></td>
+                            <td><FontAwesome name="heart"/></td>
                          </tr>
                     </tbody>
                 </Table>
@@ -151,4 +147,4 @@ function PastOrders(props) {
 
 }
 
-  export default PastOrders;
+  export default Favorites;

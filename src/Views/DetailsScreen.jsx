@@ -79,12 +79,72 @@ let imaages = [{
                     showNav={showNav}
                   />
                 </Col>
-                <Col lg="6">
-                    Details
+                <Col lg="6" className="detail-section">
+                    <h3>Milk Butter Bread</h3>
+                    <div className="reviews">
+                      <FontAwesome name="star" />
+                      <FontAwesome name="star" />
+                      <FontAwesome name="star" />
+                      <FontAwesome name="star" />
+                      <FontAwesome name="star-o" />
+                      <strong>(3 customer reviews)</strong>
+                    </div>
+                    <div className="price">
+                      <span>$199.00</span>
+                      <strong>$99.00</strong>
+                    </div>
+                    <div className="description">
+                      Lorem Ipsum is simply dummy text of the printing and typesetting  industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                    </div>
+                    <div className="variation">
+                      <strong>Weight</strong>
+                      <select>
+                        <option>48</option>
+                        <option>48</option>
+                        <option>48</option>
+                        <option>48</option>
+                        <option>48</option>
+                        <option>48</option>
+                      </select>
+                    </div>
+                    <div className="quantity">
+                      <strong>Qty:</strong>
+                      <select>
+                        <option>48</option>
+                        <option>48</option>
+                        <option>48</option>
+                        <option>48</option>
+                        <option>48</option>
+                        <option>48</option>
+                      </select>
+                    </div>
+                    <div className="cart-btns">
+                      <Link className="add-to-cart">Add to Cart</Link>
+                      <Link>Buy Now</Link>
+                    </div>
+                    <div className="misc-items">
+                      <FontAwesome name="heart-o" /> Add to Wishlist
+                      <div className="sku">
+                        <strong>SKU:</strong>
+                        123125
+                      </div>
+                      <div className="category">
+                        <strong>Category:</strong>
+                        Bakery
+                      </div>
+                      <div className="share-options">
+                        <strong>Share:</strong>
+                        <FontAwesome name="facebook"/>
+                        <FontAwesome name="twitter"/>
+                        <FontAwesome name="google-plus"/>
+                        <FontAwesome name="pinterest"/>
+                        <FontAwesome name="youtube-play"/>
+                      </div>
+                    </div>
                 </Col>
               </Row>
               <Row>
-                <Tabs className="product-tabs">
+                <Tabs className="product-tabs product-details-tabs">
                   <TabList className="product-tabs-head">
                     <Row>
                       <Col lg="12">

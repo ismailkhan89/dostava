@@ -75,7 +75,7 @@ function Header(props) {
         </Col>
 
         {userObj ?
-          <Col lg="2" className="text-right">
+          <Col lg="2" md="2" sm="2" xs="2" className="text-right">
             {userObj.name}
           </Col>
           : ' '}

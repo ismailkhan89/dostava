@@ -259,8 +259,7 @@ console.log("foodloading",loading)
                     </Col>
                   )
                 }
-                {/* }} */}
-              {/* </Query> */}
+                
             </Row>
           </Col>
         </Row>
