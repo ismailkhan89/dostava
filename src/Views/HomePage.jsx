@@ -29,6 +29,8 @@ import {
     ListItem
     // Link
 } from "reactstrap";
+import FontAwesome from 'react-fontawesome';
+import { Form, FormControl } from 'react-bootstrap';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories, getFeaturedProducts, getConfiguration } from "../apollo/server";
 import FeaturedProducts from "../components/FeaturedProducts";
@@ -83,7 +85,7 @@ function HomePage(props){
         <Header  {...props} />
         {/* <Link to="/cart">Cart</Link>
         <Link to="/checkout">Checkout</Link> */}
-        <Container className="slider-area" fluid>
+        <Container className="slider-area" style={{display:'none'}} fluid>
           <Row>
             <Col lg="12">
               <Slider {...settings}>
@@ -116,7 +118,7 @@ function HomePage(props){
             </Col>
           </Row>
         </Container>
-        <Container className="feature-products" fluid>
+        <Container className="feature-products" style={{display:'none'}} fluid>
           <Row>
             <Col lg="12">
               <h3>Feature Products</h3>
@@ -130,7 +132,7 @@ function HomePage(props){
 
 
 
-        <Container className="download-app" fluid>
+        <Container className="download-app" style={{display:'none'}} fluid>
           <Row>
             <Col lg="3" md="4" className="download-app-img">
               <img src='../Assets/Img/iphone.png'></img>
@@ -146,7 +148,7 @@ like every other ride-sharing app.</p>
             </Col>
           </Row>
         </Container>
-        <Container className="categories-area" fluid>
+        <Container className="categories-area"  fluid>
           <Row className="categories-header">
             <Col lg="12">
               <h3>Categories</h3>
@@ -185,11 +187,69 @@ like every other ride-sharing app.</p>
               }}
             </Query>
             </Row>
-          <Row className="categories-footer">
+          <Row className="categories-footer" style={{display:'none'}}>
             <Col lg="12" className="text-center">
               <Button>View More</Button>
             </Col>
           </Row>
+        </Container>
+        <Container className="home-slider" fluid>
+          <Row>
+              <Container>
+                <Row>
+                  <Col lg="7" className="home-slider-text">
+                    <h3>Dostava</h3>
+                    <h4><strong>Groceries</strong> are just an app away</h4>
+                    <Form inline className="text-right search-form">
+                      <FormControl type="text" placeholder="Enter Location here..." className="mr-sm-2" />
+                      <Button variant="outline-success">Show Categories</Button>
+                    </Form>
+                  </Col>
+                </Row>
+              </Container>
+          </Row>
+        </Container>
+        <Container className="become-vendor" fluid>
+          <Row>
+            <Container>
+              <Row>
+              <Col lg="6" className="vendor-col">
+                <Row>
+                  <Col lg="3" className="vendor-col-img">
+                    <img src='../Assets/Img/vendor-icon.png' ></img>
+                  </Col>
+                  <Col lg="9" className="vendor-col-text">
+                      <h3>INCREASE YOUR SALES, BOOST YOUR AUDIENCE, ENHANCE YOUR PRESENCE</h3>
+                      <Link to="/">Become a Vendor</Link>
+                  </Col>
+                </Row>
+              </Col>
+              <Col lg="6" className="vendor-col">
+                <Row>
+                  <Col lg="3" className="vendor-col-img">
+                    <img src='../Assets/Img/driver-icon.png' ></img>
+                  </Col>
+                  <Col lg="9" className="vendor-col-text">
+                      <h3>Work with Freedom. Earn with Freedom</h3>
+                      <Link to="/">Become a Driver</Link>
+                  </Col>
+                </Row>
+              </Col>
+              </Row>
+            </Container>
+          </Row>
+        </Container>
+        <Container className="app-area" fluid>
+              <Row>
+                <Col lg="6" className="app-area-img">
+                  <img src='../Assets/Img/Mobile-Mockups.png' ></img>
+                </Col>
+                <Col lg="6" className="app-area-text">
+                  <h3>Dostava is Available for your Android or Apple</h3>
+                  <img src='../Assets/Img/playstore.png' ></img>
+                  <img src='../Assets/Img/appstore.png' ></img>
+                </Col>
+              </Row>
         </Container>
         <Footer />
 

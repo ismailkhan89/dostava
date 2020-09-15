@@ -17,69 +17,54 @@ class Footer extends React.Component{
 
         return(
   
-        <Container className="footer-area" fluid>
+        <Container className="footer-area">
           <Row className="widget-area">
-            <Col lg="3" md="12" sm="12" xs="12" className="footer-logo">
+            <Col lg="3" md="12" sm="12" xs="12" className="footer-logo quickmenu footer-app">
                 <div>
                     <Link to="/">
                         <img src="../Assets/Img/logo.png"></img>
                     </Link>
                 </div>
-                <ul>
-                  <li><Link to="/about">Home</Link></li>
-                  <li><Link to="/about">Shop</Link></li>
-                  <li><Link to="/about">Blog</Link></li>
-                  <li><Link to="/about">Contact Us</Link></li>
-                  <li><Link to="/about">About Us</Link></li>
-                </ul>
-            </Col>
-            <Col lg="2" md="12" sm="12" xs="12" className="quickmenu">
-              <h3>Help/Support</h3>
-              <ul>
-                <li><Link to="/about">About Us</Link></li>
-                <li><Link to="/about">Privacy Policy</Link></li>
-                <li><Link to="/about">How it works</Link></li>
-                <li><Link to="/about">Contact Us</Link></li>
-                <li><Link to="/about">FAQs</Link></li>
-              </ul>
-            </Col>
-            <Col lg="3" md="12" sm="12" xs="12" className="quickmenu half">
-              <h3>Category</h3>
-                <ul>
-                  <li><Link to="/about">Meets</Link></li>
-                  <li><Link to="/about">Greens</Link></li>
-                  <li><Link to="/about">Snacks</Link></li>
-                  <li><Link to="/about">Cleaning</Link></li>
-                </ul>
-                <ul>
-                  <li><Link to="/about">Meets</Link></li>
-                  <li><Link to="/about">Greens</Link></li>
-                  <li><Link to="/about">Snacks</Link></li>
-                  <li><Link to="/about">Cleaning</Link></li>
-                </ul>
-            </Col>
-            <Col lg="2" md="12" sm="12" xs="12" className="quickmenu footer-app half">
-              <h3>Download Our App</h3>
+                <h3>Download Our App</h3>
               <img src="../Assets/Img/footer-appstore.png"></img>
               <img src="../Assets/Img/footer-googleplay.png"></img>
+                
             </Col>
-            <Col lg="2" md="12" sm="12" xs="12" className="quickmenu social">
-              <h3>Address</h3>
-              <p>208 Columbus St, Hicksville, OH, 4352</p>
-              <h3>Social Media links</h3>
-              <Link to="/about"><FontAwesome name="facebook"/></Link>
-              <Link to="/about"><FontAwesome name="twitter"/></Link>
-              <Link to="/about"><FontAwesome name="linkedin"/></Link>
-              <Link to="/about"><FontAwesome name="tumblr"/></Link>
+            <Col lg="3" md="12" sm="12" xs="12" className="quickmenu">
+              <h3>Links</h3>
+              <ul>
+                <li><Link to="/about">Home</Link></li>
+                <li><Link to="/about">Pricing</Link></li>
+                <li><Link to="/about">Download</Link></li>
+                <li><Link to="/about">About</Link></li>
+                <li><Link to="/about">Service</Link></li>
+              </ul>
+            </Col>
+            <Col lg="3" md="12" sm="12" xs="12" className="quickmenu">
+              <h3>Services</h3>
+                <ul>
+                  <li><Link to="/about">Home Delivery</Link></li>
+                  <li><Link to="/about">Free of cost</Link></li>
+                  <li><Link to="/about">Discounts</Link></li>
+                  <li><Link to="/about">Highlight Restaurants</Link></li>
+                  <li><Link to="/about">Order for others</Link></li>
+                  <li><Link to="/about">Earn Yourself</Link></li>
+                </ul>
+            </Col>
+           
+            <Col lg="3" md="12" sm="12" xs="12" className="quickmenu social">
+              <h3>Contact us</h3>
+              <p>Jalalabad 20/1</p>
+              <p>Shah Farid Road</p>
+              <p>+8801747913966</p>
+              <Link to="mailto:getme@gmail.com">getme@gmail.com</Link>
             </Col>
           </Row>
-          <Row className="copyright-area">
-            <Col lg="6" md="6" sm="7" xs="9">
-              <p>Copyright © 2020 Dostava.com. All Rights Reserved.</p>
+          <Row className="copyright-area text-center">
+            <Col lg="12" md="12" sm="12" xs="12">
+              <p>Copyright © 2020. All Rights Reserved.</p>
             </Col>
-            <Col lg="6" md="6" sm="5" xs="3" className="text-right footer-payments">
-              <img src="../Assets/Img/payment.png"></img>
-            </Col>
+            
           </Row>
         </Container>
 

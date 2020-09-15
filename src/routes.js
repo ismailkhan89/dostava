@@ -1,5 +1,6 @@
 import HomePage from './Views/HomePage';
 import Product from './Views/Product.jsx';
+
 import TestView from './Views/TestView.jsx';
 import Login from './Views/Login';
 
@@ -18,6 +19,7 @@ var routes = [
         layout: "/",
        
       },
+      
       {
         path: "/test",
         name: "TestView",

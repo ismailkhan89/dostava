@@ -20,6 +20,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import { server_url } from  "../config/config";
 import { authLink } from '../library/authLink';
 import { ApolloClient } from 'apollo-client';
+import { Form, FormControl } from 'react-bootstrap';
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -143,17 +144,44 @@ console.log("props.match.params?.id", props.match.params?.id)
   return (
     <Container className="wrapper" fluid>
       <Header  {...props} />
-      <Container className="breadcrumb-area" fluid>
+      <Container className="breadcrumb-area" style={{display:'none'}} fluid>
         <Row>
           <Col lg="3">
           </Col>
           <Col lg="3" className="breadcrumb-section">
-            <h3>Products</h3>
+            <h3>Categories</h3>
             <ul>
               <li><Link to="/" >Home</Link></li>
 
               <li><Link>Products</Link></li>
             </ul>
+          </Col>
+        </Row>
+      </Container>
+      <Container id="subheader" fluid>
+        <Row>
+          <Col lg="12">
+          <h2 class="title text-center">CATEGORIES</h2>
+					 <p class="content text-center">The purpose of lorem ipsum is to create a natural looking block of text that doesn't distract from the layout.</p>
+          </Col>
+        </Row>
+      </Container>
+      <Container id="search-product">
+        <Row>
+          
+          <Col lg="12">
+            <Form inline >
+              <select name="select-category">
+                <option>Select category</option>
+                <option>category 1</option>
+                <option>category 2</option>
+                <option>category 3</option>
+                <option>category 4</option>
+                <option>category 5</option>
+              </select>
+              <FormControl type="search" placeholder="Enter Location here..." />
+              <Button variant="outline-success">Search</Button>
+            </Form>
           </Col>
         </Row>
       </Container>
@@ -166,57 +194,30 @@ console.log("props.match.params?.id", props.match.params?.id)
       </Container>
       <Container className="content-area" fluid>
         <Row>
-          <Col lg="3" className="sidebar-products">
-            <div className="single-filter">
-              <h3>Filter by Category</h3>
-              <ul>
-                <li><Link>Laptop & Computer <span>(439)</span></Link></li>
-                <li>
-                  <Link>Meats <span>(2224)</span></Link>
-                  <ul>
-                    <li><Link>15.5 <span>(24)</span></Link></li>
-                    <li><Link>15.5 <span>(24)</span></Link></li>
-                    <li><Link>15.5 <span>(24)</span></Link></li>
-                    <li><Link>15.5 <span>(24)</span></Link></li>
-                    <li><Link>15.5 <span>(24)</span></Link></li>
-                  </ul>
-                </li>
-                <li><Link>Greens <span>(439)</span></Link></li>
-                <li><Link>Snacks <span>(439)</span></Link></li>
-                <li><Link>Cleaning <span>(439)</span></Link></li>
-                <li><Link>Bakery <span>(439)</span></Link></li>
-              </ul>
-            </div>
-
-            <div className="single-filter">
-              <h3>Filter by Category</h3>
-              <ul>
-                <li><Link>Laptop & Computer <span>(439)</span></Link></li>
-                <li>
-                  <Link>Meats <span>(2224)</span></Link>
-                  <ul>
-                    <li><Link>15.5 <span>(24)</span></Link></li>
-                    <li><Link>15.5 <span>(24)</span></Link></li>
-                    <li><Link>15.5 <span>(24)</span></Link></li>
-                    <li><Link>15.5 <span>(24)</span></Link></li>
-                    <li><Link>15.5 <span>(24)</span></Link></li>
-                  </ul>
-                </li>
-                <li><Link>Greens <span>(439)</span></Link></li>
-                <li><Link>Snacks <span>(439)</span></Link></li>
-                <li><Link>Cleaning <span>(439)</span></Link></li>
-                <li><Link>Bakery <span>(439)</span></Link></li>
-              </ul>
-            </div>
-          </Col>
-          <Col lg="9">
+          <Container id="Product-carousel">
             <Row>
-
-			{console.log("asd", data)}
-                
-                
+                <Col lg="12" >
+                  <h2 class="title">New on Dostava</h2>
+                </Col>
             </Row>
-          </Col>
+            <Row>
+              <Col lg="3" className="product">
+                <div class="product-img">
+							    <Link to="/">
+                    <img class="img-fluid" src="../Assets/Img/carousel-1.jpg" alt=""></img>
+                  </Link>
+                </div>
+                <div class="product-desc">
+								  <h3 class="product-title"><Link to="/">White Rice</Link></h3>
+								  <img class="product-rating" src="img/star.png" alt=""></img>
+								  <p class="product-content">Fresh picked from farms <br/>1 Kilogram</p>
+								  <p class="price">$24.03</p>
+						    </div>
+						    
+              </Col>
+            </Row>
+          </Container>
+          
         </Row>
       </Container>
 

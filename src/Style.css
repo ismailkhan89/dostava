@@ -126,7 +126,11 @@
     color:#929292;
 }
 .mainHeader{
-    padding: 10px 15px;
+    padding: 0px 15px;
+}
+.mainHeader nav.navbar-light{
+    padding-top:0;
+    padding-bottom:0;
 }
 .mainHeader .menuitems ul li{
     color:#5b5c5d;
@@ -1259,15 +1263,13 @@ padding-left:70px;
 
 /* Footer Area */
 .footer-area .widget-area{
-    background:#f0f6f6;
+    
     padding-top:60px;
     padding-bottom:30px;
-    box-shadow:1px 1px 10px 1px #e5e5e5;
+    
 }
 .footer-area .widget-area .footer-logo{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    
 
 }
 .footer-area .widget-area .footer-logo img{
@@ -1295,13 +1297,14 @@ padding-left:70px;
 .footer-area .widget-area .quickmenu{}
 .footer-area .widget-area .quickmenu h3{
     font-weight:bold;
-    font-size:14px;
-    color:#455a5f;
-    padding-left:40px;
+    font-size:22px;
+    color:#000000;
+    
     text-transform: uppercase;
 }
 .footer-area .widget-area .quickmenu ul{
     margin-bottom:0;
+    padding-left:0;
 }
 .footer-area .widget-area .quickmenu.half ul{
     width:50%;
@@ -1323,10 +1326,10 @@ padding-left:70px;
     list-style:none;
 }
 .footer-area .widget-area .quickmenu ul li a{
-    font-size:13px;
-    color:#455a5f;
+    font-size:18px;
+    color:#222D39;
     font-weight:300;
-    line-height:24px;
+    line-height:36px;
 }
 .footer-area .widget-area .footer-app{
 
@@ -1340,17 +1343,18 @@ padding-left:70px;
     margin-bottom:10px;
 }
 
-.footer-area .widget-area .quickmenu.social p{
-    font-size:16px;
-    color:#455a5f;
+.footer-area .widget-area .quickmenu.social p, .footer-area .widget-area .quickmenu.social a{
+    font-size:18px;
+    color:#222D39;
     font-weight:300;
-    line-height:21px;
+    line-height:36px;
+    margin-bottom:0;
 }
 .copyright-area{
     padding:15px 0;
 }
 .copyright-area p{
-    font-size:13px;
+    font-size:18px;
     color:#455a5f;
 }
 
@@ -1954,3 +1958,205 @@ padding-left:70px;
         }
         
     }
+/* New Design Changes */
+.cart-icon-header a span {
+    color:#1385a7;
+}
+.mainHeader nav .login a{
+    font-size:14px;
+    color:#373737;
+}
+.login a span{
+    color:#1385a7;
+    font-size:20px;
+}
+.mainHeader nav .language{
+    font-size:14px;
+    color:#373737;
+}
+.mainHeader nav a.navbar-brand img{
+    width:160px;
+}
+.app-area{
+    background-image:url(Assets/Img/app-area-bg.png);
+    
+    margin-bottom:120px;
+    background-size:cover;
+}
+.app-area .app-area-img img{
+    width:100%;
+    position:absolute;
+    margin-top:-60px;
+}
+.app-area .app-area-text{
+    padding:75px 0;
+    padding-left:40px;
+}
+.app-area .app-area-text h3{
+    font-size:48px;
+    color:#fff;
+    font-weight:bold;
+    margin-left:10px;
+    margin-bottom:30px;
+}
+.app-area .app-area-text img{}
+.become-vendor{
+    background-color:#fafafa;
+    padding:60px 15px 120px 15px;
+    background-image:url(Assets/Img/hurry-up.png);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+}
+.become-vendor .vendor-col .row {
+    background-color: #fff;
+    box-shadow: 1px 1px 10px 3px #eee;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 20px;
+}
+.become-vendor .vendor-col .vendor-col-text{}
+.become-vendor .vendor-col .vendor-col-text h3{
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 26px;
+    color:#053452;
+    text-transform:uppercase;
+}
+.become-vendor .vendor-col .vendor-col-text a{
+    font-size:16px;
+    color:#fff;
+    font-weight:500;
+    text-transform: uppercase;
+    padding:10px 25px;
+    background-color:#053452;
+    display:inline-block;
+    margin-top:5px;
+}
+.home-slider{
+    background-image:url(Assets/Img/slider-img.png);
+    padding:150px 15px;
+    background-size: cover;
+    background-position: center;
+}
+.home-slider .home-slider-text{
+
+}
+.home-slider .home-slider-text h3{
+    text-transform:uppercase;
+    font-size:45px;
+    font-weight:bold;
+    color:#373737;
+}
+.home-slider .home-slider-text h4{
+    font-size:30px;
+    font-weight:normal;
+    color:#373737;
+}
+.home-slider .home-slider-text h4 strong{
+    font-weight:500;
+}
+.home-slider .home-slider-text form{
+    background-color:#fff;
+    box-shadow:1px 1px 10px 1px #eee;
+    padding:30px;
+    border-radius:4px;
+}
+.home-slider .home-slider-text form input[type="text"]{
+    border:1px solid #eee;
+    border-radius:0;
+    width: 67%;
+    height: 44px;
+    margin-right: 3% !important;
+}
+.home-slider .home-slider-text form input[type="text"]:placeholder{
+    color:#ccc;
+    font-size:14px;
+}
+.home-slider .home-slider-text form button{
+    background-color:#053452;
+    font-size:16px;
+    color:#fff;
+    text-transform:uppercase;
+    padding:10px 15px;
+    position:relative;
+    right:0;
+}
+/*=============== Subheader START ===============*/
+#subheader {
+    background-image: url(Assets/Img/subheader.jpg);
+    background-size: cover;
+    padding-top:53px;
+    padding-bottom:43px;
+    background-position: center;
+}
+#subheader .title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 45px;
+    margin-bottom: 8px;
+}
+#subheader .content {
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff;
+    width: 42%;
+    margin: auto;
+}
+
+/*=============== Subheader End ===============*/
+/*=============== Search Product START ===============*/
+#search-product form {
+    
+}
+#search-product form select {
+    width: 20%;
+}
+#search-product [type=search] {
+    width: 52%;
+    margin-left: 25px;
+    margin-right: 25px;
+    height:auto;
+}
+#search-product select, #search-product input {
+    outline: none;
+    box-shadow: 0 0 2px rgb(0 0 0 / 0.16);
+    border: 0;
+    padding: 17px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #CCCCCC;
+}
+
+#search-product ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #cccccc;
+}
+#search-product ::-moz-placeholder { /* Firefox 19+ */
+  color: #cccccc;
+}
+#search-product :-ms-input-placeholder { /* IE 10+ */
+  color: #cccccc;
+}
+#search-product :-moz-placeholder { /* Firefox 18- */
+  color: #cccccc;
+}
+#search-product button {
+    width: 22%;
+    color: #fff;
+    height:auto;
+    background-color: #29BEEB;
+    border: 0;
+    border-radius:0;
+    padding:17px;
+    background-image: none;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+#search-product {
+    
+    padding-top:40px;
+    padding-bottom:50px;
+}
+
+

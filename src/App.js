@@ -8,6 +8,7 @@ import gql from "graphql-tag";
 import { ApolloProvider } from '@apollo/react-hooks'
 import HomePage from './Views/HomePage';
 import Product from './Views/Product.jsx';
+import Categories from './Views/Categories.jsx';
 import TestView from './Views/TestView.jsx';
 import Login from './Views/Login';
 import Cart from './Views/Cart';
@@ -135,6 +136,8 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 <Route path="/detailsscreen" component={props => <DetailsScreen {...props} />} />
 
 <Route path="/pastorders" component={props => <PastOrders {...props} />} />
+
+<Route path="/categories" component={props => <Categories {...props} />} />
 
 <Route path="/favorites" component={props => <Favorites {...props} />} />
 
