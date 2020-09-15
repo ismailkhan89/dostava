@@ -215,12 +215,13 @@ function Categories(props) {
       <Container className="content-area" fluid>
         <Row>
           <Container id="Product-carousel">
+            
+
             <Row>
                 <Col lg="12" >
-                  <h2 class="title">New on Dostava</h2>
+                  <h2 class="title">All Categories</h2>
                 </Col>
             </Row>
-
 
             <Row>
             <Query query={getVendorbyLocation} variables={{ lat : lat,long :long}}>
@@ -229,43 +230,48 @@ function Categories(props) {
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
               return data.getCategoriesByLocation.map((category, index) =>
               // {console.log(data)}
-                <Col lg="3" className="product" key={index}>
+                <Col lg="3" key={index}>
+                  <div class="product">
+                    <Link to="/">
                     <div class="product-img">
-                      <Link to="/">
-                        <img class="img-fluid" src={category.img_menu} alt=""></img>
-                      </Link>
+                      <img class="img-fluid" src={category.img_menu} alt=""></img>
                     </div>
                     <div class="product-desc">
-                   <h3 class="product-title"><Link to="/">{category.title}</Link></h3>
-                      <img class="product-rating" src="img/star.png" alt=""></img>
+                      <h3 class="product-title">{category.title}</h3>
                       <p class="product-content">{category.description}</p>
                       {/* <p class="price">$24.03</p> */}
+                    </div>
+                    </Link>
                     </div>
                   </Col>
                 )
               }}
             </Query>
             </Row>
-            {/* <Row>
-              <Col lg="3" className="product">
-                <div class="product-img">
-							    <Link to="/">
-                    <img class="img-fluid" src="../Assets/Img/carousel-1.jpg" alt=""></img>
-                  </Link>
-                </div>
-                <div class="product-desc">
-								  <h3 class="product-title"><Link to="/">White Rice</Link></h3>
-								  <img class="product-rating" src="img/star.png" alt=""></img>
-								  <p class="product-content">Fresh picked from farms <br/>1 Kilogram</p>
-								  <p class="price">$24.03</p>
-						    </div>
-						    
+
+            <Row>
+              <Col lg="12">
+                <Link to="#" className="learn-more">Load More</Link>
               </Col>
-            </Row> */}
+            </Row>
+            
           </Container>
           
         </Row>
       </Container>
+
+      <Container className="app-area" fluid>
+              <Row>
+                <Col lg="6" className="app-area-img">
+                  <img src='../Assets/Img/Mobile-Mockups.png' ></img>
+                </Col>
+                <Col lg="6" className="app-area-text">
+                  <h3>Dostava is Available for your Android or Apple</h3>
+                  <img src='../Assets/Img/playstore.png' ></img>
+                  <img src='../Assets/Img/appstore.png' ></img>
+                </Col>
+              </Row>
+        </Container>
 
       <Footer />
 

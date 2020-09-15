@@ -2144,7 +2144,7 @@ padding-left:70px;
     width: 22%;
     color: #fff;
     height:auto;
-    background-color: #29BEEB;
+    background-color: #053452;
     border: 0;
     border-radius:0;
     padding:17px;
@@ -2158,5 +2158,113 @@ padding-left:70px;
     padding-top:40px;
     padding-bottom:50px;
 }
+/*=============== Product Carousel End ===============*/
 
+#Product-carousel {
+    padding-bottom:130px;
+}
+#Product-carousel .title {
+    font-size: 30px;
+    font-weight: 400;
+    color: #333333;
+    line-height: 45px;
+    margin-bottom: 30px;
+}
+
+.product .product-desc {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 12px 8px 12px 11px;
+}
+.product .product-title {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 700;
+    float: left;
+}
+.product .product-title a {
+    color: #fff;
+}
+.product .product-rating {
+    float: right;
+}
+.product .product-content {
+    float: left;
+    clear: both;
+    font-size: 12px;
+    font-weight: 300;
+    color: #fff;
+    line-height: inherit;
+    margin-bottom: 0;
+}
+.product .price {
+    float: right;
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: 0;
+    margin-top: 18px;
+}
+.product .product-rating {
+    float: right;
+    margin-top: 5px;
+}
+.product {
+    position: relative;
+    float:left;
+    width:100%;
+}
+#Product-carousel .row > .col-lg-3{
+    margin-bottom:30px;
+}
+#Product-carousel .product .product-img{
+    float:left;
+    width:100%;
+}
+#Product-carousel .product > a{
+    float:left;
+    width:100%;
+}
+#Product-carousel .product a:before{
+    position:absolute;
+    content:'';
+    background-color:rgba(0,0,0,0.5);
+    width:100%;
+    height:100%;
+    left:0;
+    right:0;
+    top:0;
+    cursor:pointer;
+}
+#Product-carousel .product a:hover:before{
+    background-color:rgba(0,0,0,0);
+}
+#Product-carousel .product a:hover .product-desc{
+    background-color:rgba(0,0,0,0.5);
+}
+#Product-carousel .product .product-img img{
+    width:100%; 
+    height:auto;
+    max-height:175px;
+    object-fit:cover;
+}
+/*=============== Product Carousel End ===============*/
+
+.learn-more {
+    background-color: #053452;
+    color: #fff;
+    padding: 17px 55px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+    margin: auto;
+    display: block;
+    width: fit-content;
+    margin-top: 30px;
+}
+.learn-more:hover{
+    text-decoration:none;
+    color:#fff;
+}
 

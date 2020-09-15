@@ -33,7 +33,7 @@ import FontAwesome from 'react-fontawesome';
 import { Form, FormControl } from 'react-bootstrap';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories, getFeaturedProducts, getConfiguration } from "../apollo/server";
-import FeaturedProducts from "../Components/FeaturedProducts";
+import FeaturedProducts from "../components/FeaturedProducts";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -148,7 +148,7 @@ like every other ride-sharing app.</p>
             </Col>
           </Row>
         </Container>
-        <Container className="categories-area"  fluid>
+        <Container className="categories-area" style={{display:'none'}}  fluid>
           <Row className="categories-header">
             <Col lg="12">
               <h3>Categories</h3>
