@@ -13,38 +13,58 @@ import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import { Link, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { foods, like } from "../apollo/server";
+import { foods, like,foodbyVendor ,getCategoriesByLocation} from "../apollo/server";
 import { getCartItems } from '../apollo/client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient } from 'apollo-client';
 import { createUploadLink } from 'apollo-upload-client';
 import { server_url } from  "../config/config";
 import { authLink } from '../library/authLink';
-import { ApolloClient } from 'apollo-client';
 import { Form, FormControl } from 'react-bootstrap';
+
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
 })
-
 const client = new ApolloClient({
   link: authLink.concat(httpLink) ,
   cache
 });
-const FOODS = gql`${foods}`; 
+
+const newclient = new ApolloClient({
+  link:  httpLink,
+  cache
+});
+// const FOODS = gql`${foods}`; 
+const FOODS = gql`${foodbyVendor}`; 
 const LIKE_PRODUCT = gql`${like}`;
 const GETCARTITEMS = gql`${getCartItems}`;
-function Products(props) {
-  const [mutateLike, { loadingLike: loadingLikeMutation }] = useMutation(LIKE_PRODUCT, { onCompletedLike, onErrorLike, client } )
-  const { cartloading } = useQuery(GETCARTITEMS)
-  const [message, setMessages] = useState('');
+const getVendorbyLocation = gql`${getCategoriesByLocation}`
+function Categories(props) {
+
+  var lat = "24.893120";
+  var long = "67.063950"
+  // var id = "5f0ea61a44f4211d54bfe6ba";
+  //   console.log(props)
+
   const [_id, setId] = useState(props.match.params?.id ?? null);
   const [filters, setFilter] = useState({ onSale: false, inStock: false, min: 0, max: 1000 });
   const [search, setSearch] = useState('');
 
-const { data, loading } = useQuery(FOODS, { variables:{category: _id}, client: client })
-console.log("food data", data);
-console.log("foodloading",loading)
-console.log("props.match.params?.id", props.match.params?.id)
+  const {loading,error,data : dataVendor} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :long} ,client : newclient })
+  console.log("dataVendor", dataVendor)
+
+  // const { loading, error, data, refetch, networkStatus, client } = useQuery(FOODS, { variables:{category: _id , ...filters,
+  //    search: search,lat : lat.toString(),long : long.toString()} ,client : newLink })
+
+  const [mutateLike, { loadingLike: loadingLikeMutation }] = useMutation(LIKE_PRODUCT, { onCompletedLike, onErrorLike, client } )
+  const { cartloading } = useQuery(GETCARTITEMS)
+  const [message, setMessages] = useState('');
+
+  console.log("props.match.params?.id", props.match.params?.id);
+  // console.log("food data", data);
+  // console.log("foodloading",loading)
+
   async function onLikeProduct(product) {
     mutateLike({
       variables: {
@@ -153,7 +173,7 @@ console.log("props.match.params?.id", props.match.params?.id)
             <ul>
               <li><Link to="/" >Home</Link></li>
 
-              <li><Link>Products</Link></li>
+              <li><Link to="/product">Products</Link></li>
             </ul>
           </Col>
         </Row>
@@ -200,7 +220,33 @@ console.log("props.match.params?.id", props.match.params?.id)
                   <h2 class="title">New on Dostava</h2>
                 </Col>
             </Row>
+
+
             <Row>
+            <Query query={getVendorbyLocation} variables={{ lat : lat,long :long}}>
+            {({ loading, error, data }) => {
+             if (loading) return <div>{"Loading"}...</div>;
+             if (error) return <div>`${"Error"}! ${error.message}`</div>;
+              return data.getCategoriesByLocation.map((category, index) =>
+              // {console.log(data)}
+                <Col lg="3" className="product" key={index}>
+                    <div class="product-img">
+                      <Link to="/">
+                        <img class="img-fluid" src={category.img_menu} alt=""></img>
+                      </Link>
+                    </div>
+                    <div class="product-desc">
+                   <h3 class="product-title"><Link to="/">{category.title}</Link></h3>
+                      <img class="product-rating" src="img/star.png" alt=""></img>
+                      <p class="product-content">{category.description}</p>
+                      {/* <p class="price">$24.03</p> */}
+                    </div>
+                  </Col>
+                )
+              }}
+            </Query>
+            </Row>
+            {/* <Row>
               <Col lg="3" className="product">
                 <div class="product-img">
 							    <Link to="/">
@@ -215,7 +261,7 @@ console.log("props.match.params?.id", props.match.params?.id)
 						    </div>
 						    
               </Col>
-            </Row>
+            </Row> */}
           </Container>
           
         </Row>
@@ -230,4 +276,4 @@ console.log("props.match.params?.id", props.match.params?.id)
   )
 }
 
-export default Products;
+export default Categories;

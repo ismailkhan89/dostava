@@ -24,6 +24,7 @@ import { ApolloClient } from 'apollo-client';
 import { setContext } from 'apollo-link-context'
 import { isLoggedIn } from './apollo/client';
 import { getConfiguration } from "./apollo/server";
+import  routes from './routes'
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
 })
@@ -137,10 +138,10 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 
 <Route path="/pastorders" component={props => <PastOrders {...props} />} />
 
+<Route path="/categories/:id/" component={props => <Categories {...props} />} />
 <Route path="/categories" component={props => <Categories {...props} />} />
 
 <Route path="/favorites" component={props => <Favorites {...props} />} />
-
 
 </Switch>
               {/* <Route path="/home" component={props => <AuthLayout {...props} ></AuthLayout>}  />

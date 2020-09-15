@@ -196,6 +196,54 @@ export const foods = `
             stock
           }
         }`
+
+
+  export const foodbyVendor = `query foodByVendorCategory($category:String!,$onSale:Boolean,$inStock:Boolean,
+    $min:Float,$max:Float,$search:String,$lat:String,$long:String){
+    foodByVendorCategory(category:$category,onSale:$onSale,inStock:$inStock,min:$min,
+      max:$max,search:$search,lat:$lat,long:$long){
+      _id
+      title
+      description
+      user{
+        _id
+        name
+        lat
+        long
+      }
+      variations{
+        _id
+        title
+        price
+        discounted
+        addons{
+          _id
+          title
+          description
+          quantity_minimum
+          quantity_maximum
+          options{
+            _id
+            title
+            description
+            price
+          }
+        }
+      }
+      category{_id}
+      img_url
+      stock
+    }
+  }`
+
+  export const  getCategoriesByLocation = `query getCategoriesByLocation($lat:String,$long:String){
+    getCategoriesByLocation(lat:$lat,long:$long){
+      _id
+      title
+      description
+      img_menu
+    }
+  }`
 export const getFeaturedProducts = `
         query getFeaturedProducts{
           getFeaturedProducts{
