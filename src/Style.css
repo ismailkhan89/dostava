@@ -2268,3 +2268,73 @@ padding-left:70px;
     color:#fff;
 }
 
+#dry-fruits .title {
+    font-size: 30px;
+    font-weight: 400;
+    color: #333333;
+    line-height: 45px;
+    margin-bottom: 30px;
+}
+#dry-fruits {
+    
+    padding: 0 0 130px;
+}
+#dry-fruits .product-list {
+    background-color: #ffffff;
+    box-shadow: 0 0 8px rgb(0 0 0 / 0.06);
+    padding: 13px 10px 13px 30px;
+    position: relative;
+    margin-bottom: 30px;
+}
+.product-list h3 {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #525557;
+    margin-bottom: 6px;
+}
+.product-list p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #999999;
+    margin-bottom: 10px;
+    line-height: 16px;
+}
+.product-list .price {
+    margin-bottom: 0;
+    font-size: 24px;
+    line-height: 45px;
+    color: #29BEEB;
+    font-weight: 700;
+}
+.product-list .add-to-cart {
+    font-size: 12px;
+    font-weight: 400;
+    color: #fff;
+    padding: 13px 18px;
+    background-color: #053452;
+    text-transform: uppercase;
+    border-radius: 4px;
+    position: absolute;
+    right: 20px;
+    text-decoration: none;
+    bottom: -15px;
+}
+
+.autocomplete-dropdown-container {
+    position: absolute;
+    z-index: 1;
+    top: 75px;
+    text-align: left;
+    background-color: transparent;
+    font-size: 14px;
+    color: #053452;
+    padding: 10px;
+}
+
+/* .autocomplete-dropdown-container {
+    background-color: transparent;
+    font-size: 14px;
+    color: #053452;
+    padding: 10px;
+} */

@@ -9,6 +9,7 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import HomePage from './Views/HomePage';
 import Product from './Views/Product.jsx';
 import Categories from './Views/Categories.jsx';
+import SingleCategory from './Views/SingleCategory.jsx';
 import TestView from './Views/TestView.jsx';
 import Login from './Views/Login';
 import Cart from './Views/Cart';
@@ -121,15 +122,28 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
             <BrowserRouter>
             {/* <Switch> */}
             <Switch>
-            <Route exact path="/" component={props => <HomePage {...props} />} />
-            <Route  exact  path="/product/:id/"  component={props => <Product {...props} />} />
-            <Route path="/login" component={props => <Login {...props} />} />
-            <Route path="/cart" component={props => <Cart {...props} />} />
-            <Route path="/checkout"  client = {clientRef}  component={props => <Checkout {...props} />} />
-            <Route path="/detailsscreen" component={props => <DetailsScreen {...props} />} />
-            <Route path="/pastorders" component={props => <PastOrders {...props} />} />
-            <Route path="/categories" component={props => <Categories {...props} />} />
-            <Route path="/favorites" component={props => <Favorites {...props} />} />
+              
+<Route exact path="/" component={props => <HomePage {...props} />} />
+
+
+<Route  exact  path="/product/:id/"  component={props => <Product {...props} />} />
+
+
+<Route path="/login" component={props => <Login {...props} />} />
+
+<Route path="/cart" component={props => <Cart {...props} />} />
+
+<Route path="/checkout"  client = {clientRef}  component={props => <Checkout {...props} />} />
+
+<Route path="/detailsscreen" component={props => <DetailsScreen {...props} />} />
+
+<Route path="/pastorders" component={props => <PastOrders {...props} />} />
+
+<Route path="/categories/:id/" component={props => <Categories {...props} />} />
+<Route path="/categories" component={props => <Categories {...props} />} />
+<Route path="/single-category" component={props => <SingleCategory {...props} />} />
+
+<Route path="/favorites" component={props => <Favorites {...props} />} />
 
 </Switch>
               {/* <Route path="/home" component={props => <AuthLayout {...props} ></AuthLayout>}  />

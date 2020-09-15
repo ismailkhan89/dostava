@@ -235,13 +235,23 @@ like every other ride-sharing app.</p>
                         onSelect={handleSelect}
                       >
                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                          <div>
-                            <input
-                            className="mr-sm-2"
+                          <>
+
+                            {/* <FormControl
                               {...getInputProps({
                                 // placeholder: 'Search Places ...',
                                 placeholder:"Enter Location here...",
-                                className: '"mr-sm-2"',
+                                className: "mr-sm-2",
+                              })}
+                            type="text" 
+                            // placeholder="Enter Location here..." className="mr-sm-2"
+                            /> */}
+
+                            <input
+                              {...getInputProps({
+                                // placeholder: 'Search Places ...',
+                                placeholder:"Enter Location here...",
+                                className: "mr-sm-2 form-control",
                               })}
                             />
                             <div className="autocomplete-dropdown-container">
@@ -266,7 +276,7 @@ like every other ride-sharing app.</p>
                                 );
                               })}
                             </div>
-                          </div>
+                          </>
                         )}
                       </PlacesAutocomplete>
                       <Button variant="outline-success" onClick={routeChange}>Show Categories</Button>

@@ -42,11 +42,17 @@ const GETCARTITEMS = gql`${getCartItems}`;
 const getVendorbyLocation = gql`${getCategoriesByLocation}`
 function Categories(props) {
 
+  var lat = "24.893120";
+  var long = "67.063950"
+  // var id = "5f0ea61a44f4211d54bfe6ba";
+  //   console.log(props)
+
   const [_id, setId] = useState(props.match.params?.id ?? null);
-  const [lat,setlat] = useState(props.location.state?.location?.lat?.toString() ?? null);
-  const [lng,setlng] = useState(props.location.state?.location?.lng?.toString() ?? null);
   const [filters, setFilter] = useState({ onSale: false, inStock: false, min: 0, max: 1000 });
   const [search, setSearch] = useState('');
+
+  const {loading,error,data : dataVendor} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :long} ,client : newclient })
+  console.log("dataVendor", dataVendor)
 
   // const { loading, error, data, refetch, networkStatus, client } = useQuery(FOODS, { variables:{category: _id , ...filters,
   //    search: search,lat : lat.toString(),long : long.toString()} ,client : newLink })
@@ -175,7 +181,7 @@ function Categories(props) {
       <Container id="subheader" fluid>
         <Row>
           <Col lg="12">
-          <h2 class="title text-center">CATEGORIES</h2>
+          <h2 class="title text-center">Single Category Name</h2>
 					 <p class="content text-center">The purpose of lorem ipsum is to create a natural looking block of text that doesn't distract from the layout.</p>
           </Col>
         </Row>
@@ -213,12 +219,12 @@ function Categories(props) {
 
             <Row>
                 <Col lg="12" >
-                  <h2 class="title">All Categories</h2>
+                  <h2 class="title">New Products</h2>
                 </Col>
             </Row>
 
             <Row>
-            <Query query={getVendorbyLocation} variables={{ lat : lat,long :lng}}>
+            <Query query={getVendorbyLocation} variables={{ lat : lat,long :long}}>
             {({ loading, error, data }) => {
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
@@ -243,14 +249,43 @@ function Categories(props) {
             </Query>
             </Row>
 
-            <Row>
-              <Col lg="12">
-                <Link to="#" className="learn-more">Load More</Link>
-              </Col>
-            </Row>
+            
             
           </Container>
           
+        </Row>
+        <Row>
+          <Container id="dry-fruits" className="all-products">
+          <Row>
+                <Col lg="12" >
+                  <h2 class="title">All Products</h2>
+                </Col>
+            </Row>
+
+            <Row>
+            <Query query={getVendorbyLocation} variables={{ lat : lat,long :long}}>
+            {({ loading, error, data }) => {
+             if (loading) return <div>{"Loading"}...</div>;
+             if (error) return <div>`${"Error"}! ${error.message}`</div>;
+              return data.getCategoriesByLocation.map((category, index) =>
+              // {console.log(data)}
+                <Col lg="6" key={index}>
+                  <div class="product-list">
+                    <Link to="/">
+                      <h3>{category.title}</h3>
+                      <p>{category.description}</p>
+                      <p class="price">$22.00</p>
+                      <a class="add-to-cart" href="#">Add to cart</a>
+                      {/* <p class="price">$24.03</p> */}
+                    
+                    </Link>
+                    </div>
+                  </Col>
+                )
+              }}
+            </Query>
+            </Row>
+          </Container>
         </Row>
       </Container>
 
