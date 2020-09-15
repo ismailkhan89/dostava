@@ -9,6 +9,7 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import HomePage from './Views/HomePage';
 import Product from './Views/Product.jsx';
 import Categories from './Views/Categories.jsx';
+import SingleCategory from './Views/SingleCategory.jsx';
 import TestView from './Views/TestView.jsx';
 import Login from './Views/Login';
 import Cart from './Views/Cart';
@@ -140,6 +141,7 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 
 <Route path="/categories/:id/" component={props => <Categories {...props} />} />
 <Route path="/categories" component={props => <Categories {...props} />} />
+<Route path="/single-category" component={props => <SingleCategory {...props} />} />
 
 <Route path="/favorites" component={props => <Favorites {...props} />} />
 
