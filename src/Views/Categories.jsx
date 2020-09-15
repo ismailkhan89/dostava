@@ -42,17 +42,11 @@ const GETCARTITEMS = gql`${getCartItems}`;
 const getVendorbyLocation = gql`${getCategoriesByLocation}`
 function Categories(props) {
 
-  var lat = "24.893120";
-  var long = "67.063950"
-  // var id = "5f0ea61a44f4211d54bfe6ba";
-  //   console.log(props)
-
   const [_id, setId] = useState(props.match.params?.id ?? null);
+  const [lat,setlat] = useState(props.location.state?.location?.lat.toString() ?? null);
+  const [lng,setlng] = useState(props.location.state?.location?.lng.toString() ?? null);
   const [filters, setFilter] = useState({ onSale: false, inStock: false, min: 0, max: 1000 });
   const [search, setSearch] = useState('');
-
-  const {loading,error,data : dataVendor} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :long} ,client : newclient })
-  console.log("dataVendor", dataVendor)
 
   // const { loading, error, data, refetch, networkStatus, client } = useQuery(FOODS, { variables:{category: _id , ...filters,
   //    search: search,lat : lat.toString(),long : long.toString()} ,client : newLink })
@@ -224,7 +218,7 @@ function Categories(props) {
             </Row>
 
             <Row>
-            <Query query={getVendorbyLocation} variables={{ lat : lat,long :long}}>
+            <Query query={getVendorbyLocation} variables={{ lat : lat,long :lng}}>
             {({ loading, error, data }) => {
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;

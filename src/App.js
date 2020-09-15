@@ -121,27 +121,15 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
             <BrowserRouter>
             {/* <Switch> */}
             <Switch>
-              
-<Route exact path="/" component={props => <HomePage {...props} />} />
-
-
-<Route  exact  path="/product/:id/"  component={props => <Product {...props} />} />
-
-
-<Route path="/login" component={props => <Login {...props} />} />
-
-<Route path="/cart" component={props => <Cart {...props} />} />
-
-<Route path="/checkout"  client = {clientRef}  component={props => <Checkout {...props} />} />
-
-<Route path="/detailsscreen" component={props => <DetailsScreen {...props} />} />
-
-<Route path="/pastorders" component={props => <PastOrders {...props} />} />
-
-<Route path="/categories/:id/" component={props => <Categories {...props} />} />
-<Route path="/categories" component={props => <Categories {...props} />} />
-
-<Route path="/favorites" component={props => <Favorites {...props} />} />
+            <Route exact path="/" component={props => <HomePage {...props} />} />
+            <Route  exact  path="/product/:id/"  component={props => <Product {...props} />} />
+            <Route path="/login" component={props => <Login {...props} />} />
+            <Route path="/cart" component={props => <Cart {...props} />} />
+            <Route path="/checkout"  client = {clientRef}  component={props => <Checkout {...props} />} />
+            <Route path="/detailsscreen" component={props => <DetailsScreen {...props} />} />
+            <Route path="/pastorders" component={props => <PastOrders {...props} />} />
+            <Route path="/categories" component={props => <Categories {...props} />} />
+            <Route path="/favorites" component={props => <Favorites {...props} />} />
 
 </Switch>
               {/* <Route path="/home" component={props => <AuthLayout {...props} ></AuthLayout>}  />

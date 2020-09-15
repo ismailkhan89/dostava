@@ -33,7 +33,14 @@ import FontAwesome from 'react-fontawesome';
 import { Form, FormControl } from 'react-bootstrap';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories, getFeaturedProducts, getConfiguration } from "../apollo/server";
-import FeaturedProducts from "../components/FeaturedProducts";
+import FeaturedProducts from "../Components/FeaturedProducts";
+
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
+import { Redirect , useHistory  } from "react-router-dom";
+import Categories from "./Categories.jsx";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -56,6 +63,9 @@ function HomePage(props){
   const [count, setCount] = useState(0);
   const [featuredProductsItems, setFeaturedProductsItems] = useState([]);
   const [configuration, setConfiguration] = useState([]);
+  const [location, setLocation] = useState('');
+  const [latLng, setlatLng] = useState('');
+
   function fetchProducts() {
     client.query({ query: GET_CONFIGURATION, fetchPolicy: 'network-only' }).then(res => {
       console.log("GET_CONFIGURATION fetau", res.data)
@@ -68,6 +78,13 @@ function HomePage(props){
     })
   }
 
+  const history = useHistory();
+
+  const routeChange = () =>{ 
+    let path = `categories`; 
+    history.push(path,{ location: latLng });
+  }
+
     var settings = {
       dots: true,
       autoplay:true,
@@ -78,6 +95,16 @@ function HomePage(props){
       slidesToScroll: 1
     };
   
+     function handleSelect(address){
+       setLocation(address)
+      geocodeByAddress(address)
+        .then(results => getLatLng(results[0]))
+        .then(latLng => {
+          setlatLng(latLng)
+          // console.log('Success', latLng)
+        })
+        .catch(error => console.error('Error', error));
+    };
     return(
       
         <Container className="wrapper" fluid>
@@ -201,8 +228,48 @@ like every other ride-sharing app.</p>
                     <h3>Dostava</h3>
                     <h4><strong>Groceries</strong> are just an app away</h4>
                     <Form inline className="text-right search-form">
-                      <FormControl type="text" placeholder="Enter Location here..." className="mr-sm-2" />
-                      <Button variant="outline-success">Show Categories</Button>
+                      {/* <FormControl type="text" placeholder="Enter Location here..." className="mr-sm-2" /> */}
+                      <PlacesAutocomplete
+                        value={location}
+                        onChange={(e) => setLocation(e)}
+                        onSelect={handleSelect}
+                      >
+                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                          <div>
+                            <input
+                            className="mr-sm-2"
+                              {...getInputProps({
+                                // placeholder: 'Search Places ...',
+                                placeholder:"Enter Location here...",
+                                className: '"mr-sm-2"',
+                              })}
+                            />
+                            <div className="autocomplete-dropdown-container">
+                              {loading && <div>Loading...</div>}
+                              {suggestions.map(suggestion => {
+                                const className = suggestion.active
+                                  ? 'suggestion-item--active'
+                                  : 'suggestion-item';
+                                // inline style for demonstration purpose
+                                const style = suggestion.active
+                                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                return (
+                                  <div
+                                    {...getSuggestionItemProps(suggestion, {
+                                      className,
+                                      style,
+                                    })}
+                                  >
+                                    <span>{suggestion.description}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
+                      </PlacesAutocomplete>
+                      <Button variant="outline-success" onClick={routeChange}>Show Categories</Button>
                     </Form>
                   </Col>
                 </Row>
@@ -262,4 +329,67 @@ like every other ride-sharing app.</p>
 
 }
 
+
+// class LocationSearchInput extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { address: '',latlng : null};
+//   }
+ 
+//   handleChange = address => {
+//     this.setState({ address });
+//   };
+ 
+//   handleSelect = address => {
+//     geocodeByAddress(address)
+//       .then(results => getLatLng(results[0]))
+//       .then(latLng => {
+//         this.setState({latlng : latLng })
+//         console.log('Success', latLng)})
+//       .catch(error => console.error('Error', error));
+//   };
+ 
+//   render() {
+//     return (
+//       <PlacesAutocomplete
+//         value={this.state.address}
+//         onChange={this.handleChange}
+//         onSelect={this.handleSelect}
+//       >
+//         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+//           <div>
+//             <input
+//               {...getInputProps({
+//                 placeholder: 'Search Places ...',
+//                 className: 'location-search-input',
+//               })}
+//             />
+//             <div className="autocomplete-dropdown-container">
+//               {loading && <div>Loading...</div>}
+//               {suggestions.map(suggestion => {
+//                 const className = suggestion.active
+//                   ? 'suggestion-item--active'
+//                   : 'suggestion-item';
+//                 // inline style for demonstration purpose
+//                 const style = suggestion.active
+//                   ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+//                   : { backgroundColor: '#ffffff', cursor: 'pointer' };
+//                 return (
+//                   <div
+//                     {...getSuggestionItemProps(suggestion, {
+//                       className,
+//                       style,
+//                     })}
+//                   >
+//                     <span>{suggestion.description}</span>
+//                   </div>
+//                 );
+//               })}
+//             </div>
+//           </div>
+//         )}
+//       </PlacesAutocomplete>
+//     );
+//   }
+// }
   export default HomePage;
