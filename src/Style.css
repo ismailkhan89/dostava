@@ -2226,7 +2226,7 @@ padding-left:70px;
     float:left;
     width:100%;
 }
-#Product-carousel .product a:before{
+#Product-carousel .product:before{
     position:absolute;
     content:'';
     background-color:rgba(0,0,0,0.5);
@@ -2237,10 +2237,10 @@ padding-left:70px;
     top:0;
     cursor:pointer;
 }
-#Product-carousel .product a:hover:before{
+#Product-carousel .product:hover:before{
     background-color:rgba(0,0,0,0);
 }
-#Product-carousel .product a:hover .product-desc{
+#Product-carousel .product:hover .product-desc{
     background-color:rgba(0,0,0,0.5);
 }
 #Product-carousel .product .product-img img{
