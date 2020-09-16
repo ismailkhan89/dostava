@@ -1,6 +1,7 @@
 import HomePage from './Views/HomePage';
 import Product from './Views/Product.jsx';
 import Categories from './Views/Categories';
+import SingleCategory from './Views/SingleCategory';
 
 import TestView from './Views/TestView.jsx';
 import Login from './Views/Login';
@@ -19,6 +20,12 @@ var routes = [
         component: Product,
         layout: "/",
        
+      },
+      {
+        path: "/single-category",
+        name: "Single-category",
+        component: SingleCategory,
+        layout: "/",
       },
       {
         path: "/categories",

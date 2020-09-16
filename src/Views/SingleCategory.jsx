@@ -42,26 +42,30 @@ const GETCARTITEMS = gql`${getCartItems}`;
 const getVendorbyLocation = gql`${getCategoriesByLocation}`
 function Categories(props) {
 
-  var lat = "24.893120";
-  var long = "67.063950"
+  // var lat = "24.893120";
+  // var long = "67.063950"
   // var id = "5f0ea61a44f4211d54bfe6ba";
-  //   console.log(props)
+   console.log(props)
 
-  const [_id, setId] = useState(props.match.params?.id ?? null);
+  const [_id, setId] = useState(props.location?.state?.params ?? null);
   const [filters, setFilter] = useState({ onSale: false, inStock: false, min: 0, max: 1000 });
   const [search, setSearch] = useState('');
+  const [lat, setLat] = useState(props.location?.state?.location?.lat.toString() ?? null);
+  const [lng, setLng] = useState(props.location?.state?.location?.lng.toString() ?? null);
 
-  const {loading,error,data : dataVendor} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :long} ,client : newclient })
+  const {loading,error,data : dataVendor} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :lng} ,client : newclient })
   console.log("dataVendor", dataVendor)
 
   // const { loading, error, data, refetch, networkStatus, client } = useQuery(FOODS, { variables:{category: _id , ...filters,
-  //    search: search,lat : lat.toString(),long : long.toString()} ,client : newLink })
+  //    search: search,lat : lat.toString(),long : lng.toString()} ,client : newLink })
 
   const [mutateLike, { loadingLike: loadingLikeMutation }] = useMutation(LIKE_PRODUCT, { onCompletedLike, onErrorLike, client } )
   const { cartloading } = useQuery(GETCARTITEMS)
   const [message, setMessages] = useState('');
 
   console.log("props.match.params?.id", props.match.params?.id);
+  console.log("props.location?.query?.data", props.location?.state?.location);
+
   // console.log("food data", data);
   // console.log("foodloading",loading)
 
@@ -224,26 +228,51 @@ function Categories(props) {
             </Row>
 
             <Row>
-            <Query query={getVendorbyLocation} variables={{ lat : lat,long :long}}>
+              {/* <Query query={getVendorbyLocation} variables={{ lat : lat.toString(),long :lng.toString()}}>
+              {({ loading, error, data }) => {
+              if (loading) return <div>{"Loading"}...</div>;
+              if (error) return <div>`${"Error"}! ${error.message}`</div>;
+                return data.getCategoriesByLocation.map((category, index) =>
+                  <Col lg="3" key={index}>
+                    <div class="product">
+                      <Link to="/">
+                      <div class="product-img">
+                        <img class="img-fluid" src={category.img_menu} alt=""></img>
+                      </div>
+                      <div class="product-desc">
+                        <h3 class="product-title">{category.title}</h3>
+                        <p class="product-content">{category.description}</p>
+                      </div>
+                      </Link>
+                      </div>
+                    </Col>
+                  )
+                }}
+              </Query> */}
+
+          <Query query={FOODS} variables={{ category: _id ,lat : lat,long : lng}}>
             {({ loading, error, data }) => {
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
-              return data.getCategoriesByLocation.map((category, index) =>
-              // {console.log(data)}
-                <Col lg="3" key={index}>
+             {console.log(data)}
+            return data.foodByVendorCategory.map((category, index) =>{
+                if(index  <= 3){
+               return  <Col lg="3" key={index}>
                   <div class="product">
                     <Link to="/">
                     <div class="product-img">
-                      <img class="img-fluid" src={category.img_menu} alt=""></img>
+                      <img class="img-fluid" src={category.img_url} alt=""></img>
                     </div>
                     <div class="product-desc">
                       <h3 class="product-title">{category.title}</h3>
                       <p class="product-content">{category.description}</p>
-                      {/* <p class="price">$24.03</p> */}
                     </div>
                     </Link>
                     </div>
-                  </Col>
+               </Col>
+                }
+                }
+                  
                 )
               }}
             </Query>
@@ -263,18 +292,18 @@ function Categories(props) {
             </Row>
 
             <Row>
-            <Query query={getVendorbyLocation} variables={{ lat : lat,long :long}}>
+            <Query query={FOODS} variables={{ category: _id , ...filters,
+            search: search,lat : lat,long : lng}}>
             {({ loading, error, data }) => {
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
-              return data.getCategoriesByLocation.map((category, index) =>
-              // {console.log(data)}
+              return data.foodByVendorCategory.map((category, index) =>
                 <Col lg="6" key={index}>
                   <div class="product-list">
                     <Link to="/">
                       <h3>{category.title}</h3>
                       <p>{category.description}</p>
-                      <p class="price">$22.00</p>
+                       <p class="price">${category.vendor_pricing}</p>
                       <a class="add-to-cart" href="#">Add to cart</a>
                       {/* <p class="price">$24.03</p> */}
                     

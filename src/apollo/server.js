@@ -205,6 +205,7 @@ export const foods = `
       _id
       title
       description
+      vendor_pricing
       user{
         _id
         name

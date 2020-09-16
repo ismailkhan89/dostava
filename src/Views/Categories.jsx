@@ -21,7 +21,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import { server_url } from  "../config/config";
 import { authLink } from '../library/authLink';
 import { Form, FormControl } from 'react-bootstrap';
-
+import { Redirect , useHistory  } from "react-router-dom";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -55,7 +55,25 @@ function Categories(props) {
   const { cartloading } = useQuery(GETCARTITEMS)
   const [message, setMessages] = useState('');
 
-  console.log("props.match.params?.id", props.match.params?.id);
+ 
+  // const history = useHistory();
+
+  // const routeChange = (id) =>{ 
+  //   let path = `/single-category/${id}`; 
+  //   props.history.push({ path
+  //   })
+  // }
+
+
+  const history = useHistory();
+
+  const routeChange = (id) =>{ 
+    let path = `single-category`; 
+    history.push(path,{ location:  props.location.state?.location , params : id  });
+      // state: { id: id,location : props.location.state?.location }
+
+  }
+
   // console.log("food data", data);
   // console.log("foodloading",loading)
 
@@ -223,10 +241,18 @@ function Categories(props) {
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
               return data.getCategoriesByLocation.map((category, index) =>
-              // {console.log(data)}
                 <Col lg="3" key={index}>
-                  <div class="product">
-                    <Link to="/">
+                  <div class="product" onClick={() => routeChange(category._id)}>
+                 {/* <Link
+
+                    onClick={routeChange} 
+                    to={{ 
+                          pathname: `/single-category/${category._id}`, 
+                          query: {
+                            data: props.location.state?.location
+                          } 
+                        }}
+                        > */}
                     <div class="product-img">
                       <img class="img-fluid" src={category.img_menu} alt=""></img>
                     </div>
@@ -235,7 +261,7 @@ function Categories(props) {
                       <p class="product-content">{category.description}</p>
                       {/* <p class="price">$24.03</p> */}
                     </div>
-                    </Link>
+                   {/* </Link> */}
                     </div>
                   </Col>
                 )
