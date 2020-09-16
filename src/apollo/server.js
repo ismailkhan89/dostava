@@ -55,8 +55,6 @@ export const getFoods = `query Foods{
       _id
       title
       description
-      likes
-      liked
       img_url
       stock
       category {

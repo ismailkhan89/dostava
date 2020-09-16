@@ -136,8 +136,9 @@ function Cart(props) {
           console.log("<<cartItems>>>ids",ids)
           const { data: { foodByIds } } = await client.query({ query: FOOD_BY_IDS, variables: { ids }, fetchPolicy: 'network-only' })
           const transformCart = cartItems.map(cartItem => {
+            console.log(foodByIds)
             const food = foodByIds.find(food => food._id === cartItem._id)
-            console.log("<<cartItems>>>food",food)
+            console.log(" ",food)
             if (!food)
               return null
             const variation = food.variations.find(variation => variation._id === cartItem.variation._id)
@@ -215,9 +216,10 @@ function Cart(props) {
     } 
 
     async function addQuantityToCartItem (newItem) {
-      console.log("item quantity", newItem)
+
           const cartItemsStr = localStorage.getItem('cartItems') || '[]'
           const cartItems = JSON.parse(cartItemsStr)
+
           const index = cartItems.findIndex((product) => product._id === newItem._id)
           if (index < 0)
               cartItems.push(newItem)
@@ -226,6 +228,7 @@ function Cart(props) {
           }
           await localStorage.setItem('cartItems', JSON.stringify(cartItems))
           setCartItems(cartItems);
+          didFocus()
         
       }
       
@@ -236,7 +239,9 @@ function Cart(props) {
           if (index < 0)
               cartItems.push(newItem)
           else {
-              cartItems[index].quantity = cartItems[index].quantity - 1
+              if(cartItems[index].quantity > 0){
+                cartItems[index].quantity = cartItems[index].quantity - 1
+              }
           }
           await localStorage.setItem('cartItems', JSON.stringify(cartItems))
           setCartItems(cartItems);

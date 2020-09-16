@@ -81,6 +81,8 @@ function HomePage(props){
   const history = useHistory();
 
   const routeChange = () =>{ 
+    // localStorage.clear();
+    localStorage.removeItem('cartItems');
     let path = `categories`; 
     history.push(path,{ location: latLng });
   }

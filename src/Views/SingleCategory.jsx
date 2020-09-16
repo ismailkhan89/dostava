@@ -50,12 +50,12 @@ function Categories(props) {
   const [_id, setId] = useState(props.location?.state?.params ?? null);
   const [filters, setFilter] = useState({ onSale: false, inStock: false, min: 0, max: 1000 });
   const [search, setSearch] = useState('');
+  const [SearchText,setSearchText] = useState('');
   const [lat, setLat] = useState(props.location?.state?.location?.lat.toString() ?? null);
   const [lng, setLng] = useState(props.location?.state?.location?.lng.toString() ?? null);
 
-  const {loading,error,data : dataVendor} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :lng} ,client : newclient })
-  console.log("dataVendor", dataVendor)
-
+  const {loading,error,data : dataVendorLocation} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :lng} ,client : newclient })
+  console.log("dataVendor", dataVendorLocation)
   // const { loading, error, data, refetch, networkStatus, client } = useQuery(FOODS, { variables:{category: _id , ...filters,
   //    search: search,lat : lat.toString(),long : lng.toString()} ,client : newLink })
 
@@ -165,6 +165,53 @@ function Categories(props) {
   function onError(data){
     console.log(data)
   }
+
+  async function onAddToCart (product)  {
+
+    console.log('onAddToCart>>> ', product);
+    if (product.stock < 1) {
+        // showMessage({
+        //     message: 'Item out of stock',
+        //     type: 'warning',
+        //     floating: true,
+        //     style: styles.alertbox,
+        //     titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
+        // })
+        return 'Item out of stock';
+    }
+
+    if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
+        const newItem = {
+            // key: uuid.v4(),
+            __typename: 'CartItem',
+            _id: product._id,
+            vendor: product.user._id,
+            quantity: 1,
+            variation: {
+                __typename: 'ItemVariation',
+                _id: product.variations[0]._id,
+            },
+            addons: []
+        }
+        const cartItemsStr = localStorage.getItem('cartItems') || '[]'
+        const cartItems = JSON.parse(cartItemsStr)
+        console.log("<<cartItems>>",cartItems)
+        const index = cartItems.findIndex((product) => product._id === newItem._id)
+        if (index < 0)
+            cartItems.push(newItem)
+        else {
+            cartItems[index].quantity = cartItems[index].quantity + 1
+        }
+        console.log("<<new item entered>>",cartItems)
+        client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
+        localStorage.setItem('cartItems', JSON.stringify(cartItems))
+        // props.navigation.navigate('Cart')
+        return 'Item Added';
+    }
+    else {
+        // props.navigation.navigate('ItemDetail', { product })
+    }
+  }
   return (
     <Container className="wrapper" fluid>
       <Header  {...props} />
@@ -203,8 +250,10 @@ function Categories(props) {
                 <option>category 4</option>
                 <option>category 5</option>
               </select>
-              <FormControl type="search" placeholder="Enter Location here..." />
-              <Button variant="outline-success">Search</Button>
+              <FormControl type="search" placeholder="Search Product ..." value={SearchText} onChange={(e) => setSearchText(e.target.value)} />
+            <Button variant="outline-success" onClick={(e) => {
+              e.preventDefault();
+              setSearch(SearchText)} }>Search</Button>
             </Form>
           </Col>
         </Row>
@@ -220,13 +269,17 @@ function Categories(props) {
         <Row>
           <Container id="Product-carousel">
             
-
+          {_id && lat && lng && search === '' &&
+          <>
             <Row>
                 <Col lg="12" >
                   <h2 class="title">New Products</h2>
                 </Col>
             </Row>
 
+
+
+           
             <Row>
               {/* <Query query={getVendorbyLocation} variables={{ lat : lat.toString(),long :lng.toString()}}>
               {({ loading, error, data }) => {
@@ -254,7 +307,6 @@ function Categories(props) {
             {({ loading, error, data }) => {
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
-             {console.log(data)}
             return data.foodByVendorCategory.map((category, index) =>{
                 if(index  <= 3){
                return  <Col lg="3" key={index}>
@@ -277,7 +329,8 @@ function Categories(props) {
               }}
             </Query>
             </Row>
-
+            </>
+}
             
             
           </Container>
@@ -291,29 +344,33 @@ function Categories(props) {
                 </Col>
             </Row>
 
-            <Row>
-            <Query query={FOODS} variables={{ category: _id , ...filters,
-            search: search,lat : lat,long : lng}}>
-            {({ loading, error, data }) => {
-             if (loading) return <div>{"Loading"}...</div>;
-             if (error) return <div>`${"Error"}! ${error.message}`</div>;
-              return data.foodByVendorCategory.map((category, index) =>
-                <Col lg="6" key={index}>
-                  <div class="product-list">
-                    <Link to="/">
-                      <h3>{category.title}</h3>
-                      <p>{category.description}</p>
-                       <p class="price">${category.vendor_pricing}</p>
-                      <a class="add-to-cart" href="#">Add to cart</a>
-                      {/* <p class="price">$24.03</p> */}
-                    
-                    </Link>
-                    </div>
-                  </Col>
-                )
-              }}
-            </Query>
-            </Row>
+              {_id && lat && lng && 
+                <Row>
+                <Query query={FOODS} variables={{ category: _id , ...filters,
+                  search: search,lat : lat,long : lng}}>
+                {({ loading, error, data }) => {
+                if (loading) return <div>{"Loading"}...</div>;
+                if (error) return <div>`${"Error"}! ${error.message}`</div>;
+                  return data.foodByVendorCategory.map((category, index) =>
+                    <Col lg="6" key={index}>
+                      <div class="product-list">
+                        {/* <Link to="/"> */}
+                          <h3>{category.title}</h3>
+                          <p>{category.description}</p>
+                          <p class="price">${category.vendor_pricing}</p>
+                          {/* <Button className="add-to-cart" onClick={() => onAddToCart(category)} ></Button> */}
+                          {/* <Link className="add-to-cart">Add to Cart</Link> */}
+                          <a class="add-to-cart" href="#" onClick={() => onAddToCart(category)}>Add to cart</a>
+                          {/* <p class="price">$24.03</p> */}
+                        
+                        {/* </Link> */}
+                        </div>
+                      </Col>
+                    )
+                  }}
+                </Query>
+                </Row>
+            }
           </Container>
         </Row>
       </Container>
