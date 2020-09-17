@@ -8,12 +8,13 @@ import {
   Row,
   Col,
   Button,
+  Alert
 } from "reactstrap";
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import { Link, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { foods, like,foodbyVendor ,getCategoriesByLocation} from "../apollo/server";
+import { foods, like,foodbyVendor ,getCategoriesByLocation , getConfiguration} from "../apollo/server";
 import { getCartItems } from '../apollo/client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
@@ -21,7 +22,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import { server_url } from  "../config/config";
 import { authLink } from '../library/authLink';
 import { Form, FormControl } from 'react-bootstrap';
-
+import { getItemPrice } from '../utils/pricing'
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -40,6 +41,8 @@ const FOODS = gql`${foodbyVendor}`;
 const LIKE_PRODUCT = gql`${like}`;
 const GETCARTITEMS = gql`${getCartItems}`;
 const getVendorbyLocation = gql`${getCategoriesByLocation}`
+const GET_CONFIGURATION = gql`${getConfiguration}`;
+
 function Categories(props) {
 
   // var lat = "24.893120";
@@ -47,12 +50,31 @@ function Categories(props) {
   // var id = "5f0ea61a44f4211d54bfe6ba";
    console.log(props)
 
-  const [_id, setId] = useState(props.location?.state?.params ?? null);
+   const [configuration ,setConfiguration] = useState('');
+
+  const {loading :loadingConfig,error : errorConfig,data : dataConfig} = useQuery(GET_CONFIGURATION, { client : newclient,fetchPolicy: 'network-only'  })
+
+   React.useEffect(() => {
+    const onCompleted = (dataConfig) => {
+      setConfiguration(dataConfig)
+    }
+      if(!loadingConfig && !errorConfig){
+        onCompleted(dataConfig)
+      }
+   },[dataConfig])
+
+
+  // const [_id, setId] = useState(props.location?.state?.params ?? null);
+  const [_id, setId] = useState(props.match.params?.id ?? null);
+
   const [filters, setFilter] = useState({ onSale: false, inStock: false, min: 0, max: 1000 });
   const [search, setSearch] = useState('');
   const [SearchText,setSearchText] = useState('');
-  const [lat, setLat] = useState(props.location?.state?.location?.lat.toString() ?? null);
-  const [lng, setLng] = useState(props.location?.state?.location?.lng.toString() ?? null);
+
+  const [lat,setLat] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lat ?? null : null)
+  const [lng,setLng] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lng ?? null : null)
+  // const [lat, setLat] = useState(props.location?.state?.location?.lat.toString() ?? null);
+  // const [lng, setLng] = useState(props.location?.state?.location?.lng.toString() ?? null);
 
   const {loading,error,data : dataVendorLocation} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :lng} ,client : newclient })
   console.log("dataVendor", dataVendorLocation)
@@ -66,7 +88,7 @@ function Categories(props) {
   console.log("props.match.params?.id", props.match.params?.id);
   console.log("props.location?.query?.data", props.location?.state?.location);
 
-  // console.log("food data", data);
+   console.log("propspropsprops", props);
   // console.log("foodloading",loading)
 
   async function onLikeProduct(product) {
@@ -95,52 +117,6 @@ function Categories(props) {
   }
   async function onCompleted(data) { 
     console.log("complete data", data)
-  }
-  async function onAddToCart (product)  {
-
-    console.log('onAddToCart>>> ', product);
-    if (product.stock < 1) {
-        // showMessage({
-        //     message: 'Item out of stock',
-        //     type: 'warning',
-        //     floating: true,
-        //     style: styles.alertbox,
-        //     titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
-        // })
-        return 'Item out of stock';
-    }
-
-    if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
-        const newItem = {
-            // key: uuid.v4(),
-            __typename: 'CartItem',
-            _id: product._id,
-            vendor: product.user._id,
-            quantity: 1,
-            variation: {
-                __typename: 'ItemVariation',
-                _id: product.variations[0]._id,
-            },
-            addons: []
-        }
-        const cartItemsStr = localStorage.getItem('cartItems') || '[]'
-        const cartItems = JSON.parse(cartItemsStr)
-        console.log("<<cartItems>>",cartItems)
-        const index = cartItems.findIndex((product) => product._id === newItem._id)
-        if (index < 0)
-            cartItems.push(newItem)
-        else {
-            cartItems[index].quantity = cartItems[index].quantity + 1
-        }
-        console.log("<<new item entered>>",cartItems)
-        client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
-        localStorage.setItem('cartItems', JSON.stringify(cartItems))
-        // props.navigation.navigate('Cart')
-        return 'Item Added';
-    }
-    else {
-        // props.navigation.navigate('ItemDetail', { product })
-    }
   }
 
    async function onCLickProudctDetails(product) {
@@ -232,8 +208,8 @@ function Categories(props) {
       <Container id="subheader" fluid>
         <Row>
           <Col lg="12">
-          <h2 class="title text-center">Single Category Name</h2>
-					 <p class="content text-center">The purpose of lorem ipsum is to create a natural looking block of text that doesn't distract from the layout.</p>
+          <h2 className="title text-center">Single Category Name</h2>
+					 <p className="content text-center">The purpose of lorem ipsum is to create a natural looking block of text that doesn't distract from the layout.</p>
           </Col>
         </Row>
       </Container>
@@ -266,6 +242,7 @@ function Categories(props) {
         </Row>
       </Container>
       <Container className="content-area" fluid>
+
         <Row>
           <Container id="Product-carousel">
             
@@ -273,12 +250,9 @@ function Categories(props) {
           <>
             <Row>
                 <Col lg="12" >
-                  <h2 class="title">New Products</h2>
+                  <h2 className="title">New Products</h2>
                 </Col>
             </Row>
-
-
-
            
             <Row>
               {/* <Query query={getVendorbyLocation} variables={{ lat : lat.toString(),long :lng.toString()}}>
@@ -310,14 +284,14 @@ function Categories(props) {
             return data.foodByVendorCategory.map((category, index) =>{
                 if(index  <= 3){
                return  <Col lg="3" key={index}>
-                  <div class="product">
+                  <div className="product">
                     <Link to="/">
-                    <div class="product-img">
-                      <img class="img-fluid" src={category.img_url} alt=""></img>
+                    <div className="product-img">
+                      <img className="img-fluid" src={category.img_url} alt=""></img>
                     </div>
-                    <div class="product-desc">
-                      <h3 class="product-title">{category.title}</h3>
-                      <p class="product-content">{category.description}</p>
+                    <div className="product-desc">
+                      <h3 className="product-title">{category.title}</h3>
+                      <p className="product-content">{category.description}</p>
                     </div>
                     </Link>
                     </div>
@@ -340,7 +314,7 @@ function Categories(props) {
           <Container id="dry-fruits" className="all-products">
           <Row>
                 <Col lg="12" >
-                  <h2 class="title">All Products</h2>
+                  <h2 className="title">All Products</h2>
                 </Col>
             </Row>
 
@@ -353,14 +327,15 @@ function Categories(props) {
                 if (error) return <div>`${"Error"}! ${error.message}`</div>;
                   return data.foodByVendorCategory.map((category, index) =>
                     <Col lg="6" key={index}>
-                      <div class="product-list">
+                      <div className="product-list">
                         {/* <Link to="/"> */}
                           <h3>{category.title}</h3>
                           <p>{category.description}</p>
-                          <p class="price">${category.vendor_pricing}</p>
+                          <p className="price">  ${getItemPrice(category,configuration)}</p>
                           {/* <Button className="add-to-cart" onClick={() => onAddToCart(category)} ></Button> */}
                           {/* <Link className="add-to-cart">Add to Cart</Link> */}
-                          <a class="add-to-cart" href="#" onClick={() => onAddToCart(category)}>Add to cart</a>
+                         <a className="add-to-cart" href="#" onClick={() => onAddToCart(category)}>Add to cart</a>
+                       
                           {/* <p class="price">$24.03</p> */}
                         
                         {/* </Link> */}
@@ -371,6 +346,8 @@ function Categories(props) {
                 </Query>
                 </Row>
             }
+
+
           </Container>
         </Row>
       </Container>

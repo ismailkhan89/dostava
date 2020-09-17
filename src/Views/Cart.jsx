@@ -25,12 +25,14 @@ import { ApolloClient } from 'apollo-client';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { createUploadLink } from 'apollo-upload-client';
 import gql from "graphql-tag";
-import { getCategories, foodByIds, getCoupon } from "../apollo/server";
+import { getCategories, foodByIds, getCoupon , getConfiguration } from "../apollo/server";
 import { getCartItems } from '../apollo/client';
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { server_url } from  "../config/config";
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import Checkout from "./Checkout.jsx";
+import { getItemPrice } from '../utils/pricing'
+import { parse } from "graphql";
 const GETCARTITEMS = gql`${getCartItems}`;
 const GET_COUPON = gql`${getCoupon}`
 const FOOD_BY_IDS = gql`${foodByIds}`
@@ -44,6 +46,8 @@ const clients = new ApolloClient({
   link: httpLink,
   cache
 });
+
+const GET_CONFIGURATION = gql`${getConfiguration}`;
 
 function Cart(props) {
   
@@ -59,10 +63,26 @@ function Cart(props) {
 	const [mutate, { loading: loadingMutation }] = useMutation(GET_COUPON, {onCompleted, onError})
 	// const addressObj = props.route.params?.AddressObject ?? null
 
+  const [newconfiguration ,setnewConfiguration] = useState('');
 
-    useEffect(() => {
-      didFocus()
-    }, [])
+  const {loading :loadingConfig,error : errorConfig,data : dataConfig} = useQuery(GET_CONFIGURATION, { client : clients,fetchPolicy: 'network-only'  })
+
+
+   useEffect(() => {
+    const onCompleted = async (dataConfig) => {
+      setnewConfiguration(dataConfig)
+     await didFocus()
+    }
+      if(!loadingConfig && !errorConfig){
+        onCompleted(dataConfig)
+       
+      }
+   },[dataConfig])
+
+    // useEffect(() => {
+    
+    // }, [])
+
     useEffect(() => {
       setConfiguratoins()
     }, [])
@@ -149,8 +169,11 @@ function Cart(props) {
             if (food.stock < cartItem.quantity) {
               cartItem.quantity = food.stock
             }
+
             let title = `${food.title}(${variation.title})`
             let price = variation.price
+         
+            price = parseFloat(getItemPrice(food,configuration))
             if (cartItem.addons)
               cartItem.addons.forEach(addon => {
                 const cartAddon = variation.addons.find(add => add._id === addon._id)
@@ -160,7 +183,9 @@ function Cart(props) {
                 })
               })
               console.log("<<cartItems>>>ready to push",cartItem)
-            validatedItems.push(cartItem)
+            
+              validatedItems.push(cartItem)
+
             console.log("<<validatedItems pushed>>>",validatedItems)
             return {
               ...cartItem,
@@ -245,6 +270,7 @@ function Cart(props) {
           }
           await localStorage.setItem('cartItems', JSON.stringify(cartItems))
           setCartItems(cartItems);
+          didFocus()
       }
     console.log("get config", configuration)
     console.log("get props", props)

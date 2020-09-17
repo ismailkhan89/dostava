@@ -33,7 +33,7 @@ import FontAwesome from 'react-fontawesome';
 import { Form, FormControl } from 'react-bootstrap';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories, getFeaturedProducts, getConfiguration } from "../apollo/server";
-import FeaturedProducts from "../components/FeaturedProducts";
+import FeaturedProducts from "../Components/FeaturedProducts";
 
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -78,13 +78,13 @@ function HomePage(props){
     })
   }
 
-  const history = useHistory();
+  // const history = useHistory();
 
   const routeChange = () =>{ 
     // localStorage.clear();
     localStorage.removeItem('cartItems');
     let path = `categories`; 
-    history.push(path,{ location: latLng });
+    props.history.push(path,{ location: latLng });
   }
 
     var settings = {
@@ -103,6 +103,7 @@ function HomePage(props){
         .then(results => getLatLng(results[0]))
         .then(latLng => {
           setlatLng(latLng)
+          localStorage.removeItem('location');
           // console.log('Success', latLng)
         })
         .catch(error => console.error('Error', error));
@@ -281,7 +282,22 @@ like every other ride-sharing app.</p>
                           </>
                         )}
                       </PlacesAutocomplete>
-                      <Button variant="outline-success" onClick={routeChange}>Show Categories</Button>
+                      <Link className="outline-success" to="/categories" onClick={(e) => {
+                        e.preventDefault();
+                        localStorage.removeItem('cartItems');
+                        if(!!latLng){
+                          var location = {
+                            lat : latLng.lat.toString(),
+                            lng : latLng.lng.toString()
+                          }
+                          localStorage.setItem('location',JSON.stringify(location));
+                            return  props.history.push({
+                            pathname: '/categories',
+                            // state: {...props.history?.state,location: latLng}
+                          })
+                        }
+                      }}><Button variant="outline-success">Show Categories</Button></Link>
+                      
                     </Form>
                   </Col>
                 </Row>
