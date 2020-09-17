@@ -336,7 +336,7 @@ function Cart(props) {
                                 <FontAwesome name="plus"></FontAwesome>
                               </button>
                             </td>
-                        <td><strong> { parseInt(cartItem.quantity)*parseInt(cartItem.price) }</strong></td>
+                        <td><strong> { parseFloat(cartItem.quantity)* parseFloat(cartItem.price) }</strong></td>
                             <td><FontAwesome 
                              onClick={e => {
                               e.preventDefault()

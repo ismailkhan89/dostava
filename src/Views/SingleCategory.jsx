@@ -334,7 +334,7 @@ function Categories(props) {
                           <p className="price">  ${getItemPrice(category,configuration)}</p>
                           {/* <Button className="add-to-cart" onClick={() => onAddToCart(category)} ></Button> */}
                           {/* <Link className="add-to-cart">Add to Cart</Link> */}
-                         <a className="add-to-cart" href="#" onClick={() => onAddToCart(category)}>Add to cart</a>
+                         <a className="add-to-cart" href="#" onClick={(e) => onAddToCart(category)}>Add to cart</a>
                        
                           {/* <p class="price">$24.03</p> */}
                         
