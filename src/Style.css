@@ -2248,6 +2248,7 @@ padding-left:70px;
     height:auto;
     max-height:175px;
     object-fit:cover;
+    min-height:175px;
 }
 /*=============== Product Carousel End ===============*/
 

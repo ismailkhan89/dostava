@@ -57,6 +57,8 @@ export const getFoods = `query Foods{
       description
       img_url
       stock
+      vendor_pricing
+      dostava_commission
       category {
         _id
       }
@@ -204,6 +206,7 @@ export const foods = `
       title
       description
       vendor_pricing
+      dostava_commission
       user{
         _id
         name
@@ -511,6 +514,7 @@ export const getConfiguration = `query GetConfiguration{
     delivery_charges
     currency
     currency_symbol
+    commission_percentage
   }
 }`
 

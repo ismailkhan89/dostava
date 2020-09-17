@@ -141,7 +141,8 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 
 <Route path="/categories/:id/" component={props => <Categories {...props} />} />
 <Route path="/categories" component={props => <Categories {...props} />} />
-<Route path="/single-category" component={props => <SingleCategory {...props} />} />
+<Route path="/single-category/:id" component={props => <SingleCategory {...props} />} />
+<Route path="/single-category/" component={props => <SingleCategory {...props} />} />
 
 <Route path="/favorites" component={props => <Favorites {...props} />} />
 

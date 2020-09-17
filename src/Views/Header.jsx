@@ -24,7 +24,7 @@ function Header(props) {
   const [cartItemCount, setCartItemCount] = useState('0')
   useEffect(() => {
     getData()
-  }, [])
+  }, [getData])
   useEffect(() => {
     activeRoute()
   }, [])
@@ -57,7 +57,7 @@ function Header(props) {
     <Container className="header-area">
       
       <Row className="mainHeader ">
-        <Navbar sticky="top" expand="lg" fluid>
+        <Navbar sticky="top" expand="lg" fluid="true">
 
           <Navbar.Brand href="/"><img src={logo} alt="Logo" /></Navbar.Brand>
 
@@ -74,7 +74,7 @@ function Header(props) {
           <div className="cart-icon-header" lg="1">
             <Link to="/cart">
               <FontAwesome name="shopping-bag" />
-              {/* <strong>{data ? data.cartItems : 0}</strong> */}
+              <strong>{data ? data.cartItems : 0}</strong>
             </Link>
           </div>
 

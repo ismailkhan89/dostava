@@ -11,9 +11,8 @@ import {
 } from "reactstrap";
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
-import { Link, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { foods, like,foodbyVendor ,getCategoriesByLocation} from "../apollo/server";
+import { foods, like,foodbyVendor ,getCategoriesByLocation , getConfiguration} from "../apollo/server";
 import { getCartItems } from '../apollo/client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
@@ -21,7 +20,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import { server_url } from  "../config/config";
 import { authLink } from '../library/authLink';
 import { Form, FormControl } from 'react-bootstrap';
-import { Redirect , useHistory  } from "react-router-dom";
+import { Redirect , useHistory , Link  } from "react-router-dom";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -40,11 +39,16 @@ const FOODS = gql`${foodbyVendor}`;
 const LIKE_PRODUCT = gql`${like}`;
 const GETCARTITEMS = gql`${getCartItems}`;
 const getVendorbyLocation = gql`${getCategoriesByLocation}`
+
 function Categories(props) {
 
   const [_id, setId] = useState(props.match.params?.id ?? null);
-  const [lat,setlat] = useState(props.location.state?.location?.lat?.toString() ?? null);
-  const [lng,setlng] = useState(props.location.state?.location?.lng?.toString() ?? null);
+  // const [lat,setlat] = useState(props.location.state?.location?.lat?.toString() ?? null);
+  // const [lng,setlng] = useState(props.location.state?.location?.lng?.toString() ?? null);
+
+  const [lat,setlat] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lat ?? null : null)
+  const [lng,setlng] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lng ?? null : null)
+
   const [filters, setFilter] = useState({ onSale: false, inStock: false, min: 0, max: 1000 });
   const [search, setSearch] = useState('');
 
@@ -65,17 +69,15 @@ function Categories(props) {
   // }
 
 
-  const history = useHistory();
+  // const history = useHistory();
 
   const routeChange = (id) =>{ 
     let path = `single-category`; 
-    history.push(path,{ location:  props.location.state?.location , params : id  });
-      // state: { id: id,location : props.location.state?.location }
-
+    props.history.push(path,{ location:  props.location.state?.location , params : id  });
   }
 
   // console.log("food data", data);
-  // console.log("foodloading",loading)
+   console.log("props",props)
 
   async function onLikeProduct(product) {
     mutateLike({
@@ -193,8 +195,8 @@ function Categories(props) {
       <Container id="subheader" fluid>
         <Row>
           <Col lg="12">
-          <h2 class="title text-center">CATEGORIES</h2>
-					 <p class="content text-center">The purpose of lorem ipsum is to create a natural looking block of text that doesn't distract from the layout.</p>
+          <h2 className="title text-center">CATEGORIES</h2>
+					 <p className="content text-center">The purpose of lorem ipsum is to create a natural looking block of text that doesn't distract from the layout.</p>
           </Col>
         </Row>
       </Container>
@@ -231,7 +233,7 @@ function Categories(props) {
 
             <Row>
                 <Col lg="12" >
-                  <h2 class="title">All Categories</h2>
+                  <h2 className="title">All Categories</h2>
                 </Col>
             </Row>
 
@@ -242,27 +244,40 @@ function Categories(props) {
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
               return data.getCategoriesByLocation.map((category, index) =>
                 <Col lg="3" key={index}>
-                  <div class="product" onClick={() => routeChange(category._id)}>
-                 {/* <Link
+                <Link
+                    to={`/single-category/${category._id}`}
+                    params="true"
+                    onClick={e => {
+                    e.preventDefault()
+                    props.history.push({
+                      pathname: `/single-category/${category._id}`,
+                      // state: {...props.history?.state,location:  props.location.state?.location , params : category._id}
+                    })
+                    // props.history.push("/single-category",{ location:  props.location.state?.location , params : category._id  });
+                    }}
+                  > 
+                  <div className="product"
+                  //  onClick={() => routeChange(category._id)}
+                   >
 
-                    onClick={routeChange} 
-                    to={{ 
-                          pathname: `/single-category/${category._id}`, 
-                          query: {
-                            data: props.location.state?.location
-                          } 
-                        }}
-                        > */}
-                    <div class="product-img">
-                      <img class="img-fluid" src={category.img_menu} alt=""></img>
+
+                  {/* <Link to="/login" onClick={e => {
+                e.preventDefault()
+                localStorage.removeItem("user-dostava")
+                props.history.push("/login")
+              }} > */}
+          
+                    <div className="product-img">
+                      <img className="img-fluid" src={category.img_menu} alt=""></img>
                     </div>
-                    <div class="product-desc">
-                      <h3 class="product-title">{category.title}</h3>
-                      <p class="product-content">{category.description}</p>
+                    <div className="product-desc">
+                      <h3 className="product-title">{category.title}</h3>
+                      <p className="product-content">{category.description}</p>
                       {/* <p class="price">$24.03</p> */}
                     </div>
-                   {/* </Link> */}
                     </div>
+                   </Link>
+
                   </Col>
                 )
               }}
