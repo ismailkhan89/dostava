@@ -369,10 +369,10 @@ console.log("checkout screen",props)
                       <h3>Payment Options</h3>
                     </Col>
                       
-                      <label>
+                      {/* <label>
                         <input type="radio" name="credit-card"></input>
                         COD
-                      </label>
+                      </label> */}
                       <label>
                         <input type="radio" name="credit-card"></input>
                         Credit Card
