@@ -70,18 +70,12 @@ function Cart(props) {
 
    useEffect(() => {
     const onCompleted = async (dataConfig) => {
-      setnewConfiguration(dataConfig)
-     await didFocus()
+      didFocus()
     }
-      if(!loadingConfig && !errorConfig){
+      if(!loadingConfig && !errorConfig && !!dataConfig){
         onCompleted(dataConfig)
-       
       }
    },[dataConfig])
-
-    // useEffect(() => {
-    
-    // }, [])
 
     useEffect(() => {
       setConfiguratoins()
@@ -173,7 +167,7 @@ function Cart(props) {
             let title = `${food.title}(${variation.title})`
             let price = variation.price
          
-            price = parseFloat(getItemPrice(food,configuration))
+            price = parseFloat(getItemPrice(food,dataConfig))
             if (cartItem.addons)
               cartItem.addons.forEach(addon => {
                 const cartAddon = variation.addons.find(add => add._id === addon._id)
