@@ -33,7 +33,7 @@ import FontAwesome from 'react-fontawesome';
 import { Form, FormControl } from 'react-bootstrap';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories, getFeaturedProducts, getConfiguration } from "../apollo/server";
-import FeaturedProducts from "../components/FeaturedProducts";
+import FeaturedProducts from "../../src/Components/FeaturedProducts";
 
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -58,7 +58,7 @@ const GET_FEATURED_PRODUCTS = gql`${getFeaturedProducts}`;
 
 function HomePage(props){
   useEffect(() => {
-    fetchProducts()
+    fetchProducts(props)
   }, [])
   const [count, setCount] = useState(0);
   const [featuredProductsItems, setFeaturedProductsItems] = useState([]);
@@ -66,7 +66,7 @@ function HomePage(props){
   const [location, setLocation] = useState('');
   const [latLng, setlatLng] = useState('');
 
-  function fetchProducts() {
+  function fetchProducts(props) {
     client.query({ query: GET_CONFIGURATION, fetchPolicy: 'network-only' }).then(res => {
       console.log("GET_CONFIGURATION fetau", res.data)
       localStorage.setItem("configuration",JSON.stringify(res.data.configuration))
@@ -76,6 +76,7 @@ function HomePage(props){
       console.log("loading fetau", data)
       setFeaturedProductsItems(data.data.getFeaturedProducts);
     })
+   
   }
 
   // const history = useHistory();
@@ -286,11 +287,12 @@ like every other ride-sharing app.</p>
                         e.preventDefault();
                         localStorage.removeItem('cartItems');
                         if(!!latLng){
-                          var location = {
+                          var newlocation = {
                             lat : latLng.lat.toString(),
-                            lng : latLng.lng.toString()
+                            lng : latLng.lng.toString(),
+                            location : location
                           }
-                          localStorage.setItem('location',JSON.stringify(location));
+                          localStorage.setItem('location',JSON.stringify(newlocation));
                             return  props.history.push({
                             pathname: '/categories',
                             // state: {...props.history?.state,location: latLng}

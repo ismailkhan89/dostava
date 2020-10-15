@@ -77,6 +77,17 @@ function Header(props) {
               <strong>{data ? data.cartItems : 0}</strong>
             </Link>
           </div>
+          
+          {
+            localStorage.getItem("user-dostava") ?
+          <Col lg="1" md="6" sm="6" xs="6" className="login text-right">
+              <Link to="/myorders" onClick={e => {
+                e.preventDefault()
+                props.history.push("/myorders")
+              }}   > <FontAwesome name="list-alt" /></Link>
+          </Col>  :
+              null
+          }
 
           <Col lg="1" md="6" sm="6" xs="6" className="login text-right">
           {
@@ -87,11 +98,11 @@ function Header(props) {
                 props.history.push("/login")
               }}   >Logout <FontAwesome name="user" /></Link>
               :
-
               <Link to="/login" ><FontAwesome name="user-circle-o" /> Login</Link>
-
-          }
+              }
           </Col>
+        
+
           <Col lg="1" className="language">
             EN
           </Col>

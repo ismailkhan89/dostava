@@ -1,6 +1,5 @@
 
 function getItemPrice (product,configuration){
-    debugger
     let dostava_comission_perc = product.dostava_commission ? parseFloat(product.dostava_commission) : parseFloat(configuration.commission_percentage) ;
     if(product.quantity === undefined){
         product.quantity = 1

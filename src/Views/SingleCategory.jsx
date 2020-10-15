@@ -84,7 +84,7 @@ function Categories(props) {
   const [mutateLike, { loadingLike: loadingLikeMutation }] = useMutation(LIKE_PRODUCT, { onCompletedLike, onErrorLike, client } )
   const { cartloading } = useQuery(GETCARTITEMS)
   const [message, setMessages] = useState('');
-
+  const [VendorIds,setVendorIds] = useState([]);
   console.log("props.match.params?.id", props.match.params?.id);
   console.log("props.location?.query?.data", props.location?.state?.location);
 
@@ -142,6 +142,26 @@ function Categories(props) {
     console.log(data)
   }
 
+  async function setVendorIdsArray(product){
+    const cartItemsStr = await localStorage.getItem('cartItems')
+    const cartItems = cartItemsStr ? JSON.parse(cartItemsStr) : []
+    let vendorIds = [];
+    console.log("productproductproduct",product)
+
+    // cartItems.map(food => {  
+    //   if(vendorIds.length > 0){
+    //     var cont = vendorIds.find(a => {
+    //       if(a !== food.vendor) vendorIds.push(food.vendor)
+    //     })
+    //   }
+    //   else{
+    //     vendorIds.push(food.vendor)
+    //   }
+    // })
+    //  console.log("Vids??>>",vendorIds)
+    // setVendorIds(vendorIds);
+  } 
+
   async function onAddToCart (product)  {
 
     console.log('onAddToCart>>> ', product);
@@ -157,12 +177,15 @@ function Categories(props) {
     }
 
     if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
+      setVendorIdsArray(product)
         const newItem = {
             // key: uuid.v4(),
             __typename: 'CartItem',
             _id: product._id,
             vendor: product.user._id,
             quantity: 1,
+            vendor_quantity : 1,
+            vendor_price : product.vendor_pricing,
             variation: {
                 __typename: 'ItemVariation',
                 _id: product.variations[0]._id,
@@ -177,6 +200,7 @@ function Categories(props) {
             cartItems.push(newItem)
         else {
             cartItems[index].quantity = cartItems[index].quantity + 1
+            cartItems[index].vendor_quantity = cartItems[index].vendor_quantity + 1
         }
         console.log("<<new item entered>>",cartItems)
         client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })

@@ -45,7 +45,7 @@ class Login extends React.Component{
       redirectToReferrer: localStorage.getItem("user-dostava") ? true : false
     }
   }
-
+ 
   onBlur = (event, field) => {
     this.setState({ [field + 'Error']: !validateFunc({ [field]: this.state[field] }, field) })
   }
@@ -72,6 +72,7 @@ class Login extends React.Component{
     let { from } = { from: { pathname: "/" } };
     let { redirectToReferrer } = this.state;
     if (redirectToReferrer) return <Redirect to={from} />;
+ 
     return(
       
         <Container className="wrapper" fluid>
@@ -136,17 +137,20 @@ class Login extends React.Component{
                       console.log("LOGIN res", data);
                       localStorage.setItem("user-dostava", JSON.stringify(data.login))
                       this.setState({ redirectToReferrer: true, emailError: null, passwordError: null })
+                     
                     }}
                     onError={error => {
+                      console.log("Login Errorrrr :",error)
                       this.setState({
                         emailError: null, passwordError: null,
-                        error: error.networkError.result.errors[0].message
+                        error: error.graphQLErrors[0].message
                       })
                     }}
                   >
                     {(login, { loading, error }) => {
 
                       return (
+                        <>
                         <Button
                           className="my-4"
                           color="primary"
@@ -169,7 +173,11 @@ class Login extends React.Component{
                           }}>
                           Login
                         </Button>
+                          <br/>
+                          {!!error && <span style={{color : 'red'}}>{error.graphQLErrors[0].message}</span>}
+                        </>
                       )
+                      
                     }}
                   </Mutation>
                 </div>
@@ -247,19 +255,19 @@ class Login extends React.Component{
                     onError={error => {
                       this.setState({
                         emailError: null, passwordError: null,
-                        error: error.networkError.result.errors[0].message
+                        error: error.graphQLErrors[0].message
                       })
                     }}
                   >
                     {(createUser, { loading, error }) => {
 
                       return (
+                        <>
                         <Button
                           className="my-4"
                           color="primary"
                           type="button"
                           onClick={() => {
-                            console.log("onClick res");
                             this.setState({
                               emailError: null,
                               passwordError: null,
@@ -281,6 +289,9 @@ class Login extends React.Component{
                           }}>
                           Register
                         </Button>
+                         <br/>
+                         {!!error && <span style={{color : 'red'}}>{error.graphQLErrors[0].message}</span>}
+                         </>
                       )
                     }}
                   </Mutation>

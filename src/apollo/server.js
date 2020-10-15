@@ -515,6 +515,14 @@ export const getConfiguration = `query GetConfiguration{
     currency
     currency_symbol
     commission_percentage
+    step_one_delivery
+    two_vendor
+    two_vendor_above_hundred
+    three_vendor
+    three_vendor_above_hundred
+    one_vendor
+    one_vendor_above_hundred
+    free_delivery
   }
 }`
 
@@ -549,8 +557,11 @@ export const savePaypalConfiguration = `mutation SavePaypalConfiguration($config
 }`
 
 export const placeOrder = `
-mutation PlaceOrder($orderInput:[OrderInput!]!,$paymentMethod:String!,$couponCode:String,$address:AddressInput!){
-  placeOrder(orderInput: $orderInput,paymentMethod:$paymentMethod,couponCode:$couponCode,address:$address) {
+mutation PlaceOrder($orderInput:[OrderInput!]!,$paymentMethod:String!,$couponCode:String,$address:AddressInput!,$vendor_ids:[String],
+   $lat:String
+  ,$long:String,$card_status:String){
+  placeOrder(orderInput: $orderInput,paymentMethod:$paymentMethod,couponCode:$couponCode,address:$address,vendor_ids:$vendor_ids
+    ,lat:$lat, long:$long, card_status:$card_status) {
     _id
     order_id
     delivery_address{
@@ -607,6 +618,7 @@ mutation PlaceOrder($orderInput:[OrderInput!]!,$paymentMethod:String!,$couponCod
       cancelled
     }
     createdAt
+    card_status
   }
 }`
 
@@ -756,11 +768,9 @@ export const resetPassword = `mutation ResetPassword($password:String!,$token:St
           phone
           picture
           notificationToken
-          location{
-            longitude
-            latitude
-            delivery_address
-          }
+          lat
+          long
+          physical_address
       }
     }`
 
@@ -974,3 +984,103 @@ export const getCoupons = `query Coupons{
           enabled
         }
       }`
+
+export const getUserStripeCards = `query getUserStripeCards($id:String){
+  getUserStripeCards(id:$id){
+      id
+      object
+      address_city
+      address_country
+      address_line1
+      address_line1_check
+      address_line2
+      address_state
+      address_zip
+      address_zip_check
+      brand
+      country
+      customer
+      cvc_check
+      dynamic_last4
+      exp_month
+      exp_year
+      fingerprint
+      funding
+      last4
+      name
+      tokenization_method
+  }
+}`
+
+
+export const myOrders = `query Orders($offset:Int){
+  orders(offset:$offset){
+    _id
+    delivery_address{
+      latitude
+      longitude
+      delivery_address
+      details
+      label
+    }
+    delivery_charges
+    order_id
+    user{
+      _id
+      phone
+    }
+    
+    items{
+      _id
+      food{
+        _id
+        title
+        dostava_commission
+        vendor_pricing
+        category{
+          _id
+        }
+        description
+        img_url
+      }
+      variation{
+        _id
+        title
+        price
+      }
+      addons{
+        _id
+        title
+        description
+        quantity_minimum
+        quantity_maximum
+        options{
+          _id
+          title
+          description
+          price
+        }
+      }
+      quantity
+    }
+    payment_status
+    payment_method
+    order_amount
+    paid_amount
+    order_status
+    status_queue{
+      pending
+      preparing
+      picked
+      delivered
+      cancelled
+    }
+    createdAt
+    review{
+      _id
+      rating
+      description
+    }
+  }
+}
+`

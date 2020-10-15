@@ -25,7 +25,7 @@ import { ApolloClient } from 'apollo-client';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { createUploadLink } from 'apollo-upload-client';
 import gql from "graphql-tag";
-import { getCategories, foodByIds, getCoupon , getConfiguration } from "../apollo/server";
+import { getCategories, foodByIds, getCoupon , getConfiguration  } from "../apollo/server";
 import { getCartItems } from '../apollo/client';
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { server_url } from  "../config/config";
@@ -60,13 +60,15 @@ function Cart(props) {
 	const [validCoupon, setValidCoupon] = useState(null)
 	const [selectedAddress, setSelectedAddress] = useState(null)
 	const [loadingData, setLoadingData] = useState(true)
-	const [mutate, { loading: loadingMutation }] = useMutation(GET_COUPON, {onCompleted, onError})
+  const [mutate, { loading: loadingMutation }] = useMutation(GET_COUPON, {onCompleted, onError})
+  const [vendorIds, setVendorIds] = useState([])
+  const [deliveryCharges, setdeliveryCharges] = useState(0)
+  
 	// const addressObj = props.route.params?.AddressObject ?? null
 
   const [newconfiguration ,setnewConfiguration] = useState('');
 
-  const {loading :loadingConfig,error : errorConfig,data : dataConfig} = useQuery(GET_CONFIGURATION, { client : clients,fetchPolicy: 'network-only'  })
-
+  const {loading :loadingConfig,error : errorConfig,data : dataConfig} = useQuery(GET_CONFIGURATION, { fetchPolicy: 'cache-and-network'  })
 
    useEffect(() => {
     const onCompleted = async (dataConfig) => {
@@ -74,6 +76,7 @@ function Cart(props) {
     }
       if(!loadingConfig && !errorConfig && !!dataConfig){
         onCompleted(dataConfig)
+       
       }
    },[dataConfig])
 
@@ -81,6 +84,10 @@ function Cart(props) {
       setConfiguratoins()
     }, [])
 
+    useEffect(() => {
+      calculateDeliveryCharges()
+    },[vendorIds,cartItems,dataConfig])
+    
     async function setConfiguratoins(){
       let config = await localStorage.getItem("configuration");
       console.log("config ", config);
@@ -123,20 +130,35 @@ function Cart(props) {
       //   titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
       // })
     }
-    function onCLickCheckout(){
-      const totalPriceExcDelivery = calculatePrice(0, false);
-      const totalPriceIncDelivery = calculatePrice(configuration.delivery_charges, false) ;
-      props.history.push({
-        pathname: '/checkout',
-        state: { cartItems: cartItems, 
-          totalPriceExcDelivery: totalPriceExcDelivery, 
-          totalPriceIncDelivery: totalPriceIncDelivery,
-          currency_symbol: configuration.currency_symbol,
-          delivery_charges:configuration.delivery_charges,
-          cartItemCount: cartItems.length
-         }
-      })
+     async function onCLickCheckout(){
+      const getLogin = await localStorage.getItem('user-dostava');
+      const loginData = getLogin ? JSON.parse(getLogin) : null
+
+      if(loginData !== null){
+        const totalPriceExcDelivery = calculatePrice(0, false);
+        const totalPriceIncDelivery = calculatePrice(configuration.delivery_charges, false) ;
+        const newTotalPrice = calculatePrice(deliveryCharges, false) ;
+
+        props.history.push({
+          pathname: '/checkout',
+          state: { cartItems: cartItems, 
+            totalPriceExcDelivery: totalPriceExcDelivery, 
+            totalPriceIncDelivery: totalPriceIncDelivery,
+            newTotalPrice : newTotalPrice,
+            newTotalDeliveryCharges: deliveryCharges,
+            currency_symbol: configuration.currency_symbol,
+            delivery_charges:configuration.delivery_charges,
+            cartItemCount: cartItems.length,
+           }
+        })
+      }
+      else if(loginData === null){
+        props.history.push({
+          pathname : '/login'
+        })
+      }
     }
+
 
     async function didFocus() {
       try {
@@ -196,6 +218,7 @@ function Cart(props) {
             setCartItems(transformCart.filter(item => item))
             setLoadingData(false)
             setFoods(foodByIds)
+            setVendorIdsArray(transformCart.filter(item => item))
           // }
         }
         else {
@@ -215,6 +238,7 @@ function Cart(props) {
       }
     }
     function calculatePrice(deliveryCharges = 0, withDiscount) {
+      console.log("deliveryChargesdeliveryCharges",deliveryCharges)
       let itemTotal = 0
       cartItems.forEach(cartItem => {
         itemTotal += cartItem.price * cartItem.quantity
@@ -244,6 +268,7 @@ function Cart(props) {
               cartItems.push(newItem)
           else {
               cartItems[index].quantity = cartItems[index].quantity + 1
+              cartItems[index].vendor_quantity = cartItems[index].vendor_quantity + 1
           }
           await localStorage.setItem('cartItems', JSON.stringify(cartItems))
           setCartItems(cartItems);
@@ -260,6 +285,7 @@ function Cart(props) {
           else {
               if(cartItems[index].quantity > 0){
                 cartItems[index].quantity = cartItems[index].quantity - 1
+                cartItems[index].vendor_quantity = cartItems[index].vendor_quantity - 1
               }
           }
           await localStorage.setItem('cartItems', JSON.stringify(cartItems))
@@ -268,6 +294,59 @@ function Cart(props) {
       }
     console.log("get config", configuration)
     console.log("get props", props)
+
+    
+
+    async function setVendorIdsArray(cart){
+      const cartItemsStr = await localStorage.getItem('cartItems')
+      const cartItems = cartItemsStr ? JSON.parse(cartItemsStr) : []
+      let vendorIds = [];
+      cartItems.map(food => {  
+        if(vendorIds.length > 0){
+          var cont = vendorIds.find(a => {
+            if(a !== food.vendor) vendorIds.push(food.vendor)
+          })
+        }
+        else{
+          vendorIds.push(food.vendor)
+        }
+      })
+       console.log("Vids??>>",vendorIds)
+      setVendorIds(vendorIds);
+     
+    } 
+
+   async function calculateDeliveryCharges(){
+      let del_charges = 0
+      let itemTotal = 0
+      cartItems.forEach(cartItem => {
+        itemTotal += cartItem.price * cartItem.quantity
+      })
+      if(!!dataConfig){
+        console.log("dataConfigggg",dataConfig.configuration)
+        if(parseFloat(itemTotal) >= parseFloat(dataConfig.configuration.free_delivery) ){
+          del_charges = 0;
+        }else if(parseFloat(itemTotal) >= parseFloat(dataConfig.configuration.step_one_delivery) && vendorIds && vendorIds.length === 1 ){
+          del_charges = dataConfig.configuration.one_vendor_above_hundred;
+        }else if(parseFloat(itemTotal) >= parseFloat(dataConfig.configuration.step_one_delivery) && vendorIds && vendorIds.length === 2 ){
+          del_charges =  dataConfig.configuration.one_vendor_above_hundred + dataConfig.configuration.two_vendor_above_hundred
+        }else if(parseFloat(itemTotal) >= parseFloat(dataConfig.configuration.step_one_delivery)  && vendorIds && vendorIds.length === 3 ){
+          del_charges =  dataConfig.configuration.one_vendor_above_hundred + dataConfig.configuration.two_vendor_above_hundred + dataConfig.configuration.three_vendor_above_hundred;
+        }else if(vendorIds && vendorIds.length === 1 ){
+          del_charges = dataConfig.configuration.one_vendor
+        }else if( vendorIds && vendorIds.length === 2){
+          del_charges = dataConfig.configuration.one_vendor + dataConfig.configuration.two_vendor
+        }else if(vendorIds && vendorIds.length === 3){
+          del_charges = dataConfig.configuration.one_vendor + dataConfig.configuration.two_vendor + dataConfig.configuration.three_vendor
+        }
+        console.log("del charges calculateDeliveryCharges", del_charges)
+        setdeliveryCharges(del_charges)
+        
+        return (del_charges).toFixed(2)
+      }
+      
+    }
+
     return(
       
         <Container className="wrapper" fluid>
@@ -374,8 +453,15 @@ function Cart(props) {
                     <Col lg="4" md="5" sm="5" xs="12" className="subtotal">
                         <div>
                             <h4>Subtotal <span>{configuration.currency_symbol} {calculatePrice(0, false)}</span></h4>
-                      <h4>Shipping <span>{configuration.currency_symbol} {configuration.delivery_charges} </span></h4>
-                      <h4 className="blue">Total <span>{configuration.currency_symbol} {calculatePrice(configuration.delivery_charges, false)}</span></h4>
+                      <h4>Shipping <span>{configuration.currency_symbol} 
+                      {/* {configuration.delivery_charges}  */}
+                      {deliveryCharges}
+                      </span></h4>
+                      <h4 className="blue">Total <span>{configuration.currency_symbol}
+                       {/* {calculatePrice(configuration.delivery_charges, false)} */}
+                       {calculatePrice(deliveryCharges, false)}
+
+                       </span></h4>
                             <input type="submit" value="Checkout" onClick = {onCLickCheckout} />
                         </div>
                     </Col>

@@ -26,14 +26,14 @@ import {
    
     // Link
 } from "reactstrap";
-import { server_url } from  "../config/config";
+import { server_url , STRIPE_PUBLIC_KEY , STRIPE_IMAGE_URL , STRIPE_STORE_NAME , shop_url} from  "../config/config";
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import gql from "graphql-tag";
 import { setContext } from 'apollo-link-context'
 import { createUploadLink } from 'apollo-upload-client';
 import { ApolloClient } from 'apollo-client';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
-import { getConfiguration, placeOrder, like } from "../apollo/server";
+import { getConfiguration, placeOrder, like ,getUserStripeCards , myOrders} from "../apollo/server";
 // import { authLink } from '../library/authLink'
 import { getCartItems } from '../apollo/client';
 const authLink = setContext((_, { headers }) => {
@@ -43,16 +43,19 @@ const authLink = setContext((_, { headers }) => {
   console.log("userData",userData)
   const parsData = JSON.parse(userData);
   console.log("parsData>>",parsData)
-  let token = parsData.token;
   console.log("parsDate",parsData)
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+
+  if(parsData !== null){
+    let token = parsData.token;
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : "",
+      }
     }
   }
 });
+
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -66,25 +69,112 @@ const GETCARTITEMS = gql`${getCartItems}`;
 const LIKE_PRODUCT = gql`${like}`;
 const GETCONFIGURATION = gql`${getConfiguration}`
 const PLACEORDER = gql`${placeOrder}`
+const GETUSERSTRIPECARDS = gql`${getUserStripeCards}`
+const MYORDERS = gql`${myOrders}`
+
+
 const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
   function Checkout(props) {
 
+    const newcartItemsStr =  localStorage.getItem('cartItems')
+    const newcartItems = newcartItemsStr ? JSON.parse(newcartItemsStr) : []
+
     const [address] = useState(props.location.state?.address ?? null)
     const [coupon] = useState(props.location.state?.coupon ?? null)
-    const [activeRadio, setActiveRadio] = useState("COD")
-// console.log("clients>>", clients)
-console.log("client", client)
-console.log("clientRef", props)
-    const { cartLoading, cartError, cartData: cartDataConfig } = useQuery(GETCARTITEMS)
+    const [Configuration,setConfiguration] = useState(props.location.state?.coupon ?? null)
+    const [getStripe ,setGetStripe] = useState([]);
+    const [payment,setPayment] = useState([])
+    const [CardStatus,setCardStatus] = useState(null)
+    const [activeRadio, setActiveRadio] = useState(0)
+
+    const COD_PAYMENT = {
+      payment: "STRIPE",
+      label:'creditCart',
+      index: 0,
+    }
+
+    const defaultAddress =  localStorage.getItem('location')
+    const Address = defaultAddress ? JSON.parse(defaultAddress) : ''
+    console.log(Address.location)
     const { loading, error, data: dataConfig } = useQuery(GETCONFIGURATION)
-    const [mutate, { loading: loadingMutation }] = useMutation(PLACEORDER, { onCompleted, onError, client } )
+
+    // const { loading : loadingStripes, data: dataStripes } =  useQuery(GETUSERSTRIPECARDS, {fetchPolicy: 'cache-and-network'})
+    const [vendorIds, setVendorIds] = useState([])
+    const [deliveryCharges, setdeliveryCharges] = useState(0)
+    const [items,setItems] = useState(props.location.state?.cartItems ?? null)
+
+    
+      useEffect(() => {
+        const userData = localStorage.getItem('user-dostava');
+        const parsData = JSON.parse(userData);
+        if(parsData !== null){
+          if(parsData.token !== undefined) {
+            fetchConfiguration()
+            setVendorIdsArray()
+            loadStripe()
+          }
+        }
+      }, [])
+      
+      useEffect(() => {
+        const userData = localStorage.getItem('user-dostava');
+        const parsData = JSON.parse(userData);
+        if(parsData !== null){
+          if(parsData.token !== undefined) {
+            calculateDeliveryCharges()
+          }
+        }
+        
+      },[vendorIds,items,dataConfig])
+    
+
+      function fetchConfiguration() {
+         client.query({ query: GETCONFIGURATION, fetchPolicy: 'network-only' }).then(res => {
+          localStorage.setItem("configuration",JSON.stringify(res.data.configuration))
+          setConfiguration(res.data.configuration);
+        })
+        client.query({ query: GETUSERSTRIPECARDS, fetchPolicy: 'network-only' }).then(res => {
+          console.log("cardDetailscardDetailscardDetails", res.data)
+          setGetStripe(res.data.getUserStripeCards);
+        })
+
+      }
+
+      async function setVendorIdsArray(){
+        const cartItemsStr = await localStorage.getItem('cartItems')
+        const cartItems = cartItemsStr ? JSON.parse(cartItemsStr) : []
+        let vendorIds = [];
+        cartItems.map(food => {  
+          if(vendorIds.length > 0){
+            var cont = vendorIds.find(a => {
+              if(a !== food.vendor) vendorIds.push(food.vendor)
+            })
+          }
+          else{
+            vendorIds.push(food.vendor)
+          }
+        })
+         console.log("Vids??>>",vendorIds)
+        setVendorIds(vendorIds);
+      } 
+
+
+    const [physicalAddress ,setphysicalAddress] = useState(!!Address ? Address : '')
+// console.log("clients>>", clients)
+
+    const { cartLoading, cartError, cartData: cartDataConfig } = useQuery(GETCARTITEMS)
+    const [mutate, { loading: loadingMutation }] = useMutation(PLACEORDER, { onCompleted, onError, client  } )
     const [mutateLike, { loadingLike: loadingLikeMutation }] = useMutation(LIKE_PRODUCT, { onCompletedLike, onErrorLike, client } )
     function transformOrder(cartItems) {
+      console.log(cartItems)
         return cartItems.map(food => {
             return {
-                food: food._id, quantity: food.quantity,
+                food: food._id, 
+                quantity: food.quantity,
                 vendor: food.vendor,
                 variation: food.variation._id,
+                vendor_price: food.vendor_price,
+                vendor_quantity : food.vendor_quantity,
                 addons: food.addons ? food.addons.map(({ _id, options }) => ({ _id, options: options.map(({ _id }) => _id) })) : []
             }
         })
@@ -118,20 +208,19 @@ console.log("clientRef", props)
             mutate({
                 variables: {
                     orderInput: items, 
-                    paymentMethod: "COD", 
-                    couponCode: coupon,
+                    paymentMethod: 'STRIPE',
+                    couponCode: '',
                     address: {
                         label: "home",
-                        delivery_address: "del address",
+                        delivery_address: physicalAddress.location,
                         details: "del details",
-                        longitude: "12319283.9",
-                        latitude: "123419283.9"
-                        // label: address.label,
-                        // delivery_address: address.delivery_address,
-                        // details: address.details,
-                        // longitude: address.longitude,
-                        // latitude: address.latitude
-                    }
+                        longitude: physicalAddress.lng.toString(),
+                        latitude: physicalAddress.lat.toString()
+                    },
+                    long: physicalAddress.lng.toString(),
+                    lat: physicalAddress.lat.toString(),
+                    vendor_ids: vendorIds,
+                    card_status: CardStatus
                 }
             })
 
@@ -160,8 +249,11 @@ console.log("clientRef", props)
       return true
   }
 
+  
+  
   function onError(error) {
-      console.log(error.networkError.result.errors[0].message)
+    console.log(error.message)
+    alert(error.message)
       // showMessage({
       //     message: error.networkError.result.errors[0].message,
       //     duration: 3000,
@@ -172,10 +264,23 @@ console.log("clientRef", props)
       // })
   }
 
+  function loadStripe() {
+    if(! window.StripeCheckout) {
+        const script = document.createElement('script');
+        script.onload = function () {
+            console.info("Stripe script loaded");
+        };
+        script.src = 'https://checkout.stripe.com/checkout.js';
+        document.head.appendChild(script);
+    } else {
+    }
+}
+
   async function onCompleted(data) {
+    console.log("onCompletedonCompletedonCompleted",data)
     // localStorage.setItem("cartItems",JSON.stringify([]))
-    localStorage.removeItem("cartItems");   
-    client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0} })
+    // localStorage.removeItem("cartItems");   
+    // client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0} })
     let trackingOpts = {
         id: data.placeOrder.user._id,
         usernameOrEmail: data.placeOrder.user.email,
@@ -183,24 +288,170 @@ console.log("clientRef", props)
     };
     // Analytics.identify(data.placeOrder.user._id, trackingOpts);
     // Analytics.track(Analytics.events.USER_PLACED_ORDER, trackingOpts);
-    if (PAYMENT_METHOD[activeRadio] === "COD") {
-        props.navigation.replace('Thankyou', { _id: data.placeOrder._id })
-    }
-    else if (PAYMENT_METHOD[activeRadio] === "PAYPAL") {
-        props.navigation.replace('Paypal', {
-            _id: data.placeOrder.order_id,
-            currency: dataConfig.configuration.currency
+    // if (PAYMENT_METHOD[activeRadio] === "COD") {
+    //     props.navigation.replace('Thankyou', { _id: data.placeOrder._id })
+    // }
+    // else if (PAYMENT_METHOD[activeRadio] === "PAYPAL") {
+    //     props.navigation.replace('Paypal', {
+    //         _id: data.placeOrder.order_id,
+    //         currency: dataConfig.configuration.currency
+    //     })
+    // }
+     if (PAYMENT_METHOD[activeRadio] === "STRIPE") {
+        localStorage.setItem('order_id', JSON.stringify(data.placeOrder.order_id))
+      let body = {
+				_id: data.placeOrder.order_id,
+				amount: data.placeOrder.order_amount,
+				email: data.placeOrder.user.email,
+				currency: Configuration.currency,
+				card: payment
+      }
+
+      var paymentStatus=false;
+      const allowRememberMe = false
+      
+      const multiplier = stripeCurrencies
+      .find(({ currency: curr }) => curr === Configuration.currency)
+      .multiplier
+      const amout = data.placeOrder.order_amount * multiplier
+      const currency = Configuration.currency;
+
+
+      if(data.placeOrder.card_status === 'NEW_CARD'){
+        var handler =  window.StripeCheckout.configure({
+          key:`${STRIPE_PUBLIC_KEY}`,
+          image:`${STRIPE_IMAGE_URL}`,
+          locale: 'auto',
+          token: (token) => {
+            console.log("tokentokentoken",token)
+            paymentStatus = true
+              fetch(server_url+`stripe/charge?id=${data.placeOrder.order_id}`, {
+                method: 'POST', 
+                mode: 'cors',
+                cache: 'no-cache', 
+                credentials: 'same-origin', 
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                
+                body: JSON.stringify(token)
+                })
+                .then(response => response.json())
+                .then(result => {
+                  if(result.redirect === 'stripe/success'){
+                    onPaymentSuccess()
+                  }
+                  console.log("response>><<",result)
+                })
+                .catch(error => { alert(error) });
+          }
         })
-    }
-    else if (PAYMENT_METHOD[activeRadio] === "STRIPE") {
-        props.navigation.replace('StripeCheckout', {
-            _id: data.placeOrder.order_id,
-            amount: data.placeOrder.order_amount,
-            email: data.placeOrder.user.email,
-            currency: dataConfig.configuration.currency
+
+        handler.open({
+          image: `${STRIPE_IMAGE_URL}`,
+          name: `${STRIPE_STORE_NAME}`,
+          description: `Food delivery`,
+          amount: `${amout}`,
+          currency: `${currency}`,
+          allowRememberMe: `${allowRememberMe}`,
+          email: `${data.placeOrder.user.email}`,
+          closed: function() {
+            if(!paymentStatus)
+            window.location=`${shop_url}checkout`
+            }
+          });
+      }
+      else  if(data.placeOrder.card_status === 'OLD_CARD'){
+
+        fetch(server_url+'stripe/chargeWithDefault', {
+          method: 'POST', 
+          mode: 'cors',
+          cache: 'no-cache', 
+          credentials: 'same-origin', 
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          redirect: 'follow',
+          
+          body: JSON.stringify(body)
+          })
+          .then(response => response.json())
+          .then(result => {
+            if(result.success === true){
+              onPaymentSuccess()
+            }
+            console.log("response>><<",result)
+          //   if(result.redirect)
+          // 	window.location='${SERVER_URL}'+result.redirect
+          })
+          .catch(error => { alert(error) });
+      }
+     }
+  }
+
+
+    async function onPaymentSuccess() {
+
+      await localStorage.setItem('cartItems', JSON.stringify([]))
+      props.history.push({
+        pathname : '/orderdetails',
+      })
+      // let order_id = await localStorage.getItem("order_id");
+      // let _id = JSON.parse(order_id)
+      // const result = await client.query({ query: MYORDERS, fetchPolicy: 'network-only' })
+      // console.log("result on onPaymentSuccess cart", result)
+      // console.log("result on onPaymentSuccess _id", _id)
+      // const order = result.data.orders.find(order => order.order_id === _id)
+      // await client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0 } })
+      // console.log("arder order",order)
+      // props.history.push({
+      //   pathname : '/orderdetails',
+      //   state: { order }
+      // })
+      // alert('ORDER SUCCESSFULL !!')
+      // let order_id = await AsyncStorage.getItem("order_id");
+      // let _id = JSON.parse(order_id)
+      //     const result = await client.query({ query: MYORDERS, fetchPolicy: 'network-only' })
+      //     console.log("result on onPaymentSuccess cart", result)
+      // console.log("result on onPaymentSuccess _id", _id)
+      
+      //     const order = result.data.orders.find(order => order.order_id === _id)
+      //     await   client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0} })
+      //     console.log("arder order",order)
+      //     props.navigation.navigate('OrderDetail', { order })    
+      }
+
+      async function calculateDeliveryCharges(){
+        let del_charges = 0
+        let itemTotal = 0
+        cartItems.forEach(cartItem => {
+          itemTotal += cartItem.price * cartItem.quantity
         })
-    }
-}
+        if(!!dataConfig){
+          console.log("dataConfigggg",dataConfig.configuration)
+          if(parseFloat(itemTotal) >= parseFloat(dataConfig.configuration.free_delivery) ){
+            del_charges = 0;
+          }else if(parseFloat(itemTotal) >= parseFloat(dataConfig.configuration.step_one_delivery) && vendorIds && vendorIds.length === 1 ){
+            del_charges = dataConfig.configuration.one_vendor_above_hundred;
+          }else if(parseFloat(itemTotal) >= parseFloat(dataConfig.configuration.step_one_delivery) && vendorIds && vendorIds.length === 2 ){
+            del_charges =  dataConfig.configuration.one_vendor_above_hundred + dataConfig.configuration.two_vendor_above_hundred
+          }else if(parseFloat(itemTotal) >= parseFloat(dataConfig.configuration.step_one_delivery)  && vendorIds && vendorIds.length === 3 ){
+            del_charges =  dataConfig.configuration.one_vendor_above_hundred + dataConfig.configuration.two_vendor_above_hundred + dataConfig.configuration.three_vendor_above_hundred;
+          }else if(vendorIds && vendorIds.length === 1 ){
+            del_charges = dataConfig.configuration.one_vendor
+          }else if( vendorIds && vendorIds.length === 2){
+            del_charges = dataConfig.configuration.one_vendor + dataConfig.configuration.two_vendor
+          }else if(vendorIds && vendorIds.length === 3){
+            del_charges = dataConfig.configuration.one_vendor + dataConfig.configuration.two_vendor + dataConfig.configuration.three_vendor
+          }
+          console.log("del charges calculateDeliveryCharges", del_charges)
+          setdeliveryCharges(del_charges)
+          
+          return (del_charges).toFixed(2)
+        }
+        
+      }
 
     async function likeProduct(product){
       mutateLike({
@@ -209,10 +460,18 @@ console.log("clientRef", props)
         }
     })
     }
-console.log("checkout screen",props)
-    const { cartItems, totalPriceExcDelivery, totalPriceIncDelivery,
-       currency_symbol, delivery_charges } =  props.location.state;
+    const [cartItems , setcartItems] = useState(props.location.state?.cartItems ?? [])
+    const [totalPriceExcDelivery , settotalPriceExcDelivery] = useState(props.location.state?.totalPriceExcDelivery ?? 0)
+    const [currency_symbol , setcurrency_symbol] = useState(props.location.state?.currency_symbol ?? null)
+    const [newTotalDeliveryCharges , setnewTotalDeliveryCharges] = useState(props.location.state?.newTotalDeliveryCharges ?? 0)
+    const [newTotalPrice , setnewTotalPrice] = useState(props.location.state?.newTotalPrice ?? 0)
+
+    // const { cartItems, totalPriceExcDelivery, totalPriceIncDelivery,
+    // currency_symbol, delivery_charges , newTotalDeliveryCharges, newTotalPrice } =  props.location.state;
     console.log("cartItems screen",cartItems)
+    console.log("props.location.state",props.location.state)
+
+ 
     return(
       
         <Container className="wrapper" fluid>
@@ -243,13 +502,13 @@ console.log("checkout screen",props)
             <Tabs>
               <TabList className="cart-tabs-head">
                 <Row>
-                <Tab> <FontAwesome name="check-circle-o" /> Shipping and Checkout</Tab>
                 <Tab> <FontAwesome name="check-circle-o" /> Confirmation</Tab>
+                {/* <Tab> <FontAwesome name="check-circle-o" /> Shipping and Checkout</Tab>
+                <Tab> <FontAwesome name="check-circle-o" /> Confirmation</Tab> */}
                 </Row>
               </TabList>
           
-              <TabPanel>
-                
+              {/* <TabPanel>
                 <Row>
                   <Col lg="7" md="7" sm="12" xs="12" className="shipping">
                     <Col lg="12" md="12" sm="12" xs="12" className="grey-bg">
@@ -263,7 +522,9 @@ console.log("checkout screen",props)
                         <input type="text" placeholder="Last Name"></input>
                       </div>
                       <div className="form-group full">
-                        <input type="text" placeholder="Shipping Address"></input>
+                        <input type="text" placeholder="Shipping Address"
+                        value={!!Address ? Address.location : ''}
+                        ></input>
                       </div>
                       <div className="form-group full">
                         <input type="text" placeholder="City"></input>
@@ -324,7 +585,6 @@ console.log("checkout screen",props)
                             <h3>{item.title}e</h3>
                             <p>
                             <strong>{item.price}</strong>      
-                              {/* <span>$12.49</span> */}
                             </p>
                           </Col>
                           <Col lg="2">
@@ -360,7 +620,8 @@ console.log("checkout screen",props)
                     </Col>
 
                     </Row>
-                  </TabPanel>
+                  </TabPanel> */}
+                  
                   <TabPanel>
                     <Row>
                   <Col lg="7" md="7" sm="12" xs="12" className="shipping credit-card-info">
@@ -368,24 +629,39 @@ console.log("checkout screen",props)
                     <Col lg="12" md="12" sm="12" xs="12" className="grey-bg">
                       <h3>Payment Options</h3>
                     </Col>
-                      
+                      {getStripe ? 
+                      getStripe.map((card,index) => {
+                       return <label key={index}>
+                         <div>
+                           <input type="radio" name="credit-card" value={index} 
+                           onChange={(e) =>{ 
+                            setPayment(getStripe[e.target.value])
+                            setCardStatus('OLD_CARD')
+                          }}></input>
+                           {card.brand} {'(xxxx'+card.last4+')'}
+                         </div>
+                      </label>
+                       }) : ''}
+                      <label>
+                        <input type="radio" name="credit-card"  onChange={(e) =>{ 
+                            setPayment(null)
+                            setCardStatus('NEW_CARD')
+                          }}></input>
+                       NEW CARD
+                      </label>
                       {/* <label>
                         <input type="radio" name="credit-card"></input>
-                        COD
-                      </label> */}
-                      <label>
-                        <input type="radio" name="credit-card"></input>
-                        Credit Card
-                      </label>
-                      <label>
-                        <input type="radio" name="credit-card"></input>
                         Paypal
-                      </label>
+                      </label>   */}
                     </div>
                     <h4>Your Credit Card</h4>
                     <form>
-                      <div className="form-group full">
-                        <input type="text" placeholder="Card Number"></input>
+                    <div className="form-group full">
+                        <input type="text" placeholder="Address" disabled value={!!Address ? Address.location : ''}></input>
+                      </div>
+                      {/* <div className="form-group full">
+                        <input type="text" pattern="\d*" maxLength="16" placeholder="Card Number">
+                        </input>
                       </div>
                       <div className="form-group full">
                         <input type="text" placeholder="Name on Card"></input>
@@ -395,7 +671,7 @@ console.log("checkout screen",props)
                       </div>
                       <div className="form-group half">
                         <input type="text" placeholder="Security code"></input>
-                      </div>
+                      </div> */}
                       
                       <div className="form-group half">
                         <Link to="/">Back to Shopping</Link>
@@ -403,9 +679,8 @@ console.log("checkout screen",props)
                       <div className="form-group half">
                         <Button  onClick={e => {
                                 e.preventDefault()
-                                onPayment()
-                                                          
-                                                  }} value="Payment">Payment</Button>
+                                onPayment() 
+                                }} value="Payment">Payment</Button>
                       </div>
                     </form>
                     </Col>
@@ -414,7 +689,7 @@ console.log("checkout screen",props)
                   <Col lg="12" md="12" sm="12" xs="12" className="grey-bg">
                       <h3>YOur Order</h3>
                     </Col>
-                    <div class="carts">
+                    <div className="carts">
                     {
                     cartItems && cartItems.length > 0 ?  cartItems.map((item, index)=>(
                         <Row key={index} >
@@ -449,11 +724,16 @@ console.log("checkout screen",props)
                         </h6>
                         <h6>
                           <strong>Shipping</strong>
-                          <span>{currency_symbol} {delivery_charges}</span>
+                          <span>{currency_symbol}
+                           {/* {delivery_charges} */}
+                           {newTotalDeliveryCharges}
+                           </span>
                         </h6>
                         <h2>
                           <strong>Total</strong>
-                          <span> {currency_symbol} {totalPriceIncDelivery}</span>
+                          <span> {currency_symbol} 
+                          {/* {totalPriceIncDelivery} */}
+                  {newTotalPrice}</span>
                         </h2>
                       </Col>
                     </Row>

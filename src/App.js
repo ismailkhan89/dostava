@@ -26,6 +26,8 @@ import { setContext } from 'apollo-link-context'
 import { isLoggedIn } from './apollo/client';
 import { getConfiguration } from "./apollo/server";
 import  routes from './routes'
+import MyOrders from "./Views/MyOrders";
+import OrderDetails from "./Views/OrderDetails";
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
 })
@@ -55,9 +57,11 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 // class App extends React.Component {
   function App(){
     let clientRef = null;
+
     useEffect(() => {
       setupApollo()
     }, [])
+
 
   const setupData = async () => {
     console.log("clientRef",clientRef)
@@ -116,15 +120,13 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
   }
   // render(){
     console.log('inside app', clientRef)
-
       return (
         <ApolloProvider client = {clientRef} >
             <BrowserRouter>
             {/* <Switch> */}
             <Switch>
-              
+            
 <Route exact path="/" component={props => <HomePage {...props} />} />
-
 
 <Route  exact  path="/product/:id/"  component={props => <Product {...props} />} />
 
@@ -145,6 +147,9 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 <Route path="/single-category/" component={props => <SingleCategory {...props} />} />
 
 <Route path="/favorites" component={props => <Favorites {...props} />} />
+ <Route path="/orderdetails" component={props => <OrderDetails {...props} />} /> 
+<Route path="/myorders" component={props => <MyOrders {...props} />} />
+
 
 </Switch>
               {/* <Route path="/home" component={props => <AuthLayout {...props} ></AuthLayout>}  />
