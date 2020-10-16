@@ -65,6 +65,7 @@ function OrderDetails(props){
     const [configuration ,setConfiguration] = useState([])
     const [discountPercent, setDiscountPercent] = useState(null)
     const [deliveryCharges,setDeliveryCharges] = useState(0);
+    const [title,setTitle] = useState('');
     const [TotalAmount,setTotalAmount] = useState(0)
     useEffect(() => {
         getOrders();
@@ -82,10 +83,13 @@ function OrderDetails(props){
                     const order = result.data.orders.find(order => order.order_id === _id)
                     await client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0 } })
                     console.log(order)
-    
-                    setOrder(order.items)
-                    setDeliveryCharges(order.delivery_charges)
-                    setTotalAmount(order.order_amount - order.delivery_charges)
+                    
+                    if(order !== undefined){
+                        setOrder(order.items)
+                        setDeliveryCharges(order.delivery_charges)
+                        setTotalAmount(order.order_amount - order.delivery_charges)
+                        setTitle(order.order_id)
+                    }
     
                     const config = await client.query({ query: GET_CONFIGURATION, fetchPolicy: 'network-only' })
                     console.log(config)
@@ -99,7 +103,7 @@ function OrderDetails(props){
     console.log('Order Details of Last Order',Order)
     return (
         <Container className="wrapper" fluid>
-            <Header  {...props} />
+            <Header  {...props} title="Order Details" />
             <Container className="breadcrumb-area" fluid>
                 <Row>
                     <Col lg="3">
@@ -121,8 +125,8 @@ function OrderDetails(props){
 
             </Col>
             <Col lg="8" className="cart-section">
-              <h1 className="flashmessage text-center">Order Details</h1>
-                <h3>Order Detail</h3>
+              <h1 className="flashmessage text-center">ORDER DETAILS {title !== '' && ": " +title}</h1>
+                 {/* <h3>{title}</h3>    */}
                 <Table responsive>
                     <thead>
                         <tr>

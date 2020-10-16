@@ -351,7 +351,7 @@ function Cart(props) {
       
         <Container className="wrapper" fluid>
         
-        <Header  {...props} />
+        <Header  {...props} title="Cart" />
         
         <Container className="breadcrumb-area" fluid>
           <Row>
@@ -374,7 +374,7 @@ function Cart(props) {
 
             </Col>
             <Col lg="8" className="cart-section">
-              <h1 className="flashmessage text-center"> Flash Message Here</h1>
+              <h1 className="flashmessage text-center"> My Cart {data ? ': '+data.cartItems : ': '+ 0}</h1>
                 <h3>My Cart</h3>
                 <Table responsive>
                     <thead>
@@ -435,7 +435,7 @@ function Cart(props) {
                 </Table>
                 <Row>
                     <Col lg="8" md="7" sm="7" xs="12" className="voucher">
-                        <h2>VOUCHER</h2>
+                        {/* <h2>VOUCHER</h2>
                         <p>Enter your coupon code if you have one.</p>
                         <input
                         onChangeText={(text) => {
@@ -448,7 +448,7 @@ function Cart(props) {
                           setDiscountPercent(null)
                           if (coupon) mutate({ variables: { coupon: coupon } })
                         }}
-                        />
+                        /> */}
                     </Col>
                     <Col lg="4" md="5" sm="5" xs="12" className="subtotal">
                         <div>

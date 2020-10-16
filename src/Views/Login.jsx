@@ -37,6 +37,7 @@ class Login extends React.Component{
       lastName: '',
       email: "zeeshan.damani@hotmail.com",
       password: "test@123",
+      phone : '',
       emailError: null,
       passwordError: null,
       error: null,
@@ -77,7 +78,7 @@ class Login extends React.Component{
       
         <Container className="wrapper" fluid>
         
-        <Header  {...this.props} />
+        <Header  {...this.props} title="Login" />
         
         <Container className="breadcrumb-area" fluid>
           <Row>
@@ -238,6 +239,16 @@ class Login extends React.Component{
                       type="text"></input>
                 </div>
 
+                <div className="form-group half">
+                  <input value={this.state.phone}
+                      onChange={event => {
+                        this.setState({ phone: event.target.value })
+                      }}
+                      onBlur={event => { this.onBlur(event, 'phone') }}
+                      placeholder="Phone"
+                      type="text"></input>
+                </div>
+
                 <div className="form-group">
                   <label>
                   <input type="checkbox"></input>
@@ -273,7 +284,7 @@ class Login extends React.Component{
                               passwordError: null,
                             });
                             let userInput =  {
-                              phone: '02342397498',
+                              phone: this.state.phone,
                               email: this.state.createEmail,
                               password: this.state.createPassword,
                               type: this.state.type,

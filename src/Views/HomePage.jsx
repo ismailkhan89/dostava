@@ -113,7 +113,8 @@ function HomePage(props){
       
         <Container className="wrapper" fluid>
         
-        <Header  {...props} />
+         <Header  {...props} title="Dostava" />
+
         {/* <Link to="/cart">Cart</Link>
         <Link to="/checkout">Checkout</Link> */}
         <Container className="slider-area" style={{display:'none'}} fluid>
@@ -283,7 +284,7 @@ like every other ride-sharing app.</p>
                           </>
                         )}
                       </PlacesAutocomplete>
-                      <Link className="outline-success" to="/categories" onClick={(e) => {
+                      <Link className="outline-success"  onClick={(e) => {
                         e.preventDefault();
                         localStorage.removeItem('cartItems');
                         if(!!latLng){
@@ -293,7 +294,7 @@ like every other ride-sharing app.</p>
                             location : location
                           }
                           localStorage.setItem('location',JSON.stringify(newlocation));
-                            return  props.history.push({
+                            props.history.push({
                             pathname: '/categories',
                             // state: {...props.history?.state,location: latLng}
                           })

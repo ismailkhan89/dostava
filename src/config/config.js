@@ -12,3 +12,5 @@ export const cloudinary_profile = "nh9fd8i5"
 export const STRIPE_PUBLIC_KEY  = "pk_test_51HMUqLE2mcGFzQyl1lg1eF58pq5svIl5bbF1EYpCmHttqhVA6EJ5rVAPckrQEtoHXRBvbYML9XmfNi0vCqRpLo6800bPcZoMxG"
 export const STRIPE_IMAGE_URL   = "https://dostava.com.au/assets/images/dostava/logo.png"
 export const STRIPE_STORE_NAME  = "Dostava"
+
+export const WS_GRAPHQL_URL = 'wss://www.dostava.com.au/graphql'

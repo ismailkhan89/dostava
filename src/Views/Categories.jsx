@@ -177,7 +177,7 @@ function Categories(props) {
   }
   return (
     <Container className="wrapper" fluid>
-      <Header  {...props} />
+    <Header  {...props} title="Categories by Dostava" />
       <Container className="breadcrumb-area" style={{display:'none'}} fluid>
         <Row>
           <Col lg="3">
@@ -205,14 +205,17 @@ function Categories(props) {
           
           <Col lg="12">
             <Form inline >
-              <select name="select-category">
-                <option>Select category</option>
-                <option>category 1</option>
-                <option>category 2</option>
-                <option>category 3</option>
-                <option>category 4</option>
-                <option>category 5</option>
-              </select>
+            <Query query={getVendorbyLocation} variables={{ lat : lat,long :lng}}>
+                  {({ loading, error, data }) => {
+                      if (loading) return <option>Loading...</option>
+                      if (error) return <option>Error...</option>
+                      return (
+                        <select name="select-category">
+                            <option>Select category</option>
+                             {data.getCategoriesByLocation.map(category => <option key={category._id} value={category._id}>{category.title}</option>)}
+                          </select>
+                      )
+            }}</Query>
               <FormControl type="search" placeholder="Enter Location here..." />
               <Button variant="outline-success">Search</Button>
             </Form>
@@ -242,7 +245,7 @@ function Categories(props) {
             {({ loading, error, data }) => {
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
-              return data.getCategoriesByLocation.map((category, index) =>
+              return data.getCategoriesByLocation.length > 0 ? data.getCategoriesByLocation.map((category, index) =>
                 <Col lg="3" key={index}>
                 <Link
                     to={`/single-category/${category._id}`}
@@ -251,6 +254,11 @@ function Categories(props) {
                     e.preventDefault()
                     props.history.push({
                       pathname: `/single-category/${category._id}`,
+                      state : {
+                        title : category.title,
+                        description : category.description,
+                        category : data.getCategoriesByLocation
+                      }
                       // state: {...props.history?.state,location:  props.location.state?.location , params : category._id}
                     })
                     // props.history.push("/single-category",{ location:  props.location.state?.location , params : category._id  });
@@ -280,6 +288,18 @@ function Categories(props) {
 
                   </Col>
                 )
+
+                :   <React.Fragment>
+                <Col lg="4" className="text-center">
+                </Col>
+                <Col lg="4" className="text-center">
+                 Please Change your Location there is no food available at your place ... 
+                </Col>
+                <Col lg="4" className="text-center">
+                </Col>
+                </React.Fragment>
+                
+                
               }}
             </Query>
             </Row>

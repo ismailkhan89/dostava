@@ -83,7 +83,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
     const [coupon] = useState(props.location.state?.coupon ?? null)
     const [Configuration,setConfiguration] = useState(props.location.state?.coupon ?? null)
     const [getStripe ,setGetStripe] = useState([]);
-    const [payment,setPayment] = useState([])
+    const [payment,setPayment] = useState(null)
     const [CardStatus,setCardStatus] = useState(null)
     const [activeRadio, setActiveRadio] = useState(0)
 
@@ -128,16 +128,20 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
       },[vendorIds,items,dataConfig])
     
 
-      function fetchConfiguration() {
+     async function fetchConfiguration() {
          client.query({ query: GETCONFIGURATION, fetchPolicy: 'network-only' }).then(res => {
           localStorage.setItem("configuration",JSON.stringify(res.data.configuration))
           setConfiguration(res.data.configuration);
         })
-        client.query({ query: GETUSERSTRIPECARDS, fetchPolicy: 'network-only' }).then(res => {
-          console.log("cardDetailscardDetailscardDetails", res.data)
-          setGetStripe(res.data.getUserStripeCards);
-        })
-
+        try {
+         const result = await client.query({ query: GETUSERSTRIPECARDS, fetchPolicy: 'network-only' })
+         setGetStripe(result.data.getUserStripeCards);
+        //  .then(res => {
+        //     console.log("cardDetailscardDetailscardDetails", res.data)
+        //     setGetStripe(res.data.getUserStripeCards);
+        //   })
+        } catch (error) {
+        }
       }
 
       async function setVendorIdsArray(){
@@ -203,7 +207,8 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
         // }
         const cartItemsStr = await localStorage.getItem('cartItems')
         const cartItems = cartItemsStr ? JSON.parse(cartItemsStr) : []
-        if (checkPaymentMethod(dataConfig.configuration.currency)) {
+        if(physicalAddress !== ''){
+          if (checkPaymentMethod(dataConfig.configuration.currency)) {
             const items = transformOrder(cartItems)
             mutate({
                 variables: {
@@ -234,6 +239,10 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
             //     style: Styles.alertboxRed,
             //     titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
             // })
+        }
+        }
+        else{
+          alert('First you need to add item to cart.')
         }
     }
 
@@ -340,6 +349,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                 .then(response => response.json())
                 .then(result => {
                   if(result.redirect === 'stripe/success'){
+                    alert('Order Submitted')
                     onPaymentSuccess()
                   }
                   console.log("response>><<",result)
@@ -379,6 +389,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
           .then(response => response.json())
           .then(result => {
             if(result.success === true){
+              alert('Order Submitted')
               onPaymentSuccess()
             }
             console.log("response>><<",result)
@@ -476,7 +487,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
       
         <Container className="wrapper" fluid>
         
-        <Header  {...props} />
+        <Header  {...props} title="Checkout" />
         
         <Container className="breadcrumb-area" fluid>
           <Row>
@@ -629,24 +640,33 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                     <Col lg="12" md="12" sm="12" xs="12" className="grey-bg">
                       <h3>Payment Options</h3>
                     </Col>
+                    <h4>Your Credit Card</h4>
                       {getStripe ? 
                       getStripe.map((card,index) => {
                        return <label key={index}>
-                         <div>
-                           <input type="radio" name="credit-card" value={index} 
-                           onChange={(e) =>{ 
-                            setPayment(getStripe[e.target.value])
-                            setCardStatus('OLD_CARD')
-                          }}></input>
-                           {card.brand} {'(xxxx'+card.last4+')'}
-                         </div>
+                         <Row>
+                            <Col lg="10">
+                            <div>
+                            <input type="radio" name="credit-card" value={index} 
+                            onChange={(e) =>{ 
+                              setPayment(getStripe[e.target.value])
+                              setCardStatus('OLD_CARD')
+                            }}></input>
+                            <img src="../Assets/Img/card.png" height="50" style={{paddingRight :5}}></img>
+                            {card.brand} {'(xxxx'+card.last4+')'}
+                          </div>
+                            </Col>
+                         </Row>
+                        
+                        
                       </label>
                        }) : ''}
                       <label>
                         <input type="radio" name="credit-card"  onChange={(e) =>{ 
-                            setPayment(null)
+                            setPayment([])
                             setCardStatus('NEW_CARD')
                           }}></input>
+                           <img src="../Assets/Img/card.png" height="50" style={{paddingRight :5}}></img>
                        NEW CARD
                       </label>
                       {/* <label>
@@ -654,9 +674,9 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                         Paypal
                       </label>   */}
                     </div>
-                    <h4>Your Credit Card</h4>
                     <form>
                     <div className="form-group full">
+                    <label>Address</label>
                         <input type="text" placeholder="Address" disabled value={!!Address ? Address.location : ''}></input>
                       </div>
                       {/* <div className="form-group full">
@@ -679,7 +699,12 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                       <div className="form-group half">
                         <Button  onClick={e => {
                                 e.preventDefault()
-                                onPayment() 
+                                if(payment !== null){
+                                  onPayment() 
+                                }
+                                else{
+                                  alert('Please Select Payment Options')
+                                }
                                 }} value="Payment">Payment</Button>
                       </div>
                     </form>
@@ -699,11 +724,11 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                           <Col lg="6">
                             <h3>{item.title}e</h3>
                             <p>
-                            <strong>{item.price}</strong>      
+                            <strong>{currency_symbol} {item.price}</strong>      
                               {/* <span>$12.49</span> */}
                             </p>
                           </Col>
-                          <Col lg="2">
+                          {/* <Col lg="2">
                             <Button onClick={e => { 
                                       e.preventDefault()
                                       likeProduct(item)
@@ -712,7 +737,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                                       e.preventDefault()
                                       likeProduct(item)
                             }} name="heart-o" />
-                          </Col>
+                          </Col> */}
                         </Row>
                       )) : "No Items"
                     }

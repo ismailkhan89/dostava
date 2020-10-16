@@ -12,7 +12,12 @@ import {
   Container,
   Row,
   Col,
-  Button
+  Button,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
+  DropdownToggle,
+  Media
 } from "reactstrap";
 import { Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCartItems } from '../apollo/client';
@@ -55,21 +60,30 @@ function Header(props) {
   console.log("user-dostava>>", localStorage.getItem("user-dostava"));
   return (
     <Container className="header-area">
-      
+        <title>{props.title}</title>
       <Row className="mainHeader ">
         <Navbar sticky="top" expand="lg" fluid="true">
 
           <Navbar.Brand href="/"><img src={logo} alt="Logo" /></Navbar.Brand>
-
+          
           {userObj ?
           <Col lg="6"></Col> :
           <Col lg="8"></Col>
 }
-          {userObj ?
-          <Col lg="2" md="2" sm="2" xs="2" className="text-right">
-            {userObj.name}
-          </Col>
-          : ' '}
+
+
+          {
+            localStorage.getItem("user-dostava") ?
+            <Col lg="2" md="2" sm="2" xs="2" className="text-right">
+          </Col>  :
+                null
+            }
+
+
+        {/* <Col lg="2" md="2" sm="2" xs="2" className="text-right"></Col> */}
+
+
+         
 
           <div className="cart-icon-header" lg="1">
             <Link to="/cart">
@@ -77,8 +91,50 @@ function Header(props) {
               <strong>{data ? data.cartItems : 0}</strong>
             </Link>
           </div>
-          
-          {
+
+          { userObj ?
+            <Col lg="1" md="6" sm="6" xs="6" className="login text-right">
+        
+            <Nav className="align-items-center d-none d-md-flex" navbar>
+                  <UncontrolledDropdown nav>
+                    <DropdownToggle className="pr-0" nav>
+                      <Media className="align-items-center">
+                      <h6 className="text-overflow m-0">{userObj.name}</h6>
+                          {/* <span className="mb-0 text-sm">
+                          {userObj.name}
+                          </span> */}
+                      </Media>
+                    </DropdownToggle>
+                    <DropdownMenu className="dropdown-menu-arrow" right>
+                      <DropdownItem className="noti-title" header tag="div">
+                        <h6 className="text-overflow m-0">{'Welcome'}!</h6>
+                      </DropdownItem> 
+                      <DropdownItem divider />
+                      <DropdownItem >
+                      <Link to="/myorders" onClick={e => {
+                          e.preventDefault()
+                          props.history.push("/myorders")
+                          }}   ><FontAwesome name="list-alt" /> My Orders </Link>
+                        {/* <i className="ni ni-user-run" />
+                        <span>{'Logout'}</span> */}
+                      </DropdownItem>
+                      <DropdownItem divider />
+                      <DropdownItem>
+                      <Link to="/login" onClick={e => {
+                          e.preventDefault()
+                          localStorage.removeItem("user-dostava")
+                          props.history.push("/login")
+                          }}   ><FontAwesome name="user" /> Logout </Link>
+                        {/* <i className="ni ni-user-run" />
+                        <span>{'Logout'}</span> */}
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+              </Nav>
+         
+          </Col>
+          : ' '}
+          {/* {
             localStorage.getItem("user-dostava") ?
           <Col lg="1" md="6" sm="6" xs="6" className="login text-right">
               <Link to="/myorders" onClick={e => {
@@ -87,25 +143,25 @@ function Header(props) {
               }}   > <FontAwesome name="list-alt" /></Link>
           </Col>  :
               null
-          }
+          } */}
 
           <Col lg="1" md="6" sm="6" xs="6" className="login text-right">
           {
-            localStorage.getItem("user-dostava") ?
-              <Link to="/login" onClick={e => {
-                e.preventDefault()
-                localStorage.removeItem("user-dostava")
-                props.history.push("/login")
-              }}   >Logout <FontAwesome name="user" /></Link>
+            localStorage.getItem("user-dostava") ? null
+              // <Link to="/login" onClick={e => {
+              //   e.preventDefault()
+              //   localStorage.removeItem("user-dostava")
+              //   props.history.push("/login")
+              // }}   >Logout <FontAwesome name="user" /></Link>
               :
               <Link to="/login" ><FontAwesome name="user-circle-o" /> Login</Link>
               }
           </Col>
         
 
-          <Col lg="1" className="language">
+          {/* <Col lg="1" className="language">
             EN
-          </Col>
+          </Col> */}
 
         </Navbar>
         

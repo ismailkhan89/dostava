@@ -78,6 +78,9 @@ function Categories(props) {
 
   const {loading,error,data : dataVendorLocation} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :lng} ,client : newclient })
   console.log("dataVendor", dataVendorLocation)
+
+  const [title ,setTitle] = useState(props.location?.state?.title ?? 'Single Categories')
+  const [description ,setDescription] = useState(props.location?.state?.description ?? null)
   // const { loading, error, data, refetch, networkStatus, client } = useQuery(FOODS, { variables:{category: _id , ...filters,
   //    search: search,lat : lat.toString(),long : lng.toString()} ,client : newLink })
 
@@ -86,7 +89,6 @@ function Categories(props) {
   const [message, setMessages] = useState('');
   const [VendorIds,setVendorIds] = useState([]);
   console.log("props.match.params?.id", props.match.params?.id);
-  console.log("props.location?.query?.data", props.location?.state?.location);
 
    console.log("propspropsprops", props);
   // console.log("foodloading",loading)
@@ -214,7 +216,7 @@ function Categories(props) {
   }
   return (
     <Container className="wrapper" fluid>
-      <Header  {...props} />
+      <Header  {...props} title={title +" by Dostava"} />
       <Container className="breadcrumb-area" style={{display:'none'}} fluid>
         <Row>
           <Col lg="3">
@@ -232,8 +234,8 @@ function Categories(props) {
       <Container id="subheader" fluid>
         <Row>
           <Col lg="12">
-          <h2 className="title text-center">Single Category Name</h2>
-					 <p className="content text-center">The purpose of lorem ipsum is to create a natural looking block of text that doesn't distract from the layout.</p>
+          <h2 className="title text-center">{title}</h2>
+  <p className="content text-center">{description}</p>
           </Col>
         </Row>
       </Container>
@@ -241,15 +243,18 @@ function Categories(props) {
         <Row>
           
           <Col lg="12">
-            <Form inline >
-              <select name="select-category">
+            <Form inline>
+
+            <select name="select-category">
                 <option>Select category</option>
-                <option>category 1</option>
-                <option>category 2</option>
-                <option>category 3</option>
-                <option>category 4</option>
-                <option>category 5</option>
-              </select>
+              {props.location.state?.category ? 
+               props.location.state?.category.map(category => <option key={category._id} value={category._id}>{category.title}</option>)
+              : null }
+                {/* {props.location.state?.category.map(category => <option key={category._id} value={category._id}>{category.title}</option>)} ?? null}  */}
+                  {/* {data.getCategoriesByLocation.map(category => <option key={category._id} value={category._id}>{category.title}</option>)} */}
+            </select>
+
+            
               <FormControl type="search" placeholder="Search Product ..." value={SearchText} onChange={(e) => setSearchText(e.target.value)} />
             <Button variant="outline-success" onClick={(e) => {
               e.preventDefault();
@@ -349,6 +354,8 @@ function Categories(props) {
                 {({ loading, error, data }) => {
                 if (loading) return <div>{"Loading"}...</div>;
                 if (error) return <div>`${"Error"}! ${error.message}`</div>;
+
+                console.log( "datadata",data)
                   return data.foodByVendorCategory.map((category, index) =>
                     <Col lg="6" key={index}>
                       <div className="product-list">

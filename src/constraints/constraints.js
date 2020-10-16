@@ -172,6 +172,13 @@ const constraints = {
             lessThan: 100
         }
     },
+    phone : {
+        presence: true,
+        length : {
+            minimum: 0,
+            maximum: 20
+        }
+    }
 }
 
 export const validateFunc = (value, constraint) => {
