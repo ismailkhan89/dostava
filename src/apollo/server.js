@@ -238,6 +238,45 @@ export const foods = `
     }
   }`
 
+
+  export const foodbyVendorId = `query foodsByVendor($vendor_id:String){
+    foodsByVendor(vendor_id:$vendor_id){
+       _id
+      title
+      description
+      vendor_pricing
+      dostava_commission
+      user{
+        _id
+        name
+        lat
+        long
+      }
+      variations{
+        _id
+        title
+        price
+        discounted
+        addons{
+          _id
+          title
+          description
+          quantity_minimum
+          quantity_maximum
+          options{
+            _id
+            title
+            description
+            price
+          }
+        }
+      }
+      category{_id}
+      img_url
+      stock
+    }
+  }`
+  
   export const  getCategoriesByLocation = `query getCategoriesByLocation($lat:String,$long:String){
     getCategoriesByLocation(lat:$lat,long:$long){
       _id
@@ -246,6 +285,22 @@ export const foods = `
       img_menu
     }
   }`
+
+  export const getVendorByLocation = `query getVendorsByLocation($lat:String,$long:String){
+    getVendorsByLocation(lat:$lat,long:$long){
+        _id
+        name
+        email
+        picture
+        business_name
+        company_name
+        city
+        state
+        lat
+        long
+    }
+  }`
+
 export const getFeaturedProducts = `
         query getFeaturedProducts{
           getFeaturedProducts{

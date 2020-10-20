@@ -295,11 +295,11 @@ like every other ride-sharing app.</p>
                           }
                           localStorage.setItem('location',JSON.stringify(newlocation));
                             props.history.push({
-                            pathname: '/categories',
+                            pathname: '/stores',
                             // state: {...props.history?.state,location: latLng}
                           })
                         }
-                      }}><Button variant="outline-success">Show Categories</Button></Link>
+                      }}><Button variant="outline-success">Show Stores</Button></Link>
                       
                     </Form>
                   </Col>

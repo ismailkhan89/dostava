@@ -28,6 +28,10 @@ import { getConfiguration } from "./apollo/server";
 import  routes from './routes'
 import MyOrders from "./Views/MyOrders";
 import OrderDetails from "./Views/OrderDetails";
+import Vendor from "./Views/Vendor";
+import VendorCategory from "./Views/VendorCategory";
+
+
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
 })
@@ -143,6 +147,12 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 
 <Route path="/categories/:id/" component={props => <Categories {...props} />} />
 <Route path="/categories" component={props => <Categories {...props} />} />
+
+<Route path="/stores" component={props => <Vendor {...props} />} />
+
+<Route path="/storesitem/:id" component={props => <VendorCategory {...props} />} />
+<Route path="/storesitem" component={props => <VendorCategory {...props} />} />
+
 <Route path="/single-category/:id" component={props => <SingleCategory {...props} />} />
 <Route path="/single-category/" component={props => <SingleCategory {...props} />} />
 
