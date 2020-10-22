@@ -32,12 +32,19 @@ class Footer extends React.Component{
             </Col>
             <Col lg="3" md="12" sm="12" xs="12" className="quickmenu">
               <h3>Links</h3>
-              <ul>
+              {/* <ul>
                 <li><Link to="/about">Home</Link></li>
                 <li><Link to="/about">Pricing</Link></li>
                 <li><Link to="/about">Download</Link></li>
                 <li><Link to="/about">About</Link></li>
                 <li><Link to="/about">Service</Link></li>
+              </ul> */}
+              <ul>
+                <li><a href="https://dostava.com.au/privacy-policy">Privacy policy</a></li>
+                <li><a href="https://dostava.com.au/terms-of-use">Terms of use</a></li>
+                <li><a href="https://dostava.com.au/how-it-works">How it Works</a></li>
+                <li><a href="https://dostava.com.au/contact">Contact us</a></li>
+                <li><a href="https://dostava.com.au/faqs">FAQs</a></li>
               </ul>
             </Col>
             <Col lg="3" md="12" sm="12" xs="12" className="quickmenu">
