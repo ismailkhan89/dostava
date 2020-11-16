@@ -33,7 +33,7 @@ import FontAwesome from 'react-fontawesome';
 import { Form, FormControl } from 'react-bootstrap';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories, getFeaturedProducts, getConfiguration } from "../apollo/server";
-import FeaturedProducts from "../../src/Components/FeaturedProducts";
+import FeaturedProducts from "../../src/components/FeaturedProducts";
 
 import PlacesAutocomplete, {
   geocodeByAddress,

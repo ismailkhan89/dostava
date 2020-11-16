@@ -17,6 +17,21 @@
 .navbar{
     width:100%;
 }
+/* Coming Soon Template */
+.dostava-bg{
+    background-color:#e7f8fd;
+    height:100vh;
+    align-items:center;
+    justify-content:center;
+    margin-left:0;
+    margin-right:0;
+}
+.dostava-bg img{
+    width:100%;
+}
+.dostava-bg .logo img{
+    width:auto;
+}
 .topBar{
     padding-top:10px;
     padding-left:15px;
