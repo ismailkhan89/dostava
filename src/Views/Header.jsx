@@ -67,10 +67,17 @@ function Header(props) {
           <Navbar.Brand href="/"><img src={logo} alt="Logo" /></Navbar.Brand>
           
           {userObj ?
-          <Col lg="6"></Col> :
+          
+          <Col lg="3"></Col> :
           <Col lg="8"></Col>
 }
 
+          <Col lg="3" className="driver">
+            <Link to="/register-driver">Driver</Link>
+            <Link to="/register-vendor">Vendor</Link>
+          </Col>
+          
+         
 
           {
             localStorage.getItem("user-dostava") ?
