@@ -69,12 +69,12 @@ function Header(props) {
           {userObj ?
           
           <Col lg="3"></Col> :
-          <Col lg="8"></Col>
+          <Col lg="5"></Col>
 }
 
           <Col lg="3" className="driver">
-            <Link to="/register-driver">Driver</Link>
-            <Link to="/register-vendor">Vendor</Link>
+            <Link to="https://www.dostava.com.au/register-driver">Driver</Link>
+            <Link to="https://www.dostava.com.au/register-vendor">Vendor</Link>
           </Col>
           
          
