@@ -73,8 +73,9 @@ function Header(props) {
 }
 
           <Col lg="3" className="driver">
-            <Link to="https://www.dostava.com.au/register-driver">Driver</Link>
-            <Link to="https://www.dostava.com.au/register-vendor">Vendor</Link>
+            <Link to={{pathname:"https://www.dostava.com.au/register-driver"}} target="_blank">Driver</Link>
+            
+            <Link to={{pathname:"https://www.dostava.com.au/register-vendor"}} target="_blank">Vendor</Link>
           </Col>
           
          
