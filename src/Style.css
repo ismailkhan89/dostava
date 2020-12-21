@@ -1718,6 +1718,18 @@ padding-left:70px;
         .download-app .download-app-text{
             padding-left:50px;
         }
+        .driver a{
+            padding:10px 25px;
+        }
+        .header-area nav .login{
+            padding-left:0;
+        }
+        .app-area .app-area-img img{
+            margin-top:-20px;
+        }
+        .home-slider{
+            padding:80px 15px 90px 15px;
+        }
     }
     @media screen and (min-width:768px) and (max-width:992px){
         .topBar{
@@ -1756,6 +1768,15 @@ padding-left:70px;
         }
         .mainHeader .navbar .cart-icon-header{
             order:3;
+        }
+        .display-none{
+            display: none;
+        }
+        .driver{
+            order:2;
+        }
+        .header-area nav .login{
+            order:4;
         }
         .footer-area .widget-area .quickmenu h3, .footer-area .widget-area .quickmenu ul{
             padding-left:0;
@@ -2014,6 +2035,7 @@ padding-left:70px;
     width:100%;
     position:absolute;
     margin-top:-60px;
+    left:-23%;
 }
 .app-area .app-area-text{
     padding:75px 0;
@@ -2029,10 +2051,14 @@ padding-left:70px;
 .app-area .app-area-text img{}
 .become-vendor{
     background-color:#fafafa;
-    padding:60px 15px 120px 15px;
+    /* padding:60px 15px 120px 15px; */
+    padding:170px 15px 120px 15px;
     background-image:url(Assets/Img/hurry-up.png);
     background-repeat: no-repeat;
     background-position: bottom right;
+}
+.app-area .app-area-text a img{
+    margin-right:15px;
 }
 .become-vendor .vendor-col .row {
     background-color: #fff;
@@ -2058,6 +2084,65 @@ padding-left:70px;
     background-color:#053452;
     display:inline-block;
     margin-top:5px;
+}
+.vendor-section{
+    background-image: url(Assets/Img/vendor-bg.png);
+    background-size:cover;
+    padding:0px 15px;
+    background-position: top center;
+    min-height:350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.rider-section{
+    background-image: url(Assets/Img/rider-bg.png);
+    background-position: bottom center;
+}
+.rider-section + .footer-area{
+    padding-top:110px;
+}
+.vendor-section .vendor-text{
+    background-color:#fff;
+    padding:35px;
+    position:relative;
+    bottom:-100px;
+    box-shadow:1px 1px 10px 2px #aaa;
+}
+.vendor-section .vendor-text h2{}
+.vendor-section .vendor-text p{}
+.vendor-section .vendor-text a{
+    display: inline-block;
+    font-size: 16px;
+    color: #fff;
+    text-decoration:none;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 10px 25px;
+    background-color: #053452;
+    float:right;
+}
+.faq-home{
+    padding-top:220px;
+}
+.faq-home .single-faqhome{
+    float:left;
+    width:100%;
+    margin-bottom:20px;
+}
+.faq-home .single-faqhome h2{
+    font-weight:700;
+}
+.faq-home .single-faqhome p{
+    font-size:18px;
+}
+.header-area nav .login{
+    padding-right:0;
+}
+.header-area nav .login a span{
+    vertical-align:middle;
+    margin-top:-3px;
+    font-size:25px;
 }
 .home-slider{
     background-image:url(Assets/Img/slider-img.png);
@@ -2366,3 +2451,51 @@ padding-left:70px;
     color: #053452;
     padding: 10px;
 } */
+@media screen and (min-width:768px) and (max-width:1024px){
+    .home-slider{
+        padding:80px 15px 90px 15px;
+    }
+    .app-area .app-area-img img{
+        width:130%;
+        left:-35%;
+        margin-top:-35px;
+    }
+    .home-slider{
+        padding-top:30px;
+        background-position:bottom center;
+    }
+    .home-slider .home-slider-text form{
+        padding:30px 20px;
+    }
+    .home-slider .home-slider-text form input[type="text"]{
+        width:63%;
+    }
+    .become-vendor .vendor-col .vendor-col-text h3{
+        min-height:78px;
+    }
+    .app-area .app-area-text h3{
+        font-size:34px;
+    }
+    .app-area .app-area-text{
+        padding:50px 0 50px 40px;
+    }
+    .app-area .app-area-img img{
+        left:-38%;
+        margin-top:-20px;
+    }
+}
+@media screen and (max-width:767px){
+    .display-none {
+        display: none;
+    }
+    .driver {
+        order: 2;
+    }
+    .header-area nav .login{
+        order:4;
+    }
+    .home-slider{
+        padding: 30px 15px 90px 15px;
+        background-position: bottom center;
+    }
+}

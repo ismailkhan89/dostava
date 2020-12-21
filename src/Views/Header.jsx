@@ -68,15 +68,11 @@ function Header(props) {
           
           {userObj ?
           
-          <Col lg="3"></Col> :
-          <Col lg="5"></Col>
+          <Col lg="5"></Col> :
+          <Col lg="8" md="0" sm="3" className="display-none"></Col>
 }
 
-          <Col lg="3" className="driver">
-            <Link to={{pathname:"https://www.dostava.com.au/register-driver"}} target="_blank">Driver</Link>
-            
-            <Link to={{pathname:"https://www.dostava.com.au/register-vendor"}} target="_blank">Vendor</Link>
-          </Col>
+          
           
          
 
@@ -93,15 +89,15 @@ function Header(props) {
 
          
 
-          <div className="cart-icon-header" lg="1">
+          <Col lg="1" md="1" sm="1" className="cart-icon-header" >
             <Link to="/cart">
               <FontAwesome name="shopping-bag" />
               <strong>{data ? data.cartItems : 0}</strong>
             </Link>
-          </div>
+          </Col>
 
           { userObj ?
-            <Col lg="1" md="6" sm="6" xs="6" className="login text-right">
+            <Col lg="1" md="1" sm="1" xs="6" className="login text-right">
         
             <Nav className="align-items-center d-none d-md-flex" navbar>
                   <UncontrolledDropdown nav>
@@ -153,7 +149,7 @@ function Header(props) {
               null
           } */}
 
-          <Col lg="1" md="6" sm="6" xs="6" className="login text-right">
+          <Col lg="1" md="1" sm="6" xs="6" className="login text-right">
           {
             localStorage.getItem("user-dostava") ? null
               // <Link to="/login" onClick={e => {
