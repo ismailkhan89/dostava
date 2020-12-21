@@ -314,7 +314,7 @@ like every other ride-sharing app.</p>
                 <Col lg="6" md="8" className="vendor-text">
                   <h2>Dostava for Vendor</h2>
                   <p>lorem ipsum dolor sit amet is the sample text lorem ipsum dolor sit amet is the sample text lorem ipsum dolor sit amet is the sample text</p>
-                    <Link to="#">Get Started</Link>
+                    <Link to={{pathname:"https://www.dostava.com.au/register-vendor"}} target='_blank'>Get Started</Link>
                 </Col>
               </Row>
             </Container>
@@ -374,7 +374,7 @@ like every other ride-sharing app.</p>
                 <Col lg="6" md="8" className="vendor-text">
                   <h2>Dostava for Driver</h2>
                   <p>lorem ipsum dolor sit amet is the sample text lorem ipsum dolor sit amet is the sample text lorem ipsum dolor sit amet is the sample text</p>
-                    <Link to="#">Get Started</Link>
+                    <Link to={{pathname:"https://www.dostava.com.au/register-driver"}} target='_blank'>Get Started</Link>
                 </Col>
               </Row>
             </Container>

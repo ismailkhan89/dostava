@@ -69,7 +69,7 @@ function Header(props) {
           {userObj ?
           
           <Col lg="5"></Col> :
-          <Col lg="8" md="0" sm="3" className="display-none"></Col>
+          <Col lg="7" md="6" sm="0" className="display-none"></Col>
 }
 
           
