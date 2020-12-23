@@ -229,7 +229,7 @@ like every other ride-sharing app.</p>
           <Row>
               <Container>
                 <Row>
-                  <Col lg="7" md="8" className="home-slider-text">
+                  <Col lg="7" md="8" sm="12" xs="12" className="home-slider-text">
                     <h3>Dostava</h3>
                     <h4><strong>Groceries</strong> are just an app away</h4>
                     <Form inline className="text-right search-form">
@@ -303,6 +303,9 @@ like every other ride-sharing app.</p>
                       
                     </Form>
                   </Col>
+                  <Col lg="0" md="0" sm="12" xs="12" className="home-slider-img hidden">
+                  <img src='../Assets/Img/dostava-img.png' ></img>
+                  </Col>
                 </Row>
               </Container>
           </Row>
@@ -311,7 +314,7 @@ like every other ride-sharing app.</p>
           <Row>
             <Container>
               <Row>
-                <Col lg="6" md="8" className="vendor-text">
+                <Col lg="6" md="8" sm="12" xs="12" className="vendor-text">
                   <h2>Dostava for Vendor</h2>
                   <p>lorem ipsum dolor sit amet is the sample text lorem ipsum dolor sit amet is the sample text lorem ipsum dolor sit amet is the sample text</p>
                     <Link to={{pathname:"https://www.dostava.com.au/register-vendor"}} target='_blank'>Get Started</Link>
@@ -324,23 +327,23 @@ like every other ride-sharing app.</p>
           <Row>
             <Container>
               <Row>
-              <Col lg="6" md="6" className="vendor-col">
+              <Col lg="6" md="6" sm="12" xs="12" className="vendor-col">
                 <Row>
-                  <Col lg="3" md="12" className="vendor-col-img">
+                  <Col lg="3" md="12" xs="12" className="vendor-col-img">
                     <img src='../Assets/Img/vendor-icon.png' ></img>
                   </Col>
-                  <Col lg="9" md="12" className="vendor-col-text">
+                  <Col lg="9" md="12" xs="12" className="vendor-col-text">
                       <h3>INCREASE YOUR SALES, BOOST YOUR AUDIENCE, ENHANCE YOUR PRESENCE</h3>
                       <Link to="/">Become a Vendor</Link>
                   </Col>
                 </Row>
               </Col>
-              <Col lg="6" md="6" className="vendor-col">
+              <Col lg="6" md="6" sm="12" xs="12" className="vendor-col">
                 <Row>
-                  <Col lg="3" md="12" className="vendor-col-img">
+                  <Col lg="3" md="12" xs="12" className="vendor-col-img">
                     <img src='../Assets/Img/driver-icon.png' ></img>
                   </Col>
-                  <Col lg="9" md="12" className="vendor-col-text">
+                  <Col lg="9" md="12" xs="12" className="vendor-col-text">
                       <h3>Work with Freedom. Earn with Freedom</h3>
                       <Link to="/">Become a Driver</Link>
                   </Col>
@@ -352,7 +355,7 @@ like every other ride-sharing app.</p>
         </Container>
         <Container className="app-area" fluid>
               <Row>
-                <Col lg="6" md="7" className="app-area-text">
+                <Col lg="6" md="7" sm="12" xs="12" className="app-area-text">
                   <h3>Dostava is Available for your Android or Apple</h3>
                   <a href="https://apps.apple.com/us/app/dostava/id1543132324">
                     
@@ -362,7 +365,7 @@ like every other ride-sharing app.</p>
                     <img src="../Assets/Img/footer-googleplay.png"></img>
                   </a>
                 </Col>
-                <Col lg="6" md="5" className="app-area-img">
+                <Col lg="6" md="5" sm="12" xs="12" className="app-area-img">
                   <img src='../Assets/Img/Mobile-Mockups.png' ></img>
                 </Col>
               </Row>
@@ -371,7 +374,7 @@ like every other ride-sharing app.</p>
           <Row>
             <Container>
               <Row>
-                <Col lg="6" md="8" className="vendor-text">
+                <Col lg="6" md="8" sm="12" xs="12" className="vendor-text">
                   <h2>Dostava for Driver</h2>
                   <p>lorem ipsum dolor sit amet is the sample text lorem ipsum dolor sit amet is the sample text lorem ipsum dolor sit amet is the sample text</p>
                     <Link to={{pathname:"https://www.dostava.com.au/register-driver"}} target='_blank'>Get Started</Link>
@@ -384,7 +387,7 @@ like every other ride-sharing app.</p>
           <Row>
             <Container>
               <Row>
-                <Col lg="12">
+                <Col lg="12" md="12" sm="12" xs="12">
                   <div className="single-faqhome">
                     <h2>What is Dostava?</h2>
                     <p>Dostava is your new Money Mate, you keep doing your normal work and at the same time you can start earning more.</p>

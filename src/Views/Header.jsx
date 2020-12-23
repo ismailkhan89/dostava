@@ -69,7 +69,7 @@ function Header(props) {
           {userObj ?
           
           <Col lg="5"></Col> :
-          <Col lg="7" md="6" sm="0" className="display-none"></Col>
+          <Col lg="7" md="5" sm="4" xs="4" className="display-none"></Col>
 }
 
           
@@ -89,7 +89,7 @@ function Header(props) {
 
          
 
-          <Col lg="1" md="1" sm="1" className="cart-icon-header" >
+          <Col lg="1" md="1" sm="1" xs="1" className="cart-icon-header" >
             <Link to="/cart">
               <FontAwesome name="shopping-bag" />
               <strong>{data ? data.cartItems : 0}</strong>
@@ -97,7 +97,7 @@ function Header(props) {
           </Col>
 
           { userObj ?
-            <Col lg="1" md="1" sm="1" xs="6" className="login text-right">
+            <Col lg="1" md="2" sm="2" xs="6" className="login text-right">
         
             <Nav className="align-items-center d-none d-md-flex" navbar>
                   <UncontrolledDropdown nav>
@@ -149,7 +149,7 @@ function Header(props) {
               null
           } */}
 
-          <Col lg="1" md="1" sm="6" xs="6" className="login text-right">
+          <Col lg="1" md="2" sm="2" xs="2" className="login text-right">
           {
             localStorage.getItem("user-dostava") ? null
               // <Link to="/login" onClick={e => {

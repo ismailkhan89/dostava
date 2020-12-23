@@ -1770,7 +1770,7 @@ padding-left:70px;
             order:3;
         }
         .display-none{
-            display: none;
+           order:2;
         }
         .driver{
             order:2;
@@ -2451,6 +2451,10 @@ padding-left:70px;
     color: #053452;
     padding: 10px;
 } */
+
+.hidden{
+    display: none;
+}
 @media screen and (min-width:768px) and (max-width:1024px){
     .home-slider{
         padding:80px 15px 90px 15px;
@@ -2460,10 +2464,10 @@ padding-left:70px;
         left:-35%;
         margin-top:-35px;
     }
-    .home-slider{
+    /* .home-slider{
         padding-top:30px;
         background-position:bottom center;
-    }
+    } */
     .home-slider .home-slider-text form{
         padding:30px 20px;
     }
@@ -2484,9 +2488,18 @@ padding-left:70px;
         margin-top:-20px;
     }
 }
+@media screen and (min-width:768px) and (max-width:992px){
+    .home-slider {
+        padding-top: 70px;
+        background-position: 0% 100%;
+    }
+}
 @media screen and (max-width:767px){
+    .container{
+        max-width:90%;
+    }
     .display-none {
-        display: none;
+        order:2;
     }
     .driver {
         order: 2;
@@ -2496,6 +2509,195 @@ padding-left:70px;
     }
     .home-slider{
         padding: 30px 15px 90px 15px;
-        background-position: bottom center;
+        background-position: center;
+    }
+    .become-vendor .vendor-col .vendor-col-img, .become-vendor .vendor-col .vendor-col-text{
+        text-align:center;
+    }
+    .app-area{
+        margin-bottom:0;
+    }
+    .app-area > .row{
+        flex-direction: column-reverse;
+    }
+    .app-area .app-area-img img{
+        position: relative;
+        left:-15%;
+    }
+    .app-area .app-area-text{
+        padding-top:30px;
+        text-align:center;
+        padding-left:30px;
+        padding-right:30px;
+    }
+    .app-area .app-area-text h3{
+        font-size:42px;
+        margin-left:0;
+    }
+    .faq-home{
+        padding-top:150px;
+    }
+    .become-vendor .vendor-col{
+        margin-bottom:35px;
+        padding-left:0;
+        padding-right:0;
+    }
+    .home-slider > .row > .container > .row{
+        flex-direction:column-reverse;
+    }
+    .home-slider{
+        background-image:url(Assets/Img/slider-img2.png);
+        padding-bottom:0;
+        background-size:contain;
+    }
+    .home-slider .home-slider-text{
+        margin-bottom:35px;
+    }
+    .home-slider-img img{
+        float:left;
+        width:100%;
+    }
+    .hidden{
+        display:block;
+    }
+}
+@media screen and (max-width:568px){
+    .home-slider .home-slider-text form{
+        padding:20px 14px;
+    }
+    .faq-home .single-faqhome h2{
+        font-size:24px;
+    }
+    .display-none{
+        /* display: none; */
+        float:left;
+        min-height:1px;
+    }
+    .mainHeader .navbar{
+        display:inline-block;
+        padding-left:0;
+        padding-right:0;
+    }
+    .mainHeader .navbar > a, .mainHeader .navbar .cart-icon-header, .header-area nav .login{
+        float:left;
+    }
+    .mainHeader .navbar .cart-icon-header{
+        margin-left:0;
+        margin-right:15px;
+    }
+    .header-area nav .login{
+        padding-left:0;
+        line-height: 55px;;
+    }
+}
+@media screen and (max-width:512px){
+    .display-none{
+        max-width: 25%;
+    }
+    .mainHeader .navbar .cart-icon-header{
+        margin-right:25px;
+    }
+}
+@media screen and (max-width:480px){
+    .home-slider .home-slider-text h4{
+        font-size:26px;
+    }
+    .home-slider .home-slider-text form input[type="text"]{
+        width:100%;
+        margin-right:0 !important;
+    }
+    .home-slider .home-slider-text form a{
+        width:100%;
+    }
+    .home-slider .home-slider-text form button{
+        width:100%;
+        margin-top:10px;
+    }
+    .vendor-section .vendor-text{
+        padding:25px 20px;
+    }
+    .app-area .app-area-text h3{
+        font-size:36px;
+    }
+}
+@media screen and (max-width:414px){
+    .app-area .app-area-text h3{
+        font-size:32px;
+    }
+    
+    .home-slider > .row > .container{
+        padding-left:0;
+        padding-right:0;
+    }
+    .app-area .app-area-text a:last-child img{
+        margin-right:0;
+    }
+    .faq-home > .row > .container{
+        padding-left:0;
+        padding-right:0;
+    }
+    .header-area.container{
+        padding-left:0;
+        padding-right:0;
+    }
+    .display-none{
+        max-width:15%;
+    }
+    .header-area nav .login{
+        max-width:20%;
+    }
+}
+@media screen and (max-width:375px){
+    .home-slider .home-slider-text h4{
+        font-size:22px;
+    }
+    .app-area .app-area-text{
+        padding-left:20px;
+        padding-right:20px;
+    }
+    .app-area .app-area-text h3{
+        font-size:30px;
+    }
+    .become-vendor .vendor-col .vendor-col-text{
+        padding-left:0;
+        padding-right:0;
+    }
+    .become-vendor .vendor-col .vendor-col-text h3{
+        font-size:16px;
+    }
+    .vendor-section .vendor-text h2{
+        font-size:28px;
+    }
+    .display-none{
+        max-width:13%
+    }
+}
+@Media screen and (max-width:360px){
+    .become-vendor .vendor-col .vendor-col-text h3{
+        font-size:15px;
+    }
+    .app-area .app-area-text h3{
+        font-size:28px;
+    }
+}
+@media screen and (max-width:320px){
+    .app-area .app-area-text h3{
+        font-size:24px;
+    }
+    .home-slider .home-slider-text h4{
+        font-size:20px;
+    }
+    .mainHeader nav a.navbar-brand img{
+        width:100%;
+    }
+    .header-area nav .login{
+        max-width:22%;
+    }
+    .display-none{
+        display:none;
+    }
+    .mainHeader .navbar .cart-icon-header {
+        margin-right: 30px;
+        margin-left: 20px;
     }
 }
