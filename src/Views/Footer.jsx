@@ -26,8 +26,12 @@ class Footer extends React.Component{
                     </Link>
                 </div>
                 <h3>Download Our App</h3>
-              <img src="../Assets/Img/footer-appstore.png"></img>
-              <img src="../Assets/Img/footer-googleplay.png"></img>
+                <a href="https://apps.apple.com/us/app/dostava/id1543132324">
+                  <img src="../Assets/Img/footer-appstore.png"></img>
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.dostava">
+                  <img src="../Assets/Img/footer-googleplay.png"></img>
+                </a>
                 
             </Col>
             <Col lg="3" md="12" sm="12" xs="12" className="quickmenu">
@@ -61,15 +65,13 @@ class Footer extends React.Component{
            
             <Col lg="3" md="12" sm="12" xs="12" className="quickmenu social">
               <h3>Contact us</h3>
-              <p>Jalalabad 20/1</p>
-              <p>Shah Farid Road</p>
-              <p>+8801747913966</p>
-              <Link to="mailto:getme@gmail.com">getme@gmail.com</Link>
+              <p>Perth, Australia</p>
+              <Link to="mailto:support@dostava.com.au">support@dostava.com.au</Link>
             </Col>
           </Row>
           <Row className="copyright-area text-center">
             <Col lg="12" md="12" sm="12" xs="12">
-              <p>Copyright © 2020. All Rights Reserved.</p>
+              <p>Copyright &copy; 2020. All Rights Reserved.</p>
             </Col>
             
           </Row>

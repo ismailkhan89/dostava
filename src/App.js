@@ -7,6 +7,7 @@ import './App.css';
 import gql from "graphql-tag";
 import { ApolloProvider } from '@apollo/react-hooks'
 import HomePage from './Views/HomePage';
+// import NewHomePage from './Views/NewHomePage';
 import Product from './Views/Product.jsx';
 import Categories from './Views/Categories.jsx';
 import SingleCategory from './Views/SingleCategory.jsx';
