@@ -167,6 +167,46 @@
     line-height: 50px;
     margin-right: 25px;
 }
+/* New Slider added */
+.slider-area-new{
+    padding-top: 170px;
+    padding-left:0;
+    padding-right: 0;
+}
+.slider-area-new > .row > .col-lg-12{
+    padding-left:0;
+    padding-right: 0;
+}
+.featured-area{
+    padding-top:50px;
+}
+.slider-area-new h2{
+    text-transform:uppercase;
+    font-weight:700;
+    margin-bottom:25px;
+}
+.slider-area-new .slick-slider img{
+    object-fit: cover;
+    min-height:200px;
+}
+.slider-area-new .slick-next{
+    right:0;
+    top:-45px;
+    background-color:#1385a7;
+}
+.slider-area-new .slick-prev{
+    left: auto;
+    right: 60px;
+    top: -45px;
+    background-color:#1385a7;
+}
+.slider-area-new .slick-slide > div{
+    padding:10px;
+}
+.slider-area .slick-slider button:focus{
+
+}
+
 /* Slider */
 .feature-products{
     
@@ -176,7 +216,7 @@
     padding-right:15px;
 }
 .slider-area .slick-slider button{
-    background-color: rgba(255,255,255,0.7);
+    /* background-color: rgba(255,255,255,0.7); */
     width: 50px;
     z-index: 1;
     height: 50px;
@@ -224,11 +264,11 @@
     left:0;
 
 }
-.slider-area .slick-slider button:hover{
-    background-color:#1385a7;
+.slider-area .slick-slider button:hover, .slider-area .slick-slider button:focus{
+    background-color:#000;
 }
 .slider-area .slick-slider button.slick-prev{
-    left:0
+   /* left:0 */
 }
 .slider-area .slick-slider button.slick-next{
     right:0;
@@ -2597,6 +2637,12 @@ padding-left:70px;
     .mainHeader .navbar .cart-icon-header{
         margin-right:25px;
     }
+    .slider-area-new h2{
+        margin-bottom:65px;
+    }
+    .slider-area .slick-slider button{
+        top:-25px;
+    }
 }
 @media screen and (max-width:480px){
     .home-slider .home-slider-text h4{
@@ -2646,6 +2692,9 @@ padding-left:70px;
     .header-area nav .login{
         max-width:20%;
     }
+    .slider-area-new h2{
+        font-size:28px;
+    }
 }
 @media screen and (max-width:375px){
     .home-slider .home-slider-text h4{
@@ -2679,6 +2728,9 @@ padding-left:70px;
     .app-area .app-area-text h3{
         font-size:28px;
     }
+    .slider-area-new h2{
+        font-size:24px;
+    }
 }
 @media screen and (max-width:320px){
     .app-area .app-area-text h3{
@@ -2699,5 +2751,8 @@ padding-left:70px;
     .mainHeader .navbar .cart-icon-header {
         margin-right: 30px;
         margin-left: 20px;
+    }
+    .slider-area-new h2{
+        font-size:22px;
     }
 }

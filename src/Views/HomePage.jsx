@@ -14,6 +14,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+// import Slider from 'infinite-react-carousel';
+
 import { server_url } from  "../config/config";
 import {
     Card,
@@ -54,7 +56,27 @@ const GET_CATEGORIES = gql`${getCategories}`;
 const GET_CONFIGURATION = gql`${getConfiguration}`;
 const GET_FEATURED_PRODUCTS = gql`${getFeaturedProducts}`;
 
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block",  }}
+      onClick={onClick}
+    />
+  );
+}
 
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", }}
+      onClick={onClick}
+    />
+  );
+}
 
 function HomePage(props){
   useEffect(() => {
@@ -78,6 +100,10 @@ function HomePage(props){
     })
    
   }
+
+  
+
+
 
   // const history = useHistory();
 
@@ -109,18 +135,81 @@ function HomePage(props){
         })
         .catch(error => console.error('Error', error));
     };
+
+    const settings2 = {
+      dots: false,
+      infinite: true,
+      slidesToShow: 3,
+      arrows:true,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            dots: false,
+            infinite: true,
+            slidesToShow: 3,
+            arrows:true,
+            slidesToScroll: 1,
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            dots: false,
+            infinite: true,
+            slidesToShow: 1,
+            arrows:true,
+            slidesToScroll: 1,
+          }
+        }
+        ]
+    };
+
+    const settings3 = {
+      dots: false,
+      infinite: true,
+      slidesToShow: 3,
+      arrows:true,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            dots: false,
+            infinite: true,
+            slidesToShow: 3,
+            arrows:true,
+            slidesToScroll: 1,
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            dots: false,
+            infinite: true,
+            slidesToShow: 1,
+            arrows:true,
+            slidesToScroll: 1,
+          }
+        }
+        ]
+    };
+
     return(
       
         <Container className="wrapper" fluid>
         
          <Header  {...props} title="Dostava" />
+         
+         
 
         {/* <Link to="/cart">Cart</Link>
         <Link to="/checkout">Checkout</Link> */}
-        <Container className="slider-area" style={{display:'none'}} fluid>
+        <Container className="slider-area slider-area-new" style={{display:'none'}} fluid>
           <Row>
             <Col lg="12">
-              <Slider {...settings}>
+              <Slider {...settings2}>
                 <div>
                   <img src="../Assets/Img/slider-pic.png"></img>
                 </div>
@@ -321,6 +410,67 @@ like every other ride-sharing app.</p>
                 </Col>
               </Row>
             </Container>
+          </Row>
+        </Container>
+        <Container className="slider-area slider-area-new">
+          <Row>
+            
+            <Col lg="12">
+              <h2>Popular on Dostava</h2>
+              <Slider {...settings2}>
+                <div>
+                  <img src="../Assets/Img/slider-pic.png"></img>
+                  <h3>Title 1</h3>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                <h3>Title 2</h3>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                <h3>Title 3</h3>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                <h3>Title 4</h3>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                <h3>Title 5</h3>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                <h3>Title 6</h3>
+                </div>
+              </Slider>
+            </Col>
+          </Row>
+        </Container>
+        <Container className="slider-area slider-area-new featured-area">
+          <Row>
+            <Col lg="12">
+              <h2>Featured on Dostava</h2>
+              <Slider {...settings3}>
+                <div>
+                  <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+                <div>
+                <img src="../Assets/Img/slider-pic.png"></img>
+                </div>
+              </Slider>
+            </Col>
           </Row>
         </Container>
         <Container className="become-vendor" fluid>
