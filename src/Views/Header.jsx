@@ -3,6 +3,8 @@ import React, { Component, useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css';
 import '../Style.css';
+import '../styleNew.css';
+import '../animate.css';
 import logo from '../logo.png';
 import FontAwesome from 'react-fontawesome';
 import { useQuery } from '@apollo/react-hooks';
