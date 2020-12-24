@@ -1285,3 +1285,57 @@ export const pendingOrders = `query UndeliveredOrders($offset:Int){
     }
   }
 }`
+
+export const getPopularVendors =  `query getPopularVendors{
+  getPopularVendors{
+    name
+    last_name
+    phone
+    city
+    state
+    zip
+    business_name
+    company_name
+    bank_detail
+    bank_account_name
+    bank_account_number
+    lat
+    long
+    profile_complete
+    email
+    is_shop_keeper
+    is_active
+    is_popular
+    is_featured
+    vendor_available
+    isNewUserClick
+    picture
+  }
+}`
+
+export const getFeaturedVendors =  `query getFeaturedVendors{
+  getFeaturedVendors{
+   name
+    last_name
+    phone
+    city
+    state
+    zip
+    business_name
+    company_name
+    bank_detail
+    bank_account_name
+    bank_account_number
+    lat
+    long
+    profile_complete
+    email
+    is_shop_keeper
+    is_active
+    is_popular
+    is_featured
+    vendor_available
+    isNewUserClick
+    picture
+  }
+}`

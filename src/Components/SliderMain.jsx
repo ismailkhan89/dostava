@@ -1,0 +1,69 @@
+import React, {Component, useState, useEffect} from "react";
+
+import { ApolloClient } from 'apollo-client';
+import gql from "graphql-tag";
+import { createUploadLink } from 'apollo-upload-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { Query, Mutation } from "react-apollo";
+import 'bootstrap/dist/css/bootstrap.css';
+import FontAwesome from 'react-fontawesome'
+import '../App.css';
+import '../Style.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import {Link, useRouteMatch, useParams } from 'react-router-dom';
+import { getFeaturedVendors } from "../apollo/server";
+import { server_url } from  "../config/config"
+import Slider from "react-slick";
+import { getCartItems } from '../apollo/client';
+import { useQuery, useMutation } from '@apollo/react-hooks'
+
+const cache = new InMemoryCache()
+const httpLink = createUploadLink({
+  uri: `${server_url}graphql`,
+})
+
+const clients = new ApolloClient({
+  link: httpLink,
+  cache
+});
+
+const GET_FEATURED_VENDORS = gql`${getFeaturedVendors}`;
+
+
+function SliderMain(props){
+
+    const { client, data, loading } = useQuery(GET_FEATURED_VENDORS)
+    const [products, setProducts] = useState(null);
+    var settingsFeatureProducts = {
+        dots: false,
+        autoplay:false,
+        arrows:true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1
+  };
+
+    React.useEffect(() => {
+        client.query({ query: GET_FEATURED_VENDORS, fetchPolicy: 'network-only' }).then(data => {
+            console.log("getFeaturedVendors fetau", data)
+            setProducts(data.data.getFeaturedVendors);
+          })
+      }, []);
+
+    return (
+        <>
+        <Slider {...settingsFeatureProducts}>
+        {products !== null && products.length > 0 && products.map((product, index) => (
+            <div  key = {index}>
+                <img src={product.picture}></img>
+                <h3>{product.business_name}</h3>
+            </div>
+        ))}
+        </Slider>
+     </>
+    )
+}
+
+export default SliderMain

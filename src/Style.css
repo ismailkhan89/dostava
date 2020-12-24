@@ -187,7 +187,7 @@
 }
 .slider-area-new .slick-slider img{
     object-fit: cover;
-    min-height:200px;
+    min-height:250px;
 }
 .slider-area-new .slick-next{
     right:0;

@@ -34,8 +34,10 @@ import {
 import FontAwesome from 'react-fontawesome';
 import { Form, FormControl } from 'react-bootstrap';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
-import { getCategories, getFeaturedProducts, getConfiguration } from "../apollo/server";
-import FeaturedProducts from "../../src/components/FeaturedProducts";
+import { getCategories, getFeaturedProducts, getConfiguration
+  ,getPopularVendors
+  ,getFeaturedVendors } from "../apollo/server";
+import FeaturedProducts from "../../src/Components/FeaturedProducts";
 
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -43,6 +45,8 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete';
 import { Redirect , useHistory  } from "react-router-dom";
 import Categories from "./Categories.jsx";
+import SliderMain from "../Components/SliderMain.jsx";
+import SliderPopular from "../Components/SliderPopular.jsx";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -55,6 +59,9 @@ const client = new ApolloClient({
 const GET_CATEGORIES = gql`${getCategories}`;
 const GET_CONFIGURATION = gql`${getConfiguration}`;
 const GET_FEATURED_PRODUCTS = gql`${getFeaturedProducts}`;
+
+const GET_POPULAR_VENDORS = gql`${getPopularVendors}`;
+const GET_FEATURED_VENDORS = gql`${getFeaturedVendors}`;
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -210,24 +217,19 @@ function HomePage(props){
           <Row>
             <Col lg="12">
               <Slider {...settings2}>
+              <Query query={GET_CATEGORIES}>
+            {({ loading, error, data }) => {
+             if (loading) return <div>{"Loading"}...</div>;
+             if (error) return <div>`${"Error"}! ${error.message}`</div>;
+             return  data.categories.map((category, index) =>
                 <div>
                   <img src="../Assets/Img/slider-pic.png"></img>
                 </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                </div>
+          
+                // </div> 
+                )
+              }}
+              </Query>
               </Slider>
             </Col>
           </Row>
@@ -412,12 +414,13 @@ like every other ride-sharing app.</p>
             </Container>
           </Row>
         </Container>
-        <Container className="slider-area slider-area-new">
+        <Container ></Container>
+        <Container className="slider-area slider-area-new container" >
           <Row>
-            
             <Col lg="12">
               <h2>Popular on Dostava</h2>
-              <Slider {...settings2}>
+              <SliderPopular />
+              {/* <Slider {...settings2}>
                 <div>
                   <img src="../Assets/Img/slider-pic.png"></img>
                   <h3>Title 1</h3>
@@ -442,7 +445,7 @@ like every other ride-sharing app.</p>
                 <img src="../Assets/Img/slider-pic.png"></img>
                 <h3>Title 6</h3>
                 </div>
-              </Slider>
+              </Slider> */}
             </Col>
           </Row>
         </Container>
@@ -450,7 +453,8 @@ like every other ride-sharing app.</p>
           <Row>
             <Col lg="12">
               <h2>Featured on Dostava</h2>
-              <Slider {...settings3}>
+              <SliderMain />
+              {/* <Slider {...settings3}>
                 <div>
                   <img src="../Assets/Img/slider-pic.png"></img>
                 </div>
@@ -469,7 +473,7 @@ like every other ride-sharing app.</p>
                 <div>
                 <img src="../Assets/Img/slider-pic.png"></img>
                 </div>
-              </Slider>
+              </Slider> */}
             </Col>
           </Row>
         </Container>
