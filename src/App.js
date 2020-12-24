@@ -31,6 +31,11 @@ import MyOrders from "./Views/MyOrders";
 import OrderDetails from "./Views/OrderDetails";
 import Vendor from "./Views/Vendor";
 import VendorCategory from "./Views/VendorCategory";
+import PrivacyPolicy from "./Views/PrivacyPolicy";
+import TermsConditions from "./Views/TermsConditions";
+import HowItWorks from "./Views/HowItWorks";
+import Contact from "./Views/Contact";
+import Faq from "./Views/Faq";
 
 
 const httpLink = createUploadLink({
@@ -160,6 +165,11 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 <Route path="/favorites" component={props => <Favorites {...props} />} />
  <Route path="/orderdetails" component={props => <OrderDetails {...props} />} /> 
 <Route path="/myorders" component={props => <MyOrders {...props} />} />
+<Route path="/privacy-policy" component={props => <PrivacyPolicy {...props} />} />
+<Route path="/terms-of-use" component={props => <TermsConditions {...props} />} />
+<Route path="/how-it-works" component={props => <HowItWorks {...props} />} />
+<Route path="/contact" component={props => <Contact {...props} />} />
+<Route path="/faqs" component={props => <Faq {...props} />} />
 
 
 </Switch>
