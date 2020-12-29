@@ -1,38 +1,24 @@
 import React, {Component, useState, useEffect } from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
-
-
-
-import ReactDOM from 'react-dom';
-
-
-
-import { server_url } from  "../config/config";
+import { Query, Mutation } from "react-apollo";
+ 
 import {
     Container,
     Row,
     Col,
-	Button
+	Button,Alert,
+	Form, FormGroup, Label, Input, FormFeedback, FormText , Spinner
    
     // Link
 } from "reactstrap";
 import FontAwesome from 'react-fontawesome';
-import { Form, FormControl, Accordion, Card } from 'react-bootstrap';
-// import Accordion from 'react-bootstrap/Accordion'
-
+ 
+import gql from "graphql-tag";
+import { createRiderFromWeb } from "../apollo/server";
 import Accord from '../Components/Accord';
 
-import {Link, useRouteMatch, useParams } from 'react-router-dom';
-
-
-
-
-
-
-import { Redirect , useHistory  } from "react-router-dom";
-
-
+const DRIVER_REGISTER = gql`${createRiderFromWeb}`
 
 const SECTIONS = [
 	{
@@ -88,6 +74,85 @@ const SECTIONS = [
 
 
 function RegisterDriver(props){ 
+
+    const [firstname , setFirstName] = React.useState('')
+	const [lastname , setLastname] = React.useState('')
+	const [contactno , setContactno] = React.useState('')
+	const [email , setEmail] = React.useState('')
+	const [password , setPassword] = React.useState('')
+
+	const [firstnameErr , setFirstnameErr] = React.useState(false)
+	const [lastnameErr , setLastnameErr] = React.useState(false)
+	const [contactnoErr , setContactnoErr] = React.useState(false)
+	const [emailErr , setEmailErr] = React.useState(false)
+	const [passwordErr , setPasswordErr] = React.useState(false)
+
+	const [succcess , setSuccess] = React.useState('')
+	const [Errors , setErrors] = React.useState('')
+
+	
+	function clearErrorField(){
+		setFirstnameErr(false)
+		setLastnameErr(false)
+		setContactnoErr(false)
+		setEmailErr(false)
+		setPasswordErr(false)
+	}
+
+	function  clearFields(){
+		setFirstName('')
+		setLastname('')
+		setContactno('')
+		setEmail('')
+		setPassword('')
+	}
+
+	function validate(){
+		clearErrorField();
+		let result = true;
+		if(firstname === "" || firstname === null){
+			setFirstnameErr(true)
+			result = false
+		}
+		if(lastname === "" || lastname === null){
+			setLastnameErr(true)
+			result = false
+		}if(contactno === "" || contactno === null){
+			setContactnoErr(true)
+			result = false
+		}if(email === "" || email === null){
+			setEmailErr(true)
+			result = false
+		}if(password === "" || password === null){
+			setPasswordErr(true)
+			result = false
+		}
+		return result
+	  }
+
+
+	 function hideAlert(){
+		setSuccess('')
+		setErrors('')
+	}
+	
+	function onError({ graphQLErrors, networkError }){
+        try {
+			setErrors(networkError.result.errors[0].message)
+        } catch (error) {
+			setErrors(graphQLErrors[0].message)
+        }
+		setTimeout(hideAlert, 7000)
+	}
+
+
+	function onCompleted({ graphQLErrors, networkError }){
+		setSuccess('Successfully Register Driver')
+        clearFields()
+		setTimeout(hideAlert, 7000)
+    }
+    
+    
     return(
       
         <Container className="wrapper" fluid>
@@ -158,7 +223,109 @@ function RegisterDriver(props){
                             <div id="errorMessage"></div>
                             <form id="Reg-form">
 					            <div class="form-part1">
-						            <label>First Name</label>
+                        <FormGroup>
+							<Label>First Name</Label>
+							<Input 
+							onChange={(e) => setFirstName(e.target.value)} 
+							// valid={true} 
+							invalid={firstnameErr}
+							value={firstname}
+							/>
+							<FormFeedback>First Name is Required</FormFeedback>
+						</FormGroup>
+
+						<FormGroup>
+							<Label>Last Name</Label>
+							<Input 
+							onChange={(e) => setLastname(e.target.value)} 
+							// valid={true} 
+							invalid={lastnameErr}
+							value={lastname}
+							/>
+							<FormFeedback>Last Name is Required</FormFeedback>
+						</FormGroup>
+
+						<FormGroup>
+							<Label>Contact No</Label>
+							<Input 
+							onChange={(e) => setContactno(e.target.value)} 
+							// valid={true} 
+							invalid={contactnoErr}
+							value={contactno}
+							/>
+							<FormFeedback>Contact No is Required</FormFeedback>
+						</FormGroup>
+
+						<FormGroup>
+							<Label>Email Address</Label>
+							<Input 
+							onChange={(e) => setEmail(e.target.value)} 
+							// valid={true} 
+							invalid={emailErr}
+							value={email}
+							/>
+							<FormFeedback>Email Address is Required</FormFeedback>
+						</FormGroup>
+
+						<FormGroup>
+							<Label>Password</Label>
+							<Input 
+							type="password"
+							onChange={(e) => setPassword(e.target.value)} 
+							// valid={true} 
+							invalid={passwordErr}
+							value={password}
+							/>
+							<FormFeedback>Password is Required</FormFeedback>
+						</FormGroup>
+
+					 
+						
+						<br/>
+                        <label>By Pressing the submit button you agree to our <a target="_blank" href="#" onClick="window.open('/privacy-policy','privacy-policy','resizable,height=260,width=370'); return false;"><strong>Privacy policy</strong></a> and <a target="_blank" href="#" onClick="window.open('/terms-condition','terms-condition','resizable,height=260,width=370'); return false;"><strong>Terms and conditions</strong></a></label><br/><br/>
+						<FormGroup>
+                            <Mutation
+						mutation={DRIVER_REGISTER}
+						onCompleted={onCompleted}
+						onError={onError}>
+                    {(createRiderFromWeb, { loading, error }) => {
+
+                      return (
+                        <>
+                        <Button
+                          className="my-4"
+                          color="primary"
+                          type="button"
+                          onClick={() => {
+                            if (validate()){
+								let riderInput = {
+									name: firstname,
+									last_name: lastname,
+									email: email,
+									phone: contactno,
+									password: password
+								}
+								createRiderFromWeb({ variables: { riderInput : riderInput } })
+							}
+                          }}>
+                          
+						  {loading ?  <Spinner color="white" /> : 'Submit'} 
+                        </Button>
+                          <br/>
+						{succcess !== "" && <Alert color="primary">
+							 {succcess}
+						</Alert>}
+					
+						{Errors !== "" && <Alert color="danger">
+							 {Errors}
+						</Alert>}
+                        </>
+                      )
+                      
+                    }}
+                	  </Mutation>
+				  </FormGroup>	
+						            {/* <label>First Name</label>
                                     <input type="text" id="first-name" class="form-control"/>
                                     <label>Last Name</label>
                                     <input type="text" id="last-name" class="form-control"/>
@@ -169,7 +336,7 @@ function RegisterDriver(props){
                                     <label>Password</label>
                                     <input type="password" id="password" class="form-control"/>
                                     <label>By Pressing the submit button you agree to our <a target="_blank" href="#" onClick="window.open('/privacy-policy','privacy-policy','resizable,height=260,width=370'); return false;"><strong>Privacy policy</strong></a> and <a target="_blank" href="#" onClick="window.open('/terms-condition','terms-condition','resizable,height=260,width=370'); return false;"><strong>Terms and conditions</strong></a></label><br/><br/>
-							        <input type="submit" class="btn btn-primary" value="Submit"/>
+							        <input type="submit" class="btn btn-primary" value="Submit"/> */}
                                 </div>
                              </form>
 				        </div>

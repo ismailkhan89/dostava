@@ -1339,3 +1339,33 @@ export const getFeaturedVendors =  `query getFeaturedVendors{
     picture
   }
 }`
+
+export const createVendorWeb = `mutation createVendorWeb($userInput:UserInputWeb!){
+  createVendorWeb(
+      userInput:$userInput
+  ){
+  _id
+  name
+  last_name
+  profile_complete
+  phone
+  email
+  is_shop_keeper
+  is_active
+  }
+}`
+
+export const createRiderFromWeb = `mutation createRiderFromWeb($riderInput:RiderInputWeb!){
+  createRiderFromWeb(
+      riderInput:$riderInput
+  ){
+  _id
+  name
+  username
+  password
+  phone
+  image
+  available
+  is_active
+  }
+}`

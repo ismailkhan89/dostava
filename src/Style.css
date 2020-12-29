@@ -187,7 +187,12 @@
 }
 .slider-area-new .slick-slider img{
     object-fit: cover;
-    min-height:250px;
+    min-height:250px; 
+    margin-bottom: 10px;
+}
+
+.slider-area-new .slick-slider h3 {
+    font-size: 24px;
 }
 .slider-area-new .slick-next{
     right:0;

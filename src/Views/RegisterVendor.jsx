@@ -1,38 +1,24 @@
 import React, {Component, useState, useEffect } from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
-
-
-
-import ReactDOM from 'react-dom';
-
-
-
-import { server_url } from  "../config/config";
+ import { Query, Mutation } from "react-apollo";
+ 
 import {
     Container,
     Row,
     Col,
-	Button
-   
+	Button,Alert,
+	Form, FormGroup, Label, Input, FormFeedback, FormText , Spinner
     // Link
 } from "reactstrap";
 import FontAwesome from 'react-fontawesome';
-import { Form, FormControl, Accordion, Card } from 'react-bootstrap';
-// import Accordion from 'react-bootstrap/Accordion'
-
+ 
 import Accord from '../Components/Accord';
-
-import {Link, useRouteMatch, useParams } from 'react-router-dom';
-
-
+import gql from "graphql-tag";
+import { createVendorWeb } from "../apollo/server";
 
 
-
-
-import { Redirect , useHistory  } from "react-router-dom";
-
-
+const VENDOR_REGISTER = gql`${createVendorWeb}`
 
 const SECTIONS = [
 	{
@@ -140,8 +126,84 @@ const SECTIONS = [
 
 
 function RegisterVendor(props){ 
+	const [firstname , setFirstName] = React.useState('')
+	const [lastname , setLastname] = React.useState('')
+	const [contactno , setContactno] = React.useState('')
+	const [email , setEmail] = React.useState('')
+	const [password , setPassword] = React.useState('')
+
+	const [firstnameErr , setFirstnameErr] = React.useState(false)
+	const [lastnameErr , setLastnameErr] = React.useState(false)
+	const [contactnoErr , setContactnoErr] = React.useState(false)
+	const [emailErr , setEmailErr] = React.useState(false)
+	const [passwordErr , setPasswordErr] = React.useState(false)
+
+	const [succcess , setSuccess] = React.useState('')
+	const [Errors , setErrors] = React.useState('')
+
+	
+	function clearErrorField(){
+		setFirstnameErr(false)
+		setLastnameErr(false)
+		setContactnoErr(false)
+		setEmailErr(false)
+		setPasswordErr(false)
+	}
+
+	function  clearFields(){
+		setFirstName('')
+		setLastname('')
+		setContactno('')
+		setEmail('')
+		setPassword('')
+	}
+
+	function validate(){
+		clearErrorField();
+		let result = true;
+		if(firstname === "" || firstname === null){
+			setFirstnameErr(true)
+			result = false
+		}
+		if(lastname === "" || lastname === null){
+			setLastnameErr(true)
+			result = false
+		}if(contactno === "" || contactno === null){
+			setContactnoErr(true)
+			result = false
+		}if(email === "" || email === null){
+			setEmailErr(true)
+			result = false
+		}if(password === "" || password === null){
+			setPasswordErr(true)
+			result = false
+		}
+		return result
+	  }
+
+
+	 function hideAlert(){
+		setSuccess('')
+		setErrors('')
+	}
+	
+	function onError({ graphQLErrors, networkError }){
+        try {
+			setErrors(networkError.result.errors[0].message)
+        } catch (error) {
+			setErrors(graphQLErrors[0].message)
+        }
+		setTimeout(hideAlert, 5000)
+	}
+
+
+	function onCompleted({ graphQLErrors, networkError }){
+		setSuccess('Successfully Register Vendor')
+        clearFields()
+		setTimeout(hideAlert, 7000)
+    }
+	
     return(
-      
         <Container className="wrapper" fluid>
             <Header  {...props} />
             <section id="slider" class="driver-page register-vend"> 
@@ -200,22 +262,113 @@ function RegisterVendor(props){
 					<div id="errorMessage"></div>
 					<form id="Reg-form">
 						<div class="form-part1">
-						
-						<label>First Name</label>
-						<input type="text" id="first-name" name="first-name" class="form-control"/>
-						<label>Last Name</label>
-						<input type="text" id="last-name" name="last-name" class="form-control"/>
-						<label>Contact No</label>
-						<input type="text" id="contact-no" name="contact-no" class="form-control"/>
-                        <label>Email Address</label>
-						<input type="email" id="email-address" name="email-address" class="form-control"/>
-						
-						<label>Password</label>
-						<input type="password" id="password" name="password" class="form-control"/>
+					
+
+					 	<FormGroup>
+							<Label>First Name</Label>
+							<Input 
+							onChange={(e) => setFirstName(e.target.value)} 
+							// valid={true} 
+							invalid={firstnameErr}
+							value={firstname}
+							/>
+							<FormFeedback>First Name is Required</FormFeedback>
+						</FormGroup>
+
+						<FormGroup>
+							<Label>Last Name</Label>
+							<Input 
+							onChange={(e) => setLastname(e.target.value)} 
+							// valid={true} 
+							invalid={lastnameErr}
+							value={lastname}
+							/>
+							<FormFeedback>Last Name is Required</FormFeedback>
+						</FormGroup>
+
+						<FormGroup>
+							<Label>Contact No</Label>
+							<Input 
+							onChange={(e) => setContactno(e.target.value)} 
+							// valid={true} 
+							invalid={contactnoErr}
+							value={contactno}
+							/>
+							<FormFeedback>Contact No is Required</FormFeedback>
+						</FormGroup>
+
+						<FormGroup>
+							<Label>Email Address</Label>
+							<Input 
+							onChange={(e) => setEmail(e.target.value)} 
+							// valid={true} 
+							invalid={emailErr}
+							value={email}
+							/>
+							<FormFeedback>Email Address is Required</FormFeedback>
+						</FormGroup>
+
+						<FormGroup>
+							<Label>Password</Label>
+							<Input 
+							type="password"
+							onChange={(e) => setPassword(e.target.value)} 
+							// valid={true} 
+							invalid={passwordErr}
+							value={password}
+							/>
+							<FormFeedback>Password is Required</FormFeedback>
+						</FormGroup>
+
+					 
 						
 						<br/>
 						<label>By Pressing the submit button you agree to our <a target="_blank" href="#" onClick="window.open('/terms-condition','terms-condition','resizable,height=260,width=370'); return false;"><strong>Privacy policy</strong></a> and <a target="_blank" href="#" onClick="window.open('/terms-condition','terms-condition','resizable,height=260,width=370'); return false;"><strong>Terms and conditions</strong></a></label><br/><br/>
-                        <input type="submit" class="btn btn-primary" value="Submit"/>	
+					
+						<FormGroup><Mutation
+						mutation={VENDOR_REGISTER}
+						onCompleted={onCompleted}
+						onError={onError}>
+                    {(createVendorWeb, { loading, error }) => {
+
+                      return (
+                        <>
+                        <Button
+                          className="my-4"
+                          color="primary"
+                          type="button"
+                          onClick={() => {
+                            if (validate()){
+								let userInput = {
+									name: firstname,
+									last_name: lastname,
+									email: email,
+									phone: contactno,
+									password: password
+								}
+								createVendorWeb({ variables: { userInput : userInput } })
+							}
+                          }}>
+                          
+						  {loading ?  <Spinner color="white" /> : 'Submit'} 
+                        </Button>
+                          <br/>
+						{succcess !== "" && <Alert color="primary">
+							 {succcess}
+						</Alert>}
+					
+						{Errors !== "" && <Alert color="danger">
+							 {Errors}
+						</Alert>}
+                        </>
+                      )
+                      
+                    }}
+                	  </Mutation>
+				  </FormGroup>	
+						
+						{/* <Button color="primary" onClick={async e => {}} >Submit</Button> */}
+					    {/* <input type="submit" class="btn btn-primary" value="Submit"/>	 */}
                         </div>
                         </form>
 				</div>

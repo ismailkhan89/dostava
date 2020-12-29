@@ -57,7 +57,10 @@ function SliderPopular(props){
         <Slider {...settingsFeatureProducts}>
         {products !== null && products.length > 0 && products.map((product, index) => (
             <div  key = {index}>
-                <img src={product.picture}></img>
+                 {product.picture !== null && product.picture !== "" ? 
+                <img src={product.picture}></img> : 
+                <img src="../Assets/Img/store.png"></img>
+                }
                 <h3>{product.business_name}</h3>
             </div>
         ))}
