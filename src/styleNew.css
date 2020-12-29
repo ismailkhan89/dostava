@@ -153,6 +153,29 @@ span.navbar-toggler-icon.fa.fa-bars {
             font-weight: 400 !important;
         }
 
+        .blog-img, .blog-title, .blog-content {
+            float: left;
+            width: 100%;
+        }
+        .blog-img img {
+            width: 100%;
+            height: 200px;
+        }
+        .blog-title h2 {
+            margin-top: 15px;
+            font-size: 40px;
+            font-weight: 600;
+        }
+        .blog-content {
+            margin-bottom: 60px;
+        }
+        .blog-content p {
+            font-size: 16px;
+        }
+        .blogs-container{
+            margin-top:55px;
+        }
+
 @media only screen and (max-width: 991px) {
 	#navbar .navbar-nav {
 	    float: none;
@@ -1280,6 +1303,9 @@ section#work-with-freedom p.pbold {
     text-align: center;
     margin: 0 auto;
 }
+#work-with-freedom .col-md-6.second-div{
+    padding:48px 50px;
+}
 }
 
 
@@ -1376,6 +1402,36 @@ body h1 {
         margin-right:0;
     }
     #faq .card h6 a{
+        width:100%;
+    }
+    #work-with-freedom .col-md-6.second-div{
+        max-width:100%;
+    }
+    section#work-with-freedom .contact-infor p.pbold{
+        max-width:100%;
+    }
+    #download-app .col-md-3{
+        text-align:center;
+    }
+    #download-app .col-md-7{
+        margin-top:35px;
+    }
+    #download-app p{
+        width:100%;
+    }
+    #support li{
+        margin-bottom:35px;
+    }
+    #support .col-md-6 img{
+        width:100%;
+    }
+    #work-with-freedom .col-md-6.second-div{
+        padding:48px 35px;
+    }
+    section#work-with-freedom .col-md-6.first-div{
+        text-align:center;
+    }
+    #faq .row .col-md-6 img{
         width:100%;
     }
 }
@@ -1507,7 +1563,10 @@ body h1 {
 @media only screen and (max-width:480px){
 	#slider .download{
 		padding:20px 15px;
-	}
+    }
+    .blog-title h2{
+        font-size:30px;
+    }
 }
 
 @media only screen and (max-width:414px){
@@ -1523,6 +1582,14 @@ body h1 {
     }
     .video-section iframe{
         height:250px;
+    }
+    #work-with-freedom .col-md-6.second-div{
+        padding:40px 20px;
+        margin:10px 0;
+    }
+    body#layout2 section#slider, section#slider.faq, section#slider.register-driver, .register-vend{
+        min-height:500px;
+        height:auto;
     }
 }
 
@@ -1541,10 +1608,16 @@ body h1 {
     .video-section iframe{
         height:230px;
     }
+    #download-app h2{
+        font-size:18px;
+    }
 }
 
 @media only screen and (max-width:320px){
     .video-section iframe{
         height:200px;
+    }
+    #download-app h2{
+        font-size:15px;
     }
 }

@@ -38,6 +38,8 @@ import Contact from "./Views/Contact";
 import Faq from "./Views/Faq";
 import RegisterVendor from './Views/RegisterVendor';
 import RegisterDriver from './Views/RegisterDriver';
+import BlogsNew from './Views/BlogsNew';
+import BlogsNewSingle from './Views/BlogsNewSingle';
 
 
 const httpLink = createUploadLink({
@@ -174,7 +176,8 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 <Route path="/faqs" component={props => <Faq {...props} />} />
 <Route path="/register-vendor" component={props => <RegisterVendor {...props} />} />
 <Route path="/register-driver" component={props => <RegisterDriver {...props} />} />
-
+<Route path="/blogs-new" component={props => <BlogsNew {...props} />} />
+<Route path="/blogs-new-single" component={props => <BlogsNewSingle {...props} />} />
 
 </Switch>
               {/* <Route path="/home" component={props => <AuthLayout {...props} ></AuthLayout>}  />
