@@ -21,7 +21,7 @@ import FontAwesome from 'react-fontawesome';
 import { Form, FormControl, Accordion, Card } from 'react-bootstrap';
 // import Accordion from 'react-bootstrap/Accordion'
 
-import Accord from '../components/Accord';
+import Accord from '../Components/Accord';
 
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 
