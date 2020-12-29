@@ -36,6 +36,8 @@ import TermsConditions from "./Views/TermsConditions";
 import HowItWorks from "./Views/HowItWorks";
 import Contact from "./Views/Contact";
 import Faq from "./Views/Faq";
+import RegisterVendor from './Views/RegisterVendor';
+import RegisterDriver from './Views/RegisterDriver';
 
 
 const httpLink = createUploadLink({
@@ -170,6 +172,8 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 <Route path="/how-it-works" component={props => <HowItWorks {...props} />} />
 <Route path="/contact" component={props => <Contact {...props} />} />
 <Route path="/faqs" component={props => <Faq {...props} />} />
+<Route path="/register-vendor" component={props => <RegisterVendor {...props} />} />
+<Route path="/register-driver" component={props => <RegisterDriver {...props} />} />
 
 
 </Switch>

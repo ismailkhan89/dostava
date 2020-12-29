@@ -125,6 +125,33 @@ span.navbar-toggler-icon.fa.fa-bars {
         #errorMessage{
             color:red
         }
+        .faq-sectio > .row > .col-lg-12{
+            padding:35px 0;
+        }
+        .faq-sectio > .row > .col-lg-12 > .accordion{
+            margin-bottom:15px;
+        }
+        .accordion .card-header{
+            padding:15px 1.25rem !important;
+            cursor:pointer;
+        }
+        .accordion .card-header h6{
+            color: #455a5f !important;
+            text-transform: initial !important;
+            text-decoration: none;
+            font-weight: 700;
+            margin-bottom:0;
+        }
+        .accordion .card-header span{
+            position:absolute;
+            right:15px;
+            color:#455a5f;
+            top:15px;
+        }
+        .accordion .card-body p, .accordion .card-body ul li{
+        color: #6f5a5f;
+            font-weight: 400 !important;
+        }
 
 @media only screen and (max-width: 991px) {
 	#navbar .navbar-nav {
@@ -174,6 +201,7 @@ span.navbar-toggler-icon.fa.fa-bars {
     background-color: rgba(5, 52, 78, 0.86);
     border-radius: 4px;
     text-decoration: none;
+    margin-right:5px;
 }
 #slider .download-app {
     margin-top: 60px;
@@ -661,7 +689,7 @@ div#features {
 
 /*================ LAYOUT 2 START ================*/
 
- body#layout2 section#slider, section#slider.faq {
+ body#layout2 section#slider, section#slider.faq, section#slider.register-driver {
     background-image: url(../src/Assets/Img/banner2.jpg) !important;
     height: 500px;
   /*  display: flex;*/
@@ -892,7 +920,7 @@ body#layout3 {
     overflow-x: hidden;
 }
 
-body#layout3 section#slider {
+body#layout3 section#slider, .register-vend {
     background-image: url(../src/Assets/Img/banner1.jpg) !important;
     height: 500px;
     /*display: flex;*/
@@ -983,7 +1011,7 @@ form#Reg-form input.btn.btn-primary {
     padding: 12px 24px;
     text-transform: uppercase;
 }
-#layout3 section#reguirment {
+#layout3 section#reguirment, section#reguirment.video-sec {
     background: url(../src/Assets/Img/banner5.png);
     padding-top: 98px;
     position: relative;
@@ -1035,25 +1063,28 @@ section#reguirment p {
 section#reguirment h2 {
     margin-bottom: 23px;
 }
-
-#layout3 section#reguirment h2 {
+section#reguirment.video-sec > .row{
+    margin-left:0;
+    margin-right: 0;
+}
+#layout3 section#reguirment h2, section#reguirment.video-sec h2 {
     color: #fff;
     font-size: 32px;
     text-transform: uppercase;
 }
 
-#layout3 section#reguirment h2 strong {
+#layout3 section#reguirment h2 strong, section#reguirment.video-sec h2 strong {
     color: #fff !IMPORTANT;
     font-size: 32px;
 }
 
-#layout3 section#reguirment p {
+#layout3 section#reguirment p, section#reguirment.video-sec p {
     color: #fff !important;
     width: 80%;
     margin: 0 auto;
 }
 
-#layout3 section#reguirment .col-md-12.text-center {
+#layout3 section#reguirment .col-md-12.text-center, section#reguirment.video-sec .col-md-12.text-center {
     padding-bottom: 78px;
 }
 section#reguirment:before {
@@ -1073,7 +1104,7 @@ body#layout3 #support {
 	background: url(../../images/dostava/banner6.jpg);
 	background-position: top center;
 } */
-body#layout3 #download-app, body#layout2 #download-app {
+body#layout3 #download-app, body#layout2 #download-app, #download-app.regi-vend {
 	/* background: url(../../images/dostava/banner6.jpg); */
     /* background-position: top center; */
     border: 1px solid #ccc;
@@ -1093,6 +1124,7 @@ body#layout3 #download-app, body#layout2 #download-app {
     color:#3496b3;
     font-weight:bold;
     min-height:64px;
+    font-size:18px !important;
 }
 #download-app.regi-vend .single-regi img{}
 #download-app.regi-vend
