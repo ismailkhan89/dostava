@@ -171,6 +171,12 @@ span.navbar-toggler-icon.fa.fa-bars {
         }
         .blog-content p {
             font-size: 16px;
+            height: 48px;
+            overflow: hidden;
+            overflow-wrap: break-word;
+        }
+        .blog-content p span {
+
         }
         .blogs-container{
             margin-top:55px;

@@ -1369,3 +1369,25 @@ export const createRiderFromWeb = `mutation createRiderFromWeb($riderInput:Rider
   is_active
   }
 }`
+
+export const getblogsForWeb = `query getblogsForWeb{
+  getblogsForWeb{
+      title
+      content
+      slug
+      cuid
+      image
+      is_active
+  }
+}`
+
+export const getSingleBlogBySlug = `query getSingleBlogBySlug($slug:String){
+  getSingleBlogBySlug(slug:$slug){
+      title
+      content
+      slug
+      cuid
+      image
+      is_active
+  }
+}`
