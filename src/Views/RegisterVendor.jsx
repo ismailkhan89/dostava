@@ -205,7 +205,7 @@ function RegisterVendor(props){
 	
     return(
         <Container className="wrapper" fluid>
-            <Header  {...props} />
+            <Header  {...props} title="Register Vendor"/>
             <section id="slider" class="driver-page register-vend"> 
                 <div class="container">
                     <div class="row"> 

@@ -222,7 +222,7 @@ function HomePage(props){
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
              return  data.categories.map((category, index) =>
-                <div>
+                <div key={index}>
                   <img src="../Assets/Img/slider-pic.png"></img>
                 </div>
           

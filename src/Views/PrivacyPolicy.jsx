@@ -33,7 +33,7 @@ function PrivacyPolicy(props){
     return(
       
         <Container className="wrapper" fluid>
-      <Header  {...props} />
+      <Header  {...props} title={"Privacy Policy"} />
       <section id="how-it-works">
         <div class="how-it-works-heading">
                 <div class="container">

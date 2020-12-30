@@ -15,7 +15,7 @@ function BlogsNew(props){
     return(
       
         <Container className="wrapper" fluid>
-      <Header  {...props} />
+      <Header  {...props} title="Blogs"/>
       <section id="how-it-works">
         <div class="how-it-works-heading">
             <div class="container">
@@ -34,7 +34,6 @@ function BlogsNew(props){
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
             return data.getblogsForWeb.map((blog, index) =>{
-                console.log('blog',blog)
                return  <BlogComponents blog={blog} key={index}/>
                 }
                   
@@ -103,10 +102,11 @@ function BlogsNew(props){
 }
 
 function BlogComponents(props){
+    const history = useHistory();
     var stripedHtml = props.blog.content.replace(/<[^>]+>/g, '');
     
-    if(stripedHtml.length > 100){
-        stripedHtml = stripedHtml.substr(0, 100);
+    if(stripedHtml.length > 150){
+        stripedHtml = stripedHtml.substr(0, 150);
     }
     // var str = stripedHtml;
     // var res = str.substr(0, 100);
@@ -115,16 +115,19 @@ function BlogComponents(props){
             <div className="blog-img">
                 <img src={props.blog.image}alt="Dostava blog"></img>
             </div>
-           <a href={`/blogs-new-single/${props.blog.slug}`}>
+            <Link
+            to={`/blogs-new-single/${props.blog.slug}`}>
+           {/* <a href={`/blogs-new-single/${props.blog.slug}`}> */}
                 <div className="blog-title"><h2>{props.blog.title}</h2></div>
                 <div className="blog-content">
                     <p><span><strong>{stripedHtml}
-                    {stripedHtml.length === 100 && 
+                    {stripedHtml.length === 150 && 
                     <span>...</span>
                       }
                     </strong></span></p>
                 </div>
-            </a>
+            {/* </a> */}
+            </Link>
      </Col>
     )
 }

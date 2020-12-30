@@ -202,7 +202,7 @@ function Faq(props){
     return(
       
         <Container className="wrapper" fluid>
-            <Header  {...props} />
+            <Header  {...props} title={"FAQS"} />
             <section id="slider" class="driver-page faq">
                 <div class="container"> 
                     <div class="row"> 

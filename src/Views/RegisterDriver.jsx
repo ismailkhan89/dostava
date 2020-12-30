@@ -156,7 +156,7 @@ function RegisterDriver(props){
     return(
       
         <Container className="wrapper" fluid>
-            <Header  {...props} />
+            <Header  {...props} title="Register Driver"/>
             <section id="slider" class="driver-page register-driver"> 
                 <div class="container">
                     <div class="row">

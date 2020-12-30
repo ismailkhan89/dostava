@@ -25,13 +25,13 @@ const GET_SINGLE_BLOG_WEB = gql`${getSingleBlogBySlug}`;
 function BlogsNewSingle(props){ 
 
   const [_id, setId] = useState(props.match.params?.slug ?? null);
-    console.log('_id_id',_id)
+  const [title, setTitle] = useState('Single Blogs');
 
 
     return(
       
         <Container className="wrapper" fluid>
-      <Header  {...props} />
+      <Header  {...props} title={title}/>
         <Container>
             <Row>
 
@@ -40,6 +40,7 @@ function BlogsNewSingle(props){
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
              var stripedHtml = data.getSingleBlogBySlug.content.replace(/<[^>]+>/g, '');
+             setTitle(data.getSingleBlogBySlug.title)
               return  data.getSingleBlogBySlug !== undefined && 
                     <Col lg="12">
                     <div class="blog-img">
