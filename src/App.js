@@ -135,7 +135,6 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
   }
   // render(){
     console.log('inside app', clientRef)
-    
       return (
         <ApolloProvider client = {clientRef} >
             <BrowserRouter>
@@ -179,7 +178,7 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 <Route path="/register-vendor" component={props => <RegisterVendor {...props} />} />
 <Route path="/register-driver" component={props => <RegisterDriver {...props} />} />
 <Route path="/blogs" component={props => <BlogsNew {...props} />} />
-<Route path="/:slug" component={props => <BlogsNewSingle {...props} />} />
+<Route path="/blog/:slug/" component={props => <BlogsNewSingle {...props} />} />
 <Route path="/search-product" component={props => <SearchProduct {...props} />} />
 
 </Switch>

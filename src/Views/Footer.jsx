@@ -49,6 +49,8 @@ class Footer extends React.Component{
                 <li><a href="/how-it-works">How it Works</a></li>
                 <li><a href="/contact">Contact us</a></li>
                 <li><a href="/faqs">FAQs</a></li>
+                {/* <li><a href="/blogs">Blogs</a></li> */}
+
               </ul>
             </Col>
             <Col lg="3" md="12" sm="12" xs="12" className="quickmenu">
