@@ -23,7 +23,7 @@ import { server_url } from  "../config/config";
 import { authLink } from '../library/authLink';
 import { Form, FormControl } from 'react-bootstrap';
 import { getItemPrice } from '../utils/pricing'
-import FlashAlert from "../components/FlashAlert.jsx";
+import FlashAlert from "../Components/FlashAlert.jsx";
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
