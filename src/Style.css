@@ -2681,6 +2681,9 @@ padding-left:70px;
     .app-area .app-area-text h3{
         font-size:36px;
     }
+    .display-none{
+        max-width: 15%;
+    }
 }
 @media screen and (max-width:414px){
     .app-area .app-area-text h3{
@@ -2706,10 +2709,15 @@ padding-left:70px;
         max-width:15%;
     }
     .header-area nav .login{
-        max-width:20%;
+        max-width:19%;
     }
     .slider-area-new h2{
         font-size:28px;
+    }
+}
+@media screen and (max-width:400px){
+    .display-none{
+        max-width: 11%;
     }
 }
 @media screen and (max-width:375px){
@@ -2746,6 +2754,9 @@ padding-left:70px;
     }
     .slider-area-new h2{
         font-size:24px;
+    }
+    .display-none{
+        max-width: 10%;
     }
 }
 @media screen and (max-width:320px){
