@@ -63,9 +63,9 @@ function Header(props) {
 
   document.title  = props.title;
 
-  document.getElementsByTagName("META")[2].content= props.title;
-  document.getElementsByTagName("META")[3].content= props.title;
-  document.getElementsByTagName("META")[4].content= props.title;
+  // document.getElementsByTagName("META")[2].content= props.title;
+  // document.getElementsByTagName("META")[3].content= props.title;
+  // document.getElementsByTagName("META")[4].content= props.title;
 
   return (
   
