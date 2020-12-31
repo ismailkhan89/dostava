@@ -26,7 +26,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
-import FlashAlert from "../components/FlashAlert.jsx";
+import FlashAlert from "../Components/FlashAlert.jsx";
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
