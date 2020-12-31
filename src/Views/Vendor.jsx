@@ -21,6 +21,13 @@ import { server_url } from  "../config/config";
 import { authLink } from '../library/authLink';
 import { Form, FormControl } from 'react-bootstrap';
 import { Redirect , useHistory , Link  } from "react-router-dom";
+
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
+import FlashAlert from "../Components/FlashAlert.jsx";
+
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -59,6 +66,27 @@ function Vendor(props) {
   const { cartloading } = useQuery(GETCARTITEMS)
   const [message, setMessages] = useState('');
 
+  const [location, setLocation] = useState('');
+  const [latLng, setlatLng] = useState('');
+
+  const [messagealert , setMessage ] = useState('')
+  const [messagecolor , setMessagecolor ] = useState('')
+
+  function handleSelect(address){
+    setLocation(address)
+   geocodeByAddress(address)
+     .then(results => getLatLng(results[0]))
+     .then(latLng => {
+       setlatLng(latLng)
+       localStorage.removeItem('location');
+       // console.log('Success', latLng)
+     })
+     .catch(error => console.error('Error', error));
+ };
+
+ const searchOptions = {
+  componentRestrictions: { country: ['aus'] },
+}
  
   // const history = useHistory();
 
@@ -178,6 +206,8 @@ function Vendor(props) {
   return (
     <Container className="wrapper" fluid>
     <Header  {...props} title="Stores by Dostava" />
+    <FlashAlert message={messagealert} color={messagecolor} />
+
       <Container className="breadcrumb-area" style={{display:'none'}} fluid>
         <Row>
           <Col lg="3">
@@ -203,9 +233,9 @@ function Vendor(props) {
       <Container id="search-product">
         <Row>
           
-          <Col lg="12">
-            <Form inline >
-            <Query query={getVendorbyLocation} variables={{ lat : lat,long :lng}}>
+        <Col sm={10}>
+            {/* <Form inline > */}
+            {/* <Query query={getVendorbyLocation} variables={{ lat : lat,long :lng}}>
                   {({ loading, error, data }) => {
                       if (loading) return <option>Loading...</option>
                       if (error) return <option>Error...</option>
@@ -215,11 +245,97 @@ function Vendor(props) {
                              {data.getVendorsByLocation.map(category => <option key={category._id} value={category._id}>{category.name}</option>)}
                           </select>
                       )
-            }}</Query>
-              <FormControl type="search" placeholder="Enter Location here..." />
-              <Button variant="outline-success">Search</Button>
-            </Form>
+            }}</Query> */}
+
+                      <PlacesAutocomplete
+                        searchOptions={searchOptions}
+                        value={location}
+                        onChange={(e) => setLocation(e)}
+                        onSelect={handleSelect}
+                      >
+                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                          <>
+
+                            {/* <FormControl
+                              {...getInputProps({
+                                // placeholder: 'Search Places ...',
+                                placeholder:"Enter Location here...",
+                                className: "mr-sm-2",
+                              })}
+                            type="text" 
+                            // placeholder="Enter Location here..." className="mr-sm-2"
+                            /> */}
+
+                            <input
+                              {...getInputProps({
+                                // placeholder: 'Search Places ...',
+                                placeholder:"Enter Location here...",
+                                className: "mr-sm-2 col-lg-12",
+                              })}
+                            />
+                            <div className="autocomplete-dropdown-container">
+                              {loading && <div>Loading...</div>}
+                              {suggestions.map(suggestion => {
+                                const className = suggestion.active
+                                  ? 'suggestion-item--active'
+                                  : 'suggestion-item';
+                                // inline style for demonstration purpose
+                                const style = suggestion.active
+                                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                return (
+                                  <div
+                                    {...getSuggestionItemProps(suggestion, {
+                                      className,
+                                      style,
+                                    })}
+                                  >
+                                    <span>{suggestion.description}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </>
+                        )}
+                      </PlacesAutocomplete>
+              {/* <FormControl type="search" placeholder="Enter Location here..." /> */}
+              {/* <Button variant="outline-success">Search</Button> */}
+             
+            {/* </Form> */}
           </Col>
+          <Col sm={2}>
+               <Link className="outline-success"  onClick={(e) => {
+                        e.preventDefault();
+                        console.log('not inside condition')
+                        console.log('latLng',latLng)
+                        if(location !== ""){
+                        localStorage.removeItem('cartItems');
+                        if(!!latLng){
+                          var newlocation = {
+                            lat : latLng.lat.toString(),
+                            lng : latLng.lng.toString(),
+                            location : location
+                          }
+                          console.log('inside condition')
+                          localStorage.setItem('location',JSON.stringify(newlocation));
+                          window.location.reload();
+                          //   props.history.push({
+                          //   pathname: '/stores',
+                          // })
+                        }
+                      }
+                      else{
+                        setMessage('Please Choose Location')
+                        setMessagecolor('danger');
+                        setTimeout(() => {
+                        setMessage('')
+                        setMessagecolor('')}, 5000)
+                      }
+                        // window.location.reload();
+                      }}>
+                <Button variant="outline-success">Search</Button>
+              </Link>
+              </Col>
         </Row>
       </Container>
       <Container>
@@ -271,7 +387,13 @@ function Vendor(props) {
                   > 
                   <div className="product">
                         <div className="product-img">
-                        <img className="img-fluid" src={category.picture} alt=""></img>
+                        {console.log('category.picture',category.picture)}
+                          {category.picture !== "" && category.picture !== null ?
+                          <img className="img-fluid" src={category.picture} alt=""></img>
+                        : <img className="img-fluid" src="../Assets/Img/store.png" alt=""></img>
+                         }
+
+                        {/* <img className="img-fluid" src={category.picture} alt=""></img> */}
                         </div>
                         <div className="product-desc">
                         <h3 className="product-title">{category.business_name}</h3>
@@ -298,11 +420,11 @@ function Vendor(props) {
             </Query>
             </Row>
 
-            <Row>
+            {/* <Row>
               <Col lg="12">
                 <Link to="#" className="learn-more">Load More</Link>
               </Col>
-            </Row>
+            </Row> */}
             
           </Container>
           
@@ -316,8 +438,16 @@ function Vendor(props) {
                 </Col>
                 <Col lg="6" className="app-area-text">
                   <h3>Dostava is Available for your Android or Apple</h3>
-                  <img src='../Assets/Img/playstore.png' ></img>
+                  <a href="https://apps.apple.com/us/app/dostava/id1543132324">
+                    
                   <img src='../Assets/Img/appstore.png' ></img>
+                  </a>
+                  <a href="https://play.google.com/store/apps/details?id=com.dostava">
+                    <img src='../Assets/Img/playstore.png' ></img>
+                  </a>
+
+                  {/* <img src='../Assets/Img/playstore.png' ></img>
+                  <img src='../Assets/Img/appstore.png' ></img> */}
                 </Col>
               </Row>
         </Container>

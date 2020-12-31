@@ -25,10 +25,11 @@ import {
     Button,
     // Link
 } from "reactstrap";
-import {Link, useRouteMatch, useParams } from 'react-router-dom';
+import {Link, useRouteMatch, useParams , useHistory } from 'react-router-dom';
 const LOGIN = gql`${login}`
 const CREATE_USER = gql`${login, createUser}`
 class Login extends React.Component{
+  
   constructor(props) {
     super(props)
     this.state = {
@@ -45,6 +46,7 @@ class Login extends React.Component{
       createPassword: '',
       redirectToReferrer: localStorage.getItem("user-dostava") ? true : false
     }
+
   }
  
   onBlur = (event, field) => {
@@ -69,8 +71,9 @@ class Login extends React.Component{
     const MenuList = MainMenu.map((items, keys) =>
       <li key = {keys} >{items}</li>
     );
-    // let { from } = this.props.location.state || { from: { pathname: "/" } };
-    let { from } = { from: { pathname: "/" } };
+
+    let { from } = this.props.location.state  || { from: { pathname: "/" } };
+    // let { from } = { from: { pathname: "/" } };
     let { redirectToReferrer } = this.state;
     if (redirectToReferrer) return <Redirect to={from} />;
  

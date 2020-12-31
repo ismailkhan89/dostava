@@ -2270,7 +2270,7 @@ padding-left:70px;
     width: 20%;
 }
 #search-product [type=search] {
-    width: 52%;
+    /* width: 52%; */
     margin-left: 25px;
     margin-right: 25px;
     height:auto;
@@ -2298,7 +2298,7 @@ padding-left:70px;
   color: #cccccc;
 }
 #search-product button {
-    width: 22%;
+    /* width: 22%; */
     color: #fff;
     height:auto;
     background-color: #053452;

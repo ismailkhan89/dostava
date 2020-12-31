@@ -23,6 +23,7 @@ import { server_url } from  "../config/config";
 import { authLink } from '../library/authLink';
 import { Form, FormControl } from 'react-bootstrap';
 import { getItemPrice } from '../utils/pricing'
+import FlashAlert from "../Components/FlashAlert.jsx";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -63,6 +64,7 @@ function VendorCategory(props) {
       }
    },[dataConfig])
 
+   
 
   // const [_id, setId] = useState(props.location?.state?.params ?? null);
 //   const [_id, setId] = useState(props.location?.state?.categoryid ?? null);
@@ -78,13 +80,17 @@ function VendorCategory(props) {
   // const [lng, setLng] = useState(props.location?.state?.location?.lng.toString() ?? null);
 
   const {loading,error,data : dataVendorLocation} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :lng} ,client : newclient })
-  console.log("dataVendor", dataVendorLocation)
 
   const [title ,setTitle] = useState(
    JSON.parse(localStorage.getItem('storeItem'))?.title ?? 'Single Categories'
     )
   const [description ,setDescription] = useState(
     JSON.parse(localStorage.getItem('storeItem'))?.description ?? null)
+
+    
+  const [messagealert , setMessage ] = useState('')
+  const [messagecolor , setMessagecolor ] = useState('')
+  
   // const { loading, error, data, refetch, networkStatus, client } = useQuery(FOODS, { variables:{category: _id , ...filters,
   //    search: search,lat : lat.toString(),long : lng.toString()} ,client : newLink })
 
@@ -92,10 +98,7 @@ function VendorCategory(props) {
   const { cartloading } = useQuery(GETCARTITEMS)
   const [message, setMessages] = useState('');
   const [VendorIds,setVendorIds] = useState([]);
-  console.log("props.match.params?.id", props.match.params?.id);
-  console.log("_id_id_id", _id);
-
-   console.log("propspropsprops", props);
+  
   // console.log("foodloading",loading)
 
   async function onLikeProduct(product) {
@@ -219,9 +222,11 @@ function VendorCategory(props) {
         // props.navigation.navigate('ItemDetail', { product })
     }
   }
+
   return (
     <Container className="wrapper" fluid>
       <Header  {...props} title={title +" at Dostava"} />
+      <FlashAlert message={messagealert} color={messagecolor} />
       <Container className="breadcrumb-area" style={{display:'none'}} fluid>
         <Row>
           <Col lg="3">
@@ -240,31 +245,28 @@ function VendorCategory(props) {
         <Row>
           <Col lg="12">
           <h2 className="title text-center">{title}</h2>
-  <p className="content text-center">{description}</p>
+        <p className="content text-center">{description}</p>
           </Col>
         </Row>
       </Container>
       <Container id="search-product">
         <Row>
-          
-          <Col lg="12">
-            <Form inline>
-
-            <select name="select-category">
+        <Col sm={10}>
+            {/* <select name="select-category">
                 <option>Select Vendor</option>
               {props.location.state?.category ? 
                props.location.state?.category.map(category => <option key={category._id} value={category._id}>{category.name}</option>)
               : null }
-                {/* {props.location.state?.category.map(category => <option key={category._id} value={category._id}>{category.title}</option>)} ?? null}  */}
-                  {/* {data.getCategoriesByLocation.map(category => <option key={category._id} value={category._id}>{category.title}</option>)} */}
-            </select>
+            </select> */}
 
-            
-              <FormControl type="search" placeholder="Search Product ..." value={SearchText} onChange={(e) => setSearchText(e.target.value)} />
-            <Button variant="outline-success" onClick={(e) => {
+             
+              <FormControl type="search" placeholder="Search Product ..." 
+              value={SearchText} onChange={(e) => setSearchText(e.target.value)} className="mr-sm-2 col-lg-12" />
+          </Col>
+          <Col sm={2}>
+          <Button variant="outline-success" onClick={(e) => {
               e.preventDefault();
               setSearch(SearchText)} }>Search</Button>
-            </Form>
           </Col>
         </Row>
       </Container>
@@ -316,18 +318,26 @@ function VendorCategory(props) {
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
             return data.foodsByVendor.map((category, index) =>{
+              console.log('categorycategory',category)
                 if(index  <= 3){
                return  <Col lg="3" key={index}>
                   <div className="product">
-                    <Link to="/">
+                    {/* <Link to="/"> */}
                     <div className="product-img">
+                    
+                    {/* <img className="img-fluid" src={category.img_url} alt=""></img> */}
+
+                    {category.img_url !== "" && category.img_url !== null ? 
                       <img className="img-fluid" src={category.img_url} alt=""></img>
+                    :  <img className="img-fluid" src="../Assets/Img/product-detail-img.png" alt=""></img>
+                    }
                     </div>
                     <div className="product-desc">
+
                       <h3 className="product-title">{category.title}</h3>
                       <p className="product-content">{category.description}</p>
                     </div>
-                    </Link>
+                    {/* </Link> */}
                     </div>
                </Col>
                 }
@@ -344,6 +354,7 @@ function VendorCategory(props) {
           </Container>
           
         </Row>
+
         <Row>
           <Container id="dry-fruits" className="all-products">
           <Row>
@@ -359,8 +370,6 @@ function VendorCategory(props) {
                 {({ loading, error, data }) => {
                 if (loading) return <div>{"Loading"}...</div>;
                 if (error) return <div>`${"Error"}! ${error.message}`</div>;
-
-                console.log( "datadata",data)
                   return data.foodsByVendor.map((category, index) =>
                     <Col lg="6" key={index}>
                       <div className="product-list">
@@ -370,7 +379,16 @@ function VendorCategory(props) {
                           <p className="price">  ${getItemPrice(category,configuration)}</p>
                           {/* <Button className="add-to-cart" onClick={() => onAddToCart(category)} ></Button> */}
                           {/* <Link className="add-to-cart">Add to Cart</Link> */}
-                         <a className="add-to-cart" href="#" onClick={(e) => onAddToCart(category)}>Add to cart</a>
+                         <a className="add-to-cart" href="#" onClick={(e) => 
+                          {onAddToCart(category)
+                            setMessage('Added!')
+                            setMessagecolor('success');
+                            setTimeout(() => {
+                            setMessage('')
+                            setMessagecolor('')}, 3000)
+                          }
+                          
+                          }>Add to cart</a>
                        
                           {/* <p class="price">$24.03</p> */}
                         
@@ -391,12 +409,20 @@ function VendorCategory(props) {
       <Container className="app-area" fluid>
               <Row>
                 <Col lg="6" className="app-area-img">
-                  <img src='../Assets/Img/Mobile-Mockups.png' ></img>
+                  <img src='../Assets/Img/bottom_img.png' ></img>
                 </Col>
                 <Col lg="6" className="app-area-text">
                   <h3>Dostava is Available for your Android or Apple</h3>
-                  <img src='../Assets/Img/playstore.png' ></img>
+                  <a href="https://apps.apple.com/us/app/dostava/id1543132324">
                   <img src='../Assets/Img/appstore.png' ></img>
+                    {/* <img src="../Assets/Img/footer-appstore.png"></img> */}
+                  </a>
+                  <a href="https://play.google.com/store/apps/details?id=com.dostava">
+                    {/* <img src="../Assets/Img/footer-googleplay.png"></img> */}
+                    <img src='../Assets/Img/playstore.png'></img>
+                  </a>
+                  {/* <img src='../Assets/Img/playstore.png' ></img>
+                  <img src='../Assets/Img/appstore.png' ></img> */}
                 </Col>
               </Row>
         </Container>

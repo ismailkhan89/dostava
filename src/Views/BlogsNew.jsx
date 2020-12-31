@@ -116,7 +116,7 @@ function BlogComponents(props){
                 <img src={props.blog.image}alt="Dostava blog"></img>
             </div>
             <Link
-            to={`/blogs-new-single/${props.blog.slug}`}>
+            to={`/blogs-single/${props.blog.slug}`}>
            {/* <a href={`/blogs-new-single/${props.blog.slug}`}> */}
                 <div className="blog-title"><h2>{props.blog.title}</h2></div>
                 <div className="blog-content">

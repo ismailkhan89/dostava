@@ -176,8 +176,8 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 <Route path="/faqs" component={props => <Faq {...props} />} />
 <Route path="/register-vendor" component={props => <RegisterVendor {...props} />} />
 <Route path="/register-driver" component={props => <RegisterDriver {...props} />} />
-<Route path="/blogs-new" component={props => <BlogsNew {...props} />} />
-<Route path="/blogs-new-single/:slug" component={props => <BlogsNewSingle {...props} />} />
+<Route path="/blogs" component={props => <BlogsNew {...props} />} />
+<Route path="/blogs-single/:slug" component={props => <BlogsNewSingle {...props} />} />
 
 </Switch>
               {/* <Route path="/home" component={props => <AuthLayout {...props} ></AuthLayout>}  />

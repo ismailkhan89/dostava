@@ -44,11 +44,11 @@ class Footer extends React.Component{
                 <li><Link to="/about">Service</Link></li>
               </ul> */}
               <ul>
-                <li><a href="https://dostava.com.au/privacy-policy">Privacy policy</a></li>
-                <li><a href="https://dostava.com.au/terms-of-use">Terms of use</a></li>
-                <li><a href="https://dostava.com.au/how-it-works">How it Works</a></li>
-                <li><a href="https://dostava.com.au/contact">Contact us</a></li>
-                <li><a href="https://dostava.com.au/faqs">FAQs</a></li>
+                <li><a href="/privacy-policy">Privacy policy</a></li>
+                <li><a href="/terms-of-use">Terms of use</a></li>
+                <li><a href="/how-it-works">How it Works</a></li>
+                <li><a href="/contact">Contact us</a></li>
+                <li><a href="/faqs">FAQs</a></li>
               </ul>
             </Col>
             <Col lg="3" md="12" sm="12" xs="12" className="quickmenu">
@@ -71,7 +71,7 @@ class Footer extends React.Component{
           </Row>
           <Row className="copyright-area text-center">
             <Col lg="12" md="12" sm="12" xs="12">
-              <p>Copyright &copy; 2020. All Rights Reserved.</p>
+              <p>Copyright &copy; 2021. All Rights Reserved.</p>
             </Col>
             
           </Row>

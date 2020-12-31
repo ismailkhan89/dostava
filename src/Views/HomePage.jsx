@@ -47,6 +47,7 @@ import { Redirect , useHistory  } from "react-router-dom";
 import Categories from "./Categories.jsx";
 import SliderMain from "../Components/SliderMain.jsx";
 import SliderPopular from "../Components/SliderPopular.jsx";
+import FlashAlert from "../Components/FlashAlert.jsx";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -94,6 +95,12 @@ function HomePage(props){
   const [configuration, setConfiguration] = useState([]);
   const [location, setLocation] = useState('');
   const [latLng, setlatLng] = useState('');
+  const [message , setMessage ] = useState('')
+  const [messagecolor , setMessagecolor ] = useState('')
+
+  const searchOptions = {
+    componentRestrictions: { country: ['aus'] },
+  }
 
   function fetchProducts(props) {
     client.query({ query: GET_CONFIGURATION, fetchPolicy: 'network-only' }).then(res => {
@@ -110,7 +117,7 @@ function HomePage(props){
 
   
 
-
+  // 1/12 Burton Street, Cannington WA, Australia
 
   // const history = useHistory();
 
@@ -252,9 +259,8 @@ function HomePage(props){
             </Col>
           </Row>
         </Container>
-
-
-
+       
+              <FlashAlert message={message} color={messagecolor} />
         <Container className="download-app" style={{display:'none'}} fluid>
           <Row>
             <Col lg="3" md="4" className="download-app-img">
@@ -326,6 +332,7 @@ like every other ride-sharing app.</p>
                     <Form inline className="text-right search-form">
                       {/* <FormControl type="text" placeholder="Enter Location here..." className="mr-sm-2" /> */}
                       <PlacesAutocomplete
+                      searchOptions={searchOptions}
                         value={location}
                         onChange={(e) => setLocation(e)}
                         onSelect={handleSelect}
@@ -377,6 +384,8 @@ like every other ride-sharing app.</p>
                       </PlacesAutocomplete>
                       <Link className="outline-success"  onClick={(e) => {
                         e.preventDefault();
+                        if(location !== ""){
+
                         localStorage.removeItem('cartItems');
                         if(!!latLng){
                           var newlocation = {
@@ -389,6 +398,15 @@ like every other ride-sharing app.</p>
                             pathname: '/stores',
                             // state: {...props.history?.state,location: latLng}
                           })
+                        }
+                      }
+                      else{
+                        setMessage('Please Choose Location')
+                        setMessagecolor('danger');
+                        setTimeout(() => {
+                        setMessage('')
+                        setMessagecolor('')}, 5000)
+                        //  alert('Please Choose Location')
                         }
                       }}><Button variant="outline-success">Show Stores</Button></Link>
                       
@@ -407,8 +425,8 @@ like every other ride-sharing app.</p>
               <Row>
                 <Col lg="6" md="8" sm="12" xs="12" className="vendor-text">
                   <h2>Dostava for Vendor</h2>
-                  <p>lorem ipsum dolor sit amet is the sample text lorem ipsum dolor sit amet is the sample text lorem ipsum dolor sit amet is the sample text</p>
-                    <Link to={{pathname:"https://www.dostava.com.au/register-vendor"}} target='_blank'>Get Started</Link>
+                  <p>Are you a retailer looking for an all-in-one online platform to increase the sale of your products in an easy, convenient way? Dostava is your dream come true! Just log in with your account, upload products and let us roll-out your sales!</p>
+                    <a href="/register-vendor">Get Started</a>
                 </Col>
               </Row>
             </Container>
@@ -488,7 +506,7 @@ like every other ride-sharing app.</p>
                   </Col>
                   <Col lg="9" md="12" xs="12" className="vendor-col-text">
                       <h3>INCREASE YOUR SALES, BOOST YOUR AUDIENCE, ENHANCE YOUR PRESENCE</h3>
-                      <Link to="/">Become a Vendor</Link>
+                      <a href="/register-vendor" >Become a Vendor</a>
                   </Col>
                 </Row>
               </Col>
@@ -499,7 +517,7 @@ like every other ride-sharing app.</p>
                   </Col>
                   <Col lg="9" md="12" xs="12" className="vendor-col-text">
                       <h3>Work with Freedom. Earn with Freedom</h3>
-                      <Link to="/">Become a Driver</Link>
+                      <a href="/register-driver">Become a Driver</a>
                   </Col>
                 </Row>
               </Col>
@@ -520,18 +538,18 @@ like every other ride-sharing app.</p>
                   </a>
                 </Col>
                 <Col lg="6" md="5" sm="12" xs="12" className="app-area-img">
-                  <img src='../Assets/Img/Mobile-Mockups.png' ></img>
+                  <img src='../Assets/Img/bottom_img.png' ></img>
                 </Col>
               </Row>
         </Container>
         <Container className="vendor-section rider-section" fluid>
           <Row>
             <Container>
-              <Row>
+              <Row> 
                 <Col lg="6" md="8" sm="12" xs="12" className="vendor-text">
                   <h2>Dostava for Driver</h2>
-                  <p>lorem ipsum dolor sit amet is the sample text lorem ipsum dolor sit amet is the sample text lorem ipsum dolor sit amet is the sample text</p>
-                    <Link to={{pathname:"https://www.dostava.com.au/register-driver"}} target='_blank'>Get Started</Link>
+                  <p>Tied down with a lot of responsibilities and looking for a stable, no-contract, get-paid-as-you go, job? Make Dostava your ultimate partner! Work for us as a rider and earn with absolute freedom! All you need is a smartphone and vehicle and you’re set to go! Sign up with Dostava to start earning today!</p>
+                    <a href="/register-driver">Get Started</a>
                 </Col>
               </Row>
             </Container>

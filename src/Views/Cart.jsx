@@ -154,7 +154,8 @@ function Cart(props) {
       }
       else if(loginData === null){
         props.history.push({
-          pathname : '/login'
+          pathname : '/login',
+          state : 'checkout'
         })
       }
     }
@@ -391,9 +392,12 @@ function Cart(props) {
                     <tbody>
                       {
                         cartItems.length > 0 ?  cartItems.map((cartItem, idx) => (
+                     
                             <tr key ={idx}>
-                            
-                            <td><img style ={{ width: "100px" }} src={cartItem.img_url}></img></td>
+                             {cartItem.img_url !== "" && cartItem.img_url !== null ? 
+                               <td><img style ={{ width: "100px" }} src={cartItem.img_url}></img></td>
+                            :  <td><img style ={{ width: "100px" }} src="../Assets/Img/product-detail-img.png" alt=""></img></td>
+                            }
                             <td> {cartItem.title}</td>
                             <td><strong>{cartItem.price}</strong></td>
                             <td>
