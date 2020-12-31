@@ -70,20 +70,20 @@ function Header(props) {
           
           {userObj ?
           
-          <Col lg="5"></Col> :
+          <Col lg="7" md="5" sm="4" xs="4" className="display-none"></Col> :
           <Col lg="7" md="5" sm="4" xs="4" className="display-none"></Col>
-}
+          }
 
           
           
          
 
-          {
+          {/* {
             localStorage.getItem("user-dostava") ?
             <Col lg="2" md="2" sm="2" xs="2" className="text-right">
           </Col>  :
                 null
-            }
+            } */}
 
 
         {/* <Col lg="2" md="2" sm="2" xs="2" className="text-right"></Col> */}
@@ -99,9 +99,9 @@ function Header(props) {
           </Col>
 
           { userObj ?
-            <Col lg="1" md="2" sm="2" xs="6" className="login text-right">
+            <Col lg="1" md="2" sm="2" xs="2" className="login text-right">
         
-            <Nav className="align-items-center d-none d-md-flex" navbar>
+            <Nav className="align-items-center  d-md-flex" navbar>
                   <UncontrolledDropdown nav>
                     <DropdownToggle className="pr-0" nav>
                       <Media className="align-items-center">
@@ -151,7 +151,7 @@ function Header(props) {
               null
           } */}
 
-          <Col lg="1" md="2" sm="2" xs="2" className="login text-right">
+          <Col lg="1" md="2" sm="2" xs="2" className="login text-right min-481">
           {
             localStorage.getItem("user-dostava") ? null
               // <Link to="/login" onClick={e => {
@@ -160,7 +160,25 @@ function Header(props) {
               //   props.history.push("/login")
               // }}   >Logout <FontAwesome name="user" /></Link>
               :
-              <Link to="/login" ><FontAwesome name="user-circle-o" /> Login</Link>
+              
+                <Link to="/login"><FontAwesome name="user-circle-o" /> Login</Link>
+              }
+          </Col>
+          <Col lg="1" md="2" sm="2" xs="2" className="login text-right max-480">
+          {
+            localStorage.getItem("user-dostava") ? null
+              // <Link to="/login" onClick={e => {
+              //   e.preventDefault()
+              //   localStorage.removeItem("user-dostava")
+              //   props.history.push("/login")
+              // }}   >Logout <FontAwesome name="user" /></Link>
+              :
+              
+                <span>
+                  <FontAwesome name="user-circle-o" />
+                  <Link to="/login">Login</Link>
+                  </span>
+
               }
           </Col>
         

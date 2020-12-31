@@ -16,7 +16,7 @@ import FontAwesome from 'react-fontawesome';
  
 import gql from "graphql-tag";
 import { createRiderFromWeb } from "../apollo/server";
-import Accord from '../Components/Accord';
+import Accord from '../components/Accord';
 
 const DRIVER_REGISTER = gql`${createRiderFromWeb}`
 

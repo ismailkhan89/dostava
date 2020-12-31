@@ -37,7 +37,7 @@ import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories, getFeaturedProducts, getConfiguration
   ,getPopularVendors
   ,getFeaturedVendors } from "../apollo/server";
-import FeaturedProducts from "../../src/Components/FeaturedProducts";
+import FeaturedProducts from "../../src/components/FeaturedProducts";
 
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -45,9 +45,9 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete';
 import { Redirect , useHistory  } from "react-router-dom";
 import Categories from "./Categories.jsx";
-import SliderMain from "../Components/SliderMain.jsx";
-import SliderPopular from "../Components/SliderPopular.jsx";
-import FlashAlert from "../Components/FlashAlert.jsx";
+import SliderMain from "../components/SliderMain.jsx";
+import SliderPopular from "../components/SliderPopular.jsx";
+import FlashAlert from "../components/FlashAlert.jsx";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
