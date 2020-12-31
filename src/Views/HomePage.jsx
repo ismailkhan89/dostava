@@ -359,7 +359,7 @@ like every other ride-sharing app.</p>
                             />
                             <div className="autocomplete-dropdown-container">
                               {loading && <div>Loading...</div>}
-                              {suggestions.map(suggestion => {
+                              {suggestions.map((suggestion,index) => {
                                 const className = suggestion.active
                                   ? 'suggestion-item--active'
                                   : 'suggestion-item';
@@ -369,6 +369,7 @@ like every other ride-sharing app.</p>
                                   : { backgroundColor: '#ffffff', cursor: 'pointer' };
                                 return (
                                   <div
+                                  key={index}
                                     {...getSuggestionItemProps(suggestion, {
                                       className,
                                       style,
@@ -382,7 +383,7 @@ like every other ride-sharing app.</p>
                           </>
                         )}
                       </PlacesAutocomplete>
-                      <Link className="outline-success"  onClick={(e) => {
+                      <Link className="outline-success" to={'javascript:;'}  onClick={(e) => {
                         e.preventDefault();
                         if(location !== ""){
 

@@ -35,10 +35,10 @@ function Contact(props){
         <Container className="wrapper" fluid>
             <Header  {...props} title={"Contact"} />
             <section id="how-it-works">
-                <div class="how-it-works-heading">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
+                <div className="how-it-works-heading">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12">
                                 <h2><strong>Contact</strong> Us</h2>
                                 <hr/>
                             </div>
@@ -47,35 +47,35 @@ function Contact(props){
                 </div>
             </section>
             <section id="work-with-freedom">
-		        <div class="container">
-			        <div class="row"> 
-				        <div class="col-md-6 first-div contact-infor">
+		        <div className="container">
+			        <div className="row"> 
+				        <div className="col-md-6 first-div contact-infor">
 					        <h2><strong>Contact</strong> Information.</h2>
-					        <p class="pbold">We welcome you to contact us using the below details or visit our <a href="/faqs">FAQs</a>.</p>
-                            <p class="pbold">Email: <a href="#">info@dostava.com.au</a></p>
-                            <p class="pbold">Address: Perth, Australia</p>
-                            <div class="row">
+					        <p className="pbold">We welcome you to contact us using the below details or visit our <a href="/faqs">FAQs</a>.</p>
+                            <p className="pbold">Email: <a href="#">info@dostava.com.au</a></p>
+                            <p className="pbold">Address: Perth, Australia</p>
+                            <div className="row">
                                 
                                 
 
                             </div>
 				        </div>
-                        <div class="col-md-6 second-div">
+                        <div className="col-md-6 second-div">
                             <h2><strong>Contact  </strong>Form</h2>
                             <div id="successMessage"></div>
                             <div id="errorMessage"></div>
                             <form id="Reg-form">
-                                <div class="form-part1">
+                                <div className="form-part1">
                                     <label>Name</label>
-                                    <input type="text" id="name" class="form-control" required/>
+                                    <input type="text" id="name" className="form-control" required/>
                                     <label>Email Address</label>
-                                    <input type="email" id="email" class="form-control" required/>
+                                    <input type="email" id="email" className="form-control" required/>
                                     <label>Subject</label>
-                                    <input type="text" id="subject" class="form-control" required/>
+                                    <input type="text" id="subject" className="form-control" required/>
                                     <label>Message</label>
-                                    <textarea class="form-control" id="message" required></textarea>
+                                    {/* <textarea className="form-control" id="message" required></textarea> */}
                                     <br/>
-                                    <input type="submit" class="btn btn-primary next" value="Submit"/>
+                                    <input type="submit" className="btn btn-primary next" value="Submit"/>
                                 </div>
                             </form>
                         </div>
@@ -83,31 +83,31 @@ function Contact(props){
 		        </div> 
 	        </section>
             <section id="download-app"> 
-                <div class="container"> 
-                    <div class="row"> 
-                        <div class="col-md-3">
-                            <img class="img-fluid" src="../Assets/Img/app-screen.png" alt="app-screen"></img>
+                <div className="container"> 
+                    <div className="row"> 
+                        <div className="col-md-3">
+                            <img className="img-fluid" src="../Assets/Img/app-screen.png" alt="app-screen"></img>
                         </div>
-                        <div class="col-md-7">
+                        <div className="col-md-7">
                             <h2>Download our <strong>application</strong></h2>
                             <hr/>
                             <p>A location-based online marketplace that connects people with small businesses and neighbourhood stores in their locality. Dostava has its fleet of drivers who will be available for delivery within minutes like every other ride-sharing app. People don’t need to rely only on the few grocery giants as they can now support small business owners near their home or workplace.</p>
-                            <div class="become-a">
+                            <div className="become-a">
                                 <a href="/register-driver">Become a Driver</a>
                                 <a href="/register-vendor">Become a Vendor</a>
                             </div>
-                            <a class="download" href="javascript:void(0)">Download App <i class="fa fa-long-arrow-alt-right"></i></a>
+                            <a className="download" href="javascript;">Download App <i className="fa fa-long-arrow-alt-right"></i></a>
                         </div>
-                        <div class="col-md-2">
+                        <div className="col-md-2">
                             
                         </div>
                     </div> 
                 </div> 
 	        </section>
             <section id="support">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-6">
                             <ul>
                                 <li>
                                     <h6>Flexibility</h6>
@@ -123,8 +123,8 @@ function Contact(props){
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-md-6">
-                            <img class="img-fluid" src="../Assets/Img/support.jpg" alt="support"></img>
+                        <div className="col-md-6">
+                            <img className="img-fluid" src="../Assets/Img/support.jpg" alt="support"></img>
                         </div>			
                     </div>
                 </div>
