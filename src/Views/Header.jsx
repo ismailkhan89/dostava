@@ -64,7 +64,6 @@ function Header(props) {
   
     <Container className="header-area">
         <title>{props.title}</title>
-        <meta name={props.title} content={props.title}></meta>
       <Row className="mainHeader ">
         <Navbar sticky="top" expand="lg" fluid="true">
 
