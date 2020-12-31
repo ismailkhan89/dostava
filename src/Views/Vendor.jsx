@@ -409,7 +409,7 @@ function Vendor(props) {
                 <Col lg="4" className="text-center">
                 </Col>
                 <Col lg="4" className="text-center">
-                 Please Change your Location there is no food available at your place ... 
+                 Please Change your Location there is no vendor available at your place ... 
                 </Col>
                 <Col lg="4" className="text-center">
                 </Col>
@@ -434,7 +434,8 @@ function Vendor(props) {
       <Container className="app-area" fluid>
               <Row>
                 <Col lg="6" className="app-area-img">
-                  <img src='../Assets/Img/Mobile-Mockups.png' ></img>
+                  {/* <img src='../Assets/Img/Mobile-Mockups.png' ></img> */}
+                  <img src='../Assets/Img/bottom_img.png' ></img>
                 </Col>
                 <Col lg="6" className="app-area-text">
                   <h3>Dostava is Available for your Android or Apple</h3>

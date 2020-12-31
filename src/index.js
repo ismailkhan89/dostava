@@ -19,12 +19,13 @@ const client = new ApolloClient({
   cache
 });
 
+// document.getElementsByTagName("META")[2].content="Your description about the page or site here to set dynamically",
+
 ReactDOM.render(
   <ApolloProvider client={client}>
     <App />
   </ApolloProvider >,
-  document.title ="Welcome | here is your page title to display",
-  document.getElementsByTagName("META")[2].content="Your description about the page or site here to set dynamically",
+ 
   document.getElementById('root')
 );
 
