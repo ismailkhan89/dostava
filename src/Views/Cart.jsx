@@ -155,7 +155,7 @@ function Cart(props) {
       else if(loginData === null){
         props.history.push({
           pathname : '/login',
-          state : 'checkout'
+          state : {from : 'cart'} 
         })
       }
     }

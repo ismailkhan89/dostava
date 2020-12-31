@@ -1,5 +1,7 @@
 function getItemPrice (product,configuration){
     console.log('configuration Price',configuration)
+    console.log('getItemPrice product Price',product)
+
     let dostava_comission_perc = product.dostava_commission  && product.dostava_commission !== "" 
     && product.dostava_commission !== null   
     && parseFloat(product.dostava_commission) !== 0  ? parseFloat(product.dostava_commission)  : 

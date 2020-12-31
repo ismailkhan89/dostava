@@ -26,7 +26,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
-import FlashAlert from "../components/FlashAlert.jsx";
+import FlashAlert from "../Components/FlashAlert.jsx";
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
@@ -273,9 +273,9 @@ function Vendor(props) {
                                 className: "mr-sm-2 col-lg-12",
                               })}
                             />
-                            <div className="autocomplete-dropdown-container">
+                            <div className="autocomplete-dropdown-container-vendor">
                               {loading && <div>Loading...</div>}
-                              {suggestions.map(suggestion => {
+                              {suggestions.map((suggestion,index) => {
                                 const className = suggestion.active
                                   ? 'suggestion-item--active'
                                   : 'suggestion-item';
@@ -284,7 +284,7 @@ function Vendor(props) {
                                   ? { backgroundColor: '#fafafa', cursor: 'pointer' }
                                   : { backgroundColor: '#ffffff', cursor: 'pointer' };
                                 return (
-                                  <div
+                                  <div key={index}
                                     {...getSuggestionItemProps(suggestion, {
                                       className,
                                       style,
@@ -304,7 +304,7 @@ function Vendor(props) {
             {/* </Form> */}
           </Col>
           <Col sm={2}>
-               <Link className="outline-success"  onClick={(e) => {
+               <Link className="outline-success" to={"javascript:;"}  onClick={(e) => {
                         e.preventDefault();
                         console.log('not inside condition')
                         console.log('latLng',latLng)

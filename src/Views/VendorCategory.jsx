@@ -13,7 +13,7 @@ import {
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import { Link, useParams } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation  } from '@apollo/react-hooks';
 import { foods, like,foodbyVendorId ,getCategoriesByLocation , getConfiguration} from "../apollo/server";
 import { getCartItems } from '../apollo/client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -23,7 +23,7 @@ import { server_url } from  "../config/config";
 import { authLink } from '../library/authLink';
 import { Form, FormControl } from 'react-bootstrap';
 import { getItemPrice } from '../utils/pricing'
-import FlashAlert from "../components/FlashAlert.jsx";
+import FlashAlert from "../Components/FlashAlert.jsx";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -53,8 +53,10 @@ function VendorCategory(props) {
 
    const [configuration ,setConfiguration] = useState('');
 
-  const {loading :loadingConfig,error : errorConfig,data : dataConfig} = useQuery(GET_CONFIGURATION, { client : newclient,fetchPolicy: 'network-only'  })
+  const {loading :loadingConfig,error : errorConfig,data : dataConfig} = useQuery(GET_CONFIGURATION, { client : newclient
+    ,fetchPolicy: 'network-only'   })
 
+    
    React.useEffect(() => {
     const onCompleted = (dataConfig) => {
       setConfiguration(dataConfig)
@@ -264,9 +266,11 @@ function VendorCategory(props) {
               value={SearchText} onChange={(e) => setSearchText(e.target.value)} className="mr-sm-2 col-lg-12" />
           </Col>
           <Col sm={2}>
-          <Button variant="outline-success" onClick={(e) => {
-              e.preventDefault();
-              setSearch(SearchText)} }>Search</Button>
+          
+          <Link to={`/search-product?q=${SearchText}`}> 
+            <Button variant="outline-success">
+                Search</Button>  
+          </Link>
           </Col>
         </Row>
       </Container>
@@ -318,7 +322,7 @@ function VendorCategory(props) {
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
             return data.foodsByVendor.map((category, index) =>{
-              console.log('categorycategory',category)
+             
                 if(index  <= 3){
                return  <Col lg="3" key={index}>
                   <div className="product">
@@ -365,20 +369,21 @@ function VendorCategory(props) {
 
               {_id && lat && lng && 
                 <Row>
+                  {!loadingConfig && !errorConfig && 
                 <Query query={FOODS} variables={{ vendor_id: _id , ...filters,
                   search: search,lat : lat,long : lng}}>
                 {({ loading, error, data }) => {
                 if (loading) return <div>{"Loading"}...</div>;
                 if (error) return <div>`${"Error"}! ${error.message}`</div>;
+                 console.log('loadingConfig',dataConfig)
                   return data.foodsByVendor.map((category, index) =>
-                    <Col lg="6" key={index}>
+
+                     <Col lg="6" key={index}>
                       <div className="product-list">
-                        {/* <Link to="/"> */}
                           <h3>{category.title}</h3>
                           <p>{category.description}</p>
-                          <p className="price">  ${getItemPrice(category,configuration)}</p>
-                          {/* <Button className="add-to-cart" onClick={() => onAddToCart(category)} ></Button> */}
-                          {/* <Link className="add-to-cart">Add to Cart</Link> */}
+                          <p className="price">  ${getItemPrice(category,dataConfig)}</p>
+                       
                          <a className="add-to-cart" href="#" onClick={(e) => 
                           {onAddToCart(category)
                             setMessage('Added!')
@@ -390,14 +395,12 @@ function VendorCategory(props) {
                           
                           }>Add to cart</a>
                        
-                          {/* <p class="price">$24.03</p> */}
-                        
-                        {/* </Link> */}
                         </div>
-                      </Col>
+                      </Col> 
                     )
                   }}
-                </Query>
+                </Query> 
+                 }
                 </Row>
             }
 

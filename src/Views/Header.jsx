@@ -61,8 +61,10 @@ function Header(props) {
   );
   console.log("user-dostava>>", localStorage.getItem("user-dostava"));
   return (
+  
     <Container className="header-area">
         <title>{props.title}</title>
+        <meta name={props.title} content={props.title}></meta>
       <Row className="mainHeader ">
         <Navbar sticky="top" expand="lg" fluid="true">
 

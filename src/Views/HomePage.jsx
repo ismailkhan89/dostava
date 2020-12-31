@@ -37,7 +37,7 @@ import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories, getFeaturedProducts, getConfiguration
   ,getPopularVendors
   ,getFeaturedVendors } from "../apollo/server";
-import FeaturedProducts from "../../src/components/FeaturedProducts";
+import FeaturedProducts from "../../src/Components/FeaturedProducts";
 
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -45,9 +45,9 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete';
 import { Redirect , useHistory  } from "react-router-dom";
 import Categories from "./Categories.jsx";
-import SliderMain from "../components/SliderMain.jsx";
-import SliderPopular from "../components/SliderPopular.jsx";
-import FlashAlert from "../components/FlashAlert.jsx";
+import SliderMain from "../Components/SliderMain.jsx";
+import SliderPopular from "../Components/SliderPopular.jsx";
+import FlashAlert from "../Components/FlashAlert.jsx";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -359,7 +359,7 @@ like every other ride-sharing app.</p>
                             />
                             <div className="autocomplete-dropdown-container">
                               {loading && <div>Loading...</div>}
-                              {suggestions.map(suggestion => {
+                              {suggestions.map((suggestion,index) => {
                                 const className = suggestion.active
                                   ? 'suggestion-item--active'
                                   : 'suggestion-item';
@@ -369,6 +369,7 @@ like every other ride-sharing app.</p>
                                   : { backgroundColor: '#ffffff', cursor: 'pointer' };
                                 return (
                                   <div
+                                  key={index}
                                     {...getSuggestionItemProps(suggestion, {
                                       className,
                                       style,
@@ -382,7 +383,7 @@ like every other ride-sharing app.</p>
                           </>
                         )}
                       </PlacesAutocomplete>
-                      <Link className="outline-success"  onClick={(e) => {
+                      <Link className="outline-success" to={'javascript:;'}  onClick={(e) => {
                         e.preventDefault();
                         if(location !== ""){
 

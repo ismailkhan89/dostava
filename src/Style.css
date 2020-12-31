@@ -2490,6 +2490,17 @@ padding-left:70px;
     padding: 10px;
 }
 
+.autocomplete-dropdown-container-vendor {
+    /* position: absolute; */
+    z-index: 1;
+    top: 75px;
+    text-align: left;
+    background-color: transparent;
+    font-size: 14px;
+    color: #053452;
+    padding: 10px;
+}
+
 /* .autocomplete-dropdown-container {
     background-color: transparent;
     font-size: 14px;

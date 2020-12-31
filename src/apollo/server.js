@@ -1391,3 +1391,65 @@ export const getSingleBlogBySlug = `query getSingleBlogBySlug($slug:String){
       is_active
   }
 }`
+
+export const getVendorsByLocationAndKeyword = `query getVendorsByLocationAndKeyword($keyword:String,$lat:String,$long:String){
+  getVendorsByLocationAndKeyword(keyword:$keyword,lat:$lat,long:$long){
+   vendors{
+    _id
+    name
+    last_name
+    lat
+    long
+    profile_complete
+    email
+    is_shop_keeper
+    is_active
+    is_popular
+    is_featured
+    vendor_available
+    isNewUserClick
+    picture
+  }
+   products{
+    _id
+    title
+    description
+    vendor_pricing
+    dostava_commission
+    user{
+      _id
+      name
+      lat
+      long
+    }
+    variations{
+      _id
+      title
+      price
+      discounted
+      addons{
+        _id
+        title
+        description
+        quantity_minimum
+        quantity_maximum
+        options{
+          _id
+          title
+          description
+          price
+        }
+      }
+    }
+    category{_id}
+    img_url
+    stock
+  
+    user{
+      _id
+      name
+      email
+    }
+    }
+  }
+}`

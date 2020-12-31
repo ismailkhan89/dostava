@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import FontAwesome from 'react-fontawesome';
  
-import Accord from '../components/Accord';
+import Accord from '../Components/Accord';
 import gql from "graphql-tag";
 import { createVendorWeb } from "../apollo/server";
 
