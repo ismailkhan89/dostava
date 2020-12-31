@@ -3,7 +3,7 @@ import { Alert } from 'reactstrap';
 function FlashAlert({message,color}){
     return (
         <div id="message" style={message !== "" ? {display : "flex" } : {display : "none"}}>
-            <div className="col-5" >
+            <div className="col-12" >
               <Alert color={color} fade={true}>
                     {message}
                 </Alert>

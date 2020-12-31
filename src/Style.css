@@ -2055,7 +2055,7 @@ padding-left:70px;
 .cart-icon-header a span {
     color:#1385a7;
 }
-.mainHeader nav .login a{
+.mainHeader nav .login a, .mainHeader nav .login > span{
     font-size:14px;
     color:#373737;
 }
@@ -2114,7 +2114,7 @@ padding-left:70px;
 }
 .become-vendor .vendor-col .vendor-col-text{}
 .become-vendor .vendor-col .vendor-col-text h3{
-    font-size: 18px;
+    font-size: 17px;
     font-weight: bold;
     line-height: 26px;
     color:#053452;
@@ -2184,7 +2184,7 @@ padding-left:70px;
 .header-area nav .login{
     padding-right:0;
 }
-.header-area nav .login a span{
+.header-area nav .login a span, .header-area nav .login > span span{
     vertical-align:middle;
     margin-top:-3px;
     font-size:25px;

@@ -238,7 +238,7 @@ function MyOrders(props){
                         })
                       }}>View</Button>
                   </td>
-                  </tr>)}) : 'No Order added yet!'
+                  </tr>)}) : <tr><td colspan="6" align="center">'No Order added yet!'</td></tr>
                 }
                 
               </tbody>
@@ -298,7 +298,7 @@ function MyOrderTable(props){
              })
           }}>View</Button>
        </td>
-      </tr>)}) : 'No Order added yet!'
+      </tr>)}) : <tr><td colspan="6" align="center">'No Order added yet!'</td></tr>
     }
      
   </tbody>
