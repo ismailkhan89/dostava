@@ -189,7 +189,7 @@ class Login extends React.Component{
                 <div className="form-group">
                 {/* <input type="submit" value="Login" /> */}
                 </div>
-                <div className="form-group or-login-with">
+                <div className="form-group or-login-with" style="display:none;">
                   <p>
                     OR login with 
                     <Link to="/about"><FontAwesome name="facebook"/></Link>
@@ -311,7 +311,7 @@ class Login extends React.Component{
                     }}
                   </Mutation>
                 </div>
-                <div className="form-group or-login-with">
+                <div className="form-group or-login-with" style="display:none;">
                   <p>
                     OR Register with 
                     <Link to="/about"><FontAwesome name="facebook"/></Link>
