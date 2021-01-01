@@ -60,7 +60,7 @@ class Login extends React.Component{
   }
   
   render(){
-
+    
     console.log('asd>>>', this.props);
     console.log('inside HomePage')
     const MenuItems = ['About us', 'Contact Us', 'Gallery', 'My Account'];
@@ -189,7 +189,7 @@ class Login extends React.Component{
                 <div className="form-group">
                 {/* <input type="submit" value="Login" /> */}
                 </div>
-                <div className="form-group or-login-with" style="display:none;">
+                <div className="form-group or-login-with" style={{display: "none"}}>
                   <p>
                     OR login with 
                     <Link to="/about"><FontAwesome name="facebook"/></Link>
@@ -311,7 +311,7 @@ class Login extends React.Component{
                     }}
                   </Mutation>
                 </div>
-                <div className="form-group or-login-with" style="display:none;">
+                <div className="form-group or-login-with" style={{display: "none"}}>
                   <p>
                     OR Register with 
                     <Link to="/about"><FontAwesome name="facebook"/></Link>
