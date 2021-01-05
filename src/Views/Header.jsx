@@ -62,7 +62,6 @@ function Header(props) {
   console.log("user-dostava>>", localStorage.getItem("user-dostava"));
 
   document.title  = props.title;
-
   // document.getElementsByTagName("META")[2].content= props.title;
   // document.getElementsByTagName("META")[3].content= props.title;
   // document.getElementsByTagName("META")[4].content= props.title;

@@ -23,7 +23,7 @@ import {Link, useRouteMatch, useParams } from 'react-router-dom';
 
 
 import { Redirect , useHistory  } from "react-router-dom";
-
+import { Helmet } from "react-helmet";
 
 
 
@@ -33,6 +33,10 @@ function HowItWorks(props){
     return(
       
         <Container className="wrapper" fluid>
+        <Helmet>
+			<title>How Does Dostava Grocery App Works </title>
+			<meta name="description" content="Add your products to your cart and hit purchase, track your order. Your grocery will be at your doorstep." />
+		</Helmet>
             <Header  {...props} title={"How It Work"}/>
             <section id="how-it-works">
                 <div class="how-it-works-heading">

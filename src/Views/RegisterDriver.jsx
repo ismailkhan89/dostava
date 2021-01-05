@@ -17,6 +17,7 @@ import FontAwesome from 'react-fontawesome';
 import gql from "graphql-tag";
 import { createRiderFromWeb } from "../apollo/server";
 import Accord from '../Components/Accord';
+import { Helmet } from "react-helmet";
 
 const DRIVER_REGISTER = gql`${createRiderFromWeb}`
 
@@ -156,7 +157,13 @@ function RegisterDriver(props){
     return(
       
         <Container className="wrapper" fluid>
-            <Header  {...props} title="Register Driver"/>
+			
+			<Helmet>
+        <title>Deliver with Dostava | Become a Delivery Partner</title>
+        <meta name="description" content="Become Dostava delivery partner. Register now to earn money making deliveries with us. Work on your own time and decide how much you make." />
+      		</Helmet>
+
+		    <Header  {...props} title="Register Driver"/>
             <section id="slider" class="driver-page register-driver"> 
                 <div class="container">
                     <div class="row">

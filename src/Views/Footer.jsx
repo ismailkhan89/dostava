@@ -49,19 +49,16 @@ class Footer extends React.Component{
                 <li><a href="/how-it-works">How it Works</a></li>
                 <li><a href="/contact">Contact us</a></li>
                 <li><a href="/faqs">FAQs</a></li>
-                {/* <li><a href="/blogs">Blogs</a></li> */}
 
               </ul>
             </Col>
             <Col lg="3" md="12" sm="12" xs="12" className="quickmenu">
-              <h3>Services</h3>
+              <h3>About Dostava</h3>
                 <ul>
-                  <li><Link to="/about">Home Delivery</Link></li>
-                  <li><Link to="/about">Free of cost</Link></li>
-                  <li><Link to="/about">Discounts</Link></li>
-                  <li><Link to="/about">Highlight Restaurants</Link></li>
-                  <li><Link to="/about">Order for others</Link></li>
-                  <li><Link to="/about">Earn Yourself</Link></li>
+                <li><a href="javascript:void(0)">Safety</a></li>
+                  <li><a href="/blogs">Blogs</a></li>
+                  <li><a href="javascript:void(0)">Vendors</a></li>
+                  <li><a href="javascript:void(0)">Delivery Partners</a></li>
                 </ul>
             </Col>
            
@@ -69,6 +66,12 @@ class Footer extends React.Component{
               <h3>Contact us</h3>
               <p>Perth, Australia</p>
               <Link to="mailto:support@dostava.com.au">support@dostava.com.au</Link>
+              <ul class="Social-links">
+						<li><a href="https://www.facebook.com/dostavaApp/"><i class="fa fa-facebook-f"></i></a></li>
+						<li><a href="https://twitter.com/AppDostava"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="https://www.youtube.com/channel/UC22i_fgulC5g-zJ_JSIH3SA"><i class="fa fa-youtube"></i></a></li>
+						<li><a href="https://www.instagram.com/dostavaapp/"><i class="fa fa-instagram"></i></a></li>
+					</ul>
             </Col>
           </Row>
           <Row className="copyright-area text-center">

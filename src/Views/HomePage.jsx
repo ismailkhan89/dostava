@@ -48,6 +48,7 @@ import Categories from "./Categories.jsx";
 import SliderMain from "../Components/SliderMain.jsx";
 import SliderPopular from "../Components/SliderPopular.jsx";
 import FlashAlert from "../Components/FlashAlert.jsx";
+import { Helmet } from "react-helmet";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -213,8 +214,11 @@ function HomePage(props){
     return(
       
         <Container className="wrapper" fluid>
-        
-         <Header  {...props} title="Dostava" />
+        <Helmet>
+        <title>Dostava - Online Grocery Delivery – Order Online from Store Near You</title>
+        <meta name="description" content="Dostava a location-based online grocery marketplace, currently operating in Perth that connects people with small businesses and neighborhood stores in their locality." />
+      		</Helmet>
+         <Header  {...props} title="Dostava - Online Grocery Delivery – Order Online from Store Near You" />
          
          
 

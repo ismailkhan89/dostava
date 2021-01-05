@@ -23,7 +23,7 @@ import {Link, useRouteMatch, useParams } from 'react-router-dom';
 
 
 import { Redirect , useHistory  } from "react-router-dom";
-
+import { Helmet } from "react-helmet";
 
 
 
@@ -33,6 +33,10 @@ function Contact(props){
     return(
       
         <Container className="wrapper" fluid>
+            <Helmet>
+			<title>Contact Us | Dostava </title>
+			<meta name="description" content="If anything in your mind feel free to contact us. Our customer support representative will get in touch very soon. " />
+		</Helmet>
             <Header  {...props} title={"Contact"} />
             <section id="how-it-works">
                 <div className="how-it-works-heading">

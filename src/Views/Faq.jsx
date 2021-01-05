@@ -31,7 +31,7 @@ import {Link, useRouteMatch, useParams } from 'react-router-dom';
 
 
 import { Redirect , useHistory  } from "react-router-dom";
-
+import { Helmet } from "react-helmet";
 
 
 const SECTIONS = [
@@ -202,6 +202,10 @@ function Faq(props){
     return(
       
         <Container className="wrapper" fluid>
+		<Helmet>
+			<title>Frequently Ask Questions | FAQs | Dostava </title>
+			<meta name="description" content="Frequently ask questions about vendor and driver registration process and other important procedure. " />
+		</Helmet>
             <Header  {...props} title={"FAQS"} />
             <section id="slider" class="driver-page faq">
                 <div class="container"> 

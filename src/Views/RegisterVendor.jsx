@@ -16,7 +16,7 @@ import FontAwesome from 'react-fontawesome';
 import Accord from '../Components/Accord';
 import gql from "graphql-tag";
 import { createVendorWeb } from "../apollo/server";
-
+import { Helmet } from "react-helmet";
 
 const VENDOR_REGISTER = gql`${createVendorWeb}`
 
@@ -205,7 +205,12 @@ function RegisterVendor(props){
 	
     return(
         <Container className="wrapper" fluid>
-            <Header  {...props} title="Register Vendor"/>
+			 <Helmet>
+        <title>Dostava Vendor Registration | Signup & Start Selling</title>
+        <meta name="description" content="Register your store in a few steps and start selling grocery with Dostava right away! New avenue of earning in Australia." />
+      		</Helmet>
+
+            <Header  {...props} title="Dostava Vendor Registration | Signup & Start Selling"/>
             <section id="slider" class="driver-page register-vend"> 
                 <div class="container">
                     <div class="row"> 
