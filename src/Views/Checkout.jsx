@@ -361,7 +361,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
         handler.open({
           image: `${STRIPE_IMAGE_URL}`,
           name: `${STRIPE_STORE_NAME}`,
-          description: `Food delivery`,
+          description: `Grocery delivery`,
           amount: `${amout}`,
           currency: `${currency}`,
           allowRememberMe: `${allowRememberMe}`,
