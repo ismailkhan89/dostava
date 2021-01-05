@@ -2077,11 +2077,12 @@ padding-left:70px;
     background-size:cover;
 }
 .app-area .app-area-img img{
-    width:100%;
+    width:110%;
     position:absolute;
     margin-top:-60px;
     left:-23%;
 }
+
 .app-area .app-area-text{
     padding:75px 0;
     padding-left:40px;
@@ -2168,7 +2169,7 @@ padding-left:70px;
     float:right;
 }
 .faq-home{
-    padding-top:220px;
+    padding-top:150px;
 }
 .faq-home .single-faqhome{
     float:left;
@@ -2205,7 +2206,8 @@ padding-left:70px;
     color:#373737;
 }
 .home-slider .home-slider-text h4{
-    font-size:30px;
+    /* font-size:30px; */
+    font-size:26px;
     font-weight:normal;
     color:#373737;
 }
@@ -2528,7 +2530,7 @@ padding-left:70px;
         padding:30px 20px;
     }
     .home-slider .home-slider-text form input[type="text"]{
-        width:63%;
+        width:65%;
     }
     .become-vendor .vendor-col .vendor-col-text h3{
         min-height:78px;
@@ -2548,6 +2550,9 @@ padding-left:70px;
     .home-slider {
         padding-top: 70px;
         background-position: 0% 100%;
+    }
+    .home-slider .home-slider-text form input[type="text"]{
+        width:59%;
     }
 }
 @media screen and (max-width:767px){

@@ -77,7 +77,7 @@ function Contact(props){
                                     <label>Subject</label>
                                     <input type="text" id="subject" className="form-control" required/>
                                     <label>Message</label>
-                                    {/* <textarea className="form-control" id="message" required></textarea> */}
+                                    <textarea className="form-control" id="message-ctform" required></textarea>
                                     <br/>
                                     <input type="submit" className="btn btn-primary next" value="Submit"/>
                                 </div>

@@ -16,6 +16,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 // import Slider from 'infinite-react-carousel';
 
+import Accord from '../Components/Accord';
+
 import { server_url } from  "../config/config";
 import {
     Card,
@@ -64,6 +66,35 @@ const GET_FEATURED_PRODUCTS = gql`${getFeaturedProducts}`;
 
 const GET_POPULAR_VENDORS = gql`${getPopularVendors}`;
 const GET_FEATURED_VENDORS = gql`${getFeaturedVendors}`;
+
+const SECTIONS = [
+	{
+        head: 'What is Dostava?',
+        content: 'Dostava is an 100% Australian owned online platform based in the heart of Perth, that connects the small stores to the customers living in the nearby area through a location based app. It is the ultimate solution to convenient shopping and effective business.',
+    },
+	{
+        head: 'How does it work?',
+        content: 'Dostava works through an easy-to-use application available for your android and iOs devices. Through the application or the Dostava website, grocery shopping is as easy as tapping on your mobile screen. Place an order by navigating through a number of stores available near you and get it delivered at your doorstep.',
+		content2:'If you’re a vendor looking to increase sales online, register through the Dostava application or through our website. Accept the orders from customers, pack and prepare it for the delivery rider to pick and get paid. It’s that simple.',
+    },
+    {
+        head: 'How much I need to pay to register with dostava?',
+        content: 'Your friendly Dostava App is free for you to install and you can start using it and start earning.',
+	},
+    {
+      head: 'How much I get paid for each delivery?',
+	  content: 'Your friendly Dostava App will show you your delivery fees. Your delivery fees start from $9.99 for each delivery.',
+	},
+	{
+		head: 'Where do I pick up the groceries from?',
+		content: 'Your friendly Dostava application will send you complete details of the pick and drop of the package and the money you will be making for the gig.',
+	  },
+	  {
+		head: 'When do I deliver the groceries?',
+		content: 'Your order pickup and Delivery both are for next day. you pick up the order and deliver it on the same day.',
+		content2:'Plan your day ahead, how easy is that… we are here to look after you.'
+    },
+  ];
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -332,7 +363,7 @@ like every other ride-sharing app.</p>
                 <Row>
                   <Col lg="7" md="8" sm="12" xs="12" className="home-slider-text">
                     <h3>Dostava</h3>
-                    <h4><strong>Groceries</strong> are just an app away</h4>
+                    <h4><strong>Groceries</strong> stores in your area, now in your home</h4>
                     <Form inline className="text-right search-form">
                       {/* <FormControl type="text" placeholder="Enter Location here..." className="mr-sm-2" /> */}
                       <PlacesAutocomplete
@@ -430,7 +461,10 @@ like every other ride-sharing app.</p>
               <Row>
                 <Col lg="6" md="8" sm="12" xs="12" className="vendor-text">
                   <h2>Dostava for Vendor</h2>
-                  <p>Are you a retailer looking for an all-in-one online platform to increase the sale of your products in an easy, convenient way? Dostava is your dream come true! Just log in with your account, upload products and let us roll-out your sales!</p>
+                  <p>Our ultimate goal is to make grocery shopping convenient & hassle-free for people. Dostava
+simply connects local stores to the potential customers living nearby. Making it easier for small
+store owners to make huge sales without the hassle of catering too many walk in customers at a
+time. If you own a store in Perth, register now and start selling big.</p>
                     <a href="/register-vendor">Get Started</a>
                 </Col>
               </Row>
@@ -533,7 +567,7 @@ like every other ride-sharing app.</p>
         <Container className="app-area" fluid>
               <Row>
                 <Col lg="6" md="7" sm="12" xs="12" className="app-area-text">
-                  <h3>Dostava is Available for your Android or Apple</h3>
+                  <h3>Dostava Application is Now Available for Android and iOs Devices.</h3>
                   <a href="https://apps.apple.com/us/app/dostava/id1543132324">
                     
                     <img src="../Assets/Img/footer-appstore.png"></img>
@@ -560,44 +594,14 @@ like every other ride-sharing app.</p>
             </Container>
           </Row>
         </Container>
-        <Container className="faq-home" fluid>
-          <Row>
-            <Container>
-              <Row>
-                <Col lg="12" md="12" sm="12" xs="12">
-                  <div className="single-faqhome">
-                    <h2>What is Dostava?</h2>
-                    <p>Dostava is your new Money Mate, you keep doing your normal work and at the same time you can start earning more.</p>
-                  </div>
-                  <div className="single-faqhome">
-                    <h2>How does it work?</h2>
-                    <p>Your friendly Dostava App will provide you option to pick up your Delivery order one day in advance. Yes, One Day in Advance.</p>
-                    <p>Let’s say it is Monday today, you will get all the order details by Monday night, you need to pick up the Groceries on Tuesday and Deliver it on Tuesday.</p>
-                    <p>When you are driving Rideshare or any other work, you can pass by the Grocery store and pick up your Dostava Delivery. Most of the time you do not need to go to the store specially.</p>
-                    <p>You can plan your Next Day Order Pickup and Delivery in advance.</p>
-                  </div>
-                  <div className="single-faqhome">
-                    <h2>How much I need to pay to register with dostava?</h2>
-                    <p>Your friendly Dostava App is free for you to install and you can start using it and start earning.</p>
-                  </div>
-                  <div className="single-faqhome">
-                      <h2>How much I get paid for each delivery?</h2>
-                      <p>Your friendly Dostava App will show you your delivery fees. Your delivery fees start from $9.99 for each delivery.</p>
-                  </div>
-                  <div className="single-faqhome">
-                    <h2>Where do I pick up the groceries from?</h2>
-                    <p>Your friendly Dostava app will send you address details of all your orders.<br/>Your day to day grocery product pickups will be</p>
-                  </div>
-                  <div className="single-faqhome">
-                      <h2>When do I deliver the groceries?</h2>
-                      <p>Your order pickup and Delivery both are for next day. you pick up the order and deliver it on the same day. Plan your day ahead, how easy is that… we are here to look after you.</p>
-                  </div>
-                  
-                </Col>
-              </Row>
-            </Container>
-          </Row>
-        </Container>
+
+        <Container className="faq-sectio faq-home">
+    			<Row>
+					<Col lg="12">
+						{SECTIONS.length > 0 && SECTIONS.map((data, i) => <Accord head={data.head} bullentpoints={data.bullentpoints} content={data.content} content2={data.content2} content3={data.content3} content4={data.content4} key={i}/>)}
+					</Col>
+				</Row>
+			</Container>
         <Footer />
 
       

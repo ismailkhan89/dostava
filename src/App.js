@@ -41,6 +41,8 @@ import RegisterDriver from './Views/RegisterDriver';
 import BlogsNew from './Views/BlogsNew';
 import BlogsNewSingle from './Views/BlogsNewSingle';
 import SearchProduct from "./Views/SearchProduct";
+import ThankYouDriver from "./Views/ThankYouDriver";
+import ThankYouVendor from "./Views/ThankYouVendor";
 
 
 const httpLink = createUploadLink({
@@ -180,6 +182,8 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 <Route path="/blogs" component={props => <BlogsNew {...props} />} />
 <Route path="/blog/:slug/" component={props => <BlogsNewSingle {...props} />} />
 <Route path="/search-product" component={props => <SearchProduct {...props} />} />
+<Route path="/thank-you-driver" component={props => <ThankYouDriver {...props} />} />
+<Route path="/thank-you-vendor" component={props => <ThankYouVendor {...props} />} />
 
 </Switch>
               {/* <Route path="/home" component={props => <AuthLayout {...props} ></AuthLayout>}  />
