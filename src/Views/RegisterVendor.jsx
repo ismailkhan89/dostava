@@ -200,7 +200,10 @@ function RegisterVendor(props){
 	function onCompleted({ graphQLErrors, networkError }){
 		setSuccess('Successfully Register Vendor')
         clearFields()
-		setTimeout(hideAlert, 7000)
+		//setTimeout(hideAlert, 7000)
+		props.history.push({
+			pathname: '/thank-you-vendor',
+		  });
     }
 	
     return(

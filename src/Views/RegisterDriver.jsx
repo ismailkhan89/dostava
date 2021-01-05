@@ -150,7 +150,10 @@ function RegisterDriver(props){
 	function onCompleted({ graphQLErrors, networkError }){
 		setSuccess('Successfully Register Driver')
         clearFields()
-		setTimeout(hideAlert, 7000)
+		//setTimeout(hideAlert, 7000)
+		props.history.push({
+			pathname: '/thank-you-driver',
+		  });
     }
     
     
