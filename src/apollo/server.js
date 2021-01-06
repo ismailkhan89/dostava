@@ -1370,6 +1370,13 @@ export const createRiderFromWeb = `mutation createRiderFromWeb($riderInput:Rider
   }
 }`
 
+export const sendContactForm = `mutation sendContactForm($userInput:UserInputContact!){
+  sendContactForm(
+    userInput:$userInput
+  )
+}`
+
+
 export const getblogsForWeb = `query getblogsForWeb{
   getblogsForWeb{
       title
