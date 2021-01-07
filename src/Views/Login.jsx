@@ -8,7 +8,7 @@ import '../Style.css';
 import { Redirect } from "react-router-dom";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import { login, createUser } from "../apollo/server";
+import { login, createUser, createUserWeb } from "../apollo/server";
 import { validateFunc } from '../constraints/constraints';
 
 
@@ -27,19 +27,20 @@ import {
 } from "reactstrap";
 import {Link, useRouteMatch, useParams , useHistory } from 'react-router-dom';
 const LOGIN = gql`${login}`
-const CREATE_USER = gql`${login, createUser}`
+const CREATE_USER = gql`${createUserWeb}`
 class Login extends React.Component{
   
   constructor(props) {
     super(props)
     this.state = {
       type: "default",
-      firstName: '',
+      firstName: null,
       lastName: '',
       email: "zeeshan.damani@hotmail.com",
       password: "test@123",
       phone : '',
       emailError: null,
+      firstNameError:null,
       passwordError: null,
       error: null,
       createEmail: '',
@@ -52,6 +53,7 @@ class Login extends React.Component{
   onBlur = (event, field) => {
     this.setState({ [field + 'Error']: !validateFunc({ [field]: this.state[field] }, field) })
   }
+
   validate = () => {
     let emailError = !validateFunc({ email: this.state.email }, "email")
     let passwordError = !validateFunc({ password: this.state.password }, "password")
@@ -211,16 +213,16 @@ class Login extends React.Component{
                       onChange={event => {
                         this.setState({ createEmail: event.target.value })
                       }}
-                      onBlur={event => { this.onBlur(event, 'createEmail') }}
+                      // onBlur={event => { this.onBlur(event, 'email') }}
                       placeholder="Email"
-                      type="eamil"></input>
+                      type="email"></input>
                 </div>
                 <div className="form-group half">
                   <input  value={this.state.createPassword}
                       onChange={event => {
                         this.setState({ createPassword: event.target.value })
                       }}
-                      onBlur={event => { this.onBlur(event, 'createPassword') }}
+                      onBlur={event => { this.onBlur(event, 'password') }}
                       placeholder="Password"
                       type="password"></input>
                 </div>
@@ -264,7 +266,7 @@ class Login extends React.Component{
                     mutation={CREATE_USER}
                     onCompleted={(data) => {
                       console.log("CREATE_USER res", data);
-                      localStorage.setItem("user-dostava", JSON.stringify(data.createUser))
+                      localStorage.setItem("user-dostava", JSON.stringify(data.createUserWeb))
                       this.setState({ redirectToReferrer: true, emailError: null, passwordError: null })
                     }}
                     onError={error => {

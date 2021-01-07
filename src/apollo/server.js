@@ -802,7 +802,7 @@ export const resetPassword = `mutation ResetPassword($password:String!,$token:St
           phone
         }
       }`
-      export const createUser = `
+export const createUser = `
   mutation CreateUser($facebookId:String,$phone:String,$email:String,$password:String,$name:String,$last_name:String,$picture:String,$notificationToken:String,$appleId:String){
       createUser(userInput:{
           facebookId:$facebookId,
@@ -828,6 +828,33 @@ export const resetPassword = `mutation ResetPassword($password:String!,$token:St
           physical_address
       }
     }`
+
+export const createUserWeb = `
+    mutation createUserWeb($facebookId:String,$phone:String,$email:String,$password:String,$name:String,$last_name:String,$picture:String,$notificationToken:String,$appleId:String){
+      createUserWeb(userInput:{
+            facebookId:$facebookId,
+            phone:$phone,
+            email:$email,
+            password:$password,
+            name:$name,
+            last_name:$last_name,
+            picture:$picture,
+            notificationToken:$notificationToken,
+            appleId:$appleId
+        }){
+            userId
+            token
+            tokenExpiration
+            name
+            email
+            phone
+            picture
+            notificationToken
+            lat
+            long
+            physical_address
+        }
+      }`   
 
       export const createRider = `
 mutation CreateRider($riderInput:RiderInput!){

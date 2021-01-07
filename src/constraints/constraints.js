@@ -178,6 +178,43 @@ const constraints = {
             minimum: 0,
             maximum: 20
         }
+    },
+    firstName: {
+        presence: true,
+        length: {
+            minimum: 0,
+            maximum: 60
+        }
+    },
+    lastName: {
+        presence: true,
+        length: {
+            minimum: 0,
+            maximum: 60
+        }
+    },
+    fname: {
+        presence: true,
+        length: {
+            minimum: 0,
+            maximum: 60
+        }
+    },
+    lname: {
+        presence: true,
+        length: {
+            minimum: 0,
+            maximum: 60
+        }
+    },
+    checkbox: {
+        presence: {
+          message: "^You need to check the checkbox"
+        },
+        inclusion: {
+          within: [true],
+          message: "^You need to check the checkbox"
+        }
     }
 }
 
