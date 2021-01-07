@@ -94,6 +94,18 @@ const SECTIONS = [
 		content: 'Your order pickup and Delivery both are for next day. you pick up the order and deliver it on the same day.',
 		content2:'Plan your day ahead, how easy is that… we are here to look after you.'
     },
+	  {
+		head: 'How often I get paid for the work?',
+		content: 'Dostava provides you with the luxury of getting paid per order. The Dostava mobile application will send complete cash details every time an order is placed or a transaction has been made.',
+    },
+    {
+      head: 'Do we have to be a BIG Business to join Dostava?',
+      content: 'Dostava appreciates all kinds of businesses. You may not be a big business yet, but we’ll surely help you get there.',
+    },
+	  {
+		head: 'Do we have to sign up any contract with Dostava?',
+		content: 'If you are looking to partner up as a delivery mate, Dostava offers you complete freedom. It is a no-contract, get paid as you go job. All you need is a smartphone and a vehicle and you’re set to go! Register now and start earning extra money.',
+	  }
   ];
 
 function SampleNextArrow(props) {
@@ -363,7 +375,7 @@ like every other ride-sharing app.</p>
                 <Row>
                   <Col lg="7" md="8" sm="12" xs="12" className="home-slider-text">
                     <h3>Dostava</h3>
-                    <h4><strong>Groceries</strong> stores in your area, now in your home</h4>
+                    <h4><strong>Groceries</strong> stores in your area, now in your phone</h4>
                     <Form inline className="text-right search-form">
                       {/* <FormControl type="text" placeholder="Enter Location here..." className="mr-sm-2" /> */}
                       <PlacesAutocomplete

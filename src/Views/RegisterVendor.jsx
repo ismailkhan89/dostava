@@ -219,10 +219,10 @@ function RegisterVendor(props){
                     <div class="row"> 
                         <div class="col-md-12 text-center">
                             <h1>A NEW <strong>revenue stream</strong> </h1>
-                            <br/>
+                            {/* <br/>
                             <br/>
                             <a class="download" href="javascript:void(0)">Download App <FontAwesome name="long-arrow-right" /></a>
-                            <a class="download" href="javascript:void(0)">Fill the form <FontAwesome name="long-arrow-right" /></a>
+                            <a class="download" href="javascript:void(0)">Fill the form <FontAwesome name="long-arrow-right" /></a>  */}
                             <div class="download-app">
                                 <a href="javascript:void(0)"><img class="img-fluid" src="../Assets/Img/google-play.png" alt="google-play"></img></a>
                                 <a href="javascript:void(0)"><img class="img-fluid" src="../Assets/Img/app-store.png" alt="app-store"></img></a>
@@ -331,7 +331,7 @@ function RegisterVendor(props){
 					 
 						
 						<br/>
-						<label>By Pressing the submit button you agree to our <a target="_blank" href="#" onClick="window.open('/terms-condition','terms-condition','resizable,height=260,width=370'); return false;"><strong>Privacy policy</strong></a> and <a target="_blank" href="#" onClick="window.open('/terms-condition','terms-condition','resizable,height=260,width=370'); return false;"><strong>Terms and conditions</strong></a></label><br/><br/>
+						<label>By Pressing the submit button you agree to our <a target="_blank" href="/privacy-policy"><strong>Privacy policy</strong></a> and <a target="_blank" href="/terms-of-use"><strong>Terms and conditions</strong></a></label><br/><br/>
 					
 						<FormGroup><Mutation
 						mutation={VENDOR_REGISTER}
@@ -409,7 +409,7 @@ function RegisterVendor(props){
 				{SECTIONS.length > 0 && SECTIONS.map((data, i) => <Accord head={data.head} bullentpoints={data.bullentpoints} content={data.content} content2={data.content2} content3={data.content3} content4={data.content4} key={i}/>)}
 			</Col>
 			<Col lg="6" md="6">
-			<img class="img-fluid" src="../Assets/Img/faq.jpg" alt="faq"></img>
+			<img class="img-fluid" src="../Assets/Img/vendor2.jpg" alt="faq"></img>
 			</Col>
 		</Row>
 	</Container>

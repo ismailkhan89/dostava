@@ -20,11 +20,11 @@ class Footer extends React.Component{
         <Container className="footer-area">
           <Row className="widget-area">
             <Col lg="3" md="12" sm="12" xs="12" className="footer-logo quickmenu footer-app">
-                <div>
+                
                     <Link to="/">
-                        <img src="../Assets/Img/logo.png"></img>
+                        <img src="../Assets/Img/logo.svg" width="70%"></img>
                     </Link>
-                </div>
+               
                 <h3>Download Our App</h3>
                 <a href="https://apps.apple.com/us/app/dostava/id1543132324">
                   <img src="../Assets/Img/footer-appstore.png"></img>
@@ -57,8 +57,8 @@ class Footer extends React.Component{
                 <ul>
                 <li><a href="javascript:void(0)">Safety</a></li>
                   <li><a href="/blogs">Blogs</a></li>
-                  <li><a href="javascript:void(0)">Vendors</a></li>
-                  <li><a href="javascript:void(0)">Delivery Partners</a></li>
+                  <li><a href="/register-vendor">Vendors</a></li>
+                  <li><a href="/register-rider">Delivery Partners</a></li>
                 </ul>
             </Col>
            

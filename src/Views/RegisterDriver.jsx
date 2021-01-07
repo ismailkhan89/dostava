@@ -172,11 +172,11 @@ function RegisterDriver(props){
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <h1>Keep <strong>Driving.</strong> Keep <strong>Earning</strong></h1>
-                            <br/>
+                            {/* <br/>
                             <br/>
                             <a class="download" href="javascript:void(0)">Download App <FontAwesome name="long-arrow-right" /></a>
                             <a class="download" href="javascript:void(0)">Fill the form <FontAwesome name="long-arrow-right" /></a>
-                            
+                             */}
                             <div class="download-app">
                                 <a href="https://play.google.com/store/apps/details?id=com.dostava.driver"><img class="img-fluid" src="../Assets/Img/google-play.png" alt="google-play"></img></a>
                                 <a href="https://apps.apple.com/us/app/dostava-rider/id1542024806"><img class="img-fluid" src="../Assets/Img/app-store.png" alt="app-store"></img></a>
@@ -292,7 +292,7 @@ function RegisterDriver(props){
 					 
 						
 						<br/>
-                        <label>By Pressing the submit button you agree to our <a target="_blank" href="#" onClick="window.open('/privacy-policy','privacy-policy','resizable,height=260,width=370'); return false;"><strong>Privacy policy</strong></a> and <a target="_blank" href="#" onClick="window.open('/terms-condition','terms-condition','resizable,height=260,width=370'); return false;"><strong>Terms and conditions</strong></a></label><br/><br/>
+                        <label>By Pressing the submit button you agree to our <a target="_blank" href="/privacy-policy"><strong>Privacy policy</strong></a> and <a target="_blank" href="/terms-of-use"><strong>Terms and conditions</strong></a></label><br/><br/>
 						<FormGroup>
                             <Mutation
 						mutation={DRIVER_REGISTER}
