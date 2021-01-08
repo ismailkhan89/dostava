@@ -58,7 +58,7 @@ class Footer extends React.Component{
                 <li><a href="javascript:void(0)">Safety</a></li>
                   <li><a href="/blogs">Blogs</a></li>
                   <li><a href="/register-vendor">Vendors</a></li>
-                  <li><a href="/register-rider">Delivery Partners</a></li>
+                  <li><a href="/register-driver">Delivery Partners</a></li>
                 </ul>
             </Col>
            
