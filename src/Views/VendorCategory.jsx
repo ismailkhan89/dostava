@@ -46,6 +46,11 @@ const GET_CONFIGURATION = gql`${getConfiguration}`;
 
 function VendorCategory(props) {
 
+
+    React.useEffect(() => {
+      window.scrollTo(0, 0)
+    },[]);
+
   // var lat = "24.893120";
   // var long = "67.063950"
   // var id = "5f0ea61a44f4211d54bfe6ba";
@@ -321,7 +326,8 @@ function VendorCategory(props) {
             {({ loading, error, data }) => {
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
-            return data.foodsByVendor.map((category, index) =>{
+             
+            return data.foodsByVendor.length > 0 ? data.foodsByVendor.map((category, index) =>{
              
                 if(index  <= 3){
                return  <Col lg="3" key={index}>
@@ -347,7 +353,7 @@ function VendorCategory(props) {
                 }
                 }
                   
-                )
+                ) : <Col lg="3">No New Product Available</Col>
               }}
             </Query>
             </Row>
@@ -376,7 +382,7 @@ function VendorCategory(props) {
                 if (loading) return <div>{"Loading"}...</div>;
                 if (error) return <div>`${"Error"}! ${error.message}`</div>;
                  console.log('loadingConfig',dataConfig)
-                  return data.foodsByVendor.map((category, index) =>
+                  return data.foodsByVendor.length > 0 ? data.foodsByVendor.map((category, index) =>
 
                      <Col lg="6" key={index}>
                       <div className="product-list">
@@ -397,7 +403,7 @@ function VendorCategory(props) {
                        
                         </div>
                       </Col> 
-                    )
+                    ) :<Col lg="6">No Product Available</Col>
                   }}
                 </Query> 
                  }

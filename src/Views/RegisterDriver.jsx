@@ -83,13 +83,14 @@ function RegisterDriver(props){
 	const [firstnameErr , setFirstnameErr] = React.useState(false)
 	const [lastnameErr , setLastnameErr] = React.useState(false)
 	const [contactnoErr , setContactnoErr] = React.useState(false)
+	const [contactnoErrNum , setContactnoErrNum] = React.useState('')
+
 	const [emailErr , setEmailErr] = React.useState(false)
 	const [passwordErr , setPasswordErr] = React.useState(false)
 
 	const [succcess , setSuccess] = React.useState('')
 	const [Errors , setErrors] = React.useState('')
 
-	
 	function clearErrorField(){
 		setFirstnameErr(false)
 		setLastnameErr(false)
@@ -234,7 +235,11 @@ function RegisterDriver(props){
                         <FormGroup>
 							<Label>First Name</Label>
 							<Input 
-							onChange={(e) => setFirstName(e.target.value)} 
+							onBlur={() => firstname === "" && setFirstnameErr(true)}
+							onChange={(e) => {
+								setFirstName(e.target.value)
+								setFirstnameErr(false)
+							}} 
 							// valid={true} 
 							invalid={firstnameErr}
 							value={firstname}
@@ -245,7 +250,11 @@ function RegisterDriver(props){
 						<FormGroup>
 							<Label>Last Name</Label>
 							<Input 
-							onChange={(e) => setLastname(e.target.value)} 
+							onBlur={() => lastname === "" && setLastnameErr(true)}
+							onChange={(e) =>{
+								 setLastname(e.target.value)
+								 setLastnameErr(false)
+								}} 
 							// valid={true} 
 							invalid={lastnameErr}
 							value={lastname}
@@ -256,19 +265,36 @@ function RegisterDriver(props){
 						<FormGroup>
 							<Label>Contact No</Label>
 							<Input 
-							onChange={(e) => setContactno(e.target.value)} 
+							onBlur={() => contactno === "" && setContactnoErr(true)}
+							onChange={(e) =>{
+								if(e.target.value.length <= 11){
+									setContactnoErrNum('') 
+									setContactno(e.target.value)
+									setContactnoErr(false)
+								}
+								else{
+									setContactnoErrNum('Length Exceeded')
+								}
+							}}
+								//  setContactno(e.target.value)
 							// valid={true} 
 							invalid={contactnoErr}
 							value={contactno}
 							type={"number"}
+							max
 							/>
 							<FormFeedback>Contact No is Required</FormFeedback>
+							
 						</FormGroup>
 
 						<FormGroup>
 							<Label>Email Address</Label>
 							<Input 
-							onChange={(e) => setEmail(e.target.value)} 
+							onBlur={() => email === "" && setEmailErr(true)}
+							onChange={(e) => {
+								setEmail(e.target.value)
+								setEmailErr(false)
+							}} 
 							// valid={true} 
 							invalid={emailErr}
 							value={email}
@@ -280,10 +306,14 @@ function RegisterDriver(props){
 							<Label>Password</Label>
 							<Input 
 							type="password"
-							onChange={(e) => setPassword(e.target.value)} 
+							onChange={(e) => {
+								setPassword(e.target.value)
+								setPasswordErr(false)
+							}} 
 							// valid={true} 
 							invalid={passwordErr}
 							value={password}
+							onBlur={() => password === "" && setPasswordErr(true)}
 							/>
 							<FormFeedback>Password is Required</FormFeedback>
 						</FormGroup>

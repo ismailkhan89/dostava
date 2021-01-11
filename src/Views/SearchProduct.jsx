@@ -46,6 +46,12 @@ const getVendorbyLocation = gql`${getCategoriesByLocation}`
 const GET_CONFIGURATION = gql`${getConfiguration}`;
 
 function SearchProduct(props){
+
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+},[]);
+
   console.log(props)
   const [configuration ,setConfiguration] = useState('');
 
@@ -65,14 +71,12 @@ function SearchProduct(props){
 
  const [filters, setFilter] = useState({ onSale: false, inStock: false, min: 0, max: 1000 });
  const [search, setSearch] = useState('');
- const [SearchText,setSearchText] = useState('');
+ const [SearchText,setSearchText] = useState(props.location?.search?.replace("?q=", "") ?? '');
 
  const [lat,setLat] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lat ?? null : null)
  const [lng,setLng] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lng ?? null : null)
 
  const {loading,error,data : dataVendorLocation} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :lng} ,client : newclient })
-
- console.log('Search Products ',props.location.search.replace("?q=", ""))
 
  const [keyword , setKeyword] = useState(props.location?.search?.replace("?q=", "") ?? '')
  const [title ,setTitle] = useState(
@@ -96,6 +100,7 @@ function SearchProduct(props){
 
  } 
 
+ const [productFilter,setProductFilter] = useState('both')
  async function onAddToCart (product)  {
 
    console.log('onAddToCart>>> ', product);
@@ -147,6 +152,125 @@ function SearchProduct(props){
    }
  }
 
+ function getVendors(){
+   return   <Row>
+   <Container id="Product-carousel">
+     <Row>
+         <Col lg="12" >
+           <h2 className="title">Vendors</h2>
+         </Col>
+     </Row>
+    
+     <Row>
+   <Query query={FOODS} fetchPolicy="network-only"  variables={{ keyword: keyword ,lat : lat,long : lng}}>
+     {({ loading, error, data }) => {
+      if (loading) return <div>{"Loading"}...</div>;
+      if (error) return <div>`${"Error"}! ${error.message}`</div>;
+     return data.getVendorsByLocationAndKeyword.vendors.map((category, index) =>{
+         if(index  <= 3){
+        return   <Col lg="3" key={index}>
+        <Link
+            to={`/storesitem/${category._id}`}
+            params="true"
+            onClick={e => {
+            e.preventDefault();
+            let news = {
+                title : category.business_name,
+                description : category.name,
+            };
+            localStorage.setItem('storeItem',JSON.stringify(news));
+            props.history.push({
+             pathname: `/storesitem/${category._id}`,
+              state : {
+                title : category.business_name,
+                description : category.name,
+                category : data.getVendorsByLocation,
+                // categoryid : category._id
+              }
+            })
+            }}
+          > 
+          <div className="product">
+                <div className="product-img">
+                {console.log('category.picture',category.picture)}
+                  {category.picture !== "" && category.picture !== null ?
+                  <img className="img-fluid" src={category.picture} alt=""></img>
+                : <img className="img-fluid" src="../Assets/Img/store.png" alt=""></img>
+                 }
+
+                {/* <img className="img-fluid" src={category.picture} alt=""></img> */}
+                </div>
+                <div className="product-desc">
+                <h3 className="product-title">{category.business_name}</h3>
+                <p className="product-content">{category.name}</p>
+                {/* <p class="price">$24.03</p> */}
+                </div>
+            </div>
+           </Link>
+          </Col>
+      
+            }
+           }
+         )
+       }}
+     </Query>
+    
+     </Row>
+     
+     
+   </Container>
+ </Row>
+ }
+
+ function getProduct(){
+   return <Row>
+   <Container id="dry-fruits" className="all-products">
+     <Row>
+           <Col lg="12" >
+             <h2 className="title">All Products</h2>
+           </Col>
+       </Row>  
+ 
+      <Row>
+        {!loadingConfig && !errorConfig && 
+      <Query query={FOODS} variables={{ keyword: keyword ,lat : lat,long : lng}}>
+      {({ loading, error, data }) => {
+      if (loading) return <div>{"Loading"}...</div>;
+      if (error) return <div>`${"Error"}! ${error.message}`</div>;
+       
+         
+        return data.getVendorsByLocationAndKeyword.products.length > 0 ?
+            data.getVendorsByLocationAndKeyword.products.map((category, index) =>
+
+           <Col lg="6" key={index}>
+            <div className="product-list">
+                <h3>{category.title}</h3>
+                <p>{category.description}</p>
+                <p className="price">  ${getItemPrice(category,dataConfig)}</p>
+             
+               <a className="add-to-cart" href="#" onClick={(e) => 
+                {onAddToCart(category)
+                  setMessage('Item Added!')
+                  setMessagecolor('success');
+                  setTimeout(() => {
+                  setMessage('')
+                  setMessagecolor('')}, 3000)
+                }
+                
+                }>Add to cart</a>
+             
+              </div>
+            </Col> 
+          )
+          :  <Col lg="6">{'Not Available'}</Col> 
+        }}
+       
+      </Query> 
+       }
+      </Row>
+      </Container>
+  </Row>
+ }
  return (
    <Container className="wrapper" fluid>
      <Header  {...props} title={title +" at Dostava"} />
@@ -175,17 +299,18 @@ function SearchProduct(props){
      </Container>
      <Container id="search-product">
        <Row>
-       <Col sm={10}>
-           {/* <select name="select-category">
-               <option>Select Vendor</option>
-             {props.location.state?.category ? 
-              props.location.state?.category.map(category => <option key={category._id} value={category._id}>{category.name}</option>)
-             : null }
-           </select> */}
-
-            
+       <Col sm={3}>
+        <select className="col-lg-12" value={productFilter} name="select-category" onChange={(e) => setProductFilter(e.target.value) 
+           }>
+            <option disabled >Select Please </option>
+            <option value="vendor">Vendor</option> 
+            <option value="products">Products</option>
+            <option value="both" >Both</option>
+        </select>
+        </Col>
+       <Col sm={7}>
              <FormControl type="search" placeholder="Search Product ..." 
-             value={SearchText} onChange={(e) => setSearchText(e.target.value)} className="mr-sm-2 col-lg-12" />
+             value={SearchText} onChange={(e) => {setSearchText(e.target.value)}} className=" col-lg-12" />
          </Col>
          <Col sm={2}>
             <Button variant="outline-success" onClick={() => setKeyword(SearchText)}>
@@ -204,170 +329,18 @@ function SearchProduct(props){
        </Row>
      </Container>
      <Container className="content-area" fluid>
+     
+       {productFilter === 'vendor' && lat && lng  ? getVendors() 
+        : productFilter === 'both'  &&   
+        lat && lng ? getVendors() : null }
 
-       <Row>
-         <Container id="Product-carousel">
-           
-         {lat && lng && 
-         <>
-           <Row>
-               <Col lg="12" >
-                 <h2 className="title">Vendors</h2>
-               </Col>
-           </Row>
-          
-           <Row>
-             {/* <Query query={getVendorbyLocation} variables={{ lat : lat.toString(),long :lng.toString()}}>
-             {({ loading, error, data }) => {
-             if (loading) return <div>{"Loading"}...</div>;
-             if (error) return <div>`${"Error"}! ${error.message}`</div>;
-               return data.getCategoriesByLocation.map((category, index) =>
-                 <Col lg="3" key={index}>
-                   <div class="product">
-                     <Link to="/">
-                     <div class="product-img">
-                       <img class="img-fluid" src={category.img_menu} alt=""></img>
-                     </div>
-                     <div class="product-desc">
-                       <h3 class="product-title">{category.title}</h3>
-                       <p class="product-content">{category.description}</p>
-                     </div>
-                     </Link>
-                     </div>
-                   </Col>
-                 )
-               }}
-             </Query> */}
+      {productFilter === 'products' && lat && lng  ? getProduct() 
+              : productFilter === 'both'  &&   
+              lat && lng ? getProduct() : null }
+{/*      
+     {lat && lng ? getVendors() : null }
+     {lat && lng ? getProduct() : null } */}
 
-        {/* $keyword:String,$lat:String,$long:String */}
-         <Query query={FOODS} fetchPolicy="network-only"  variables={{ keyword: keyword ,lat : lat,long : lng}}>
-           {({ loading, error, data }) => {
-            if (loading) return <div>{"Loading"}...</div>;
-            if (error) return <div>`${"Error"}! ${error.message}`</div>;
-            console.log('data.getVendorsByLocationAndKeyword',data.getVendorsByLocationAndKeyword)
-           return data.getVendorsByLocationAndKeyword.vendors.map((category, index) =>{
-            
-               if(index  <= 3){
-              return   <Col lg="3" key={index}>
-              <Link
-                  to={`/storesitem/${category._id}`}
-                  params="true"
-                  onClick={e => {
-                  e.preventDefault();
-                  let news = {
-                      title : category.business_name,
-                      description : category.name,
-                  };
-                  localStorage.setItem('storeItem',JSON.stringify(news));
-                  props.history.push({
-                   pathname: `/storesitem/${category._id}`,
-                    state : {
-                      title : category.business_name,
-                      description : category.name,
-                      category : data.getVendorsByLocation,
-                      // categoryid : category._id
-                    }
-                  })
-                  }}
-                > 
-                <div className="product">
-                      <div className="product-img">
-                      {console.log('category.picture',category.picture)}
-                        {category.picture !== "" && category.picture !== null ?
-                        <img className="img-fluid" src={category.picture} alt=""></img>
-                      : <img className="img-fluid" src="../Assets/Img/store.png" alt=""></img>
-                       }
-
-                      {/* <img className="img-fluid" src={category.picture} alt=""></img> */}
-                      </div>
-                      <div className="product-desc">
-                      <h3 className="product-title">{category.business_name}</h3>
-                      <p className="product-content">{category.name}</p>
-                      {/* <p class="price">$24.03</p> */}
-                      </div>
-                  </div>
-                 </Link>
-                </Col>
-              
-              
-              
-            //   <Col lg="3" key={index}>
-            //      <div className="product">
-            //        <div className="product-img">
-            //        {category.img_url !== "" && category.img_url !== null ? 
-            //          <img className="img-fluid" src={category.img_url} alt=""></img>
-            //        :  <img className="img-fluid" src="../Assets/Img/product-detail-img.png" alt=""></img>
-            //        }
-            //        </div>
-            //        <div className="product-desc">
-
-            //          <h3 className="product-title">{category.title}</h3>
-            //          <p className="product-content">{category.description}</p>
-            //        </div>
-            //        {/* </Link> */}
-            //        </div>
-            //   </Col>
-                  }
-                 }
-               )
-             }}
-           </Query>
-           </Row>
-           </>
-}
-           
-           
-         </Container>
-         
-       </Row>
-
-       <Row>
-         <Container id="dry-fruits" className="all-products">
-         <Row>
-               <Col lg="12" >
-                 <h2 className="title">All Products</h2>
-               </Col>
-           </Row>
-
-             {lat && lng && 
-               <Row>
-                 {!loadingConfig && !errorConfig && 
-               <Query query={FOODS} variables={{ keyword: keyword ,lat : lat,long : lng}}>
-               {({ loading, error, data }) => {
-               if (loading) return <div>{"Loading"}...</div>;
-               if (error) return <div>`${"Error"}! ${error.message}`</div>;
-                console.log('loadingConfig',dataConfig)
-                 return data.getVendorsByLocationAndKeyword.products.map((category, index) =>
-
-                    <Col lg="6" key={index}>
-                     <div className="product-list">
-                         <h3>{category.title}</h3>
-                         <p>{category.description}</p>
-                         <p className="price">  ${getItemPrice(category,dataConfig)}</p>
-                      
-                        <a className="add-to-cart" href="#" onClick={(e) => 
-                         {onAddToCart(category)
-                           setMessage('Added!')
-                           setMessagecolor('success');
-                           setTimeout(() => {
-                           setMessage('')
-                           setMessagecolor('')}, 3000)
-                         }
-                         
-                         }>Add to cart</a>
-                      
-                       </div>
-                     </Col> 
-                   )
-                 }}
-               </Query> 
-                }
-               </Row>
-           }
-
-
-         </Container>
-       </Row>
      </Container>
 
      <Container className="app-area" fluid>
@@ -379,14 +352,11 @@ function SearchProduct(props){
                  <h3>Dostava is Available for your Android or Apple</h3>
                  <a href="https://apps.apple.com/us/app/dostava/id1543132324">
                  <img src='../Assets/Img/appstore.png' ></img>
-                   {/* <img src="../Assets/Img/footer-appstore.png"></img> */}
                  </a>
                  <a href="https://play.google.com/store/apps/details?id=com.dostava">
-                   {/* <img src="../Assets/Img/footer-googleplay.png"></img> */}
                    <img src='../Assets/Img/playstore.png'></img>
                  </a>
-                 {/* <img src='../Assets/Img/playstore.png' ></img>
-                 <img src='../Assets/Img/appstore.png' ></img> */}
+                 
                </Col>
              </Row>
        </Container>
