@@ -240,12 +240,44 @@ function SearchProduct(props){
        
          
         return data.getVendorsByLocationAndKeyword.products.length > 0 ?
-            data.getVendorsByLocationAndKeyword.products.map((category, index) =>
+            data.getVendorsByLocationAndKeyword.products.map((category, index) =>{
+                    
+              var stripedHtml = category.title.replace(/<[^>]+>/g, '');
+              if(stripedHtml.length > 30){
+                stripedHtml = stripedHtml.substr(0, 30);
+              } 
 
-           <Col lg="6" key={index}>
+              var stripedHtml2 = category.description.replace(/<[^>]+>/g, '');
+              if(stripedHtml2.length > 60){
+                stripedHtml2 = stripedHtml2.substr(0, 60);
+              } 
+              return(
+
+           <Col lg="4" md="6" sm="12" xs="12" key={index}>
             <div className="product-list">
-                <h3>{category.title}</h3>
-                <p>{category.description}</p>
+                {
+                  category.img_url !== "" && category.img_url !== null ?
+                  <img className="img-fluid" src={category.img_url} alt=""></img>
+                  : <img className="img-fluid" src="../Assets/Img/store.png" alt=""></img>
+                }
+                <h3>
+                  <span>
+                    <strong>{stripedHtml}
+                            {stripedHtml.length === 30 && 
+                      <span>...</span>
+                        }
+                    </strong>
+                  </span>
+                  {/* {category.title} */}
+                  </h3>
+                <p>
+                  <span><strong>{stripedHtml2}
+                            {stripedHtml2.length === 60 && 
+                            <span>...</span>
+                          }
+                          </strong></span>
+                  {/* {category.description} */}
+                  </p>
                 <p className="price">  ${getItemPrice(category,dataConfig)}</p>
              
                <a className="add-to-cart" href="#" onClick={(e) => 
@@ -261,6 +293,8 @@ function SearchProduct(props){
              
               </div>
             </Col> 
+            )
+          }
           )
           :  <Col lg="6">{'Not Available'}</Col> 
         }}
