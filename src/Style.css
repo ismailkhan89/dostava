@@ -207,6 +207,7 @@
 }
 .slider-area-new .slick-slide > div{
     padding:10px;
+    cursor:pointer;
 }
 .slider-area .slick-slider button:focus{
 
@@ -2077,11 +2078,12 @@ padding-left:70px;
     background-size:cover;
 }
 .app-area .app-area-img img{
-    width:100%;
+    width:110%;
     position:absolute;
     margin-top:-60px;
     left:-23%;
 }
+
 .app-area .app-area-text{
     padding:75px 0;
     padding-left:40px;
@@ -2168,7 +2170,7 @@ padding-left:70px;
     float:right;
 }
 .faq-home{
-    padding-top:220px;
+    padding-top:150px;
 }
 .faq-home .single-faqhome{
     float:left;
@@ -2183,11 +2185,20 @@ padding-left:70px;
 }
 .header-area nav .login{
     padding-right:0;
+    padding-left:0;
 }
 .header-area nav .login a span, .header-area nav .login > span span{
     vertical-align:middle;
     margin-top:-3px;
     font-size:25px;
+}
+.header-area nav .login li a{
+    display: inline-block;
+    padding-left:0;
+}
+.header-area nav .login li a span{
+    float:left;
+    margin-right:10px;
 }
 .home-slider{
     background-image:url(Assets/Img/slider-img.png);
@@ -2205,7 +2216,8 @@ padding-left:70px;
     color:#373737;
 }
 .home-slider .home-slider-text h4{
-    font-size:30px;
+    /* font-size:30px; */
+    font-size:26px;
     font-weight:normal;
     color:#373737;
 }
@@ -2218,18 +2230,25 @@ padding-left:70px;
     padding:30px;
     border-radius:4px;
 }
-.home-slider .home-slider-text form input[type="text"]{
+.home-slider .home-slider-text form input[type="text"], .modal form.search-form input[type="text"]{
     border:1px solid #eee;
     border-radius:0;
     width: 67%;
     height: 44px;
     margin-right: 3% !important;
 }
+.modal form.search-form input[type="text"]{
+    width:77%;
+}
+.modal form.search-form{
+    background-color:transparent;
+    border:0 none;
+}
 .home-slider .home-slider-text form input[type="text"]:placeholder{
     color:#ccc;
     font-size:14px;
 }
-.home-slider .home-slider-text form button{
+.home-slider .home-slider-text form button, .modal form.search-form button{
     background-color:#053452;
     font-size:16px;
     color:#fff;
@@ -2489,6 +2508,9 @@ padding-left:70px;
     color: #053452;
     padding: 10px;
 }
+.modal .autocomplete-dropdown-container{
+    top:45px;
+}
 
 .autocomplete-dropdown-container-vendor {
     /* position: absolute; */
@@ -2528,7 +2550,7 @@ padding-left:70px;
         padding:30px 20px;
     }
     .home-slider .home-slider-text form input[type="text"]{
-        width:63%;
+        width:65%;
     }
     .become-vendor .vendor-col .vendor-col-text h3{
         min-height:78px;
@@ -2548,6 +2570,9 @@ padding-left:70px;
     .home-slider {
         padding-top: 70px;
         background-position: 0% 100%;
+    }
+    .home-slider .home-slider-text form input[type="text"]{
+        width:59%;
     }
 }
 @media screen and (max-width:767px){
@@ -2782,4 +2807,23 @@ padding-left:70px;
     .slider-area-new h2{
         font-size:22px;
     }
+}
+
+.footer-area .widget-area .quickmenu ul.Social-links a {
+    color: #a6a6a6;
+    font-size: 17px;
+    width: 40px;
+    height: 40px;
+    background-color: #eeeeee;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    text-decoration: none;
+    transition: 0.5s;
+}
+.quickmenu ul.Social-links li {
+    display: inline-block;
+    margin-right: 1px;
 }

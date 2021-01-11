@@ -23,7 +23,7 @@ import {Link, useRouteMatch, useParams } from 'react-router-dom';
 
 
 import { Redirect , useHistory  } from "react-router-dom";
-
+import { Helmet } from "react-helmet";
 
 
 
@@ -33,6 +33,10 @@ function PrivacyPolicy(props){
     return(
       
         <Container className="wrapper" fluid>
+			<Helmet>
+			<title>Privacy Policy |  Dostava </title>
+			<meta name="description" content="At Dostava we strictly follow the privacy policy for customer, vendor, and drivers. Your contact Information is safe with us." />
+		</Helmet>
       <Header  {...props} title={"Privacy Policy"} />
       <section id="how-it-works">
         <div class="how-it-works-heading">

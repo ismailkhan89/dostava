@@ -413,13 +413,14 @@ function Cart(props) {
                                 <FontAwesome name="plus"></FontAwesome>
                               </button>
                             </td>
-                        <td><strong> { parseFloat(cartItem.quantity)* parseFloat(cartItem.price) }</strong></td>
+                        <td><strong> { (parseFloat(cartItem.quantity)* parseFloat(cartItem.price)).toFixed(2) }</strong></td>
                             <td><FontAwesome 
-                             onClick={e => {
+                            onClick={(e) => { const r = window.confirm("Do you really want to remove this product?"); if(r == true){ 
                               e.preventDefault()
-                              removeCartItem(cartItem)
-                                  
-                          }}
+                            removeCartItem(cartItem)
+                             }
+                            } 
+                          }
                             name="trash" /></td>
                         </tr>)) : <tr><td colspan="6" align="center">'No Item added yet!'</td></tr>
                       }

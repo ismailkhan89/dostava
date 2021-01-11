@@ -76,8 +76,8 @@ function Accord(props){
                     <Card.Body>
                         <p>{props.content}</p>
                         {props.content2 && <p> {props.content2}</p> }
-                        {props.content3 && <p> {props.content2}</p> }
-                        {props.content4 && <p> {props.content2}</p> }
+                        {props.content3 && <p> {props.content3}</p> }
+                        {props.content4 && <p> {props.content4}</p> }
                         {props.bullentpoints && <ul> {props.bullentpoints.map((d) => <li>{d.title}</li>)} </ul> }
                         </Card.Body>
                 </Accordion.Collapse>

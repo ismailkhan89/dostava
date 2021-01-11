@@ -31,20 +31,18 @@ import {Link, useRouteMatch, useParams } from 'react-router-dom';
 
 
 import { Redirect , useHistory  } from "react-router-dom";
-
+import { Helmet } from "react-helmet";
 
 
 const SECTIONS = [
 	{
         head: 'What is Dostava?',
-        content: 'Dostava is your new Money Mate, you keep doing your normal work and at the same time you can start earning more.',
+        content: 'Dostava is an 100% Australian owned online platform based in the heart of Perth, that connects the small stores to the customers living in the nearby area through a location based app. It is the ultimate solution to convenient shopping and effective business.',
     },
 	{
         head: 'How does it work?',
-        content: 'Your friendly Dostava App will provide you option to pick up your Delivery order one day in advance. Yes, One Day in Advance.',
-		content2:'Let’s say it is Monday today, you will get all the order details by Monday night, you need to pick up the Groceries on Tuesday and Deliver it on Tuesday.',
-		content3:'When you are driving Rideshare or any other work, you can pass by the Grocery store and pick up your Dostava Delivery. Most of the time you do not need to go to the store specially.',
-		content4:'You can plan your Next Day Order Pickup and Delivery in advance.'
+        content: 'Dostava works through an easy-to-use application available for your android and iOs devices. Through the application or the Dostava website, grocery shopping is as easy as tapping on your mobile screen. Place an order by navigating through a number of stores available near you and get it delivered at your doorstep.',
+		content2:'If you’re a vendor looking to increase sales online, register through the Dostava application or through our website. Accept the orders from customers, pack and prepare it for the delivery rider to pick and get paid. It’s that simple.',
     },
     {
         head: 'How much I need to pay to register with dostava?',
@@ -56,8 +54,7 @@ const SECTIONS = [
 	},
 	{
 		head: 'Where do I pick up the groceries from?',
-		content: 'Your friendly Dostava app will send you address details of all your orders.',
-		content2:'Your day to day grocery product pickups will be'
+		content: 'Your friendly Dostava application will send you complete details of the pick and drop of the package and the money you will be making for the gig.',
 	  },
 	  {
 		head: 'When do I deliver the groceries?',
@@ -70,7 +67,7 @@ const SECTIONS = [
 	  },
 	  {
 		head: 'Do I need to install the Mobile application to work with Dostava?',
-		content: 'Yes, your friendly Dostava Mobile application will provide you',
+		content: 'Yes. Install the Dostava Mobile Application available for your android and iOs devices.',
 		
 	  },
 	  {
@@ -85,7 +82,7 @@ const SECTIONS = [
 	  },
 	  {
 		head: 'How often I get paid for the work?',
-		content: 'You will get paid every……',
+		content: 'Dostava provides you with the luxury of getting paid per order. The Dostava mobile application will send complete cash details every time an order is placed or a transaction has been made.',
 		
 	  },
 	  {
@@ -138,7 +135,7 @@ const SECTIONS = [
 	  },
 	  {
 		head: 'Do we have to be a BIG Business to join Dostava?',
-		content: 'Dostava is like you business mate. We do not distinguish but we are here to help everyone.',
+		content: 'Dostava appreciates all kinds of businesses. You may not be a big business yet, but we’ll surely help you get there.',
 	  },
 	  {
 		head: 'Do we need to hire deliver drivers?',
@@ -170,9 +167,9 @@ const SECTIONS = [
 	  },
 	  {
 		head: 'What if we do not have all the products available from the order?',
-		content: 'You can simply update the order from your friendly mobile app.',
-		content2:'Once you update the order, customer will get notification as well.',
-		content3:'You can also remove that product from your online platform anytime.'
+		content: 'You can simply update your inventory and the items available to order from your friendly mobile application.',
+		content2:'Once you update the order, customers will get notification as well.',
+		content3:'Our customer support will be working 24/7 to assist you in any query related to the functioning of the application.'
 	  },
 	  {
 		head: 'Can we change price of any product any time?',
@@ -181,8 +178,7 @@ const SECTIONS = [
 	  },
 	  {
 		head: 'Do we have to sign up any contract with Dostava?',
-		content: '………',
-		
+		content: 'If you are looking to partner up as a delivery mate, Dostava offers you complete freedom. It is a no-contract, get paid as you go job. All you need is a smartphone and a vehicle and you’re set to go! Register now and start earning extra money.',
 	  },
 	  {
 		head: 'Do we require ABN to work with Dostava?',
@@ -202,6 +198,10 @@ function Faq(props){
     return(
       
         <Container className="wrapper" fluid>
+		<Helmet>
+			<title>Frequently Ask Questions | FAQs | Dostava </title>
+			<meta name="description" content="Frequently ask questions about vendor and driver registration process and other important procedure. " />
+		</Helmet>
             <Header  {...props} title={"FAQS"} />
             <section id="slider" class="driver-page faq">
                 <div class="container"> 

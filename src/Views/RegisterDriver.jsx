@@ -17,6 +17,7 @@ import FontAwesome from 'react-fontawesome';
 import gql from "graphql-tag";
 import { createRiderFromWeb } from "../apollo/server";
 import Accord from '../Components/Accord';
+import { Helmet } from "react-helmet";
 
 const DRIVER_REGISTER = gql`${createRiderFromWeb}`
 
@@ -149,24 +150,33 @@ function RegisterDriver(props){
 	function onCompleted({ graphQLErrors, networkError }){
 		setSuccess('Successfully Register Driver')
         clearFields()
-		setTimeout(hideAlert, 7000)
+		//setTimeout(hideAlert, 7000)
+		props.history.push({
+			pathname: '/thank-you-driver',
+		  });
     }
     
     
     return(
       
         <Container className="wrapper" fluid>
-            <Header  {...props} title="Register Driver"/>
+			
+			<Helmet>
+        <title>Deliver with Dostava | Become a Delivery Partner</title>
+        <meta name="description" content="Become Dostava delivery partner. Register now to earn money making deliveries with us. Work on your own time and decide how much you make." />
+      		</Helmet>
+
+		    <Header  {...props} title="Register Driver"/>
             <section id="slider" class="driver-page register-driver"> 
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <h1>Keep <strong>Driving.</strong> Keep <strong>Earning</strong></h1>
-                            <br/>
+                            {/* <br/>
                             <br/>
                             <a class="download" href="javascript:void(0)">Download App <FontAwesome name="long-arrow-right" /></a>
                             <a class="download" href="javascript:void(0)">Fill the form <FontAwesome name="long-arrow-right" /></a>
-                            
+                             */}
                             <div class="download-app">
                                 <a href="https://play.google.com/store/apps/details?id=com.dostava.driver"><img class="img-fluid" src="../Assets/Img/google-play.png" alt="google-play"></img></a>
                                 <a href="https://apps.apple.com/us/app/dostava-rider/id1542024806"><img class="img-fluid" src="../Assets/Img/app-store.png" alt="app-store"></img></a>
@@ -252,6 +262,7 @@ function RegisterDriver(props){
 							// valid={true} 
 							invalid={contactnoErr}
 							value={contactno}
+							type={"number"}
 							/>
 							<FormFeedback>Contact No is Required</FormFeedback>
 						</FormGroup>
@@ -282,7 +293,7 @@ function RegisterDriver(props){
 					 
 						
 						<br/>
-                        <label>By Pressing the submit button you agree to our <a target="_blank" href="#" onClick="window.open('/privacy-policy','privacy-policy','resizable,height=260,width=370'); return false;"><strong>Privacy policy</strong></a> and <a target="_blank" href="#" onClick="window.open('/terms-condition','terms-condition','resizable,height=260,width=370'); return false;"><strong>Terms and conditions</strong></a></label><br/><br/>
+                        <label>By Pressing the submit button you agree to our <a target="_blank" href="/privacy-policy"><strong>Privacy policy</strong></a> and <a target="_blank" href="/terms-of-use"><strong>Terms and conditions</strong></a></label><br/><br/>
 						<FormGroup>
                             <Mutation
 						mutation={DRIVER_REGISTER}

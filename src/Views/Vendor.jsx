@@ -231,7 +231,7 @@ function Vendor(props) {
         <Row>
           <Col lg="12">
           <h2 className="title text-center">Stores</h2>
-					 <p className="content text-center">The purpose of lorem ipsum is to create a natural looking block of text that doesn't distract from the layout.</p>
+					 <p className="content text-center">Pick out the nearby store you usually buy groceries from, select the items you want and proceed to checkout.</p>
           </Col>
         </Row>
       </Container>

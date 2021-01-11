@@ -199,6 +199,8 @@ span.navbar-toggler-icon.fa.fa-bars {
             margin: 0 auto;
         }
 
+        
+
 @media only screen and (max-width: 991px) {
 	#navbar .navbar-nav {
 	    float: none;
@@ -251,6 +253,12 @@ span.navbar-toggler-icon.fa.fa-bars {
 }
 #slider .download-app {
     margin-top: 60px;
+}
+#slider.register-vend, #slider.register-driver{
+    padding-top:180px;
+}
+#slider.register-vend .download-app, #slider.register-driver .download-app{
+    margin-top:10px;
 }
 #slider .download .fa-long-arrow-alt-right {
     margin-left: 5px;

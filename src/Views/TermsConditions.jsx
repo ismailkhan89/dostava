@@ -23,7 +23,7 @@ import {Link, useRouteMatch, useParams } from 'react-router-dom';
 
 
 import { Redirect , useHistory  } from "react-router-dom";
-
+import { Helmet } from "react-helmet";
 
 
 
@@ -33,6 +33,11 @@ function TermsConditions(props){
     return(
       
         <Container className="wrapper" fluid>
+              <Helmet>
+			<title>Terms of Use | T&C | Dostava</title>
+			<meta name="description" content="Our aim to make Dostava safer for everyone. Before you begin using Dostava, please read these terms and conditions." />
+		</Helmet>
+
             <Header  {...props} title={"Terms Of Use"} />
             <section id="how-it-works">
                 <div class="how-it-works-heading">
