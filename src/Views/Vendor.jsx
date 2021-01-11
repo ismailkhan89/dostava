@@ -49,6 +49,11 @@ const getVendorbyLocation = gql`${getVendorByLocation}`
 
 function Vendor(props) {
 
+  
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  },[]);
+
   const [_id, setId] = useState(props.match.params?.id ?? null);
   // const [lat,setlat] = useState(props.location.state?.location?.lat?.toString() ?? null);
   // const [lng,setlng] = useState(props.location.state?.location?.lng?.toString() ?? null);
