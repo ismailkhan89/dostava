@@ -275,7 +275,10 @@ function RegisterVendor(props){
 					 	<FormGroup>
 							<Label>First Name</Label>
 							<Input 
-							onChange={(e) => setFirstName(e.target.value)} 
+							onBlur={() => firstname === "" && setFirstnameErr(true)}
+							onChange={(e) => {
+								setFirstName(e.target.value)
+								setFirstnameErr(false)}} 
 							// valid={true} 
 							invalid={firstnameErr}
 							value={firstname}
@@ -286,7 +289,11 @@ function RegisterVendor(props){
 						<FormGroup>
 							<Label>Last Name</Label>
 							<Input 
-							onChange={(e) => setLastname(e.target.value)} 
+							onBlur={() => lastname === "" && setLastnameErr(true)}
+							onChange={(e) =>{ 
+								setLastname(e.target.value)
+								setLastnameErr(false)
+							}} 
 							// valid={true} 
 							invalid={lastnameErr}
 							value={lastname}
@@ -297,7 +304,13 @@ function RegisterVendor(props){
 						<FormGroup>
 							<Label>Contact No</Label>
 							<Input 
-							onChange={(e) => setContactno(e.target.value)} 
+							onBlur={() => contactno === "" && setContactnoErr(true)}
+							onChange={(e) => {
+								if(e.target.value.length <= 11){
+									setContactno(e.target.value)
+									setContactnoErr(false)
+								}
+							}} 
 							// valid={true} 
 							invalid={contactnoErr}
 							value={contactno}
@@ -309,7 +322,10 @@ function RegisterVendor(props){
 						<FormGroup>
 							<Label>Email Address</Label>
 							<Input 
-							onChange={(e) => setEmail(e.target.value)} 
+							onBlur={() => email === "" && setEmailErr(true)}
+							onChange={(e) => {
+								setEmail(e.target.value)
+								setEmailErr(false)}} 
 							// valid={true} 
 							invalid={emailErr}
 							value={email}
@@ -320,8 +336,11 @@ function RegisterVendor(props){
 						<FormGroup>
 							<Label>Password</Label>
 							<Input 
+							onBlur={() => password === "" && setPasswordErr(true)}
 							type="password"
-							onChange={(e) => setPassword(e.target.value)} 
+							onChange={(e) => {
+								 setPassword(e.target.value)
+								setPasswordErr(false)}} 
 							// valid={true} 
 							invalid={passwordErr}
 							value={password}
