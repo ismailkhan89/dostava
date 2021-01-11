@@ -301,6 +301,7 @@ function RegisterVendor(props){
 							// valid={true} 
 							invalid={contactnoErr}
 							value={contactno}
+							type={"number"}
 							/>
 							<FormFeedback>Contact No is Required</FormFeedback>
 						</FormGroup>

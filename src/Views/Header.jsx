@@ -112,7 +112,7 @@ function Header(props) {
                   <UncontrolledDropdown nav>
                     <DropdownToggle className="pr-0" nav>
                       <Media className="align-items-center">
-                      <h6 className="text-overflow m-0">{userObj.name}</h6>
+                      <h6 className="text-overflow m-0"><FontAwesome name="user-circle-o" />{userObj.name}</h6>
                           {/* <span className="mb-0 text-sm">
                           {userObj.name}
                           </span> */}
@@ -168,7 +168,26 @@ function Header(props) {
               // }}   >Logout <FontAwesome name="user" /></Link>
               :
               
-                <Link to="/login"><FontAwesome name="user-circle-o" /> Login</Link>
+                
+                <Nav className="align-items-center  d-md-flex" navbar>
+                  <UncontrolledDropdown nav>
+                    <DropdownToggle className="pr-0" nav>
+                      <FontAwesome name="user-circle-o" /> User
+                    </DropdownToggle>
+                    <DropdownMenu className="dropdown-menu-arrow" right>
+                      <DropdownItem >
+                        <Link to="/login"> Login </Link>
+                      </DropdownItem>
+                      <DropdownItem divider />
+                      <DropdownItem>
+                      
+                      <a href="https://vendor.dostava.com.au/">Login as Vendor</a>
+                        {/* <i className="ni ni-user-run" />
+                        <span>{'Logout'}</span> */}
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+              </Nav>
               }
           </Col>
           <Col lg="1" md="2" sm="2" xs="2" className="login text-right max-480">

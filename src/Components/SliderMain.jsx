@@ -17,6 +17,7 @@ import { server_url } from  "../config/config"
 import Slider from "react-slick";
 import { getCartItems } from '../apollo/client';
 import { useQuery, useMutation } from '@apollo/react-hooks'
+import Modal2 from './ModalPopup';
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
@@ -67,6 +68,16 @@ function SliderMain(props){
           ]
   };
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow2 = () => setShow(true);
+
+  function handleShow(){
+    console.log(":dxdfxdxfdxf")
+    setShow(!show)
+  }
+
     React.useEffect(() => {
         client.query({ query: GET_FEATURED_VENDORS, fetchPolicy: 'network-only' }).then(data => {
             console.log("getFeaturedVendors fetau", data)
@@ -79,15 +90,16 @@ function SliderMain(props){
         <Slider {...settingsFeatureProducts}>
         {products !== null && products.length > 0 && products.map((product, index) => (
         
-            <div  key = {index}>
+            <div  key = {index} onClick={()=>handleShow()}>
                 {product.picture !== null && product.picture !== "" ? 
                 <img src={product.picture}></img> : 
                 <img src="../Assets/Img/store.png"></img>
                 }
                 <h3>{product.business_name}</h3>
-              
+                
             </div>
         ))}
+        <Modal2 show={show} handleClose={() =>handleShow()} {...props}/>
         </Slider>
      </>
     )

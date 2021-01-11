@@ -30,10 +30,12 @@ import {
     Row,
     Col,
     Button,
+   
     ListItem
     // Link
 } from "reactstrap";
 import FontAwesome from 'react-fontawesome';
+import Modal from 'react-bootstrap/Modal'
 import { Form, FormControl } from 'react-bootstrap';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories, getFeaturedProducts, getConfiguration
@@ -254,6 +256,11 @@ function HomePage(props){
         ]
     };
 
+    const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
     return(
       
         <Container className="wrapper" fluid>
@@ -263,6 +270,8 @@ function HomePage(props){
       		</Helmet>
          <Header  {...props} title="Dostava - Online Grocery Delivery – Order Online from Store Near You" />
          
+
+      
          
 
         {/* <Link to="/cart">Cart</Link>
@@ -375,7 +384,7 @@ like every other ride-sharing app.</p>
                 <Row>
                   <Col lg="7" md="8" sm="12" xs="12" className="home-slider-text">
                     <h3>Dostava</h3>
-                    <h4><strong>Groceries</strong> stores in your area, now in your phone</h4>
+                    <h4><strong>Grocery</strong> stores in your area, now in your phone</h4>
                     <Form inline className="text-right search-form">
                       {/* <FormControl type="text" placeholder="Enter Location here..." className="mr-sm-2" /> */}
                       <PlacesAutocomplete
@@ -488,7 +497,7 @@ time. If you own a store in Perth, register now and start selling big.</p>
           <Row>
             <Col lg="12">
               <h2>Popular on Dostava</h2>
-              <SliderPopular />
+              <SliderPopular  {...props}/>
               {/* <Slider {...settings2}>
                 <div>
                   <img src="../Assets/Img/slider-pic.png"></img>
@@ -522,7 +531,7 @@ time. If you own a store in Perth, register now and start selling big.</p>
           <Row>
             <Col lg="12">
               <h2>Featured on Dostava</h2>
-              <SliderMain />
+              <SliderMain {...props}/>
               {/* <Slider {...settings3}>
                 <div>
                   <img src="../Assets/Img/slider-pic.png"></img>
