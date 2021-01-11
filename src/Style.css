@@ -187,7 +187,9 @@
 }
 .slider-area-new .slick-slider img{
     object-fit: cover;
-    min-height:250px; 
+    min-height:250px;
+    max-height:250px; 
+    object-fit:cover;
     margin-bottom: 10px;
 }
 
@@ -2496,6 +2498,11 @@ padding-left:70px;
     right: 20px;
     text-decoration: none;
     bottom: -15px;
+}
+#dry-fruits .product-list img{
+    min-height:320px;
+    max-height:320px;
+    object-fit:cover;
 }
 
 .autocomplete-dropdown-container {
