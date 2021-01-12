@@ -98,8 +98,8 @@ function SliderPopular(props){
                 <h3>{product.business_name}</h3>
             </div>
         ))}
-        <Modal2 show={show} handleClose={() =>handleShow()} {...props}/>
         </Slider>
+        <Modal2 show={show} handleClose={() =>handleShow()} {...props}/>
      </>
     )
 }
