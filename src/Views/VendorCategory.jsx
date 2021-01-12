@@ -340,7 +340,7 @@ function VendorCategory(props) {
 
                     {category.img_url !== "" && category.img_url !== null ? 
                       <img className="img-fluid" src={category.img_url} alt=""></img>
-                    :  <img className="img-fluid" src="../Assets/Img/product-detail-img.png" alt=""></img>
+                    :  <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt=""></img>
                     }
                     </div>
                     <div className="product-desc">
@@ -396,10 +396,10 @@ function VendorCategory(props) {
                     } 
                     return(
                      <Col lg="4" md="6" sm="12" xs="12" key={index}>
-                      <div className="product-list">
+                      <div className="product-list store-item">
                       {category.img_url !== "" && category.img_url !== null ?
                           <img className="img-fluid" src={category.img_url} alt=""></img>
-                        : <img className="img-fluid" src="../Assets/Img/store.png" alt=""></img>
+                        : <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt=""></img>
                          }
                           <h3>
                           <span><strong>{stripedHtml}

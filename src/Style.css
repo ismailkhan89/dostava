@@ -2507,6 +2507,9 @@ padding-left:70px;
     display: block;
     margin:auto;
 }
+#dry-fruits .product-list.store-item img{
+    object-fit: contain;
+}
 
 .autocomplete-dropdown-container {
     position: absolute;
