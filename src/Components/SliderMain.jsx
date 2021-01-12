@@ -44,7 +44,6 @@ function SliderMain(props){
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 1,
-        rows: 0,
         responsive: [
           {
             breakpoint: 1024,
