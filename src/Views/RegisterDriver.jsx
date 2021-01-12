@@ -24,43 +24,41 @@ const DRIVER_REGISTER = gql`${createRiderFromWeb}`
 const SECTIONS = [
 	{
         head: 'What is Dostava?',
-        content:'Dostava is your new Money Mate, you keep doing your normal work and at the same time you can start earning more.'
+        content:'Dostava is an online grocery shopping store and your new Money Mate. You can keep doing your normal work and, at the same time, start earning more by working for us as a delivery rider.'
     },
 	{
         head: 'How does it work?',
-        content: 'Your friendly Dostava App will provide you option to pick up your Delivery order one day in advance. Yes, One Day in Advance.',
-		content2:'Let’s say it is Monday today, you will get all the order details by Monday night, you need to pick up the Groceries on Tuesday and Deliver it on Tuesday.',
-		content3:'When you are driving Rideshare or any other work, you can pass by the Grocery store and pick up your Dostava Delivery. Most of the time you do not need to go to the store specially.',
-		content4:'You can plan your Next Day Order Pickup and Delivery in advance.',
+        content: 'Dostava provides you with an option to pick up your delivery order one day in advance. If the groceries need to be delivered on Tuesday, you will get all the order details by Monday night, and you can pick the order on Tuesday to deliver.',
+		content2:'When you drive to Rideshare or any other work, you can pass by the Grocery store and pick up your Dostava delivery. Most of the time, you don’t need to go to the store especially, to pick up the order.',
+		content3:'With Dostava, work with freedom and plan your next day order pickup and delivery in advance.',
     },
     {
         head: 'How much I need to pay to register with dostava?',
-        content: 'Your friendly Dostava App is free for you to install and you can start using it and start earning.',
+        content: 'Dostava is free to install. You can start using it and earning right after you register for free.',
 	},
     {
       head: 'How much I get paid for each delivery?',
-	  content: 'Your friendly Dostava App will show you your delivery fees. Your delivery fees start from $9.99 for each delivery.',
+	  content: 'For each delivery, the fee starts from $9.99.',
 	},
 	{
 		head: 'Where do I pick up the groceries from?',
-		content: 'Your friendly Dostava app will send you address details of all your orders.',
-		content2:'Your day to day grocery product pickups will be',
+		content: 'We will send you the complete details of the shop from where you have to pick up the order. You will have the whole information about the shop, including the address shown on the map, and the contact number on which you can call.',
 	  },
 	  {
 		head: 'When do I deliver the groceries?',
-		content: 'Your order pickup and Delivery both are for next day. you pick up the order and deliver it on the same day. Plan your day ahead, how easy is that… we are here to look after you.'
+		content: 'You can schedule your order pick-up and delivery in advance and then pick up and deliver it on the same day.'
 	  },
 	  {
 		head: 'How many hours I have before I can deliver the Groceries?',
-		content: 'Because you will get your Grocery Pickup list one day before, you have full day to pick up the order and delivery it on the same day as Pickup.'
+		content: 'You have a full day in advance to pick up the order and deliver it on the same day.'
 	  },
 	  {
 		head: 'Do I need to install the Mobile application to work with Dostava?',
-		content: 'Yes, your friendly Dostava Mobile application will provide you'
+		content: 'Yes, you need to install the Dostava mobile app and start earning instantly.'
 	  },
 	  {
 		head: 'Do I need ABN number to work with Dostava?',
-		content: 'Yes, you require Australian Business Number (ABN) to work with Dostava.',
+		content: 'Yes, you require an Australian Business Number (ABN) to work with Dostava.',
 	  },
 	  {
 		head: 'Do I have to register for GST?',
@@ -68,7 +66,7 @@ const SECTIONS = [
 	  },
 	  {
 		head: 'How often I get paid for the work?',
-		content: 'You will get paid every……',
+		content: 'You will get paid by the end of every week.',
 	  }
   ];
 

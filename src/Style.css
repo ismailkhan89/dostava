@@ -187,7 +187,9 @@
 }
 .slider-area-new .slick-slider img{
     object-fit: cover;
-    min-height:250px; 
+    min-height:250px;
+    max-height:250px; 
+    object-fit:cover;
     margin-bottom: 10px;
 }
 
@@ -2476,6 +2478,7 @@ padding-left:70px;
     color: #999999;
     margin-bottom: 10px;
     line-height: 16px;
+    min-height:32px;
 }
 .product-list .price {
     margin-bottom: 0;
@@ -2495,7 +2498,17 @@ padding-left:70px;
     position: absolute;
     right: 20px;
     text-decoration: none;
-    bottom: -15px;
+    bottom: 15px;
+}
+#dry-fruits .product-list img{
+    min-height:320px;
+    max-height:320px;
+    object-fit:cover;
+    display: block;
+    margin:auto;
+}
+#dry-fruits .product-list.store-item img{
+    object-fit: contain;
 }
 
 .autocomplete-dropdown-container {
@@ -2564,6 +2577,9 @@ padding-left:70px;
     .app-area .app-area-img img{
         left:-38%;
         margin-top:-20px;
+    }
+    .product-list h3{
+        font-size:13px;
     }
 }
 @media screen and (min-width:768px) and (max-width:992px){

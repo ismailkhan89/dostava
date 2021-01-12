@@ -591,10 +591,10 @@ time. If you own a store in Perth, register now and start selling big.</p>
                   <h3>Dostava Application is Now Available for Android and iOs Devices.</h3>
                   <a href="https://apps.apple.com/us/app/dostava/id1543132324">
                     
-                    <img src="../Assets/Img/footer-appstore.png"></img>
+                    <img src="../Assets/Img/apple-store.png"></img>
                   </a>
                   <a href="https://play.google.com/store/apps/details?id=com.dostava">
-                    <img src="../Assets/Img/footer-googleplay.png"></img>
+                    <img src="../Assets/Img/gplay.png"></img>
                   </a>
                 </Col>
                 <Col lg="6" md="5" sm="12" xs="12" className="app-area-img">
