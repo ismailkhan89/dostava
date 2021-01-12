@@ -99,8 +99,8 @@ function SliderMain(props){
                 
             </div>
         ))}
-        <Modal2 show={show} handleClose={() =>handleShow()} {...props}/>
         </Slider>
+        <Modal2 show={show} handleClose={() =>handleShow()} {...props}/>
      </>
     )
 }
