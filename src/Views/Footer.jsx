@@ -56,7 +56,7 @@ class Footer extends React.Component{
               <h3>About Dostava</h3>
                 <ul>
                   <li><a href="/our-story">Our Story</a></li>
-                  <li><a href="javascript:void(0)">Safety</a></li>
+                  <li><a href="/safety">Safety</a></li>
                   <li><a href="/blogs">Blogs</a></li>
                   <li><a href="/register-vendor">Vendors</a></li>
                   <li><a href="/register-driver">Delivery Partners</a></li>

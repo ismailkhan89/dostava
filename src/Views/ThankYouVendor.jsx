@@ -46,12 +46,13 @@ function ThankYouVendor(props){
                             <p>Check your registered Email for login details</p>
                             <hr/>
                             <h3>Download Our App</h3>
-                            <a href="https://apps.apple.com/us/app/dostava/id1543132324">
+                            <a href="https://apps.apple.com/us/app/dostava-vendor/id1542002438">
                                 <img src="../Assets/Img/footer-appstore.png"></img>
                             </a>
-                            <a href="https://play.google.com/store/apps/details?id=com.dostava">
+                            <a href="https://play.google.com/store/apps/details?id=com.dostava.vendor">
                                 <img src="../Assets/Img/footer-googleplay.png"></img>
                             </a>
+                            
 				        </div>
 			        </div> 
 			    </div> 

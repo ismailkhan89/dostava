@@ -37,7 +37,7 @@ function PrivacyPolicy(props){
 			<title>Our Story |  Dostava </title>
 			<meta name="description" content="At Dostava we strictly follow the privacy policy for customer, vendor, and drivers. Your contact Information is safe with us." />
 		</Helmet>
-      <Header  {...props} title={"Privacy Policy"} />
+      <Header  {...props} title={"Our Story"} />
       <section id="how-it-works">
         <div class="how-it-works-heading">
                 <div class="container">
