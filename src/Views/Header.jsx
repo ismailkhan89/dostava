@@ -176,7 +176,7 @@ function Header(props) {
                     </DropdownToggle>
                     <DropdownMenu className="dropdown-menu-arrow" right>
                       <DropdownItem >
-                        <Link to="/login"> Login </Link>
+                        <Link to="/login"> Login/Signup </Link>
                       </DropdownItem>
                       <DropdownItem divider />
                       <DropdownItem>

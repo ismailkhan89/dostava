@@ -188,8 +188,8 @@ function RegisterVendor(props){
                             <a class="download" href="javascript:void(0)">Download App <FontAwesome name="long-arrow-right" /></a>
                             <a class="download" href="javascript:void(0)">Fill the form <FontAwesome name="long-arrow-right" /></a>  */}
                             <div class="download-app">
-                                <a href="javascript:void(0)"><img class="img-fluid" src="../Assets/Img/google-play.png" alt="google-play"></img></a>
-                                <a href="javascript:void(0)"><img class="img-fluid" src="../Assets/Img/app-store.png" alt="app-store"></img></a>
+							<a href="https://play.google.com/store/apps/details?id=com.dostava.driver"><img class="img-fluid" src="../Assets/Img/google-play.png" alt="google-play"></img></a>
+                                <a href="https://apps.apple.com/us/app/dostava-rider/id1542024806"><img class="img-fluid" src="../Assets/Img/app-store.png" alt="app-store"></img></a>
                             </div>
                         </div>
                     </div>

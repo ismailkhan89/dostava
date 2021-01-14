@@ -629,6 +629,9 @@ margin-bottom:10px;
 .download-app-text img{
     margin-right:15px;
 }
+#download-app .thank-you-text > a{
+    margin-right:15px;
+}
 .form-area{
     background-color: #ffffff;
     padding:50px 30px;
@@ -1412,6 +1415,14 @@ padding-left:70px;
 .footer-area .widget-area .footer-app h3,
 .footer-area .widget-area .quickmenu.social h3{
     margin-bottom:20px;
+}
+.thank-you h3{
+    font-weight: bold;
+    color: #000000;
+    text-transform: uppercase;
+}
+.thank-you a{
+    margin-right:15px;
 }
 .footer-area .widget-area .footer-app img{
     display: block;

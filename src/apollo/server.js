@@ -298,6 +298,7 @@ export const foods = `
         state
         lat
         long
+        physical_address
     }
   }`
 
