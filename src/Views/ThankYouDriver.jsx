@@ -38,13 +38,20 @@ function ThankYouDriver(props){
 			<meta name="description" content="Add your products to your cart and hit purchase, track your order. Your grocery will be at your doorstep." />
 		</Helmet>
             <Header  {...props} title={"Thank you Driver"}/>
-            <section id="category">
+            <section id="category" class="thank-you">
 		        <div class="container"> 
 			        <div class="row">
 				        <div class="col-md-12 text-center">
-					        <h2>Thank you for registering to Dostava</h2>
-					        <p>Our team will shortly contact to you</p>
+					        <h2>Thankyou for registering with Dostava</h2>
+					        <p>Check your registered Email for login details</p>
 					        <hr/>
+                            <h3>Download Our App</h3>
+                            <a href="https://apps.apple.com/us/app/dostava-rider/id1542024806">
+                                <img src="../Assets/Img/footer-appstore.png"></img>
+                            </a>
+                            <a href="https://play.google.com/store/apps/details?id=com.dostava.driver">
+                                <img src="../Assets/Img/footer-googleplay.png"></img>
+                            </a>
 				        </div>
 			        </div> 
 			    </div> 
@@ -60,7 +67,7 @@ function ThankYouDriver(props){
                         </div> 
                     </div>
                 </div>
-                <div class="how-it-work-content">
+                <div class="how-it-work-content img-setup">
                     <div class="container"> 
     			        <div class="row"> 
                             <div class="col-md-4">
@@ -69,54 +76,28 @@ function ThankYouDriver(props){
                                         <span class="number">1</span>
                                         <img class="img-fluid" src="../Assets/Img/how-01.png" alt="how-1"></img>
                                     </div>
-                                    <p class="how-to-get">Download the Dostava application from google <strong>playstore</strong> or <strong>IOS Appstore.</strong></p>
+                                    <p class="how-to-get"><strong>Download</strong> the Dostava App or Login at <a href="https://vendor.dostava.com.au">vendor.dostava.com.au</a></p>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="steps">
                                     <div class="process">
                                         <span class="number">2</span>
-                                        <img class="img-fluid" src="../Assets/Img/how-02.png" alt="how-2"></img>
+                                        <img class="img-fluid" src="../Assets/Img/verify-vehicle.png" alt="how-2"></img>
                                     </div>
-                                    <p class="how-to-get">Install and register to <strong>create an account</strong> in a few simple steps.</p>
+                                    <p class="how-to-get">Verify your’s and your vehicle’s information</p>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="steps">
                                     <div class="process">
                                         <span class="number">3</span>
-                                        <img class="img-fluid" src="../Assets/Img/how-03.png" alt="how-3"></img>
+                                        <img class="img-fluid" src="../Assets/Img/start-accepting-gigs.png" alt="how-3"></img>
                                     </div>
-                                    <p class="how-to-get"><strong>Search</strong> for your product or browse through stores near you.</p>
+                                    <p class="how-to-get">Start accepting delivery gigs</p>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="steps">
-                                    <div class="process">
-                                        <span class="number">4</span>
-                                        <img class="img-fluid" src="../Assets/Img/how-04.png" alt="how-4"></img>
-                                    </div>
-                                    <p class="how-to-get">Add your products to your <strong>cart</strong> and <strong>hit purchase!</strong></p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="steps">
-                                    <div class="process">
-                                        <span class="number">5</span>
-                                        <img class="img-fluid" src="../Assets/Img/how-05.png" alt="how-5"></img>
-                                    </div>
-                                    <p class="how-to-get">You can <strong>track</strong> your <strong>order</strong> as a driver near the store will be assigned.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="steps">
-                                    <div class="process">
-                                        <span class="number">6</span>
-                                        <img class="img-fluid" src="../Assets/Img/how-06.png" alt="how-6"></img>
-                                    </div>
-                                    <p class="how-to-get"><strong>Get your <span>items delivered</span> at your doorstep!</strong></p>
-                                </div>
-                            </div>
+                            
     			        </div> 
     		        </div>	
                 </div>
@@ -127,15 +108,16 @@ function ThankYouDriver(props){
                         <div className="col-md-3">
                             <img className="img-fluid" src="../Assets/Img/app-screen.png" alt="app-screen"></img>
                         </div>
-                        <div className="col-md-7">
+                        <div className="col-md-7 thank-you-text">
                             <h2>Download our <strong>application</strong></h2>
                             <hr/>
                             <p>A location-based online marketplace that connects people with small businesses and neighbourhood stores in their locality. Dostava has its fleet of drivers who will be available for delivery within minutes like every other ride-sharing app. People don’t need to rely only on the few grocery giants as they can now support small business owners near their home or workplace.</p>
-                            <div className="become-a">
-                                <a href="/register-driver">Become a Driver</a>
-                                <a href="/register-vendor">Become a Vendor</a>
-                            </div>
-                            <a className="download" href="javascript;">Download App <i className="fa fa-long-arrow-alt-right"></i></a>
+                            <a href="https://apps.apple.com/us/app/dostava/id1543132324">
+                                <img src="../Assets/Img/footer-appstore.png"></img>
+                            </a>
+                            <a href="https://play.google.com/store/apps/details?id=com.dostava">
+                                <img src="../Assets/Img/footer-googleplay.png"></img>
+                            </a>
                         </div>
                         <div className="col-md-2">
                             

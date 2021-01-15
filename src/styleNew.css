@@ -343,6 +343,12 @@ div#features {
     padding: 106px 0 0 0;
    /* border-bottom: 3px solid #ebebeb; */
 }
+#how-it-works .how-it-work-content.img-setup .steps .process img{
+    max-height:160px;
+    object-fit:cover;
+    margin:auto;
+    display:block;
+}
 #how-it-works a {
     font-size: 17px;
     font-weight: 700;
@@ -980,6 +986,9 @@ body#layout3 section#slider, .register-vend {
     /*display: flex;*/
     flex-direction: column;
     justify-content: center;
+}
+.register-vend{
+    background-image: url(../src/Assets/Img/banner-vendor.jpg) !important;
 }
 
 section#work-with-freedom p.pbold {

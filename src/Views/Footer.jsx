@@ -55,11 +55,11 @@ class Footer extends React.Component{
             <Col lg="3" md="12" sm="12" xs="12" className="quickmenu">
               <h3>About Dostava</h3>
                 <ul>
-                <li><a href="javascript:void(0)">Safety</a></li>
+                  <li><a href="/our-story">Our Story</a></li>
+                  <li><a href="/safety">Safety</a></li>
                   <li><a href="/blogs">Blogs</a></li>
                   <li><a href="/register-vendor">Vendors</a></li>
                   <li><a href="/register-driver">Delivery Partners</a></li>
-                  <li><a href="/our-story">Our Story</a></li>
                 </ul>
             </Col>
            

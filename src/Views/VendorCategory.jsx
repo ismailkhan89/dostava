@@ -95,6 +95,9 @@ function VendorCategory(props) {
   const [description ,setDescription] = useState(
     JSON.parse(localStorage.getItem('storeItem'))?.description ?? null)
 
+    const [physical_address ,setPhysicalAddress] = useState(
+      JSON.parse(localStorage.getItem('storeItem'))?.location ?? null)
+
     
   const [messagealert , setMessage ] = useState('')
   const [messagecolor , setMessagecolor ] = useState('')
@@ -253,7 +256,7 @@ function VendorCategory(props) {
         <Row>
           <Col lg="12">
           <h2 className="title text-center">{title}</h2>
-        <p className="content text-center">{description}</p>
+        <p className="content text-center">{physical_address}</p>
           </Col>
         </Row>
       </Container>

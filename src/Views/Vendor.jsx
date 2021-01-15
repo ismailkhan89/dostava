@@ -377,6 +377,7 @@ function Vendor(props) {
                     let news = {
                         title : category.business_name,
                         description : category.name,
+                        location : category.physical_address
                     };
                     localStorage.setItem('storeItem',JSON.stringify(news));
                     props.history.push({

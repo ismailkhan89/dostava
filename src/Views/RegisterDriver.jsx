@@ -292,7 +292,7 @@ function RegisterDriver(props){
 							<Input 
 							onBlur={() => email === "" && setEmailErr(true)}
 							onChange={(e) => {
-								setEmail(e.target.value)
+								setEmail(e.target.value.toLowerCase())
 								setEmailErr(false)
 							}} 
 							// valid={true} 

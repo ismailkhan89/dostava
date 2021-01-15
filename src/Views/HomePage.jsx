@@ -588,7 +588,7 @@ time. If you own a store in Perth, register now and start selling big.</p>
         <Container className="app-area" fluid>
               <Row>
                 <Col lg="6" md="7" sm="12" xs="12" className="app-area-text">
-                  <h3>Dostava Application is Now Available for Android and iOs Devices.</h3>
+                  <h3>Make things easier, download the app</h3>
                   <a href="https://apps.apple.com/us/app/dostava/id1543132324">
                     
                     <img src="../Assets/Img/apple-store.png"></img>
