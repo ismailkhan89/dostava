@@ -90,6 +90,7 @@ function RegisterDriver(props){
 
 	const [succcess , setSuccess] = React.useState('')
 	const [Errors , setErrors] = React.useState('')
+	const[iconEye,setIconEye] = React.useState('eye-slash')
 
 	function clearErrorField(){
 		setFirstnameErr(false)
@@ -155,7 +156,15 @@ function RegisterDriver(props){
 		  });
     }
     
-    
+	
+	function onChangeIcon(){
+		if(iconEye === 'eye'){
+		  setIconEye('eye-slash')
+		} else{
+		  setIconEye('eye')
+		}
+	}
+
     return(
       
         <Container className="wrapper" fluid>
@@ -305,7 +314,7 @@ function RegisterDriver(props){
 						<FormGroup>
 							<Label>Password</Label>
 							<Input 
-							type="password"
+							type={iconEye === 'eye' ? 'text' : 'password' }
 							onChange={(e) => {
 								setPassword(e.target.value)
 								setPasswordErr(false)
@@ -316,6 +325,10 @@ function RegisterDriver(props){
 							onBlur={() => password === "" && setPasswordErr(true)}
 							/>
 							<FormFeedback>Password is Required</FormFeedback>
+							<FontAwesome 
+								style={{position : 'absolute'}}
+								onClick={() => onChangeIcon()}
+								name= {iconEye} size={20} />
 						</FormGroup>
 
 					 

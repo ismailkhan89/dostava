@@ -10,6 +10,7 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { login, createUser, createUserWeb } from "../apollo/server";
 import { validateFunc } from '../constraints/constraints';
+ 
 
 
 import {
@@ -34,18 +35,25 @@ class Login extends React.Component{
     super(props)
     this.state = {
       type: "default",
-      firstName: null,
+      firstName: '',
       lastName: '',
-      email: "zeeshan.damani@hotmail.com",
-      password: "test@123",
+      email: "",
+      password: "",
       phone : '',
       emailError: null,
-      firstNameError:null,
       passwordError: null,
       error: null,
       createEmail: '',
       createPassword: '',
-      redirectToReferrer: localStorage.getItem("user-dostava") ? true : false
+      createEmailErr : '',
+      createPasswordErr : '',
+      firstNameError: '',
+      lastNameErr : '',
+      phoneErr : '',
+      redirectToReferrer: localStorage.getItem("user-dostava") ? true : false,
+      iconEye : 'eye-slash',
+      RegiconEye : 'eye-slash'
+
     }
 
   }
@@ -55,12 +63,72 @@ class Login extends React.Component{
   }
 
   validate = () => {
-    let emailError = !validateFunc({ email: this.state.email }, "email")
-    let passwordError = !validateFunc({ password: this.state.password }, "password")
-    this.setState({ emailError, passwordError })
-    return emailError && passwordError
+    // let emailError = !validateFunc({ email: this.state.email }, "email")
+    // let passwordError = !validateFunc({ password: this.state.password }, "password")
+    // this.setState({ emailError, passwordError })
+    // return emailError && passwordError
+    this.setState({ emailError : "" , passwordError : ""  })
+    let status = true;
+    if(this.state.email === ""){
+      this.setState({ emailError : "Email is Required"})
+      status =  false
+    }
+     if(this.state.password === ""){
+      this.setState({ passwordError : "Password is Required"})
+      status =  false
+    }
+    return status
   }
   
+ 
+  validateRegister = () => {
+
+    this.setState({
+      createEmailErr : '',
+      createPasswordErr : '',
+      firstNameError: '',
+      lastNameErr : '',
+      phoneErr : '',
+    })
+    let status = true;
+    if(this.state.createEmail === ""){
+      this.setState({ createEmailErr : "Email is Required"})
+      status =  false
+    }
+     if(this.state.createPassword === ""){
+      this.setState({ createPasswordErr : "Password is Required"})
+      status =  false
+    }
+    if(this.state.firstName === ""){
+      this.setState({ firstNameError : "FirstName is Required"})
+      status =  false
+    }
+    if(this.state.lastName === ""){
+      this.setState({ lastNameErr : "LastName is Required"})
+      status =  false
+    }
+    if(this.state.phone === ""){
+      this.setState({ phoneErr : "Phone is Required"})
+      status =  false
+    }
+    return status
+  }
+
+   onChangeIcon = () =>{
+    if(this.state.iconEye === 'eye'){
+      this.setState({ iconEye : 'eye-slash'  })
+    } else{
+      this.setState({ iconEye : 'eye' })
+    }
+}
+
+  CreateonChangeIcon = () => {
+    if(this.state.RegiconEye === 'eye'){
+      this.setState({ RegiconEye : 'eye-slash'  })
+    } else{
+      this.setState({ RegiconEye : 'eye' })
+    }
+  }
   render(){
     
     console.log('asd>>>', this.props);
@@ -111,24 +179,42 @@ class Login extends React.Component{
               <h2>Login your Account</h2>
               <h3>Login to your account to discovery all great features in this item</h3>
               <form>
+
+    
+
                 <div className="form-group">
                   {/* <input type="text" placeholder="Username"></input> */}
                   <input value={this.state.email}
                       onChange={event => {
-                        this.setState({ email: event.target.value })
+                        this.setState({ email: event.target.value , emailError : ''})
                       }}
-                      // onBlur={event => { this.onBlur(event, 'email') }}
+                      onBlur={event => { 
+                      this.onBlur(event, 'email') 
+                      this.state.email === "" && this.setState({ emailError : "Email is Required"})
+                     }}
                       placeholder="Email"
                       type="email" ></input>
+                    <span style={{color : 'red'}}>{this.state.emailError}</span>
                 </div>
                 <div className="form-group">
-                  <input  value={this.state.password}
+                <FontAwesome 
+                        style={{position : 'absolute'}}
+                        onClick={() => this.onChangeIcon()}
+                        name= {this.state.iconEye} size={20} />
+                  <input  
+                    value={this.state.password}
                       onChange={event => {
-                        this.setState({ password: event.target.value })
+                        this.setState({ password: event.target.value , passwordError : '' })
                       }}
-                      onBlur={event => { this.onBlur(event, 'password') }}
+                      onBlur={event => { this.onBlur(event, 'password') 
+                      this.state.password === "" && this.setState({ passwordError : "Password is Required"})
+                    }}
                       placeholder="Password"
-                      type="password"></input>
+                      type={this.state.iconEye === 'eye' ? 'text' : 'password' }>
+                      </input>
+                  
+                    <span style={{color : 'red'}}>{this.state.passwordError}</span>
+
                 </div>
                 <div className="form-group">
                   <label>
@@ -211,48 +297,74 @@ class Login extends React.Component{
                 <div className="form-group half">
                   <input  value={this.state.createEmail}
                       onChange={event => {
-                        this.setState({ createEmail: event.target.value })
+                        this.setState({ createEmail: event.target.value.toLowerCase() , createEmailErr : '' })
                       }}
-                      // onBlur={event => { this.onBlur(event, 'email') }}
+                      onBlur={event => { this.onBlur(event, 'email') 
+                      this.state.createEmail === "" && this.setState({ createEmailErr : 'Email Required' })
+                    }}
                       placeholder="Email"
                       type="email"></input>
+                      <span className="register-err">{this.state.createEmailErr}</span>
                 </div>
                 <div className="form-group half">
                   <input  value={this.state.createPassword}
                       onChange={event => {
-                        this.setState({ createPassword: event.target.value })
+                        this.setState({ createPassword: event.target.value , createPasswordErr : '' })
                       }}
-                      onBlur={event => { this.onBlur(event, 'password') }}
+                      onBlur={event => { this.onBlur(event, 'password')
+                      this.state.createPassword === "" && this.setState({ createPasswordErr : 'Password Required' })
+                    }}
                       placeholder="Password"
-                      type="password"></input>
+                      type={this.state.RegiconEye === 'eye' ? 'text' : 'password' }></input>
+                   <FontAwesome 
+                        style={{position : 'absolute'}}
+                        onClick={() => this.CreateonChangeIcon()}
+                        name= {this.state.RegiconEye} size={20} />
+
+                   <span className="register-err">{this.state.createPasswordErr}</span>
                 </div>
                 <div className="form-group half">
                   <input value={this.state.firstName}
                       onChange={event => {
-                        this.setState({ firstName: event.target.value })
+                        this.setState({ firstName: event.target.value , firstNameError : '' })
                       }}
-                      onBlur={event => { this.onBlur(event, 'firstName') }}
+                      onBlur={event => { 
+                        this.onBlur(event, 'firstName')
+                        this.state.firstName === '' && this.setState({ firstNameError : 'FirstName Required' })
+                    }}
                       placeholder="First Name"
                       type="text"></input>
+                   <span className="register-err">{this.state.firstNameError}</span>
+
                 </div>
                 <div className="form-group half">
                   <input value={this.state.lastName}
                       onChange={event => {
-                        this.setState({ lastName: event.target.value })
+                        this.setState({ lastName: event.target.value , lastNameErr : '' })
                       }}
-                      onBlur={event => { this.onBlur(event, 'lastName') }}
+                      onBlur={event => { this.onBlur(event, 'lastName')
+                      this.state.lastName === "" && this.setState({ lastNameErr : 'LastName Required' })
+                    }}
                       placeholder="Last Name"
                       type="text"></input>
+                  <span className="register-err">{this.state.lastNameErr}</span>
                 </div>
 
                 <div className="form-group half">
                   <input value={this.state.phone}
                       onChange={event => {
-                        this.setState({ phone: event.target.value })
+                        	if(event.target.value.length <= 11){
+                           this.setState({ phone: event.target.value , phoneErr: '' })
+                          }
                       }}
-                      onBlur={event => { this.onBlur(event, 'phone') }}
+                      onBlur={event => { this.onBlur(event, 'phone', ) 
+                      this.state.phone === '' && this.setState({ phoneErr : 'Phone Required' })
+                    }}
                       placeholder="Phone"
-                      type="text"></input>
+                      type="number"
+                      
+                      ></input>
+                    <span className="register-err">{this.state.phoneErr}</span>
                 </div>
 
                 <div className="form-group">
@@ -299,7 +411,7 @@ class Login extends React.Component{
                               picture: ''
                             }
                             let notificationToken = null
-                            if (this.validate())
+                            if (this.validateRegister())
                             createUser({ variables: { ...userInput, notificationToken } })
 
                               // adminLogin(this.state.email, this.state.password)

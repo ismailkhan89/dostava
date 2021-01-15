@@ -104,8 +104,8 @@ function RegisterVendor(props){
 
 	const [succcess , setSuccess] = React.useState('')
 	const [Errors , setErrors] = React.useState('')
+	const[iconEye,setIconEye] = React.useState('eye-slash')
 
-	
 	function clearErrorField(){
 		setFirstnameErr(false)
 		setLastnameErr(false)
@@ -168,7 +168,17 @@ function RegisterVendor(props){
 		props.history.push({
 			pathname: '/thank-you-vendor',
 		  });
-    }
+	}
+	
+	
+	function onChangeIcon(){
+		if(iconEye === 'eye'){
+		  setIconEye('eye-slash')
+		} else{
+		  setIconEye('eye')
+		}
+	}
+
 	
     return(
         <Container className="wrapper" fluid>
@@ -301,15 +311,21 @@ function RegisterVendor(props){
 							<Label>Password</Label>
 							<Input 
 							onBlur={() => password === "" && setPasswordErr(true)}
-							type="password"
+							// type="password"
+							type={iconEye === 'eye' ? 'text' : 'password' }
 							onChange={(e) => {
 								 setPassword(e.target.value)
-								setPasswordErr(false)}} 
+								 setPasswordErr(false)}} 
 							// valid={true} 
 							invalid={passwordErr}
 							value={password}
 							/>
 							<FormFeedback>Password is Required</FormFeedback>
+
+							<FontAwesome 
+								style={{position : 'absolute'}}
+								onClick={() => onChangeIcon()}
+								name= {iconEye} size={20} />
 						</FormGroup>
 
 					 
