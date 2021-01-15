@@ -67,7 +67,7 @@ function ThankYouDriver(props){
                         </div> 
                     </div>
                 </div>
-                <div class="how-it-work-content">
+                <div class="how-it-work-content img-setup">
                     <div class="container"> 
     			        <div class="row"> 
                             <div class="col-md-4">
@@ -83,7 +83,7 @@ function ThankYouDriver(props){
                                 <div class="steps">
                                     <div class="process">
                                         <span class="number">2</span>
-                                        <img class="img-fluid" src="../Assets/Img/how-02.png" alt="how-2"></img>
+                                        <img class="img-fluid" src="../Assets/Img/verify-vehicle.png" alt="how-2"></img>
                                     </div>
                                     <p class="how-to-get">Verify your’s and your vehicle’s information</p>
                                 </div>
@@ -92,7 +92,7 @@ function ThankYouDriver(props){
                                 <div class="steps">
                                     <div class="process">
                                         <span class="number">3</span>
-                                        <img class="img-fluid" src="../Assets/Img/how-03.png" alt="how-3"></img>
+                                        <img class="img-fluid" src="../Assets/Img/start-accepting-gigs.png" alt="how-3"></img>
                                     </div>
                                     <p class="how-to-get">Start accepting delivery gigs</p>
                                 </div>

@@ -68,7 +68,7 @@ function ThankYouVendor(props){
                         </div> 
                     </div>
                 </div>
-                <div class="how-it-work-content">
+                <div class="how-it-work-content img-setup">
                     <div class="container"> 
     			        <div class="row"> 
                             <div class="col-md-4">
@@ -84,7 +84,7 @@ function ThankYouVendor(props){
                                 <div class="steps">
                                     <div class="process">
                                         <span class="number">2</span>
-                                        <img class="img-fluid" src="../Assets/Img/how-02.png" alt="how-2"></img>
+                                        <img class="img-fluid" src="../Assets/Img/verify-store.png" alt="how-2"></img>
                                     </div>
                                     <p class="how-to-get">Verify your business/store</p>
                                 </div>
@@ -93,7 +93,7 @@ function ThankYouVendor(props){
                                 <div class="steps">
                                     <div class="process">
                                         <span class="number">3</span>
-                                        <img class="img-fluid" src="../Assets/Img/how-03.png" alt="how-3"></img>
+                                        <img class="img-fluid" src="../Assets/Img/upload-products.png" alt="how-3"></img>
                                     </div>
                                     <p class="how-to-get">Upload your products with images and other details</p>
                                 </div>
@@ -102,7 +102,7 @@ function ThankYouVendor(props){
                                 <div class="steps">
                                     <div class="process">
                                         <span class="number">4</span>
-                                        <img class="img-fluid" src="../Assets/Img/how-04.png" alt="how-4"></img>
+                                        <img class="img-fluid" src="../Assets/Img/start-selling.png" alt="how-4"></img>
                                     </div>
                                     <p class="how-to-get">Start Selling</p>
                                 </div>
