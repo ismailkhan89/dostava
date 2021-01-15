@@ -981,6 +981,9 @@ body#layout3 section#slider, .register-vend {
     flex-direction: column;
     justify-content: center;
 }
+.register-vend{
+    background-image: url(../src/Assets/Img/banner-vendor.jpg) !important;
+}
 
 section#work-with-freedom p.pbold {
     font-size: 21px;
