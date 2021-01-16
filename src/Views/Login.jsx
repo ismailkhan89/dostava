@@ -216,12 +216,12 @@ class Login extends React.Component{
                     <span style={{color : 'red'}}>{this.state.passwordError}</span>
 
                 </div>
-                <div className="form-group">
+                <div className="form-group" style={{display : 'none'}}>
                   <label>
                   {/* <input type="checkbox"></input> */}
                   Keep me logged in
                   </label>
-                  <Link to="/">Forget your password?</Link>
+                  <Link to="/" style={{display : 'none'}}>Forgot password?</Link>
                 </div>
                 <div className="text-center">
                   <Mutation
