@@ -198,7 +198,7 @@ class Login extends React.Component{
                 </div>
                 <div className="form-group">
                 <FontAwesome 
-                        style={{position : 'absolute'}}
+                        style={{position : 'absolute',right: '48px',top: '230px'}}
                         onClick={() => this.onChangeIcon()}
                         name= {this.state.iconEye} size={20} />
                   <input  
@@ -317,7 +317,7 @@ class Login extends React.Component{
                       placeholder="Password"
                       type={this.state.RegiconEye === 'eye' ? 'text' : 'password' }></input>
                    <FontAwesome 
-                        style={{position : 'absolute'}}
+                        style={{position : 'absolute',right: '65px',top: '158px'}}
                         onClick={() => this.CreateonChangeIcon()}
                         name= {this.state.RegiconEye} size={20} />
 
