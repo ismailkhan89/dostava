@@ -172,7 +172,7 @@ span.navbar-toggler-icon.fa.fa-bars {
         .blog-content p {
             font-size: 16px;
             /* height: 48px; */
-            height: 120px;
+            /* height: 120px; */
             overflow: hidden;
             overflow-wrap: break-word;
         }

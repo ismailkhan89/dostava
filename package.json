@@ -25,6 +25,7 @@
     "react-dom": "^16.13.1",
     "react-fontawesome": "^1.7.1",
     "react-helmet": "^6.1.0",
+    "react-html-parser": "^2.0.2",
     "react-image-gallery": "^1.0.7",
     "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^5.2.0",

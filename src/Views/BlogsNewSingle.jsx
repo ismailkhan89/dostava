@@ -18,6 +18,7 @@ import {
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { getSingleBlogBySlug } from "../apollo/server";
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 const GET_SINGLE_BLOG_WEB = gql`${getSingleBlogBySlug}`;
 
@@ -48,7 +49,7 @@ function BlogsNewSingle(props){
                     </div>
                     <div class="blog-title"><h2>{data.getSingleBlogBySlug.title}</h2></div>
                     <div class="blog-content">
-                        <p><span>{stripedHtml}</span></p>
+                    {ReactHtmlParser(data.getSingleBlogBySlug.content)}
                     </div>
                 </Col>
               }}
