@@ -111,7 +111,7 @@ function BlogComponents(props){
     // var str = stripedHtml;
     // var res = str.substr(0, 100);
     return (
-        <Col lg="6" md="6" sm="12" xs="12">
+        <Col lg="6" md="6" sm="12" xs="12" className="blog-list">
             <div className="blog-img">
                 <img src={props.blog.image}alt="Dostava blog"></img>
             </div>
