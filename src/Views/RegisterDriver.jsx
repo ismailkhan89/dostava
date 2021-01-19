@@ -425,8 +425,7 @@ function RegisterDriver(props){
                                     <img class="img-fluid" src="../Assets/Img/age-icon.png" alt="icon6"></img>
                                     <div class="inner-div">
                                         <h4>Age</h4>
-										<p>The driver age on the registration could be raised to 18+ (currently at 16+ if they are to deliver alcohol)</p>
-                                        {/* <p>Being a registered adult with a driver’s license is a must for working with us.</p> */}
+                                        <p>Being a registered adult with a driver’s license is a must for working with us.</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
