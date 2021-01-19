@@ -141,6 +141,7 @@ function Contact(props){
 					        <p className="pbold">We welcome you to contact us using the below details or visit our <a href="/faqs">FAQs</a>.</p>
                             <p className="pbold">Email: <a href="#">info@dostava.com.au</a></p>
                             <p className="pbold">Address: Perth, Australia</p>
+                            <p className="pbold">Phone: +61 3 9028 4573</p>
                             <div className="row">
                                 
                                 

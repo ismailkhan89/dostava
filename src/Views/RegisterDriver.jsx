@@ -26,12 +26,16 @@ const SECTIONS = [
         head: 'What is Dostava?',
         content:'Dostava is an online grocery shopping store and your new Money Mate. You can keep doing your normal work and, at the same time, start earning more by working for us as a delivery rider.'
     },
+	// {
+    //     head: 'How does it work?',
+    //     content: 'Dostava provides you with an option to pick up your delivery order one day in advance. If the groceries need to be delivered on Tuesday, you will get all the order details by Monday night, and you can pick the order on Tuesday to deliver.',
+	// 	content2:'When you drive to Rideshare or any other work, you can pass by the Grocery store and pick up your Dostava delivery. Most of the time, you don’t need to go to the store especially, to pick up the order.',
+	// 	content3:'With Dostava, work with freedom and plan your next day order pickup and delivery in advance.',
+	// },
 	{
-        head: 'How does it work?',
-        content: 'Dostava provides you with an option to pick up your delivery order one day in advance. If the groceries need to be delivered on Tuesday, you will get all the order details by Monday night, and you can pick the order on Tuesday to deliver.',
-		content2:'When you drive to Rideshare or any other work, you can pass by the Grocery store and pick up your Dostava delivery. Most of the time, you don’t need to go to the store especially, to pick up the order.',
-		content3:'With Dostava, work with freedom and plan your next day order pickup and delivery in advance.',
-    },
+		head : 'Do you already have multiple driving gigs? If so, Dostava will multiply your gig earnings without any extra efforts and time.',
+		content : 'You’ll receive a delivery from a store near you and you’ll be dropping it off someplace which is only 5 - 10 mins away.  Earning $9.99 on every short delivery.'
+	},
     {
         head: 'How much I need to pay to register with dostava?',
         content: 'Dostava is free to install. You can start using it and earning right after you register for free.',
@@ -48,10 +52,10 @@ const SECTIONS = [
 		head: 'When do I deliver the groceries?',
 		content: 'You can schedule your order pick-up and delivery in advance and then pick up and deliver it on the same day.'
 	  },
-	  {
-		head: 'How many hours I have before I can deliver the Groceries?',
-		content: 'You have a full day in advance to pick up the order and deliver it on the same day.'
-	  },
+	//   {
+	// 	head: 'How many hours I have before I can deliver the Groceries?',
+	// 	content: 'You have a full day in advance to pick up the order and deliver it on the same day.'
+	//   },
 	  {
 		head: 'Do I need to install the Mobile application to work with Dostava?',
 		content: 'Yes, you need to install the Dostava mobile app and start earning instantly.'
@@ -418,10 +422,11 @@ function RegisterDriver(props){
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <img class="img-fluid" src="../Assets/Img/icon6.png" alt="icon6"></img>
+                                    <img class="img-fluid" src="../Assets/Img/age-icon.png" alt="icon6"></img>
                                     <div class="inner-div">
                                         <h4>Age</h4>
-                                        <p>Being a registered adult with a driver’s license is a must for working with us.</p>
+										<p>The driver age on the registration could be raised to 18+ (currently at 16+ if they are to deliver alcohol)</p>
+                                        {/* <p>Being a registered adult with a driver’s license is a must for working with us.</p> */}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
