@@ -80,11 +80,11 @@ const SECTIONS = [
 		content2:'If you’re a vendor looking to increase sales online, register through the Dostava application or through our website. Accept the orders from customers, pack and prepare it for the delivery rider to pick and get paid. It’s that simple.',
     },
     {
-        head: 'How much I need to pay to register with dostava?',
+        head: 'How much do I need to pay to register with dostava?',
         content: 'Your friendly Dostava App is free for you to install and you can start using it and start earning.',
 	},
     {
-      head: 'How much I get paid for each delivery?',
+      head: 'How much do I get paid for each delivery?',
 	  content: 'Your friendly Dostava App will show you your delivery fees. Your delivery fees start from $9.99 for each delivery.',
 	},
 	{

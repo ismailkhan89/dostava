@@ -369,6 +369,7 @@ function Vendor(props) {
              {console.log('data',data)}
               return data.getVendorsByLocation.length > 0 ? data.getVendorsByLocation.map((category, index) =>
                 <Col lg="3" key={index}>
+                  {category.vendor_available ? 
                 <Link
                     to={`/storesitem/${category._id}`}
                     params="true"
@@ -408,6 +409,25 @@ function Vendor(props) {
                         </div>
                     </div>
                    </Link>
+                    :   
+                    <div className="productoffline">
+                      <div className="productmsg">   
+                          <h5 style={{  color: 'white',fontWeight : 'bold'}}>This shop is offline</h5> 
+                      </div>
+
+                      <div className="product-img">
+                      {console.log('category.vendor_available',category.vendor_available)}
+                        {category.picture !== "" && category.picture !== null ?
+                        <img className="img-fluid" src={category.picture} alt=""></img>
+                      : <img className="img-fluid" src="../Assets/Img/store.png" alt=""></img>
+                        }
+                      </div>
+                      <div className="product-desc">
+                      <h3 className="product-title">{category.business_name}</h3>
+                      <p className="product-content">{category.name}</p>
+                      </div>
+                    </div>
+                    }
                   </Col>
                 )
 

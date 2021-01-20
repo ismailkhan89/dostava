@@ -299,6 +299,7 @@ export const foods = `
         lat
         long
         physical_address
+        vendor_available
     }
   }`
 
