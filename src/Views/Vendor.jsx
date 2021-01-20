@@ -404,7 +404,7 @@ function Vendor(props) {
                         </div>
                         <div className="product-desc">
                         <h3 className="product-title">{category.business_name}</h3>
-                        <p className="product-content">{category.name}</p>
+                        {/* <p className="product-content">{category.name}</p> */}
                         {/* <p class="price">$24.03</p> */}
                         </div>
                     </div>
@@ -424,7 +424,7 @@ function Vendor(props) {
                       </div>
                       <div className="product-desc">
                       <h3 className="product-title">{category.business_name}</h3>
-                      <p className="product-content">{category.name}</p>
+                      {/* <p className="product-content">{category.name}</p> */}
                       </div>
                     </div>
                     }
