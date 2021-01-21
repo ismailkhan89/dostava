@@ -33,23 +33,24 @@ const SECTIONS = [
 	// 	content3:'With Dostava, work with freedom and plan your next day order pickup and delivery in advance.',
 	// },
 	{
-		head : 'Do you already have multiple driving gigs? If so, Dostava will multiply your gig earnings without any extra efforts and time.',
-		content : 'You’ll receive a delivery from a store near you and you’ll be dropping it off someplace which is only 5 - 10 mins away.  Earning $9.99 on every short delivery.'
+		head : 'How is Dostava different from other driving gigs?',
+		content : 'Do you already have multiple driving gigs? If so, Dostava will multiply your gig earnings without any extra efforts and time.',
+		content2 : 'You’ll receive a delivery from a store near you and you’ll be dropping it off someplace which is only 5 - 10 mins away.  Earning $9.99 on every short delivery.'
 	},
     {
-        head: 'How much I need to pay to register with dostava?',
+        head: 'How much do I need to pay to register with dostava?',
         content: 'Dostava is free to install. You can start using it and earning right after you register for free.',
 	},
     {
-      head: 'How much I get paid for each delivery?',
+      head: 'How much do I get paid for each delivery?',
 	  content: 'For each delivery, the fee starts from $9.99.',
 	},
 	{
-		head: 'Where do I pick up the groceries from?',
+		head: 'Where do I pick up the the orders from?',
 		content: 'We will send you the complete details of the shop from where you have to pick up the order. You will have the whole information about the shop, including the address shown on the map, and the contact number on which you can call.',
 	  },
 	  {
-		head: 'When do I deliver the groceries?',
+		head: 'When do I deliver the orders?',
 		content: 'You can schedule your order pick-up and delivery in advance and then pick up and deliver it on the same day.'
 	  },
 	//   {

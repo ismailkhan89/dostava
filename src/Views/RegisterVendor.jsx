@@ -41,17 +41,18 @@ const SECTIONS = [
 	  content: 'Dostava does not distinguish between any kind of business and is open for all, whether small or big.'
 	},
 	{
-		head: 'Do we need to hire deliver drivers?',
+		// head: 'Do we need to hire deliver drivers?',
+		head: 'Do we need to hire delivery drivers?',
 		content: 'Dostava organizes delivery drivers itself. All you have to do is keep the orders ready, and Dostava delivery drivers will pick them up.'
 	  },
-	  {
-		head: 'How many hours we have before we must keep the order ready?',
-		content: 'We will send you your order details one day in advance, and you will have time to pack the order one day beforehand.'
-	  },
+	//   {
+	// 	head: 'How many hours we have before we must keep the order ready?',
+	// 	content: 'We will send you your order details one day in advance, and you will have time to pack the order one day beforehand.'
+	//   },
 	  {
 		head: 'Do we require extra staff for Dostava orders?',
 		content: 'No, you don’t need extra manpower when you start working on Dostava.',
-		content2:'You can ask your employees to pack the orders in their free time, and our drivers will pick them up the next day.'
+		content2:'You can ask your employees to pack the orders in their free time, and our drivers will pick them up on the allotted time.'
 	  },
 	  {
 		head: 'How do I upload my products online?',

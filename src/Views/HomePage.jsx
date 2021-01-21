@@ -97,7 +97,7 @@ const SECTIONS = [
 		content2:'Plan your day ahead, how easy is that… we are here to look after you.'
     },
 	  {
-		head: 'How often I get paid for the work?',
+		head: 'How often do I get paid for the work?',
 		content: 'Dostava provides you with the luxury of getting paid per order. The Dostava mobile application will send complete cash details every time an order is placed or a transaction has been made.',
     },
     {
@@ -384,7 +384,7 @@ like every other ride-sharing app.</p>
                 <Row>
                   <Col lg="7" md="8" sm="12" xs="12" className="home-slider-text">
                     <h3>Dostava</h3>
-                    <h4><strong>Grocery</strong> stores in your area, now in your phone</h4>
+                    <h4>Stores in your area, now in your phone</h4>
                     <Form inline className="text-right search-form">
                       {/* <FormControl type="text" placeholder="Enter Location here..." className="mr-sm-2" /> */}
                       <PlacesAutocomplete
@@ -482,7 +482,7 @@ like every other ride-sharing app.</p>
               <Row>
                 <Col lg="6" md="8" sm="12" xs="12" className="vendor-text">
                   <h2>Dostava for Vendor</h2>
-                  <p>Our ultimate goal is to make grocery shopping convenient & hassle-free for people. Dostava
+                  <p>Our ultimate goal is to make shopping convenient & hassle-free for people. Dostava
 simply connects local stores to the potential customers living nearby. Making it easier for small
 store owners to make huge sales without the hassle of catering too many walk in customers at a
 time. If you own a store in Perth, register now and start selling big.</p>
