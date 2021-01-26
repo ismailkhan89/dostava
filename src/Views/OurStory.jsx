@@ -61,8 +61,9 @@ function PrivacyPolicy(props){
 						<p>Dostava is 100% Australian made and owned, founded to provide a convenient shopping experience to everyone living in Australia. From a small store owner who’s not doing so great after the pandemic, to the delivery riders wanting to earn some extra bucks while saving time Dostava is adding an extra stream of revenue for all the parties involved.</p>
                     </div>
                     <div class="col-md-6 our-story-text">
-                        <h2>Our Mission: No.1 Australian delivery app in the world</h2>
-						<p>With an all-Australian brand like Dostava, our mission is to become the number one choice for every local buyer and seller in the online market while representing ourselves under the Australian flag. We are inspired to initiate a chain of mutual support among</p>
+                        {/* <h2>Our Mission: No.1 Australian delivery app in the world</h2> */}
+                        <h2>Our Mission: All of Australia buying from an Australian Platform</h2>  
+                    	<p>With an all-Australian brand like Dostava, our mission is to become the number one choice for every local buyer and seller in the online market while representing ourselves under the Australian flag. We are inspired to initiate a chain of mutual support among</p>
                         <p>local business owners and local buyers while initiating numerous convenient driving gig opportunities through our online platform.</p>
                     </div>
                     <div class="col-md-6 our-story-img">

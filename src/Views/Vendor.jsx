@@ -435,7 +435,7 @@ function Vendor(props) {
                 <Col lg="4" className="text-center">
                 </Col>
                 <Col lg="4" className="text-center">
-                 Please Change your Location there is no vendor available at your place ... 
+                Currently, there is no vendor available at this location
                 </Col>
                 <Col lg="4" className="text-center">
                 </Col>

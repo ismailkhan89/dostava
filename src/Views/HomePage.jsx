@@ -72,7 +72,7 @@ const GET_FEATURED_VENDORS = gql`${getFeaturedVendors}`;
 const SECTIONS = [
 	{
         head: 'What is Dostava?',
-        content: 'Dostava is an 100% Australian owned online platform based in the heart of Perth, that connects the small stores to the customers living in the nearby area through a location based app. It is the ultimate solution to convenient shopping and effective business.',
+        content: 'Dostava is a 100% Australian owned online platform based in the heart of Perth, that connects small stores to the customers living in the nearby area through a location based app. It is the ultimate solution to convenient shopping and effective business.',
     },
 	{
         head: 'How does it work?',
@@ -85,7 +85,7 @@ const SECTIONS = [
 	},
     {
       head: 'How much do I get paid for each delivery?',
-	  content: 'Your friendly Dostava App will show you your delivery fees. Your delivery fees start from $9.99 for each delivery.',
+	  content: 'Your friendly Dostava App will show you your delivery fees. Your delivery fees starts from $9.99 for each delivery.',
 	},
 	{
 		head: 'Where do I pick up the groceries from?',
@@ -93,8 +93,8 @@ const SECTIONS = [
 	  },
 	  {
 		head: 'When do I deliver the groceries?',
-		content: 'Your order pickup and Delivery both are for next day. you pick up the order and deliver it on the same day.',
-		content2:'Plan your day ahead, how easy is that… we are here to look after you.'
+		content: 'Your order pickup and Delivery both are for next day .You pick up the order and deliver it on the same day.',
+		content2:'Plan your day ahead. How easy is that?… we are here to look after you.'
     },
 	  {
 		head: 'How often do I get paid for the work?',

@@ -1325,7 +1325,7 @@ export const getPopularVendors =  `query getPopularVendors{
     zip
     business_name
     company_name
-    bank_detail
+    
     bank_account_name
     bank_account_number
     lat
@@ -1352,7 +1352,7 @@ export const getFeaturedVendors =  `query getFeaturedVendors{
     zip
     business_name
     company_name
-    bank_detail
+    
     bank_account_name
     bank_account_number
     lat
