@@ -1396,6 +1396,9 @@ export const createRiderFromWeb = `mutation createRiderFromWeb($riderInput:Rider
   image
   available
   is_active
+  temp_address
+  lat
+  long
   }
 }`
 

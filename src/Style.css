@@ -2616,6 +2616,19 @@ padding-left:70px;
     color: #053452;
     padding: 10px;
 }
+.driver-reg .autocomplete-dropdown-container {
+    position: absolute !important;
+    padding : 10px 0;
+    width: 100%;
+}
+.driver-reg .autocomplete-dropdown-container > div{
+    line-height: 32px;
+    padding: 0 15px;
+}
+.driver-reg #Reg-form > div .form-group:nth-child(4) {
+    position: relative;
+}
+
 .modal .autocomplete-dropdown-container{
     top:45px;
 }

@@ -18,6 +18,11 @@ import gql from "graphql-tag";
 import { createRiderFromWeb } from "../apollo/server";
 import Accord from '../Components/Accord';
 import { Helmet } from "react-helmet";
+import PlacesAutocomplete, {
+	geocodeByAddress,
+	getLatLng,
+  } from 'react-places-autocomplete';
+
 
 const DRIVER_REGISTER = gql`${createRiderFromWeb}`
 
@@ -82,12 +87,15 @@ function RegisterDriver(props){
     const [firstname , setFirstName] = React.useState('')
 	const [lastname , setLastname] = React.useState('')
 	const [contactno , setContactno] = React.useState('')
+	const [address , setAddress] = React.useState('')
+
 	const [email , setEmail] = React.useState('')
 	const [password , setPassword] = React.useState('')
 
 	const [firstnameErr , setFirstnameErr] = React.useState(false)
 	const [lastnameErr , setLastnameErr] = React.useState(false)
 	const [contactnoErr , setContactnoErr] = React.useState(false)
+	const [addressErr , setAddressErr] = React.useState(false)
 	const [contactnoErrNum , setContactnoErrNum] = React.useState('')
 
 	const [emailErr , setEmailErr] = React.useState(false)
@@ -96,6 +104,7 @@ function RegisterDriver(props){
 	const [succcess , setSuccess] = React.useState('')
 	const [Errors , setErrors] = React.useState('')
 	const[iconEye,setIconEye] = React.useState('eye-slash')
+	const [latLng, setlatLng] = useState('');
 
 	function clearErrorField(){
 		setFirstnameErr(false)
@@ -103,6 +112,8 @@ function RegisterDriver(props){
 		setContactnoErr(false)
 		setEmailErr(false)
 		setPasswordErr(false)
+		setAddressErr(false)
+
 	}
 
 	function  clearFields(){
@@ -111,6 +122,7 @@ function RegisterDriver(props){
 		setContactno('')
 		setEmail('')
 		setPassword('')
+		setAddress('')
 	}
 
 	function validate(){
@@ -131,6 +143,10 @@ function RegisterDriver(props){
 			result = false
 		}if(password === "" || password === null){
 			setPasswordErr(true)
+			result = false
+		}
+		if(address === "" || address === null){
+			setAddressErr(true)
 			result = false
 		}
 		return result
@@ -170,6 +186,22 @@ function RegisterDriver(props){
 		}
 	}
 
+	const searchOptions = {
+		componentRestrictions: { country: ['aus'] },
+	  }
+
+	function handleSelect(address){
+	setAddress(address)
+	geocodeByAddress(address)
+		.then(results => getLatLng(results[0]))
+		.then(latLng => {
+		setlatLng(latLng)
+		// localStorage.removeItem('location');
+		// console.log('Success', latLng)
+		})
+		.catch(error => console.error('Error', error));
+	};
+
     return(
       
         <Container className="wrapper" fluid>
@@ -199,7 +231,7 @@ function RegisterDriver(props){
                 </div> 
 	        </section>
 
-            <section id="work-with-freedom"> 
+            <section id="work-with-freedom" className="driver-reg"> 
                 <div class="container"> 
                     <div class="row">
                         <div class="col-md-6 first-div">
@@ -302,8 +334,87 @@ function RegisterDriver(props){
 						</FormGroup>
 
 						<FormGroup>
+							<Label>Address</Label>
+							{/* <Input 
+							onBlur={() => contactno === "" && setContactnoErr(true)}
+							onChange={(e) =>{
+								if(e.target.value.length <= 11){
+									setContactnoErrNum('') 
+									setContactno(e.target.value)
+									setContactnoErr(false)
+								}
+								else{
+									setContactnoErrNum('Length Exceeded')
+								}
+							}}
+								//  setContactno(e.target.value)
+							// valid={true} 
+							invalid={contactnoErr}
+							value={contactno}
+							type={"number"}
+							max
+							/> */}
+
+					<PlacesAutocomplete
+						searchOptions={searchOptions}
+						value={address}
+						onChange={(e) => {setAddress(e)
+							setAddressErr(false)
+						}}
+						onSelect={handleSelect}
+                      >
+                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                          <>
+						<Input 
+							 onBlur={() => address === "" && setAddressErr(true)}
+							 {...getInputProps({
+                                // placeholder: 'Search Places ...',
+                                // placeholder:"Enter Location here...",
+                                className: "mr-sm-2 form-control",
+                              })}
+								//  setContactno(e.target.value)
+							// valid={true} 
+							invalid={addressErr}
+							value={address}
+							/>
+							<FormFeedback>Address is Required</FormFeedback>
+
+                            <div className="autocomplete-dropdown-container" 	style={{position : 'relative'}}>
+                              {loading && <div>Loading...</div>}
+                              {suggestions.map((suggestion,index) => {
+                                let className = suggestion.active
+                                  ? 'suggestion-item--active'
+                                  : 'suggestion-item';
+                                // inline style for demonstration purpose
+                                const style = suggestion.active
+                                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+								  : { backgroundColor: '#ffffff', cursor: 'pointer' };
+								  
+								  className += "test"
+                                return (
+                                  <div
+                                  key={index}
+                                    {...getSuggestionItemProps(suggestion, {
+                                      className,
+                                      style,
+                                    })}>
+                                    <span>{suggestion.description}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </>
+                        )}
+                      </PlacesAutocomplete>
+							{/* <FormFeedback>Address is Required</FormFeedback> */}
+							
+						</FormGroup>
+
+
+						<FormGroup>
 							<Label>Email Address</Label>
 							<Input 
+							onFocus={() => address === "" && setAddressErr(true)}
 							onBlur={() => email === "" && setEmailErr(true)}
 							onChange={(e) => {
 								setEmail(e.target.value.toLowerCase())
@@ -360,7 +471,10 @@ function RegisterDriver(props){
 									last_name: lastname,
 									email: email,
 									phone: contactno,
-									password: password
+									password: password,
+									temp_address : address,
+									lat : latLng.lat.toString(),
+									long : latLng.lng.toString(),
 								}
 								createRiderFromWeb({ variables: { riderInput : riderInput } })
 							}
