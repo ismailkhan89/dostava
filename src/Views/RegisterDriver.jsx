@@ -23,7 +23,7 @@ import PlacesAutocomplete, {
 	getLatLng,
   } from 'react-places-autocomplete';
 
-
+import { validateEmail } from '../constraints/emailValidate';
 const DRIVER_REGISTER = gql`${createRiderFromWeb}`
 
 const SECTIONS = [
@@ -99,6 +99,8 @@ function RegisterDriver(props){
 	const [contactnoErrNum , setContactnoErrNum] = React.useState('')
 
 	const [emailErr , setEmailErr] = React.useState(false)
+	const [emailFlagErr , setemailFlagErr] = React.useState(false)
+	const [emailValidErr , setemailValidErr] = React.useState('')
 	const [passwordErr , setPasswordErr] = React.useState(false)
 
 	const [succcess , setSuccess] = React.useState('')
@@ -141,7 +143,13 @@ function RegisterDriver(props){
 		}if(email === "" || email === null){
 			setEmailErr(true)
 			result = false
-		}if(password === "" || password === null){
+		}
+		else if(validateEmail(email) !== undefined){
+			setemailFlagErr(true)
+			setemailValidErr(validateEmail(email))
+			result = false
+		}
+		if(password === "" || password === null){
 			setPasswordErr(true)
 			result = false
 		}
@@ -415,16 +423,27 @@ function RegisterDriver(props){
 							<Label>Email Address</Label>
 							<Input 
 							onFocus={() => address === "" && setAddressErr(true)}
-							onBlur={() => email === "" && setEmailErr(true)}
+							onBlur={() => {
+								email === "" && setEmailErr(true)
+								if(email !== ""){
+									if(validateEmail(email) !== undefined){
+										setemailFlagErr(true)
+										setemailValidErr(validateEmail(email)) 
+									}
+								}
+							}}
 							onChange={(e) => {
 								setEmail(e.target.value.toLowerCase())
 								setEmailErr(false)
+								setemailFlagErr(false) 
+							    setemailValidErr('')
 							}} 
 							// valid={true} 
-							invalid={emailErr}
+							invalid={emailErr || emailFlagErr}
 							value={email}
 							/>
-							<FormFeedback>Email Address is Required</FormFeedback>
+							{emailErr && <FormFeedback>Email Address is Required</FormFeedback>}
+							{emailFlagErr && <FormFeedback>{emailValidErr}</FormFeedback>}
 						</FormGroup>
 
 						<FormGroup>

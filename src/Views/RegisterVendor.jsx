@@ -17,7 +17,7 @@ import Accord from '../Components/Accord';
 import gql from "graphql-tag";
 import { createVendorWeb } from "../apollo/server";
 import { Helmet } from "react-helmet";
-
+import { validateEmail } from '../constraints/emailValidate'
 const VENDOR_REGISTER = gql`${createVendorWeb}`
 
 const SECTIONS = [
@@ -101,6 +101,10 @@ function RegisterVendor(props){
 	const [lastnameErr , setLastnameErr] = React.useState(false)
 	const [contactnoErr , setContactnoErr] = React.useState(false)
 	const [emailErr , setEmailErr] = React.useState(false)
+
+	const [emailFlagErr , setemailFlagErr] = React.useState(false)
+	const [emailValidErr , setemailValidErr] = React.useState('')
+
 	const [passwordErr , setPasswordErr] = React.useState(false)
 
 	const [succcess , setSuccess] = React.useState('')
@@ -138,6 +142,10 @@ function RegisterVendor(props){
 			result = false
 		}if(email === "" || email === null){
 			setEmailErr(true)
+			result = false
+		}else if(validateEmail(email) !== undefined){
+			setemailFlagErr(true)
+			setemailValidErr(validateEmail(email))
 			result = false
 		}if(password === "" || password === null){
 			setPasswordErr(true)
@@ -297,15 +305,27 @@ function RegisterVendor(props){
 						<FormGroup>
 							<Label>Email Address</Label>
 							<Input 
-							onBlur={() => email === "" && setEmailErr(true)}
+							onBlur={() => {
+							email === "" && setEmailErr(true)
+								if(email !== ""){
+									if(validateEmail(email) !== undefined){
+										setemailFlagErr(true)
+										setemailValidErr(validateEmail(email)) 
+									}
+								}
+							}}
 							onChange={(e) => {
 								setEmail(e.target.value.toLowerCase())
-								setEmailErr(false)}} 
+								setEmailErr(false)
+								setemailFlagErr(false) 
+							    setemailValidErr('')
+							}} 
 							// valid={true} 
-							invalid={emailErr}
+							invalid={emailErr || emailFlagErr}
 							value={email}
 							/>
-							<FormFeedback>Email Address is Required</FormFeedback>
+							{emailErr && <FormFeedback>Email Address is Required</FormFeedback>}
+							{emailFlagErr && <FormFeedback>{emailValidErr}</FormFeedback>}
 						</FormGroup>
 
 						<FormGroup>

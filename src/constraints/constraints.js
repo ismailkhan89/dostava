@@ -16,7 +16,8 @@ const constraints = {
         }
     },
     email: {
-        email: true
+        email: true,
+        presence: true,
     },
     password: {
         presence: true,

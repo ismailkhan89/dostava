@@ -27,8 +27,10 @@ import {
     // Link
 } from "reactstrap";
 import {Link, useRouteMatch, useParams , useHistory } from 'react-router-dom';
+import { validateEmail } from '../constraints/emailValidate'
 const LOGIN = gql`${login}`
 const CREATE_USER = gql`${createUserWeb}`
+
 class Login extends React.Component{
   
   constructor(props) {
@@ -60,6 +62,7 @@ class Login extends React.Component{
  
   onBlur = (event, field) => {
     this.setState({ [field + 'Error']: !validateFunc({ [field]: this.state[field] }, field) })
+    console.log(' ',this.state.emailError)
   }
 
   validate = () => {
@@ -71,6 +74,10 @@ class Login extends React.Component{
     let status = true;
     if(this.state.email === ""){
       this.setState({ emailError : "Email is Required"})
+      status =  false
+    }
+    else if(validateEmail(this.state.email) !== undefined){
+      this.setState({ emailError : validateEmail(this.state.createEmail)})
       status =  false
     }
      if(this.state.password === ""){
@@ -93,6 +100,10 @@ class Login extends React.Component{
     let status = true;
     if(this.state.createEmail === ""){
       this.setState({ createEmailErr : "Email is Required"})
+      status =  false
+    }
+    else if(validateEmail(this.state.createEmail) !== undefined){
+      this.setState({ createEmailErr : validateEmail(this.state.createEmail)})
       status =  false
     }
      if(this.state.createPassword === ""){
@@ -191,10 +202,14 @@ class Login extends React.Component{
                       onBlur={event => { 
                       this.onBlur(event, 'email') 
                       this.state.email === "" && this.setState({ emailError : "Email is Required"})
-                     }}
+                      this.state.email !== ""  && this.setState({ emailError : validateEmail(this.state.email)})
+                      // if( this.state.email !== "" ) 
+                      // { let result = validateEmail(this.state.email)
+                      //   !result && this.setState({ emailError : "Invalid email"})}
+                      }}
                       placeholder="Email"
                       type="email" ></input>
-                    <span style={{color : 'red'}}>{this.state.emailError}</span>
+                    <span className="register-err">{this.state.emailError}</span>
                 </div>
                 <div className="form-group">
                 <FontAwesome 
@@ -213,7 +228,7 @@ class Login extends React.Component{
                       type={this.state.iconEye === 'eye' ? 'text' : 'password' }>
                       </input>
                   
-                    <span style={{color : 'red'}}>{this.state.passwordError}</span>
+                    <span className="register-err">{this.state.passwordError}</span>
 
                 </div>
                 <div className="form-group" style={{display : 'none'}}>
@@ -299,8 +314,10 @@ class Login extends React.Component{
                       onChange={event => {
                         this.setState({ createEmail: event.target.value.toLowerCase() , createEmailErr : '' })
                       }}
-                      onBlur={event => { this.onBlur(event, 'email') 
+                      onBlur={event => { 
+                        // this.onBlur(event, 'email') 
                       this.state.createEmail === "" && this.setState({ createEmailErr : 'Email Required' })
+                      this.state.createEmail !== ""  && this.setState({ createEmailErr : validateEmail(this.state.createEmail)})
                     }}
                       placeholder="Email"
                       type="email"></input>
