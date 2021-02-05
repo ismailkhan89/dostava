@@ -22,7 +22,7 @@ class Footer extends React.Component{
             <Col lg="3" md="12" sm="12" xs="12" className="footer-logo quickmenu footer-app">
                 
                     <Link to="/">
-                        <img src="../Assets/Img/logo.svg" width="70%"></img>
+                        <img src="../Assets/Img/logo.png"></img>
                     </Link>
                
                 <h3>Download Our App</h3>

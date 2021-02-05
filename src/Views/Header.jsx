@@ -5,7 +5,7 @@ import '../App.css';
 import '../Style.css';
 import '../styleNew.css';
 import '../animate.css';
-import logo from '../logo.svg';
+import logo from '../logo.png';
 import FontAwesome from 'react-fontawesome';
 import { useQuery } from '@apollo/react-hooks';
 import { Nav, Navbar, Form, FormControl } from 'react-bootstrap';
