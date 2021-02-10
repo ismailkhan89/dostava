@@ -318,7 +318,8 @@ function RegisterDriver(props){
 
 						<FormGroup>
 							<Label>Contact No</Label>
-							<Input 
+							<Input
+							className="no-spinner" 
 							onBlur={() => contactno === "" && setContactnoErr(true)}
 							onChange={(e) =>{
 								if(e.target.value.length <= 11){

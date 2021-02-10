@@ -100,6 +100,7 @@ function RegisterVendor(props){
 	const [firstnameErr , setFirstnameErr] = React.useState(false)
 	const [lastnameErr , setLastnameErr] = React.useState(false)
 	const [contactnoErr , setContactnoErr] = React.useState(false)
+	const [contactnoFlagErr , setContactnoFlagErr] = React.useState(false)
 	const [emailErr , setEmailErr] = React.useState(false)
 
 	const [emailFlagErr , setemailFlagErr] = React.useState(false)
@@ -139,6 +140,7 @@ function RegisterVendor(props){
 			result = false
 		}if(contactno === "" || contactno === null){
 			setContactnoErr(true)
+			setemailFlagErr(true)
 			result = false
 		}if(email === "" || email === null){
 			setEmailErr(true)
@@ -286,20 +288,31 @@ function RegisterVendor(props){
 
 						<FormGroup>
 							<Label>Contact No</Label>
-							<Input 
-							onBlur={() => contactno === "" && setContactnoErr(true)}
+							<Input
+							className="no-spinner" 
+							onBlur={
+								() => {
+								contactno === "" && setContactnoFlagErr(true) && setContactnoErr(true)
+								if(contactno.length <= 8 || contactno.length >= 12 ){
+									setContactnoFlagErr(true)
+								}
+							}
+							}
 							onChange={(e) => {
 								if(e.target.value.length <= 11){
 									setContactno(e.target.value)
 									setContactnoErr(false)
+									setContactnoFlagErr(false)
 								}
 							}} 
 							// valid={true} 
-							invalid={contactnoErr}
+							invalid={contactnoErr || contactnoFlagErr}
 							value={contactno}
 							type={"number"}
 							/>
-							<FormFeedback>Contact No is Required</FormFeedback>
+
+							{contactnoErr &&  <FormFeedback>Contact No is Required</FormFeedback>}
+							{contactnoFlagErr && <FormFeedback>Invalid Contact Number</FormFeedback>}
 						</FormGroup>
 
 						<FormGroup>
