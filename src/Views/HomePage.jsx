@@ -566,7 +566,8 @@ time. If you own a store in Perth, register now and start selling big.</p>
                   </Col>
                   <Col lg="9" md="12" xs="12" className="vendor-col-text">
                       <h3>INCREASE YOUR SALES, BOOST YOUR AUDIENCE, ENHANCE YOUR PRESENCE</h3>
-                      <a href="/register-vendor" >Become a Vendor</a>
+                      {/* <a href="/register-vendor" >Become a Vendor</a> */}
+                      <a href="/register-vendor/#vendor-form" >Add your store</a>
                   </Col>
                 </Row>
               </Col>
@@ -577,7 +578,7 @@ time. If you own a store in Perth, register now and start selling big.</p>
                   </Col>
                   <Col lg="9" md="12" xs="12" className="vendor-col-text">
                       <h3>Work with Freedom. Earn with Freedom</h3>
-                      <a href="/register-driver">Become a Driver</a>
+                      <a href="/register-driver/#driver-form">Become a Driver</a>
                   </Col>
                 </Row>
               </Col>

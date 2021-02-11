@@ -18,6 +18,11 @@ import gql from "graphql-tag";
 import { createVendorWeb } from "../apollo/server";
 import { Helmet } from "react-helmet";
 import { validateEmail } from '../constraints/emailValidate'
+import PlacesAutocomplete, {
+	geocodeByAddress,
+	getLatLng,
+  } from 'react-places-autocomplete';
+
 const VENDOR_REGISTER = gql`${createVendorWeb}`
 
 const SECTIONS = [
@@ -91,12 +96,19 @@ const SECTIONS = [
 
 
 function RegisterVendor(props){ 
+	const [storeName , setStoreName] = React.useState('')
+	const [address , setAddress] = React.useState('')
+	const [latLng, setlatLng] = useState('');
+
 	const [firstname , setFirstName] = React.useState('')
+
 	const [lastname , setLastname] = React.useState('')
 	const [contactno , setContactno] = React.useState('')
 	const [email , setEmail] = React.useState('')
 	const [password , setPassword] = React.useState('')
 
+	const [storeNameErr , setStoreNameErr] = React.useState(false)
+	const [addressErr , setAddressErr] = React.useState(false)
 	const [firstnameErr , setFirstnameErr] = React.useState(false)
 	const [lastnameErr , setLastnameErr] = React.useState(false)
 	const [contactnoErr , setContactnoErr] = React.useState(false)
@@ -113,24 +125,36 @@ function RegisterVendor(props){
 	const[iconEye,setIconEye] = React.useState('eye-slash')
 
 	function clearErrorField(){
+		setStoreNameErr(false)
 		setFirstnameErr(false)
 		setLastnameErr(false)
 		setContactnoErr(false)
 		setEmailErr(false)
 		setPasswordErr(false)
+		setAddressErr(false)
 	}
 
 	function  clearFields(){
+		setStoreName('')
 		setFirstName('')
 		setLastname('')
 		setContactno('')
 		setEmail('')
 		setPassword('')
+		setAddress('')
 	}
 
 	function validate(){
 		clearErrorField();
 		let result = true;
+		if(storeName === "" || storeName === null){
+			setStoreNameErr(true)
+			result = false
+		}
+		if(address === "" || address === null){
+			setAddressErr(true)
+			result = false
+		}
 		if(firstname === "" || firstname === null){
 			setFirstnameErr(true)
 			result = false
@@ -190,6 +214,22 @@ function RegisterVendor(props){
 		}
 	}
 
+	const searchOptions = {
+		componentRestrictions: { country: ['aus'] },
+	  }
+
+	function handleSelect(address){
+	setAddress(address)
+	geocodeByAddress(address)
+		.then(results => getLatLng(results[0]))
+		.then(latLng => {
+		setlatLng(latLng)
+		// localStorage.removeItem('location');
+		// console.log('Success', latLng)
+		})
+		.catch(error => console.error('Error', error));
+	};
+	
 	
     return(
         <Container className="wrapper" fluid>
@@ -217,7 +257,7 @@ function RegisterVendor(props){
                 </div> 
 	        </section>
 
-            <section id="work-with-freedom"> 
+            <section id="work-with-freedom" className="driver-reg"> 
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 first-div">
@@ -255,11 +295,79 @@ function RegisterVendor(props){
 					<div id="errorMessage"></div>
 					<form id="Reg-form">
 						<div class="form-part1">
-					
+						<FormGroup>
+							<Label>Store Name</Label>
+							<Input 
+							onBlur={() => storeName === "" && setStoreNameErr(true)}
+							onChange={(e) => {
+								setStoreName(e.target.value)
+								setStoreNameErr(false)}} 
+							// valid={true} 
+							invalid={storeNameErr}
+							value={storeName}
+							/>
+							<FormFeedback>Store Name is Required</FormFeedback>
+						</FormGroup>
+						<FormGroup>
+							<Label>Store Address</Label>
+
+					<PlacesAutocomplete
+						searchOptions={searchOptions}
+						value={address}
+						onChange={(e) => {setAddress(e)
+							setAddressErr(false)
+						}}
+						onSelect={handleSelect}
+                      >
+                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                          <>
+						<Input 
+							 onBlur={() => address === "" && setAddressErr(true)}
+							 {...getInputProps({
+                                // placeholder: 'Search Places ...',
+                                // placeholder:"Enter Location here...",
+                                className: "mr-sm-2 form-control",
+                              })}
+								//  setContactno(e.target.value)
+							// valid={true} 
+							invalid={addressErr}
+							value={address}
+							/>
+							<FormFeedback>Store Address is Required</FormFeedback>
+
+                            <div className="autocomplete-dropdown-container" 	style={{position : 'relative'}}>
+                              {loading && <div>Loading...</div>}
+                              {suggestions.map((suggestion,index) => {
+                                let className = suggestion.active
+                                  ? 'suggestion-item--active'
+                                  : 'suggestion-item';
+                                // inline style for demonstration purpose
+                                const style = suggestion.active
+                                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+								  : { backgroundColor: '#ffffff', cursor: 'pointer' };
+								  
+								  className += "test"
+                                return (
+                                  <div
+                                  key={index}
+                                    {...getSuggestionItemProps(suggestion, {
+                                      className,
+                                      style,
+                                    })}>
+                                    <span>{suggestion.description}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </>
+                        )}
+                      </PlacesAutocomplete>
+						</FormGroup>
 
 					 	<FormGroup>
 							<Label>First Name</Label>
 							<Input 
+							onFocus={() => address === "" && setAddressErr(true)}
 							onBlur={() => firstname === "" && setFirstnameErr(true)}
 							onChange={(e) => {
 								setFirstName(e.target.value)
@@ -342,7 +450,7 @@ function RegisterVendor(props){
 						</FormGroup>
 
 						<FormGroup>
-							<Label>Password</Label>
+							<Label>Create Password</Label>
 							<Input 
 							onBlur={() => password === "" && setPasswordErr(true)}
 							// type="password"
@@ -354,7 +462,7 @@ function RegisterVendor(props){
 							invalid={passwordErr}
 							value={password}
 							/>
-							<FormFeedback>Password is Required</FormFeedback>
+							<FormFeedback>Create Password is Required</FormFeedback>
 
 							<FontAwesome 
 								style={{position : 'absolute'}}
@@ -386,7 +494,11 @@ function RegisterVendor(props){
 									last_name: lastname,
 									email: email,
 									phone: contactno,
-									password: password
+									password: password,
+									business_name : storeName,
+									physical_address : address,
+								    lat : latLng.lat.toString(),
+									long : latLng.lng.toString(),
 								}
 								createVendorWeb({ variables: { userInput : userInput } })
 							}
@@ -449,7 +561,7 @@ function RegisterVendor(props){
 	</Container>
 		
 
-    <section id="download-app" class="regi-vend"> 
+    {/* <section id="download-app" class="regi-vend"> 
 		<div class="container">
 			<div class="row"> 
 				<div class="col-md-4 col-sm-12 col-xs-12 text-center">
@@ -472,7 +584,7 @@ function RegisterVendor(props){
 				</div>
 			</div> 
 		</div> 
-	</section>
+	</section> */}
 
 			
            

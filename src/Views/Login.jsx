@@ -331,7 +331,7 @@ class Login extends React.Component{
                       onBlur={event => { this.onBlur(event, 'password')
                       this.state.createPassword === "" && this.setState({ createPasswordErr : 'Password Required' })
                     }}
-                      placeholder="Password"
+                      placeholder="Create Password"
                       type={this.state.RegiconEye === 'eye' ? 'text' : 'password' }></input>
                    <FontAwesome 
                         style={{position : 'absolute',right: '65px',top: '158px'}}

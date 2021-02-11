@@ -87,6 +87,8 @@ function RegisterDriver(props){
     const [firstname , setFirstName] = React.useState('')
 	const [lastname , setLastname] = React.useState('')
 	const [contactno , setContactno] = React.useState('')
+	const [postalCode , setpostalCode] = React.useState('')
+
 	const [address , setAddress] = React.useState('')
 
 	const [email , setEmail] = React.useState('')
@@ -95,8 +97,14 @@ function RegisterDriver(props){
 	const [firstnameErr , setFirstnameErr] = React.useState(false)
 	const [lastnameErr , setLastnameErr] = React.useState(false)
 	const [contactnoErr , setContactnoErr] = React.useState(false)
+	const [contactnoFlagErr , setContactnoFlagErr] = React.useState(false)
+	const [postalFlagErr , setpostalFlagErr] = React.useState(false)
+
 	const [addressErr , setAddressErr] = React.useState(false)
-	const [contactnoErrNum , setContactnoErrNum] = React.useState('')
+
+	const [postalErr , setPostalErr] = React.useState(false)
+
+	// const [contactnoErrNum , setContactnoErrNum] = React.useState('')
 
 	const [emailErr , setEmailErr] = React.useState(false)
 	const [emailFlagErr , setemailFlagErr] = React.useState(false)
@@ -114,7 +122,8 @@ function RegisterDriver(props){
 		setContactnoErr(false)
 		setEmailErr(false)
 		setPasswordErr(false)
-		setAddressErr(false)
+		// setAddressErr(false)
+		setPostalErr(false)
 
 	}
 
@@ -124,7 +133,8 @@ function RegisterDriver(props){
 		setContactno('')
 		setEmail('')
 		setPassword('')
-		setAddress('')
+		// setAddress('')
+		setpostalCode('')
 	}
 
 	function validate(){
@@ -139,6 +149,12 @@ function RegisterDriver(props){
 			result = false
 		}if(contactno === "" || contactno === null){
 			setContactnoErr(true)
+			setContactnoFlagErr(false)
+			result = false
+		}
+		else if(contactno.length <= 8 || contactno.length >= 12 ){
+			setContactnoErr(false)
+			setContactnoFlagErr(true)
 			result = false
 		}if(email === "" || email === null){
 			setEmailErr(true)
@@ -153,8 +169,14 @@ function RegisterDriver(props){
 			setPasswordErr(true)
 			result = false
 		}
-		if(address === "" || address === null){
-			setAddressErr(true)
+		if(postalCode === "" || postalCode === null){
+			setPostalErr(true)
+			setpostalFlagErr(false)
+			result = false
+		}
+		else if(postalCode.length <= 3 || postalCode.length > 6){
+			setPostalErr(false)
+			setpostalFlagErr(true)
 			result = false
 		}
 		return result
@@ -167,6 +189,7 @@ function RegisterDriver(props){
 	}
 	
 	function onError({ graphQLErrors, networkError }){
+
         try {
 			setErrors(networkError.result.errors[0].message)
         } catch (error) {
@@ -280,7 +303,7 @@ function RegisterDriver(props){
 
                             </div>
                         </div>
-                        <div class="col-md-6 second-div">
+                        <div class="col-md-6 second-div" id="driver-form">
                             <h2><strong>REGISTRATION </strong>DRIVER</h2>
                             <div id="successMessage"></div>
                             <div id="errorMessage"></div>
@@ -320,51 +343,37 @@ function RegisterDriver(props){
 							<Label>Contact No</Label>
 							<Input
 							className="no-spinner" 
-							onBlur={() => contactno === "" && setContactnoErr(true)}
-							onChange={(e) =>{
-								if(e.target.value.length <= 11){
-									setContactnoErrNum('') 
-									setContactno(e.target.value)
+							onBlur={() => // contactno === "" && setContactnoErr(true)
+							{
+								contactno === "" && setContactnoFlagErr(true) && setContactnoErr(true)
+								if(contactno.length <= 8 || contactno.length >= 12 ){
+									setContactnoFlagErr(true)
 									setContactnoErr(false)
 								}
-								else{
-									setContactnoErrNum('Length Exceeded')
+							}}
+							onChange={(e) =>{
+								if(e.target.value.length <= 11){
+									setContactno(e.target.value)
+									setContactnoErr(false)
+									setContactnoFlagErr(false)
 								}
 							}}
 								//  setContactno(e.target.value)
 							// valid={true} 
-							invalid={contactnoErr}
+							invalid={contactnoErr  || contactnoFlagErr}
 							value={contactno}
 							type={"number"}
 							max
 							/>
-							<FormFeedback>Contact No is Required</FormFeedback>
-							
+							{contactnoErr &&  <FormFeedback>Contact No is Required</FormFeedback>}
+							{/* <FormFeedback>Contact No is Required</FormFeedback> */}
+							{contactnoFlagErr && <FormFeedback>Invalid Contact Number</FormFeedback>}
 						</FormGroup>
 
 						<FormGroup>
-							<Label>Address</Label>
-							{/* <Input 
-							onBlur={() => contactno === "" && setContactnoErr(true)}
-							onChange={(e) =>{
-								if(e.target.value.length <= 11){
-									setContactnoErrNum('') 
-									setContactno(e.target.value)
-									setContactnoErr(false)
-								}
-								else{
-									setContactnoErrNum('Length Exceeded')
-								}
-							}}
-								//  setContactno(e.target.value)
-							// valid={true} 
-							invalid={contactnoErr}
-							value={contactno}
-							type={"number"}
-							max
-							/> */}
+						{/*	<Label>Address</Label>
 
-					<PlacesAutocomplete
+					 <PlacesAutocomplete
 						searchOptions={searchOptions}
 						value={address}
 						onChange={(e) => {setAddress(e)
@@ -414,16 +423,40 @@ function RegisterDriver(props){
                             </div>
                           </>
                         )}
-                      </PlacesAutocomplete>
-							{/* <FormFeedback>Address is Required</FormFeedback> */}
-							
+                      </PlacesAutocomplete> */}
+
+							<Label>Postal Code</Label>
+							<Input
+							className="no-spinner" 
+							onBlur={() => 
+							{
+								postalCode === "" &&  setpostalFlagErr(true) && setPostalErr(true)
+								if(postalCode.length <= 3 || postalCode.length >= 6 ){
+									setpostalFlagErr(true) 
+									setPostalErr(false)
+								}
+							}}
+							onChange={(e) =>{
+								if(e.target.value.length <= 5){
+									setpostalCode(e.target.value)
+									setPostalErr(false)
+									setpostalFlagErr(false)
+								}
+							}}
+							invalid={postalErr  || postalFlagErr}
+							value={postalCode}
+							type={"number"}
+							max
+							/>
+							{postalErr &&  <FormFeedback>Postal Code is Required</FormFeedback>}
+							{postalFlagErr && <FormFeedback>Invalid Postal Code</FormFeedback>}
 						</FormGroup>
 
 
 						<FormGroup>
 							<Label>Email Address</Label>
 							<Input 
-							onFocus={() => address === "" && setAddressErr(true)}
+							// onFocus={() => postalCode === "" && setPostalErr(true)}
 							onBlur={() => {
 								email === "" && setEmailErr(true)
 								if(email !== ""){
@@ -448,7 +481,7 @@ function RegisterDriver(props){
 						</FormGroup>
 
 						<FormGroup>
-							<Label>Password</Label>
+							<Label>Create Password</Label>
 							<Input 
 							type={iconEye === 'eye' ? 'text' : 'password' }
 							onChange={(e) => {
@@ -460,7 +493,7 @@ function RegisterDriver(props){
 							value={password}
 							onBlur={() => password === "" && setPasswordErr(true)}
 							/>
-							<FormFeedback>Password is Required</FormFeedback>
+							<FormFeedback>Create Password is Required</FormFeedback>
 							<FontAwesome 
 								style={{position : 'absolute'}}
 								onClick={() => onChangeIcon()}
@@ -492,9 +525,10 @@ function RegisterDriver(props){
 									email: email,
 									phone: contactno,
 									password: password,
-									temp_address : address,
-									lat : latLng.lat.toString(),
-									long : latLng.lng.toString(),
+									postal_code : postalCode
+									// temp_address : address,
+									// lat : latLng.lat.toString(),
+									// long : latLng.lng.toString(),
 								}
 								createRiderFromWeb({ variables: { riderInput : riderInput } })
 							}
@@ -550,7 +584,7 @@ function RegisterDriver(props){
 		        <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h2><strong>Requirement</strong></h2>
+                            <h2><strong>Requirements</strong></h2>
                         </div>
                     </div> 
                     <div class="row"> 
@@ -572,13 +606,13 @@ function RegisterDriver(props){
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                {/* <div class="col-md-6">
                                     <img class="img-fluid" src="../Assets/Img/icon8.png" alt="icon8"></img>
                                     <div class="inner-div">
                                         <h4>Vehicle</h4>
                                         <p>Your vehicle will be checked to see if its compliable for our delivery standards.</p>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div class="col-md-6">
                                     <img class="img-fluid" src="../Assets/Img/icon9.png" alt="icon9"></img>
                                     <div class="inner-div">

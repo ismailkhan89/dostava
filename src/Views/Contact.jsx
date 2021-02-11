@@ -256,8 +256,10 @@ function Contact(props){
                             <hr/>
                             <p>A location-based online marketplace that connects people with small businesses and neighbourhood stores in their locality. Dostava has its fleet of drivers who will be available for delivery within minutes like every other ride-sharing app. People don’t need to rely only on the few grocery giants as they can now support small business owners near their home or workplace.</p>
                             <div className="become-a">
-                                <a href="/register-driver">Become a Driver</a>
-                                <a href="/register-vendor">Become a Vendor</a>
+                                <a href="/register-driver/#driver-form">Become a Driver</a>
+                                {/* <a href="/register-vendor">Become a Vendor</a> */}
+                                 <a href="/register-vendor/#vendor-form" >Add your store</a>
+
                             </div>
                             <a className="download" href="javascript;">Download App <i className="fa fa-long-arrow-alt-right"></i></a>
                         </div>
