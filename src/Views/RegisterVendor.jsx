@@ -287,6 +287,10 @@ function RegisterVendor(props){
                                     <h6>Grow the list of
                                         loyal customers</h6>
                                 </div>
+								<div class="col-md-4" style={{paddingRight:0}}>
+                                    <img class="img-fluid" src="../Assets/Img/icon14.png" alt="icon13"></img>
+                                    <h6>Let us take care of your deliveries</h6>
+                                </div>
                             </div>
                         </div>
                         <div id="vendor-form" class="col-md-6 second-div">
