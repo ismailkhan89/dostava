@@ -1732,3 +1732,18 @@ body h1 {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+#Reg-form .form-part1 .password-checker{
+    position:relative;
+}
+
+#Reg-form .form-part1 .password-checker span{
+position:absolute;
+top:53%;
+right:40px;
+}
+
+#Reg-form .form-part1 .password-checker input.is-invalid + div + span {
+    top: 37%;
+    right: 40px;
+}

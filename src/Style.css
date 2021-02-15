@@ -2620,6 +2620,7 @@ padding-left:70px;
     position: absolute !important;
     padding : 10px 0;
     width: 100%;
+    top: 100%;
 }
 .driver-reg .autocomplete-dropdown-container > div{
     line-height: 32px;
@@ -2644,6 +2645,9 @@ padding-left:70px;
     padding: 10px;
 }
 
+.store-address { 
+    position: relative;
+}
 /* .autocomplete-dropdown-container {
     background-color: transparent;
     font-size: 14px;

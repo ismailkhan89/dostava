@@ -480,7 +480,7 @@ function RegisterDriver(props){
 							{emailFlagErr && <FormFeedback>{emailValidErr}</FormFeedback>}
 						</FormGroup>
 
-						<FormGroup>
+						<FormGroup className="password-checker">
 							<Label>Create Password</Label>
 							<Input 
 							type={iconEye === 'eye' ? 'text' : 'password' }

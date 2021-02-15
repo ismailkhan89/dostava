@@ -308,7 +308,7 @@ function RegisterVendor(props){
 							/>
 							<FormFeedback>Store Name is Required</FormFeedback>
 						</FormGroup>
-						<FormGroup>
+						<FormGroup className="store-address">
 							<Label>Store Address</Label>
 
 					<PlacesAutocomplete
@@ -336,7 +336,7 @@ function RegisterVendor(props){
 							<FormFeedback>Store Address is Required</FormFeedback>
 
                             <div className="autocomplete-dropdown-container" 	style={{position : 'relative'}}>
-                              {loading && <div>Loading...</div>}
+                              {loading && <div></div>}
                               {suggestions.map((suggestion,index) => {
                                 let className = suggestion.active
                                   ? 'suggestion-item--active'
@@ -449,7 +449,7 @@ function RegisterVendor(props){
 							{emailFlagErr && <FormFeedback>{emailValidErr}</FormFeedback>}
 						</FormGroup>
 
-						<FormGroup>
+						<FormGroup className="password-checker">
 							<Label>Create Password</Label>
 							<Input 
 							onBlur={() => password === "" && setPasswordErr(true)}
