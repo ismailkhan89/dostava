@@ -384,7 +384,7 @@ like every other ride-sharing app.</p>
                 <Row>
                   <Col lg="7" md="8" sm="12" xs="12" className="home-slider-text">
                     <h3>Dostava</h3>
-                    <h4>Stores in your area, now in your phone</h4>
+                    <h4>Stores in your area, now delivering</h4>
                     <Form inline className="text-right search-form">
                       {/* <FormControl type="text" placeholder="Enter Location here..." className="mr-sm-2" /> */}
                       <PlacesAutocomplete
