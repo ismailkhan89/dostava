@@ -38,13 +38,15 @@ function SliderPopular(props){
 
     const { client, data, loading } = useQuery(GET_POPULAR_VENDORS)
     const [products, setProducts] = useState(null);
+    const [total, setTotal] = useState(3);
+
     var settingsFeatureProducts = {
         dots: false,
         autoplay:false,
         arrows:true,
         infinite: true,
         speed: 500,
-        slidesToShow: 3,
+        slidesToShow: total,
         slidesToScroll: 1,
         responsive: [
           {
@@ -83,6 +85,7 @@ function SliderPopular(props){
         client.query({ query: GET_POPULAR_VENDORS, fetchPolicy: 'network-only' }).then(data => {
             console.log("getFeaturedVendors fetau", data)
             setProducts(data.data.getPopularVendors);
+            data.data.getPopularVendors.length <= 2 && setTotal(data.data.getPopularVendors.length)
           })
       }, []);
 

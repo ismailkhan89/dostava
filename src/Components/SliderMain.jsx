@@ -18,6 +18,8 @@ import Slider from "react-slick";
 import { getCartItems } from '../apollo/client';
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import Modal2 from './ModalPopup';
+import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
@@ -35,14 +37,16 @@ const GET_FEATURED_VENDORS = gql`${getFeaturedVendors}`;
 function SliderMain(props){
 
     const { client, data, loading } = useQuery(GET_FEATURED_VENDORS)
-    const [products, setProducts] = useState(null);
+    const [products, setProducts] = useState([]);
+    const [total, setTotal] = useState(3);
+
     var settingsFeatureProducts = {
         dots: false,
         autoplay:false,
         arrows:true,
         infinite: true,
         speed: 500,
-        slidesToShow: 3,
+        slidesToShow: total,
         slidesToScroll: 1,
         responsive: [
           {
@@ -82,11 +86,15 @@ function SliderMain(props){
         client.query({ query: GET_FEATURED_VENDORS, fetchPolicy: 'network-only' }).then(data => {
             console.log("getFeaturedVendors fetau", data)
             setProducts(data.data.getFeaturedVendors);
+            console.log('products.length',data.data.getFeaturedVendors.length)
+            data.data.getFeaturedVendors.length <= 2 && setTotal(data.data.getFeaturedVendors.length)
+
           })
       }, []);
 
     return (
         <>
+    {products !== null && products.length > 0 && 
         <Slider {...settingsFeatureProducts}>
         {products !== null && products.length > 0 && products.map((product, index) => (
         
@@ -99,7 +107,7 @@ function SliderMain(props){
                 
             </div>
         ))}
-        </Slider>
+        </Slider> }
         <Modal2 show={show} handleClose={() =>handleShow()} {...props}/>
      </>
     )
