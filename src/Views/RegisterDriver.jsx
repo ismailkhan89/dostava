@@ -1,8 +1,8 @@
 import React, {Component, useState, useEffect } from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
-import { Query, Mutation } from "react-apollo";
- 
+import { Query, Mutation } from "react-apollo"; 
+
 import {
     Container,
     Row,
@@ -78,7 +78,7 @@ const SECTIONS = [
 		head: 'How often I get paid for the work?',
 		content: 'You will get paid by the end of every week.',
 	  }
-  ];
+  ]; 
 
 
 
@@ -234,14 +234,15 @@ function RegisterDriver(props){
 	};
 
     return(
-      
+
         <Container className="wrapper" fluid>
-			
+		
+
 			<Helmet>
         <title>Deliver with Dostava | Become a Delivery Partner</title>
         <meta name="description" content="Become Dostava delivery partner. Register now to earn money making deliveries with us. Work on your own time and decide how much you make." />
       		</Helmet>
-
+			  <div style={{display:'none'}}>{window.location.hash = "driver-form"}</div>
 		    <Header  {...props} title="Register Driver"/>
             <section id="slider" class="driver-page register-driver"> 
                 <div class="container">
@@ -303,6 +304,7 @@ function RegisterDriver(props){
 
                             </div>
                         </div>
+						{/* <span id='jump_to_this_location'></span> */}
                         <div class="col-md-6 second-div" id="driver-form">
                             <h2><strong>REGISTRATION </strong>DRIVER</h2>
                             <div id="successMessage"></div>

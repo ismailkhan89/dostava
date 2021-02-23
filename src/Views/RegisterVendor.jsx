@@ -237,7 +237,7 @@ function RegisterVendor(props){
         <title>Dostava Vendor Registration | Signup & Start Selling</title>
         <meta name="description" content="Register your store in a few steps and start selling grocery with Dostava right away! New avenue of earning in Australia." />
       		</Helmet>
-
+			  <div style={{display:'none'}}>{window.location.hash = "vendor-form"}</div>
             <Header  {...props} title="Dostava Vendor Registration | Signup & Start Selling"/>
             <section id="slider" class="driver-page register-vend"> 
                 <div class="container">
