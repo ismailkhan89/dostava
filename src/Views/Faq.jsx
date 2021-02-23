@@ -87,60 +87,26 @@ const SECTIONS = [
 	  },
 	  {
 		head: 'Why should I choose Dostava?',
-		bullentpoints : [
-            {
-                title : "Dostava is your new online platform. Without spending big $$$ on an online platform, simply you make Dostava your new Online Mate and start selling."
-            },
-            {
-                title : "Dostava charges you only $9.90 per week and no other charge.But for a limited time only pay $0 for store registration and product listing worth $300. Register Now!"
-            },
-            {
-                title : "Dostava is not an additional financial burden on you but its ADDITIONAL FINANCIAL Benefit. We are here to help you."
-            }
-        ]
-		
+		content:'Without spending big $$$ on any online platform, you can make Dostava your new online mate and start selling and delivering directly to your local customers.',
+		content2:'Dostava charges you only $9.90/week and no other hidden charges we have a no order no fee guarantee with no lock in contracts. We are currently offering a 3 month free trial period.'
 	  },
 	  {
 		head: 'What is my benefit for Choosing Dostava?',
-		content: 'Dostava aims to increase your Sales by not increasing your cost.',
-		content2:'You spend money in marketing, your shop running cost, employees and much more… with Dostava - Simply you receive the Order and make them ready for pickup. You can do it in your Free Time.',
-		content3:'You can utilize your Employees in their Free time and utilize the available manpower.',
-		content4:'Dostava Helps you;',
-		bullentpoints : [
-            {
-                title : "You can utilize your Employees in their Free time and utilize the available manpower."
-            },
-            {
-                title : "You don’t need to spend big money on developing online platform"
-            },
-            {
-                title : "You don’t need to increase your expenses to increase your sales (Marketing spend, shop running cost, employees and etc)"
-            },
-            {
-                title : "We send you list one day in advance, so keep it ready whenever you can"
-            },
-            {
-                title : "Increase your sales but DON’t increase your Expenses"
-            },
-            {
-                title : "And much more…"
-            }
-        ]
-		
+		content: 'With Dostava, you can increase your sales by eceiving online orders, packing them and letting our drivers know when they are ready to collect and deliver. If your doors are closed due to lockdown you are still able to trade.',
+		content2:'With Dostava, you don’t need to spend more money on developing online platforms or hiring drivers, let us do that for you.',
 	  },
 	  {
 		head: 'Do I have to pay any registration fees or ongoing fees?',
-		content: 'Normally, you only need to pay $9.99 per week platform usage fees BUT for a limited time period, we are offering FREE registration for SIX MONTHS. You will also be getting product listing of worth AUD $300/- absolutely FREE!',
+		content: 'Dostava charges you only $9.90/week we have a no order no fee guarantee with no lock in contracts. We are currently offering stores their first 3 months free',
 		
 	  },
 	  {
 		head: 'Do we have to be a BIG Business to join Dostava?',
-		content: 'Dostava appreciates all kinds of businesses. You may not be a big business yet, but we’ll surely help you get there.',
+		content: 'Dostava does not distinguish between any kind of business and is open for all, whether small, big or operating from home.',
 	  },
 	  {
 		head: 'Do we need to hire deliver drivers?',
-		content: 'Dostava takes away your headache and that is true, we organize delivery drivers.',
-		content2:'Simply all you require to do it Keep the Orders ready and rest leave it to us.'
+		content: 'Dostava has their own delivery mates, all you have to do is get the orders ready, and a Dostava driver will collect and deliver to your customers doorstep.',
 	  },
 	  {
 		head: 'How many hours we have before we must keep the order ready?',
@@ -149,40 +115,38 @@ const SECTIONS = [
 	  },
 	  {
 		head: 'Do we require extra staff for Dostava orders?',
-		content: 'Beauty of Dostava is that you do not need extra manpower.',
-		content2:'You can ask your team to pack the orders in their free time or at the end of the day because we will be picking them up next day.'
+		content: 'No, you don’t need extra manpower when you start working on Dostava.',
+		content2:'You can ask your employees to pack the orders in their free time, and our drivers will pick them once they are ready.'
 	  },
 	  {
 		head: 'How do I upload my products online?',
-		content: 'Our USER-Friendly online Portal & Our Expert Team can guide you in this process.',
-		content2:'We can take away your headache, speak to our team.'
+		content: 'Our user-friendly online portal and expert team can guide you on how to upload your products on the Dostava platform.'
 	  },
 	  {
 		head: 'Do I need to download the Mobile application of Dostava?',
-		content: 'Yes, you are correct. You have to download the app and also your team member can download the app. You will receive the order on your MobileApp.',
+		content: 'Yes, you have to download the Dostava app to receive the order details. Your team members can also download the Dostava app.',
 	  },
 	  {
 		head: 'When we will get paid for our product?',
-		content: 'Initially you will get paid every week and once your online sales goes through the roof, we can pay you on daily basis.',
+		content: 'Initially, you will get paid every week. Once your online sales go through the roof, we can pay you on a daily basis.',
 	  },
 	  {
 		head: 'What if we do not have all the products available from the order?',
-		content: 'You can simply update your inventory and the items available to order from your friendly mobile application.',
-		content2:'Once you update the order, customers will get notification as well.',
-		content3:'Our customer support will be working 24/7 to assist you in any query related to the functioning of the application.'
-	  },
-	  {
-		head: 'Can we change price of any product any time?',
-		content: 'Yes, for sure you can change the price of the product any time you prefer.',
+		content: 'You can simply update the order in the Dostava app. Once you update the order, your customer will get the notification. You can also remove the product from your online platform anytime.',
 		
 	  },
 	  {
-		head: 'Do we have to sign up any contract with Dostava?',
-		content: 'If you are looking to partner up as a delivery mate, Dostava offers you complete freedom. It is a no-contract, get paid as you go job. All you need is a smartphone and a vehicle and you’re set to go! Register now and start earning extra money.',
+		head: 'Can we change the price of any product at any time?',
+		content: 'Yes, you can change the price of your product any time, you have full control of stock and pricing.',
+		
+	  },
+	  {
+		head: 'Do we have to sign a contract with Dostava?',
+		content: 'All you have to do is register online, there are no lock in contracts with Dostava',
 	  },
 	  {
 		head: 'Do we require ABN to work with Dostava?',
-		content: 'Yes you do require ABN to work with Dostava and also it has to be GST registered.',
+		content: 'Yes, you require an ABN to work with Dostava, and it also has to be GST registered.',
 		
 	  },
 	  {

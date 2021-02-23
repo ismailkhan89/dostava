@@ -29,14 +29,14 @@ const DRIVER_REGISTER = gql`${createRiderFromWeb}`
 const SECTIONS = [
 	{
         head: 'What is Dostava?',
-        content:'Dostava is an online grocery shopping store and your new Money Mate. You can keep doing your normal work and, at the same time, start earning more by working for us as a delivery rider.'
+        content:'Dostava is a 100% Australian owned online platform based in the heart of Perth, that allows small businesses to deliver directly to customer living in their area through a location based app. It is the ultimate solution to convenient shopping and effective business.'
     },
-	// {
-    //     head: 'How does it work?',
-    //     content: 'Dostava provides you with an option to pick up your delivery order one day in advance. If the groceries need to be delivered on Tuesday, you will get all the order details by Monday night, and you can pick the order on Tuesday to deliver.',
+	{
+        head: 'How does it work?',
+        content: 'Dostava works through an easy-to-use application available for your android and iOs devices. Through the app or the Dostava website, shopping is as easy as tapping on your mobile screen. Place an order by navigating through a number of stores available near you and get your goods delivered to your doorstep.',
 	// 	content2:'When you drive to Rideshare or any other work, you can pass by the Grocery store and pick up your Dostava delivery. Most of the time, you don’t need to go to the store especially, to pick up the order.',
 	// 	content3:'With Dostava, work with freedom and plan your next day order pickup and delivery in advance.',
-	// },
+	},
 	{
 		head : 'How is Dostava different from other driving gigs?',
 		content : 'Do you already have multiple driving gigs? If so, Dostava will multiply your gig earnings without any extra efforts and time.',
@@ -44,19 +44,23 @@ const SECTIONS = [
 	},
     {
         head: 'How much do I need to pay to register with dostava?',
-        content: 'Dostava is free to install. You can start using it and earning right after you register for free.',
+        content: 'Your friendly Dostava App is free for you to install and you can start using it and start earning.',
 	},
     {
       head: 'How much do I get paid for each delivery?',
-	  content: 'For each delivery, the fee starts from $9.99.',
+	  content: 'Your friendly Dostava App will show you exactly what you are making. Your payments start from $9.99 per delivery.',
 	},
 	{
 		head: 'Where do I pick up the the orders from?',
-		content: 'We will send you the complete details of the shop from where you have to pick up the order. You will have the whole information about the shop, including the address shown on the map, and the contact number on which you can call.',
+		content: 'Your friendly Dostava app will send you complete details of the pickup and drop off location and what you will earn.',
 	  },
 	  {
 		head: 'When do I deliver the orders?',
-		content: 'You can schedule your order pick-up and delivery in advance and then pick up and deliver it on the same day.'
+		content: 'Your app will let you know when the order is ready to collect.'
+	  },
+	  {
+		head: 'How often do I get paid for the work?',
+		content: 'Dostava provides you with the luxury of getting paid per order. The Dostava mobile application will send complete cash details every time an order is placed or a transaction has been made.',
 	  },
 	//   {
 	// 	head: 'How many hours I have before I can deliver the Groceries?',
@@ -75,9 +79,10 @@ const SECTIONS = [
 		content: 'Yes, you have to be GST registered to get paid.',
 	  },
 	  {
-		head: 'How often I get paid for the work?',
-		content: 'You will get paid by the end of every week.',
+		head: 'Do we have to sign up any contract with Dostava?',
+		content: 'If you are looking to partner up as a delivery mate, Dostava offers you complete freedom. It is a no-contract, get paid as you go job. All you need is a smartphone and a vehicle and you’re set to go! Register now and start earning extra money.',
 	  }
+	  
   ];
 
 

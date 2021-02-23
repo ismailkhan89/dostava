@@ -63,8 +63,8 @@ function PrivacyPolicy(props){
                     <div class="col-md-6 our-story-text">
                         {/* <h2>Our Mission: No.1 Australian delivery app in the world</h2> */}
                         <h2>Our Mission: All of Australia buying from an Australian Platform</h2>  
-                    	<p>With an all-Australian brand like Dostava, our mission is to become the number one choice for every local buyer and seller in the online market while representing ourselves under the Australian flag. We are inspired to initiate a chain of mutual support among</p>
-                        <p>local business owners and local buyers while initiating numerous convenient driving gig opportunities through our online platform.</p>
+                    	<p>Our mission is to become the number one all Australian online store delivery service. Connecting all store’s around Australia with their customers directly from their phone to their doorstep.</p>
+                        
                     </div>
                     <div class="col-md-6 our-story-img">
                         <img class="img-fluid" src="../Assets/Img/our-story-3.jpg" alt="how-4"></img>
