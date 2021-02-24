@@ -1,6 +1,6 @@
 import React, {Component, useState, useEffect } from "react";
-import Footer from '../Views/Footer.jsx';
-import Header from '../Views/Header';
+import Footer from './Footer.jsx';
+import Header from './Header';
 
 import { ApolloClient } from 'apollo-client';
 import gql from "graphql-tag";
@@ -41,7 +41,7 @@ import {Link, useRouteMatch, useParams } from 'react-router-dom';
 import { getCategories, getFeaturedProducts, getConfiguration
   ,getPopularVendors
   ,getFeaturedVendors } from "../apollo/server";
-import FeaturedProducts from "../../src/Components/FeaturedProducts";
+import FeaturedProducts from "../Components/FeaturedProducts";
 
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -132,7 +132,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-function HomePage(props){
+function LatestHomePage(props){
   useEffect(() => {
     fetchProducts(props)
   }, [])
@@ -276,114 +276,19 @@ function HomePage(props){
 
         {/* <Link to="/cart">Cart</Link>
         <Link to="/checkout">Checkout</Link> */}
-        <Container className="slider-area slider-area-new" style={{display:'none'}} fluid>
-          <Row>
-            <Col lg="12">
-              <Slider {...settings2}>
-              <Query query={GET_CATEGORIES}>
-            {({ loading, error, data }) => {
-             if (loading) return <div>{"Loading"}...</div>;
-             if (error) return <div>`${"Error"}! ${error.message}`</div>;
-             return  data.categories.map((category, index) =>
-                <div key={index}>
-                  <img src="../Assets/Img/slider-pic.png"></img>
-                </div>
-          
-                // </div> 
-                )
-              }}
-              </Query>
-              </Slider>
-            </Col>
-          </Row>
-        </Container>
-        <Container fluid>
-          <Row>
-            <Col lg="12">
-          
-            </Col>
-          </Row>
-        </Container>
-        <Container className="feature-products" style={{display:'none'}} fluid>
-          <Row>
-            <Col lg="12">
-              <h3>Feature Products</h3>
-            </Col>
-
-            <Col lg = "12">
-           {featuredProductsItems.length > 0 ?  <FeaturedProducts {...props} /> : 'loading...' } 
-            </Col>
-          </Row>
-        </Container>
+        
+        
+        
        
               <FlashAlert message={message} color={messagecolor} />
-        <Container className="download-app" style={{display:'none'}} fluid>
-          <Row>
-            <Col lg="3" md="4" className="download-app-img">
-              <img src='../Assets/Img/iphone.png'></img>
-            </Col>
-            <Col lg="6" md="8" className="download-app-text">
-              <h3>Download Our <strong>Application</strong></h3>
-              <p>A location-based online marketplace that connects people with 
-small businesses and neighborhood stores in their locality. Dostava 
-has its fleet of drivers who will be available for delivery within minutes
-like every other ride-sharing app.</p>
-              <img src="../Assets/Img/googleplay.png"></img>
-              <img src="../Assets/Img/ios.png"></img>
-            </Col>
-          </Row>
-        </Container>
-        <Container className="categories-area" style={{display:'none'}}  fluid>
-          <Row className="categories-header">
-            <Col lg="12">
-              <h3>Categories</h3>
-              </Col>
-          </Row>
-          <Row className="product-list">
-          <Query query={GET_CATEGORIES}>
-            {({ loading, error, data }) => {
-             if (loading) return <div>{"Loading"}...</div>;
-             if (error) return <div>`${"Error"}! ${error.message}`</div>;
-              return data.categories.map((category, index) =>
-                <Col lg="6" md="6" sm="6" xs="12" key = {index}>
-                  <Card className="single-product">
-                    <Row>
-                      <Col lg="4">
-                        <Link to={`/categories/${category._id}`} >
-                          <CardImg src= {category.img_menu !== null ? category.img_menu : '../Assets/Img/product-img.png'} ></CardImg>
-                        </Link>
-                      </Col>
-                      <Col lg="8">
-                        <CardBody>
-                        <Link to={`/product/${category._id}`} >
-                          <CardTitle>
-                          {category.title} <span>(Featured Category)</span>
-                          </CardTitle>
-                          <CardText>{category.description} </CardText>                         
-                       
-                          
-                          <Button>View Products</Button>
-                          </Link>
-                        </CardBody>
-                      </Col>
-                    </Row>
-                  </Card>
-                </Col>)
-              }}
-            </Query>
-            </Row>
-          <Row className="categories-footer" style={{display:'none'}}>
-            <Col lg="12" className="text-center">
-              <Button>View More</Button>
-            </Col>
-          </Row>
-        </Container>
-        <Container className="home-slider" fluid>
+        
+        
+        <Container className="home-slider home-bg" fluid>
           <Row>
               <Container>
                 <Row>
-                  <Col lg="7" md="8" sm="12" xs="12" className="home-slider-text">
-                    <h3>Dostava</h3>
+                  <Col lg="6" md="8" sm="12" xs="12" className="home-slider-text">
+                    
                     <h4>Stores in your area, now delivering</h4>
                     <Form inline className="text-right search-form">
                       {/* <FormControl type="text" placeholder="Enter Location here..." className="mr-sm-2" /> */}
@@ -469,97 +374,94 @@ like every other ride-sharing app.</p>
                       
                     </Form>
                   </Col>
-                  <Col lg="0" md="0" sm="12" xs="12" className="home-slider-img hidden">
-                  <img src='../Assets/Img/dostava-img.png' ></img>
+                  <Col lg="6" md="5" sm="12" xs="12" className="home-slider-img ">
+                  <img src='../Assets/Img/slider-img-new.png' ></img>
                   </Col>
                 </Row>
               </Container>
           </Row>
         </Container>
-        <Container className="vendor-section" fluid>
+        <Container className="categories-section" fluid>
           <Row>
             <Container>
               <Row>
-                <Col lg="6" md="8" sm="12" xs="12" className="vendor-text">
-                  <h2>Dostava for Vendor</h2>
-                  <p>Our ultimate goal is to make shopping convenient & hassle-free for people. Dostava
-simply connects local stores to the potential customers living nearby. Making it easier for small
-store owners to make huge sales without the hassle of catering too many walk in customers at a
-time. If you own a store in Perth, register now and start selling big.</p>
-                    <a href="/register-vendor">Get Started</a>
+                  <Col lg="12" className="section-head">
+                    <h3>Categories</h3>
+                  </Col>
+                  <Col lg="4" className="single-category-sec">
+                      <img src='../Assets/Img/single-category1.png'></img>
+                      <h4>Pharmacy</h4>
+                  </Col>
+                  <Col lg="4" className="single-category-sec">
+                      <img src='../Assets/Img/single-category2.png'></img>
+                      <h4>Liquor/Wine Store</h4>
+                  </Col>
+                  <Col lg="4" className="single-category-sec">
+                      <img src='../Assets/Img/single-category3.png'></img>
+                      <h4>Grocery Store</h4>
+                  </Col>
+                  <Col lg="4" className="single-category-sec">
+                      <img src='../Assets/Img/single-category4.png'></img>
+                      <h4>Vegetable Shop</h4>
+                  </Col>
+                  <Col lg="4" className="single-category-sec">
+                      <img src='../Assets/Img/single-category5.png'></img>
+                      <h4>Flower Shop</h4>
+                  </Col>
+                  <Col lg="4" className="single-category-sec">
+                      <img src='../Assets/Img/single-category6.png'></img>
+                      <h4>Meat Shop</h4>
+                  </Col>
+              </Row>
+            </Container>
+          </Row>
+        </Container>
+        
+        <Container className="coming-soon-section" fluid>
+            <Row>
+              <Container>
+                <Row>
+                  <Col lg="5" className="coming-text">
+                    <h4>delivering from</h4>
+                    <h2>15<sup>TH</sup> MARCH, 2021</h2>
+                    <p>In specific neighborhoods around Perth</p>
+                  </Col>
+                </Row>
+              </Container>
+            </Row>
+        </Container>
+
+        <Container className="why-section" fluid>
+          <Row>
+            <Container>
+              <Row>
+              <Col lg="12" className="section-head">
+                    <h3>Why Dostava</h3>
+                  </Col>
+              </Row>
+            </Container>
+          </Row>
+        </Container>
+
+        <Container className="video-section" fluid>
+          <Row>
+            <Container>
+              <Row>
+                <Col lg="6" className="video-col">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/EngW7tLk6R8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </Col>
               </Row>
             </Container>
           </Row>
         </Container>
-        <Container ></Container>
-        <Container className="slider-area slider-area-new container" >
-          <Row>
-            <Col lg="12">
-            <Link to="/LatestHomePage">Checkout</Link>
-              <h2>Popular on Dostava</h2>
-              <SliderPopular  {...props}/>
-              {/* <Slider {...settings2}>
-                <div>
-                  <img src="../Assets/Img/slider-pic.png"></img>
-                  <h3>Title 1</h3>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                <h3>Title 2</h3>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                <h3>Title 3</h3>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                <h3>Title 4</h3>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                <h3>Title 5</h3>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                <h3>Title 6</h3>
-                </div>
-              </Slider> */}
-            </Col>
-          </Row>
-        </Container>
-        <Container className="slider-area slider-area-new featured-area">
-          <Row>
-            <Col lg="12">
-              <h2>Featured on Dostava</h2>
-              <SliderMain {...props}/>
-              {/* <Slider {...settings3}>
-                <div>
-                  <img src="../Assets/Img/slider-pic.png"></img>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                </div>
-                <div>
-                <img src="../Assets/Img/slider-pic.png"></img>
-                </div>
-              </Slider> */}
-            </Col>
-          </Row>
-        </Container>
+
         <Container className="become-vendor" fluid>
           <Row>
             <Container>
               <Row>
+              <Col lg="12" className="section-head">
+                <h3>Become a partner</h3>
+              </Col>
               <Col lg="6" md="6" sm="12" xs="12" className="vendor-col">
                 <Row>
                   <Col lg="3" md="12" xs="12" className="vendor-col-img">
@@ -587,39 +489,36 @@ time. If you own a store in Perth, register now and start selling big.</p>
             </Container>
           </Row>
         </Container>
-        <Container className="app-area" fluid>
+
+        <Container className="app-area new-apparea" fluid>
               <Row>
-                <Col lg="6" md="7" sm="12" xs="12" className="app-area-text">
+                <Container>
+                  <Row>
+                    <Col lg="6" md="7" sm="12" xs="12" className="app-area-text">
                   <h3>Make things easier, download the app</h3>
                   <a href="https://apps.apple.com/us/app/dostava/id1543132324">
                     
-                    <img src="../Assets/Img/apple-store.png"></img>
+                    <img src="../Assets/Img/app-store-icon.png"></img>
                   </a>
                   <a href="https://play.google.com/store/apps/details?id=com.dostava">
-                    <img src="../Assets/Img/gplay.png"></img>
+                    <img src="../Assets/Img/google-play-icon.png"></img>
                   </a>
                 </Col>
                 <Col lg="6" md="5" sm="12" xs="12" className="app-area-img">
-                  <img src='../Assets/Img/bottom_img.png' ></img>
+                  <img src='../Assets/Img/hand.png' ></img>
                 </Col>
+                </Row>
+                </Container>
               </Row>
         </Container>
-        <Container className="vendor-section rider-section" fluid>
-          <Row>
-            <Container>
-              <Row> 
-                <Col lg="6" md="8" sm="12" xs="12" className="vendor-text">
-                  <h2>Dostava for Driver</h2>
-                  <p>Tied down with a lot of responsibilities and looking for a stable, no-contract, get-paid-as-you go, job? Make Dostava your ultimate partner! Work for us as a rider and earn with absolute freedom! All you need is a smartphone and vehicle and you’re set to go! Sign up with Dostava to start earning today!</p>
-                    <a href="/register-driver">Get Started</a>
-                </Col>
-              </Row>
-            </Container>
-          </Row>
-        </Container>
+
+        
 
         <Container className="faq-sectio faq-home">
     			<Row>
+          <Col lg="12" className="section-head">
+                <h3>FAQs</h3>
+              </Col>
 					<Col lg="12">
 						{SECTIONS.length > 0 && SECTIONS.map((data, i) => <Accord head={data.head} bullentpoints={data.bullentpoints} content={data.content} content2={data.content2} content3={data.content3} content4={data.content4} key={i}/>)}
 					</Col>
@@ -699,4 +598,4 @@ time. If you own a store in Perth, register now and start selling big.</p>
 //     );
 //   }
 // }
-  export default HomePage;
+  export default LatestHomePage;

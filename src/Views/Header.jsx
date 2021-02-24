@@ -68,17 +68,19 @@ function Header(props) {
 
   return (
   
-    <Container className="header-area">
+    <Container className="header-area new-header" fluid>
         <title>{props.title}</title>
       <Row className="mainHeader ">
         <Navbar sticky="top" expand="lg" fluid="true">
-
+          <Col lg="1">
+          <FontAwesome name="bars" />
+          </Col>
           <Navbar.Brand href="/"><img src={logo} alt="Logo" /></Navbar.Brand>
           
           {userObj ?
           
           <Col lg="7" md="5" sm="4" xs="4" className="display-none"></Col> :
-          <Col lg="7" md="5" sm="4" xs="4" className="display-none"></Col>
+          <Col lg="4" md="5" sm="4" xs="4" className="display-none"></Col>
           }
 
           
@@ -96,7 +98,14 @@ function Header(props) {
         {/* <Col lg="2" md="2" sm="2" xs="2" className="text-right"></Col> */}
 
 
-         
+        <Col lg="3" className="quick-links" >
+            <Link to="#">
+              Add Your Store
+            </Link>
+            <Link to="#">
+              Register as a Driver
+            </Link>
+          </Col>
 
           <Col lg="1" md="1" sm="1" xs="1" className="cart-icon-header" >
             <Link to="/cart">
