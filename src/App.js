@@ -150,7 +150,8 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 
 <Route  exact  path="/product/:id/"  component={props => <Product {...props} />} />
 
-<Route path="/" component={props => <LatestHomePage {...props} />} />
+<Route exact path="/" component={props => <LatestHomePage {...props} />} />
+
 <Route path="/login" component={props => <Login {...props} />} />
 
 <Route path="/cart" component={props => <Cart {...props} />} />

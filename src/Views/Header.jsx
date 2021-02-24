@@ -79,7 +79,7 @@ function Header(props) {
           
           {userObj ?
           
-          <Col lg="7" md="5" sm="4" xs="4" className="display-none"></Col> :
+          <Col lg="4" md="5" sm="4" xs="4" className="display-none"></Col> :
           <Col lg="4" md="5" sm="4" xs="4" className="display-none"></Col>
           }
 
@@ -99,10 +99,10 @@ function Header(props) {
 
 
         <Col lg="3" className="quick-links" >
-            <Link to="#">
+            <Link to="/register-vendor">
               Add Your Store
             </Link>
-            <Link to="#">
+            <Link to="/register-driver">
               Register as a Driver
             </Link>
           </Col>
