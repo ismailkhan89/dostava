@@ -421,7 +421,10 @@ function VendorCategory(props) {
                           }
                           </strong></span>
                             </p>
+                          {console.log("category>>",category)}
+
                           <p className="price">  ${getItemPrice(category,dataConfig)}</p>
+
                        
                          <a className="add-to-cart" href="#" onClick={(e) => 
                           {onAddToCart(category)

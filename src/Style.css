@@ -2830,12 +2830,14 @@ padding-left:70px;
 .autocomplete-dropdown-container {
     position: absolute;
     z-index: 1;
-    top: 75px;
+    top: 30px;
+    left: -10px;
     text-align: left;
     background-color: transparent;
     font-size: 14px;
     color: #053452;
     padding: 10px;
+    width: 70.7%;
 }
 .driver-reg .autocomplete-dropdown-container {
     position: absolute !important;

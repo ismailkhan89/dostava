@@ -2,20 +2,37 @@ function getItemPrice (product,configuration){
     console.log('configuration Price',configuration)
     console.log('getItemPrice product Price',product)
 
-    let dostava_comission_perc = product.dostava_commission  && product.dostava_commission !== "" 
-    && product.dostava_commission !== null   
-    && parseFloat(product.dostava_commission) !== 0  ? parseFloat(product.dostava_commission)  : 
+    let dostava_comission_perc = product.dostava_commission  && product.dostava_commission !== "" && product.dostava_commission !== null && parseFloat(product.dostava_commission) !== 0  ? parseFloat(product.dostava_commission)  : 
+    parseFloat(configuration.configuration.commission_percentage);
+    if(product.quantity === undefined){
+        product.quantity = 1
+    }
+    console.log("dostava_comission_perc>>>",dostava_comission_perc);
+
+    let dealPrice = product.vendor_pricing * product.quantity;
+    let dostava_comission_amount =  (dostava_comission_perc/100)*dealPrice;
+    
+    let product_price = parseFloat(dealPrice) + parseFloat(dostava_comission_amount)
+    return (product_price).toFixed(2)
+}
+
+function getItemPriceOrderDetails (product,configuration){
+    console.log('configuration Price',configuration)
+    console.log('getItemPrice product Price',product)
+
+    let dostava_comission_perc = product.dostava_commission  && product.dostava_commission !== "" && product.dostava_commission !== null && parseFloat(product.dostava_commission) !== 0  ? parseFloat(product.dostava_commission)  : 
     parseFloat(configuration.commission_percentage);
     if(product.quantity === undefined){
         product.quantity = 1
     }
+    console.log("dostava_comission_perc>>>",dostava_comission_perc);
+
     let dealPrice = product.vendor_pricing * product.quantity;
     let dostava_comission_amount =  (dostava_comission_perc/100)*dealPrice;
     
-    let product_price = dealPrice + dostava_comission_amount
+    let product_price = parseFloat(dealPrice) + parseFloat(dostava_comission_amount)
     return (product_price).toFixed(2)
 }
-
 
 // export const  getItemPrice = (product, configuration) => {
 //     console.log("here inside getItem prioc", product)
@@ -27,4 +44,4 @@ function getItemPrice (product,configuration){
 //     return product_price
 // }
 
-export { getItemPrice }
+export { getItemPrice,getItemPriceOrderDetails }

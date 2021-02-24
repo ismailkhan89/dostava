@@ -25,7 +25,7 @@ import { ApolloClient } from 'apollo-client';
 import { server_url } from  "../config/config";
 import {  myOrders , getConfiguration } from "../apollo/server";
 import { getCartItems  } from '../apollo/client';
-import { getItemPrice } from '../utils/pricing'
+import { getItemPriceOrderDetails } from '../utils/pricing'
 
 const authLink = setContext((_, { headers }) => {
     console.log("setContext",headers)
@@ -151,11 +151,11 @@ function OrderDetails(props){
                         <td> {cartItem.food.title}</td>
                         <td><strong>
                             {/* {cartItem.food.vendor_pricing} */}
-                        ${getItemPrice(cartItem.food,configuration)}
+                        ${getItemPriceOrderDetails(cartItem.food,configuration)}
                         </strong></td>
                         <td>{cartItem.quantity}</td>
                     <td><strong> 
-                        { parseFloat(cartItem.quantity) * parseFloat(getItemPrice(cartItem.food,configuration)) }</strong></td>
+                        { parseFloat(cartItem.quantity) * parseFloat(getItemPriceOrderDetails(cartItem.food,configuration)) }</strong></td>
                         <td>
                             </td>
                     </tr>
