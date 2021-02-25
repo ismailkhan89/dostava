@@ -72,15 +72,19 @@ function Header(props) {
         <title>{props.title}</title>
       <Row className="mainHeader ">
         <Navbar sticky="top" expand="lg" fluid="true">
-          <Col lg="1">
-          <FontAwesome name="bars" />
+          <Col lg="1" md="1" sm="1" xs="1" className="menu-button">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <FontAwesome name="bars" />
+            </button>
+            
+          
           </Col>
           <Navbar.Brand href="/"><img src={logo} alt="Logo" /></Navbar.Brand>
           
           {userObj ?
           
-          <Col lg="4" md="5" sm="4" xs="4" className="display-none"></Col> :
-          <Col lg="4" md="5" sm="4" xs="4" className="display-none"></Col>
+          <Col lg="7" md="5" sm="4" xs="4" className="display-none"></Col> :
+          <Col lg="4" md="2" sm="5" xs="5" className="display-none"></Col>
           }
 
           
@@ -96,16 +100,17 @@ function Header(props) {
 
 
         {/* <Col lg="2" md="2" sm="2" xs="2" className="text-right"></Col> */}
+        {userObj ? null :
 
-
-        <Col lg="3" className="quick-links" >
+        <Col lg="3" md="4" sm="1" className="quick-links" >
             <Link to="/register-vendor">
               Add Your Store
             </Link>
             <Link to="/register-driver">
               Register as a Driver
             </Link>
-          </Col>
+          </Col> 
+}
 
           <Col lg="1" md="1" sm="1" xs="1" className="cart-icon-header" >
             <Link to="/cart">
@@ -199,7 +204,7 @@ function Header(props) {
               </Nav>
               }
           </Col>
-          <Col lg="1" md="2" sm="2" xs="2" className="login text-right max-480">
+          <Col lg="1" md="2" sm="2" xs="1" className="login text-right max-480">
           {
             localStorage.getItem("user-dostava") ? null
               // <Link to="/login" onClick={e => {

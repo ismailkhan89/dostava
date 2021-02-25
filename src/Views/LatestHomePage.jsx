@@ -287,7 +287,7 @@ function LatestHomePage(props){
           <Row>
               <Container>
                 <Row>
-                  <Col lg="6" md="8" sm="12" xs="12" className="home-slider-text">
+                  <Col lg="6" md="6" sm="12" xs="12" className="home-slider-text">
                     
                     <h4>Stores in your area, now delivering</h4>
                     <Form inline className="text-right search-form">
@@ -374,7 +374,7 @@ function LatestHomePage(props){
                       
                     </Form>
                   </Col>
-                  <Col lg="6" md="5" sm="12" xs="12" className="home-slider-img ">
+                  <Col lg="6" md="6" sm="12" xs="12" className="home-slider-img ">
                   <img src='../Assets/Img/slider-img-new.png' ></img>
                   </Col>
                 </Row>
@@ -388,27 +388,27 @@ function LatestHomePage(props){
                   <Col lg="12" className="section-head">
                     <h3>Categories</h3>
                   </Col>
-                  <Col lg="4" className="single-category-sec">
+                  <Col lg="4" md="4" sm="6" className="single-category-sec">
                       <img src='../Assets/Img/single-category1.png'></img>
                       <h4>Pharmacy</h4>
                   </Col>
-                  <Col lg="4" className="single-category-sec">
+                  <Col lg="4" md="4" sm="6" className="single-category-sec">
                       <img src='../Assets/Img/single-category2.png'></img>
                       <h4>Liquor/Wine Store</h4>
                   </Col>
-                  <Col lg="4" className="single-category-sec">
+                  <Col lg="4" md="4" sm="6" className="single-category-sec">
                       <img src='../Assets/Img/single-category3.png'></img>
                       <h4>Grocery Store</h4>
                   </Col>
-                  <Col lg="4" className="single-category-sec">
+                  <Col lg="4" md="4" sm="6" className="single-category-sec">
                       <img src='../Assets/Img/single-category4.png'></img>
                       <h4>Vegetable Shop</h4>
                   </Col>
-                  <Col lg="4" className="single-category-sec">
+                  <Col lg="4" md="4" sm="6" className="single-category-sec">
                       <img src='../Assets/Img/single-category5.png'></img>
                       <h4>Flower Shop</h4>
                   </Col>
-                  <Col lg="4" className="single-category-sec">
+                  <Col lg="4" md="4" sm="6" className="single-category-sec">
                       <img src='../Assets/Img/single-category6.png'></img>
                       <h4>Meat Shop</h4>
                   </Col>
@@ -421,7 +421,7 @@ function LatestHomePage(props){
             <Row>
               <Container>
                 <Row>
-                  <Col lg="5" className="coming-text">
+                  <Col lg="5" md="7" sm="8" className="coming-text">
                     <h4>delivering from</h4>
                     <h2>15<sup>TH</sup> MARCH, 2021</h2>
                     <p>In specific neighborhoods around Perth</p>

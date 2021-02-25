@@ -2308,6 +2308,8 @@ padding-left:70px;
     font-size:25px;
     font-weight: bold;
     color:#223852;
+    float:left;
+    width:100%;
 }
 .coming-soon-section{
     background:url(Assets/Img/coming-soon-bg.png);
@@ -3178,3 +3180,368 @@ padding-left:70px;
     display: inline-block;
     margin-right: 1px;
 }
+
+@media screen and (min-width:768px) and (max-width:1024px){
+    .quick-links a{
+        padding-left:8px;
+        padding-right:8px;
+        font-size:13px;
+    }
+    .home-bg.home-slider .home-slider-text form input[type="text"]{
+        width:63%;
+    }
+    .home-bg{
+        padding:25px 15px 0 15px;
+    }
+    .section-head h3:before, .section-head h3:after{
+        width:36%;
+    }
+    .single-category-sec h4{
+        font-size:20px;
+    }
+    .coming-soon-section .coming-text h2{
+        font-size:35px;
+    }
+    .app-area.new-apparea .app-area-img img{
+        width:106%;
+        bottom:0;
+    }
+    .home-bg .home-slider-img img{
+        width:110%;
+    }
+}
+@media screen and (min-width:768px) and (max-width:992px){
+    .home-bg.home-slider .home-slider-text{
+        padding-right:0;
+    }
+    .home-bg .home-slider-img img{
+        width:110%;
+    }
+    .home-bg.home-slider .home-slider-text h4{
+        font-size:20px;
+    }
+    .home-bg.home-slider .home-slider-text form input[type="text"]{
+        width:58%;
+    }
+    .home-bg.home-slider .home-slider-text form button{
+        font-size:15px;
+        padding:10px;
+    }
+    .categories-section{
+        padding-top:60px;
+    }
+    .section-head h3{
+        font-size:30px;
+    }
+    .section-head h3:before, .section-head h3:after{
+        width:34%;
+    }
+    .why-section .section-head h3:before, .why-section .section-head h3:after{
+        width:32%;
+    }
+    .become-vendor .section-head h3:before, .become-vendor .section-head h3:after{
+        width:25%;
+    }
+    .faq-home .section-head h3:before, .faq-home .section-head h3:after{
+        width:42%;
+    }
+    .video-section + .become-vendor .vendor-col{
+        text-align:center;
+    }
+    .app-area.new-apparea .app-area-img img{
+        width: 130%;
+        margin-top: -24px;
+        right: -20px;
+        left: auto;
+        bottom: 0;
+    }
+    .coming-soon-section .coming-text{
+        top:-40px;
+    }
+    .menu-button{
+        order:1;
+    }
+    .quick-links{
+        order:3;
+    }
+}
+@media screen and (max-width:767px){
+    .home-bg {
+        background-image: url(/static/media/slider-img.53ac8f6f.png);
+        padding: 25px 15px 0 15px;
+    }
+    .section-head h3:before, .section-head h3:after{
+        width:32%;
+    }
+    .section-head h3{
+        font-size:30px;
+    }
+    .why-section .section-head h3:before, .why-section .section-head h3:after{
+        width:27%;
+    }
+    .coming-soon-section .coming-text{
+        top:-40px;
+    }
+    .become-vendor .section-head h3:before, .become-vendor .section-head h3:after{
+        width:23%;
+    }
+    .video-section + .become-vendor{
+        padding-bottom:30px;
+    }
+    .app-area.new-apparea .app-area-img img{
+        width:100%;
+        margin-top:-60px;
+        bottom:0;
+    }
+    .faq-home .section-head h3:before, .faq-home .section-head h3:after{
+
+    }
+    .home-bg .home-slider-img img{
+        width:100%;
+    }
+    .video-section + .become-vendor .section-head{
+        padding-left:0;
+        padding-right:0;
+    }
+    .faq-home .section-head h3:before, .faq-home .section-head h3:after{
+        width:40%;
+    }
+    .categories-section{
+        padding-top:60px;
+    }
+    .app-area.new-apparea .app-area-text{
+        padding-left:15px;
+        padding-right:15px;
+    }
+    .menu-button{
+        order:1;
+    }
+    .quick-links{
+        display:none;
+    }
+}
+@Media screen and (max-width:667px){
+    .section-head h3:before, .section-head h3:after{
+        width:30%;
+    }
+    .single-category-sec h4{
+        font-size:21px;
+    }
+    .coming-soon-section .coming-text h2{
+        font-size:35px;
+    }
+    .become-vendor .section-head h3:before, .become-vendor .section-head h3:after{
+        width:20%;
+    }
+}
+@media screen and (max-width:640px){
+    .coming-soon-section .coming-text{
+        padding:40px 30px;
+    }
+    .why-section{
+        padding-top:40px;
+    }
+    .coming-soon-section{
+        background-size:120%;
+    }
+}
+@media screen and (max-width:568px){
+    .home-bg.home-slider .home-slider-text form input[type="text"]{
+        width:65%;
+    }
+    .categories-section{
+        padding-top:50px;
+    }
+    .section-head h3:before, .section-head h3:after{
+        width:28%;
+    }
+    .why-section .section-head h3:before, .why-section .section-head h3:after{
+        width:24%;
+    }
+    .become-vendor .section-head h3:before, .become-vendor .section-head h3:after{
+        width:17%;
+    }
+    .coming-soon-section{
+        background-size:150%;
+    }
+    .coming-soon-section .coming-text{
+        top:-30px;
+    }
+    .menu-button{
+        float:left;
+        margin-top:15px;
+    }
+    .header-area.new-header nav .login li a{
+        padding:0;
+    }
+    .header-area.new-header nav .login li a span{
+        float:none;
+    }
+    .new-header .mainHeader nav a.navbar-brand{
+        margin-left:25px;
+    }
+}
+@media screen and (max-width:512px){
+    .home-bg.home-slider .home-slider-text h4{
+        font-size:24px;
+    }
+    .home-bg.home-slider .home-slider-text form input[type="text"]{
+        width:60%;
+    }
+    .section-head h3{
+        font-size:26px;
+    }
+    .section-head h3:before, .section-head h3:after{
+        width:27%;
+    }
+    .why-section .section-head h3:before, .why-section .section-head h3:after{
+        width:24%;
+    }
+    .app-area.new-apparea .app-area-text h3{
+        font-size:36px;
+    }
+    .coming-soon-section{
+        background-size:170%;
+    }
+    .display-none{
+        max-width:40%;
+    }
+}
+@media screen and (max-width:480px){
+    .home-bg.home-slider .home-slider-text h4{
+        font-size:22px;
+    }
+    .home-bg.home-slider .home-slider-text form input[type="text"]{
+        width:100%;
+    }
+    .app-area.new-apparea .app-area-text h3{
+        font-size:30px;
+    }
+    .coming-soon-section{
+        background-size:190%;
+    }
+}
+@media screen and (max-width:425px){
+    .home-bg.home-slider .home-slider-text h4{
+        font-size:20px;
+    }
+    .section-head h3{
+        font-size:20px;
+    }
+    .why-section .section-head h3:before, .why-section .section-head h3:after{
+        width:25%;
+    }
+    .become-vendor .section-head h3:before, .become-vendor .section-head h3:after{
+        width:20%;
+    }
+    .card{
+        width:100%;
+    }
+    .coming-soon-section{
+        background-size:210%;
+    }
+}
+@media screen and (max-width:414px){
+    
+    .section-head h3{
+        font-size:20px;
+    }
+    .coming-soon-section .coming-text{
+        padding:40px 25px;
+    }
+    .why-section{
+        padding-bottom:40px;
+    }
+    .video-section .video-col{
+        top:-70px;
+    }
+    .video-section + .become-vendor{
+        padding-top:80px;
+    }
+    .become-vendor .section-head h3:before, .become-vendor .section-head h3:after{
+        width:18%;
+    }
+    .header-area nav .login{
+        max-width:8.33%;
+    }
+}
+@media screen and (max-width:375px){
+    .home-bg.home-slider .home-slider-text h4{
+        font-size:19px;
+    }
+    .categories-section, .categories-section > .row > .container{
+        padding-left:0;
+        padding-right:0;
+    }
+    .categories-section > .row{
+        margin-right:0;
+        margin-left:0;
+    }
+    .coming-soon-section .coming-text h2{
+        font-size:32px;
+    }
+    .coming-soon-section .coming-text{
+        top:-50px;
+    }
+    .why-section .section-head h3:before, .why-section .section-head h3:after{
+        width:21%;
+    }
+    .become-vendor .section-head h3:before, .become-vendor .section-head h3:after{
+        width:15%;
+    }
+    .why-section{
+        padding-bottom:10px;
+    }
+    .video-section .video-col{
+        top:-50px;
+    }
+    .app-area.new-apparea .app-area-text h3{
+        font-size:25px;
+    }
+    .app-area.new-apparea .app-area-text a{
+        display:block;
+        margin-bottom:10px;
+    }
+    .app-area.new-apparea .app-area-text a img{
+        margin-right:0;
+    }
+}
+@media screen and (max-width:360px){
+    .home-bg.home-slider .home-slider-text h4{
+        font-size:18px;
+    }
+    .coming-soon-section{
+        background-size:220%;
+    }
+    .coming-soon-section .coming-text h2{
+        font-size:30px;
+    }
+}
+@Media screen and (max-width:320px){
+    .home-bg.home-slider .home-slider-text h4{
+        font-size:16px;
+    }
+    .section-head h3{
+        font-size:18px;
+    }
+    .coming-soon-section{
+        background-size:240%;
+    }
+    .coming-soon-section .coming-text h2{
+        font-size:26px;
+    }
+    .coming-soon-section .coming-text h2 sup{
+        top:-0.5em
+    }
+    .app-area.new-apparea .app-area-text h3{
+        font-size:22px;
+    }
+    .new-header .mainHeader nav a.navbar-brand img{ 
+        width:150px;
+    }
+    .display-none{
+        display:block;
+        max-width:30%;
+    }
+}
+
