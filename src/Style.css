@@ -3319,6 +3319,9 @@ padding-left:70px;
     .quick-links{
         display:none;
     }
+    .home-bg .home-slider-img img{
+        margin-bottom: 20px;
+    }
 }
 @Media screen and (max-width:667px){
     .section-head h3:before, .section-head h3:after{
