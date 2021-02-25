@@ -239,7 +239,7 @@ export const foods = `
   }`
 
 
-  export const foodbyVendorId = `query foodsByVendor($vendor_id:String){
+  export const foodbyVendorId = `query foodsByVendor($vendor_id:String!){
     foodsByVendor(vendor_id:$vendor_id){
        _id
       title
