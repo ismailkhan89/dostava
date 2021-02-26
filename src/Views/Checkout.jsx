@@ -772,7 +772,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                                 else{
                                   alert('Please Select Payment Options')
                                 }
-                                }} value="Payment">Payment</Button>
+                                }} value="Payment">Checkout</Button>
                       </div>
                       </Col>
                     </Row>
