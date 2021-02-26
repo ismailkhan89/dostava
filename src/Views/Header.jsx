@@ -73,7 +73,7 @@ function Header(props) {
       <Row className="mainHeader ">
         <Navbar sticky="top" expand="lg" fluid="true">
           <Col lg="1" md="1" sm="1" xs="1" className="menu-button">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style={{display:'none'}}>
               <FontAwesome name="bars" />
             </button>
             
