@@ -693,7 +693,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                         <input type="text" placeholder="Security code"></input>
                       </div> */}
                       
-                      <div className="form-group half">
+                      {/* <div className="form-group half" >
                         <Link to="/">Back to Shopping</Link>
                       </div>
                       <div className="form-group half">
@@ -706,7 +706,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                                   alert('Please Select Payment Options')
                                 }
                                 }} value="Payment">Payment</Button>
-                      </div>
+                      </div> */}
                     </form>
                     </Col>
                   
@@ -742,7 +742,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                       )) : "No Items"
                     }
                     <Row>
-                      <Col lg="12" className="cart-total">
+                      <Col lg="12" className="button-form cart-total">
                         <h6>
                           <strong>Subtotal</strong>
                             <span>{currency_symbol} {totalPriceExcDelivery}</span>
@@ -760,6 +760,20 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                           {/* {totalPriceIncDelivery} */}
                   {newTotalPrice}</span>
                         </h2>
+                        <div className="form-group half">
+                        <Link to="/">Back to Shopping</Link>
+                      </div>
+                      <div className="form-group payment-button half">
+                        <Button  onClick={e => {
+                                e.preventDefault()
+                                if(payment !== null){
+                                  onPayment() 
+                                }
+                                else{
+                                  alert('Please Select Payment Options')
+                                }
+                                }} value="Payment">Payment</Button>
+                      </div>
                       </Col>
                     </Row>
                     </div>
