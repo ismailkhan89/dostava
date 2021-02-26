@@ -2438,6 +2438,9 @@ padding-left:70px;
     padding-left:0;
     padding-right:0;
 }
+.new-header .mainHeader nav .menu-button li > a{
+    display: none;
+}
 .new-header .mainHeader nav a.navbar-brand{
     min-width:16.6%;
     max-width:16.66%;
@@ -3337,6 +3340,9 @@ padding-left:70px;
     }
     .home-bg .home-slider-img img{
         margin-bottom: 20px;
+    }
+    .new-header .mainHeader nav .menu-button li > a{
+        display:block;
     }
 }
 @Media screen and (max-width:667px){

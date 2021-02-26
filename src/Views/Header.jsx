@@ -73,9 +73,28 @@ function Header(props) {
       <Row className="mainHeader ">
         <Navbar sticky="top" expand="lg" fluid="true">
           <Col lg="1" md="1" sm="1" xs="1" className="menu-button">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style={{display:'none'}}>
-              <FontAwesome name="bars" />
-            </button>
+          <Nav className="align-items-center  d-md-flex" navbar>
+                  <UncontrolledDropdown nav>
+                    <DropdownToggle className="pr-0" nav>
+                      <FontAwesome name="bars" />
+                    </DropdownToggle>
+                    <DropdownMenu className="dropdown-menu-arrow" right>
+                      <DropdownItem >
+                      <Link to="/register-vendor">
+                        Add Your Store
+                      </Link>
+                      </DropdownItem>
+                      <DropdownItem divider />
+                      <DropdownItem>
+                      <Link to="/register-driver">
+              Register as a Driver
+            </Link>
+                      
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+              </Nav>
+            
             
           
           </Col>
