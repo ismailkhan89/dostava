@@ -404,6 +404,7 @@ function VendorCategory(props) {
                           <img className="img-fluid" src={category.img_url} alt=""></img>
                         : <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt=""></img>
                          }
+                         {category.brand_name}
                           <h3>
                           <span><strong>{stripedHtml}
                             {stripedHtml.length === 30 && 
@@ -412,6 +413,7 @@ function VendorCategory(props) {
                           </strong></span>
                             {/* {category.title} */}
                             </h3>
+                            <p>Stock {category.stock}</p>
                           {/* <Text numberOfLines={1}>{category.title}</Text> */}
                           <p>
                             {/* {category.description} */}

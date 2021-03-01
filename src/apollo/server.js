@@ -245,6 +245,7 @@ export const foods = `
       title
       description
       vendor_pricing
+      brand_name
       dostava_commission
       user{
         _id

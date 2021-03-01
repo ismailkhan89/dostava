@@ -73,6 +73,7 @@ function Header(props) {
       <Row className="mainHeader ">
         <Navbar sticky="top" expand="lg" fluid="true">
           <Col lg="1" md="1" sm="1" xs="1" className="menu-button">
+          {userObj ? null :
           <Nav className="align-items-center  d-md-flex" navbar>
                   <UncontrolledDropdown nav>
                     <DropdownToggle className="pr-0" nav>
@@ -93,7 +94,8 @@ function Header(props) {
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
-              </Nav>
+              </Nav> 
+}
             
             
           
@@ -102,7 +104,7 @@ function Header(props) {
           
           {userObj ?
           
-          <Col lg="7" md="5" sm="4" xs="4" className="display-none"></Col> :
+          <Col lg="7" md="5" sm="5" xs="5" className="display-none"></Col> :
           <Col lg="4" md="2" sm="5" xs="5" className="display-none"></Col>
           }
 
