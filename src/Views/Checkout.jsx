@@ -489,11 +489,11 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
         
         <Header  {...props} title="Checkout" />
         
-        <Container className="breadcrumb-area" fluid>
+        <Container className="breadcrumb-area checkout-breadcrumb" fluid>
           <Row>
-            <Col lg="3">
+            <Col lg="1">
             </Col>
-            <Col lg="9" md="12" sm="12" xs="12" className="breadcrumb-section">
+            <Col lg="11" md="12" sm="12" xs="12" className="breadcrumb-section">
               <h3>My Checkout</h3>
               <ul>
                 <li><Link>Home</Link></li>

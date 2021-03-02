@@ -2461,6 +2461,78 @@ padding-left:70px;
 .quick-links a:first-child{
     border-right: 1px solid #3c4c62;
 }
+.breadcrumb-area.checkout-breadcrumb .row{
+    background-image:url(../src/Assets/Img/my-checkout.jpg);
+    background-position:75%;
+}
+.breadcrumb-area.cart-breadcrumb .row{
+    background-image:url(../src/Assets/Img/my-cart.jpg);
+    
+}
+.breadcrumb-area.order-details-breadcrumb .row{
+    background-image:url(../src/Assets/Img/order-details.jpg);
+    min-height:190px;
+    
+}
+.breadcrumb-area.order-details-breadcrumb .row .breadcrumb-section{
+    bottom:50px;
+}
+.breadcrumb-area.order-details-breadcrumb .row .breadcrumb-section h3{
+    color:#073653;
+}
+.content-area.cart-page > .row.order-details-bottom{
+    background:url(../src/Assets/Img/order-details-bottom.png);
+    min-height:400px;
+    background-size:cover;
+    background-repeat:no-repeat;
+    margin-top:-30px;
+    padding-bottom:0;
+}
+.content-area.cart-page > .row.order-details-bottom .col-lg-10{
+   padding-top:150px;
+    color:#fff;
+    position:relative;
+}
+.content-area.cart-page > .row.order-details-bottom .col-lg-10 h2{
+    font-size:26px;
+    font-weight:bold;
+    margin-bottom:1rem;
+}
+.content-area.cart-page > .row.order-details-bottom .col-lg-10 p{
+    margin-bottom:1rem;
+}
+.content-area.cart-page > .row.order-details-bottom .col-lg-10 > a{
+    display:inline-block;
+    background-color:#fff;
+    color:#073653;
+    font-weight:600;
+    padding:10px;
+    text-transform:uppercase;
+}
+.content-area.cart-page > .row.order-details-bottom .col-lg-10 .follow-us{
+    position:absolute;
+    bottom:10px;
+}
+.content-area.cart-page > .row.order-details-bottom .col-lg-10 .follow-us a{
+margin-left:15px;
+}
+.content-area.cart-page > .row.order-details-bottom .col-lg-10 .follow-us a.continue-shopping{
+    margin-left: 100px;
+    background-color: #fff;
+    color: #073653;
+    border-radius: 25px;
+    padding: 15px 15px 25px 15px;
+    position: relative;
+    bottom: -15px;
+    font-size: 20px;
+    line-height: 40px;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+.content-area.cart-page > .row.order-details-bottom .col-lg-10 .follow-us a span{
+color:#fff;
+font-size:20px;
+}
 .home-slider .home-slider-text{
 
 }

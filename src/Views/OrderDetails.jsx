@@ -17,6 +17,7 @@ import {
 import {Link } from 'react-router-dom';
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
+import FontAwesome from 'react-fontawesome'
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import gql from "graphql-tag";
 import { setContext } from 'apollo-link-context'
@@ -104,17 +105,13 @@ function OrderDetails(props){
     return (
         <Container className="wrapper" fluid>
             <Header  {...props} title="Order Details" />
-            <Container className="breadcrumb-area" fluid>
+            <Container className="breadcrumb-area order-details-breadcrumb" fluid>
                 <Row>
                     <Col lg="3">
                     </Col>
                     <Col lg="9" md="12" sm="12" xs="12" className="breadcrumb-section">
                     <h3>Order Details</h3>
-                    <ul>
-                        <li><Link to={'/'}>Home</Link></li>
-
-                        <li><Link to={'/orderdetails'}>Order Details</Link></li>
-                    </ul>
+                    
                     </Col>
                 </Row>
             </Container>
@@ -213,6 +210,22 @@ function OrderDetails(props){
                 </Row>
 
             </Col>
+            </Row>
+            <Row className="order-details-bottom">
+                <Col lg="2"></Col>
+                <Col lg="10">
+                        <h2>Thank you for shopping with dostava!</h2>
+                        <p>Your Order Status will be updated by the store</p>
+                        <a href="#">Give Feedback</a>
+                        <div className="follow-us">
+                            <span>Follow us</span>
+                            <Link to="/about"><FontAwesome name="facebook"/></Link>
+                            <Link to="/about"><FontAwesome name="instagram"/></Link>
+                            <Link to="/about"><FontAwesome name="twitter"/></Link>
+                            <Link to="/about"><FontAwesome name="youtube-play"/></Link>
+                            <Link to="#" className="continue-shopping">Continue Shopping</Link>
+                        </div>
+                </Col>
             </Row>
         </Container>
           <Footer />

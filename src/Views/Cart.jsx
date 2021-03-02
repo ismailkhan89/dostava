@@ -354,7 +354,7 @@ function Cart(props) {
         
         <Header  {...props} title="Cart" />
         
-        <Container className="breadcrumb-area" fluid>
+        <Container className="breadcrumb-area cart-breadcrumb" fluid>
           <Row>
             <Col lg="3">
             </Col>
