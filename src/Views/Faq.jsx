@@ -57,9 +57,8 @@ const SECTIONS = [
 		content: 'Your friendly Dostava application will send you complete details of the pick and drop of the package and the money you will be making for the gig.',
 	  },
 	  {
-		head: 'When do I deliver the groceries?',
-		content: 'Your order pickup and Delivery both are for next day. you pick up the order and deliver it on the same day.',
-		content2:'Plan your day ahead, how easy is that… we are here to look after you.'
+		head: 'When do I deliver the orders?',
+		content: 'After you accept the order you can conveniently deliver it to a nearby address within one hour.'
 	  },
 	  {
 		head: 'How many hours I have before I can deliver the Groceries?',

@@ -56,7 +56,7 @@ const SECTIONS = [
 	  },
 	  {
 		head: 'When do I deliver the orders?',
-		content: 'Your app will let you know when the order is ready to collect.'
+		content: 'After you accept the order you can conveniently deliver it to a nearby address within one hour.'
 	  },
 	  {
 		head: 'How often do I get paid for the work?',
