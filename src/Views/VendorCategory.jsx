@@ -428,7 +428,7 @@ function VendorCategory(props) {
                           <p className="price">  ${getItemPrice(category,dataConfig)}</p>
 
                        
-                         <a className="add-to-cart" href="#" onClick={(e) => 
+                         <a className="add-to-cart" href="javascript:void" onClick={(e) => 
                           {onAddToCart(category)
                             setMessage('Added!')
                             setMessagecolor('success');
