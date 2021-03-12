@@ -30,6 +30,11 @@ import { Helmet } from "react-helmet";
 
 
 function ThankYouDriver(props){ 
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    },[])
+   
     return(
       
         <Container className="wrapper" fluid>
@@ -76,7 +81,9 @@ function ThankYouDriver(props){
                                         <span class="number">1</span>
                                         <img class="img-fluid" src="../Assets/Img/how-01.png" alt="how-1"></img>
                                     </div>
-                                    <p class="how-to-get"><strong>Download</strong> the Dostava App or Login at <a href="https://vendor.dostava.com.au">vendor.dostava.com.au</a></p>
+                                    <p class="how-to-get"><strong>Download</strong> the Dostava App
+                                     {/* or Login at <a href="https://vendor.dostava.com.au">vendor.dostava.com.au</a> */}
+                                     </p>
                                 </div>
                             </div>
                             <div class="col-md-4">

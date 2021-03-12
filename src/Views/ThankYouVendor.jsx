@@ -30,6 +30,11 @@ import { Helmet } from "react-helmet";
 
 
 function ThankYouVendor(props){ 
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    },[])
+    
     return(
       
         <Container className="wrapper" fluid>
