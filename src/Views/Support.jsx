@@ -35,8 +35,9 @@ function Support(props){
       
         <Container className="wrapper" fluid>
 			<Helmet>
-			<title>Support |  Dostava </title>
+			<title>Support | Dostava </title>
 			<meta name="description" content="" />
+           
 		</Helmet>
       <Header  {...props} title={"Support"} />
       <Container id="support-wrap" fluid>
@@ -60,7 +61,7 @@ function Support(props){
                 <Container className="support-cols" fluid>
                     <Container>
                     <Row>
-                    <Col lg="4" className="support-single">
+                    <Col lg="4" className="support-single" >
                         <img class="img-fluid" src="../Assets/Img/live-chat.png" alt="faq"></img>
                         <h4>Live Chat</h4>
                         <p>With our customer support</p>
@@ -85,7 +86,7 @@ function Support(props){
       
       <Footer />
 
-
+        
     </Container>
      
       
