@@ -422,7 +422,7 @@ function LatestHomePage(props){
                 <Row>
                   <Col lg="5" md="7" sm="8" className="coming-text">
                     <h4>delivering from</h4>
-                    <h2>15<sup>TH</sup> MARCH, 2021</h2>
+                    <h2>MARCH, 2021</h2>
                     <p>In specific neighborhoods around Perth</p>
                   </Col>
                 </Row>
