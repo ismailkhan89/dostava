@@ -72,12 +72,12 @@ const GET_FEATURED_VENDORS = gql`${getFeaturedVendors}`;
 const SECTIONS = [
 	{
         head: 'What is Dostava?',
-        content: 'Dostava is a 100% Australian owned online platform based in the heart of Perth, that connects small stores to the customers living in the nearby area through a location based app. It is the ultimate solution to convenient shopping and effective business.',
+        content: 'Dostava is a 100% Australian owned online platform based in the heart of Perth that connects stores to the customers living in the nearby area through a location based app. It is the ultimate solution to convenient shopping and effective business.',
     },
 	{
         head: 'How does it work?',
-        content: 'Dostava works through an easy-to-use application available for your android and iOs devices. Through the application or the Dostava website, grocery shopping is as easy as tapping on your mobile screen. Place an order by navigating through a number of stores available near you and get it delivered at your doorstep.',
-		content2:'If you’re a vendor looking to increase sales online, register through the Dostava application or through our website. Accept the orders from customers, pack and prepare it for the delivery rider to pick and get paid. It’s that simple.',
+        content: 'Dostava works through an easy-to-use app available for your android and iOs devices. Through the app or the Dostava website, shopping is as easy as tapping on your mobile screen. place your order by navigating through local stores in your area and let is arrange the delivery to your doorstep.',
+		content2:'If you’re a vendor looking to increase sales online, register through the Dostava application or through our website. accept the orders online, pack and prepare and our delivery drivers will take care of the rest.',
     },
     {
         head: 'How much do I need to pay to register with dostava?',
@@ -89,12 +89,11 @@ const SECTIONS = [
 	},
 	{
 		head: 'Where do I pick up the groceries from?',
-		content: 'Your friendly Dostava application will send you complete details of the pick and drop of the package and the money you will be making for the gig.',
+		content: 'You will receive delivery request on your Dostava App with complete details of the pickup and drop off location of the package along with the amount you’ll be making on that particular delivery.',
 	  },
 	  {
 		head: 'When do I deliver the groceries?',
-		content: 'Your order pickup and Delivery both are for next day .You pick up the order and deliver it on the same day.',
-		content2:'Plan your day ahead. How easy is that?… we are here to look after you.'
+		content:'For your ultimate convenience after accepting the delivery request from our app, you can deliver the groceries within 2 hours. You don’t have to worry about quick deliveries anymore!'
     },
 	  {
 		head: 'How often do I get paid for the work?',
