@@ -76,8 +76,8 @@ const SECTIONS = [
     },
 	{
         head: 'How does it work?',
-        content: 'Dostava works through an easy-to-use app available for your android and iOs devices. Through the app or the Dostava website, shopping is as easy as tapping on your mobile screen. place your order by navigating through local stores in your area and let is arrange the delivery to your doorstep.',
-		content2:'If you’re a vendor looking to increase sales online, register through the Dostava application or through our website. accept the orders online, pack and prepare and our delivery drivers will take care of the rest.',
+        content: 'Dostava works through an easy-to-use app available for your android and iOs devices. Through the app or the Dostava website, shopping is as easy as tapping on your mobile screen. Place your order by navigating through local stores in your area and let us arrange the delivery to your doorstep.',
+		content2:'If you’re a vendor looking to increase sales online, register through the Dostava application or through our website, accept the orders online, pack and prepare and our delivery drivers will take care of the rest.',
     },
     {
         head: 'How much do I need to pay to register with dostava?',
