@@ -87,6 +87,9 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
     const [CardStatus,setCardStatus] = useState(null)
     const [activeRadio, setActiveRadio] = useState(0)
 
+    const [aptSuite, setAptSuite] = useState('')
+    const [buildingName, setBuildingName] = useState('')
+
     const COD_PAYMENT = {
       payment: "STRIPE",
       label:'creditCart',
@@ -225,7 +228,9 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                     long: physicalAddress.lng.toString(),
                     lat: physicalAddress.lat.toString(),
                     vendor_ids: vendorIds,
-                    card_status: CardStatus
+                    card_status: CardStatus,
+                    building_name : buildingName,
+                    floor_name : aptSuite
                 }
             })
 
@@ -678,6 +683,23 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                     <div className="form-group full">
                     <label>Address</label>
                         <input type="text" placeholder="Address" disabled value={!!Address ? Address.location : ''}></input>
+                      </div>
+
+                      <div className="form-group full">
+                      <label>Apt / Suite / Floor</label>
+                        <input type="text" 
+                        placeholder="Apt / Suite / Floor (Optional)" 
+                        value={aptSuite}
+                        onChange={(e) => setAptSuite(e.target.value)}
+                        ></input>
+                      </div>
+                      <div className="form-group full">
+                      <label>Business or building name</label>
+                        <input type="text" 
+                        placeholder="Business or building name (Optional)" 
+                        value={buildingName}
+                        onChange={(e) => setBuildingName(e.target.value)}
+                       ></input>
                       </div>
                       {/* <div className="form-group full">
                         <input type="text" pattern="\d*" maxLength="16" placeholder="Card Number">

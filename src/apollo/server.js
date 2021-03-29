@@ -617,9 +617,10 @@ export const savePaypalConfiguration = `mutation SavePaypalConfiguration($config
 export const placeOrder = `
 mutation PlaceOrder($orderInput:[OrderInput!]!,$paymentMethod:String!,$couponCode:String,$address:AddressInput!,$vendor_ids:[String],
    $lat:String
-  ,$long:String,$card_status:String){
+  ,$long:String,$card_status:String,$building_name:String,$floor_name:String){
   placeOrder(orderInput: $orderInput,paymentMethod:$paymentMethod,couponCode:$couponCode,address:$address,vendor_ids:$vendor_ids
-    ,lat:$lat, long:$long, card_status:$card_status) {
+    ,lat:$lat, long:$long, card_status:$card_status,
+    building_name: $building_name,floor_name :$floor_name) {
     _id
     order_id
     delivery_address{
