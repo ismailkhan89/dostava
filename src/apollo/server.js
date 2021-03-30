@@ -238,6 +238,46 @@ export const foods = `
     }
   }`
 
+  export const foodbyFilter = `query foodByFilters($lat:String!,$long:String!$search:String!){
+    foodByFilters(lat:$lat,long:$long,search:$search){
+      _id
+      title
+      description
+      brand_name
+      packaging_unit
+      dostava_commission
+      vendor_pricing
+      user{
+        _id
+        name
+        lat
+        long
+        picture
+      }
+      variations{
+        _id
+        title
+        price
+        discounted
+        addons{
+          _id
+          title
+          description
+          quantity_minimum
+          quantity_maximum
+          options{
+            _id
+            title
+            description
+            price
+          }
+        }
+      }
+      category{_id}
+      img_url
+      stock
+    }
+  }`
 
   export const foodbyVendorId = `query foodsByVendor($vendor_id:String!){
     foodsByVendor(vendor_id:$vendor_id){
@@ -562,7 +602,6 @@ export const getConfiguration = `query GetConfiguration{
     _id
     order_id_prefix
     email
-    password
     enable_email
     client_id
     client_secret

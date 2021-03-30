@@ -12,7 +12,7 @@ import {
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { foods, like,foodbyVendor ,getVendorByLocation , getConfiguration} from "../apollo/server";
+import { foods, like,foodbyVendor ,getVendorByLocation , getConfiguration, foodbyFilter} from "../apollo/server";
 import { getCartItems } from '../apollo/client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
@@ -21,6 +21,7 @@ import { server_url } from  "../config/config";
 import { authLink } from '../library/authLink';
 import { Form, FormControl } from 'react-bootstrap';
 import { Redirect , useHistory , Link  } from "react-router-dom";
+import { getItemPrice } from '../utils/pricing'
 
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -46,10 +47,29 @@ const FOODS = gql`${foodbyVendor}`;
 const LIKE_PRODUCT = gql`${like}`;
 const GETCARTITEMS = gql`${getCartItems}`;
 const getVendorbyLocation = gql`${getVendorByLocation}`
+const FOODSBYFILTER = gql`${foodbyFilter}`
+const GET_CONFIGURATION = gql`${getConfiguration}`;
 
 function Vendor(props) {
 
   
+
+  const [configuration ,setConfiguration] = useState('');
+
+  const {loading :loadingConfig,error : errorConfig,data : dataConfig} = useQuery(GET_CONFIGURATION, { client : newclient
+    ,fetchPolicy: 'network-only'   })
+
+    
+   React.useEffect(() => {
+    const onCompleted = (dataConfig) => {
+      setConfiguration(dataConfig)
+    }
+      if(!loadingConfig && !errorConfig){
+        onCompleted(dataConfig)
+      }
+   },[dataConfig])
+
+
   React.useEffect(() => {
     window.scrollTo(0, 0)
   },[]);
@@ -76,6 +96,8 @@ function Vendor(props) {
 
   const [messagealert , setMessage ] = useState('')
   const [messagecolor , setMessagecolor ] = useState('')
+  const [searchValue , setsearchValue] = useState('')
+  const [searchFlag , setSearchFlag] = useState(false)
 
   function handleSelect(address){
     setLocation(address)
@@ -139,6 +161,28 @@ function Vendor(props) {
   async function onCompleted(data) { 
     console.log("complete data", data)
   }
+
+  async function setVendorIdsArray(product){
+    const cartItemsStr = await localStorage.getItem('cartItems')
+    const cartItems = cartItemsStr ? JSON.parse(cartItemsStr) : []
+    let vendorIds = [];
+    console.log("productproductproduct",product)
+
+    // cartItems.map(food => {  
+    //   if(vendorIds.length > 0){
+    //     var cont = vendorIds.find(a => {
+    //       if(a !== food.vendor) vendorIds.push(food.vendor)
+    //     })
+    //   }
+    //   else{
+    //     vendorIds.push(food.vendor)
+    //   }
+    // })
+    //  console.log("Vids??>>",vendorIds)
+    // setVendorIds(vendorIds);
+  } 
+
+
   async function onAddToCart (product)  {
 
     console.log('onAddToCart>>> ', product);
@@ -154,12 +198,15 @@ function Vendor(props) {
     }
 
     if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
+      setVendorIdsArray(product)
         const newItem = {
             // key: uuid.v4(),
             __typename: 'CartItem',
             _id: product._id,
             vendor: product.user._id,
             quantity: 1,
+            vendor_quantity : 1,
+            vendor_price : product.vendor_pricing,
             variation: {
                 __typename: 'ItemVariation',
                 _id: product.variations[0]._id,
@@ -174,6 +221,7 @@ function Vendor(props) {
             cartItems.push(newItem)
         else {
             cartItems[index].quantity = cartItems[index].quantity + 1
+            cartItems[index].vendor_quantity = cartItems[index].vendor_quantity + 1
         }
         console.log("<<new item entered>>",cartItems)
         client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
@@ -237,8 +285,7 @@ function Vendor(props) {
       </Container>
       <Container id="search-product">
         <Row>
-          
-        <Col sm={10}>
+        <Col sm={4}>
             {/* <Form inline > */}
             {/* <Query query={getVendorbyLocation} variables={{ lat : lat,long :lng}}>
                   {({ loading, error, data }) => {
@@ -341,6 +388,29 @@ function Vendor(props) {
                 <Button variant="outline-success">Search</Button>
               </Link>
               </Col>
+
+              <Col sm={4}>
+              <input 
+                value={searchValue}
+                type="text" 
+                placeholder="Search" 
+                className="mr-sm-2 col-lg-12" 
+                onChange={(e) => {
+                  e.target.value === '' && setSearchFlag(false)
+                  setsearchValue(e.target.value)
+                }}
+                />
+            </Col>
+            <Col sm={2}>
+              <Button variant="outline-success" 
+                  onClick={() => 
+                  searchValue !== '' ?
+                  setSearchFlag(true) : setSearchFlag(false)}>Search</Button>
+            </Col>
+        </Row>
+
+        <Row>
+          
         </Row>
       </Container>
       <Container>
@@ -350,7 +420,9 @@ function Vendor(props) {
           </Col>
         </Row>
       </Container>
+      {!searchFlag &&
       <Container className="content-area" fluid>
+   
         <Row>
           <Container id="Product-carousel">
             
@@ -453,10 +525,89 @@ function Vendor(props) {
             </Row> */}
             
           </Container>
-          
-        </Row>
-      </Container>
+        </Row> 
+      </Container>}
 
+      {searchFlag && searchValue !== '' &&
+      <Container className="content-area" fluid> 
+          <Row>
+            <Container id="dry-fruits" className="all-products">
+   
+      <>
+        <Row>
+          <Col lg="12" >
+            <h2 className="title">Foods</h2>
+          </Col>
+        </Row>
+        <Row>
+<Query query={FOODSBYFILTER} variables={{  lat : lat,long : lng,search : searchValue}}>
+                {({ loading, error, data }) => {
+                if (loading) return <div>{"Loading"}...</div>;
+                if (error) return <div>`${"Error"}! ${error.message}`</div>;
+                  return data.foodByFilters.length > 0 ? data.foodByFilters.map((category, index) =>{
+                    
+                    var stripedHtml = category.title.replace(/<[^>]+>/g, '');
+                    if(stripedHtml.length > 30){
+                      stripedHtml = stripedHtml.substr(0, 30);
+                    } 
+
+                    var stripedHtml2 = category.description.replace(/<[^>]+>/g, '');
+                    if(stripedHtml2.length > 60){
+                      stripedHtml2 = stripedHtml2.substr(0, 60);
+                    } 
+                    return(
+                     <Col lg="4" md="6" sm="12" xs="12" key={index}>
+                      <div className="product-list store-item">
+                      {category.img_url !== "" && category.img_url !== null ?
+                          <img className="img-fluid" src={category.img_url} alt=""></img>
+                        : <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt=""></img>
+                         }
+                         {category.brand_name}
+                          <h3>
+                          <span><strong>{stripedHtml}
+                            {stripedHtml.length === 30 && 
+                            <span>...</span>
+                          }
+                          </strong></span>
+                            {/* {category.title} */}
+                            </h3>
+                            <p>Stock {category.stock}</p>
+                          {/* <Text numberOfLines={1}>{category.title}</Text> */}
+                          <p>
+                            {/* {category.description} */}
+                            <span><strong>{stripedHtml2}
+                            {stripedHtml2.length === 60 && 
+                            <span>...</span>
+                          }
+                          </strong></span>
+                            </p>
+                          {console.log("category>>",category)}
+
+                          <p className="price">  ${getItemPrice(category,dataConfig)}</p>
+
+                       
+                         <a className="add-to-cart" href="javascript:void" onClick={(e) => 
+                          {onAddToCart(category)
+                            setMessage('Added!')
+                            setMessagecolor('success');
+                            setTimeout(() => {
+                            setMessage('')
+                            setMessagecolor('')}, 3000)
+                          }
+                          
+                          }>Add to cart</a>
+                       
+                        </div>
+                      </Col> 
+                      )
+                      }
+                    ) :<Col lg="6">No Product Available</Col>
+                    
+                  }}
+                </Query></Row> </>
+         </Container>       
+        </Row> 
+    </Container>}
       <Container className="app-area" fluid>
               <Row>
                 <Col lg="6" className="app-area-img">
