@@ -385,7 +385,11 @@ function Vendor(props) {
                       }
                         // window.location.reload();
                       }}>
-                <Button variant="outline-success">Search</Button>
+
+           
+                <Button variant="outline-success">   
+                <FontAwesome 
+								name="map-marker" size={'lg'} /></Button>
               </Link>
               </Col>
 
@@ -393,7 +397,7 @@ function Vendor(props) {
               <input 
                 value={searchValue}
                 type="text" 
-                placeholder="Search" 
+                placeholder="Search Food" 
                 className="mr-sm-2 col-lg-12" 
                 onChange={(e) => {
                   e.target.value === '' && setSearchFlag(false)
@@ -405,7 +409,13 @@ function Vendor(props) {
               <Button variant="outline-success" 
                   onClick={() => 
                   searchValue !== '' ?
-                  setSearchFlag(true) : setSearchFlag(false)}>Search</Button>
+                  setSearchFlag(true) : setSearchFlag(false)}>
+                    
+                    <FontAwesome 
+								// style={{position : 'absolute'}}
+								// onClick={() => onChangeIcon()}
+								name="search" size={20} />
+                  </Button>
             </Col>
         </Row>
 
