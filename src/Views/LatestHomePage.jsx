@@ -388,28 +388,28 @@ function LatestHomePage(props){
                     <h3>Categories</h3>
                   </Col>
                   <Col lg="4" md="4" sm="6" className="single-category-sec">
-                      <img src='../Assets/Img/single-category1.png'></img>
-                      <h4>Pharmacy</h4>
+                      <img src='../Assets/Img/gifts.jpg'></img>
+                      <h4>Gifts</h4>
                   </Col>
                   <Col lg="4" md="4" sm="6" className="single-category-sec">
-                      <img src='../Assets/Img/single-category2.png'></img>
-                      <h4>Liquor/Wine Store</h4>
+                      <img src='../Assets/Img/groceries_new.jpg'></img>
+                      <h4>Groceries</h4>
                   </Col>
                   <Col lg="4" md="4" sm="6" className="single-category-sec">
-                      <img src='../Assets/Img/single-category3.png'></img>
-                      <h4>Grocery Store</h4>
+                      <img src='../Assets/Img/vegetables.jpg'></img>
+                      <h4>Fruits & Vegetables</h4>
                   </Col>
                   <Col lg="4" md="4" sm="6" className="single-category-sec">
-                      <img src='../Assets/Img/single-category4.png'></img>
-                      <h4>Vegetable Shop</h4>
+                      <img src='../Assets/Img/foodsupplements.jpg'></img>
+                      <h4>Food Supplement</h4>
                   </Col>
                   <Col lg="4" md="4" sm="6" className="single-category-sec">
-                      <img src='../Assets/Img/single-category5.png'></img>
-                      <h4>Flower Shop</h4>
+                      <img src='../Assets/Img/internationalfood.jpg'></img>
+                      <h4>International Food</h4>
                   </Col>
                   <Col lg="4" md="4" sm="6" className="single-category-sec">
-                      <img src='../Assets/Img/single-category6.png'></img>
-                      <h4>Meat Shop</h4>
+                      <img src='../Assets/Img/newsagent.jpg'></img>
+                      <h4>News agent</h4>
                   </Col>
               </Row>
             </Container>
