@@ -409,7 +409,7 @@ function LatestHomePage(props){
                   </Col>
                   <Col lg="4" md="4" sm="6" className="single-category-sec">
                       <img src='../Assets/Img/newsagent.jpg'></img>
-                      <h4>News agent</h4>
+                      <h4>Newsagent</h4>
                   </Col>
               </Row>
             </Container>
