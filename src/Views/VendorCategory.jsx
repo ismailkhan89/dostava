@@ -414,6 +414,7 @@ function VendorCategory(props) {
                             {/* {category.title} */}
                             </h3>
                             <p>Stock {category.stock}</p>
+                            <p>Package Weight : {category.package_weight}</p>  
                           {/* <Text numberOfLines={1}>{category.title}</Text> */}
                           <p>
                             {/* {category.description} */}

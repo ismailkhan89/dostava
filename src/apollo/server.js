@@ -247,6 +247,7 @@ export const foods = `
       packaging_unit
       dostava_commission
       vendor_pricing
+      package_weight
       user{
         _id
         name
@@ -287,6 +288,8 @@ export const foods = `
       vendor_pricing
       brand_name
       dostava_commission
+      package_weight
+      packaging_unit
       user{
         _id
         name
