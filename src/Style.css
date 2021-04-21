@@ -2221,7 +2221,7 @@ padding-left:70px;
     color:#053452;
     text-transform:uppercase;
 }
-.become-vendor .vendor-col .vendor-col-text a{
+.become-vendor .vendor-col .vendor-col-text a, .coming-soon-section .coming-text a{
     font-size:16px;
     color:#fff;
     font-weight:500;
@@ -2230,6 +2230,9 @@ padding-left:70px;
     background-color:#053452;
     display:inline-block;
     margin-top:5px;
+}
+.coming-soon-section .coming-text a{
+    margin-top:15px;
 }
 .vendor-section{
     background-image: url(Assets/Img/vendor-bg.png);
