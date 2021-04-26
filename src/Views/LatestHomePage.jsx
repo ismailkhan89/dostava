@@ -421,9 +421,9 @@ function LatestHomePage(props){
               <Container>
                 <Row>
                   <Col lg="5" md="7" sm="8" className="coming-text">
-                    <h4>delivering from</h4>
-                    <h2>MARCH, 2021</h2>
+                    <h4>delivering Now</h4>
                     <p>In specific neighborhoods around Perth</p>
+                    <a href="/register-vendor/#vendor-form" >Add your store</a>
                   </Col>
                 </Row>
               </Container>
