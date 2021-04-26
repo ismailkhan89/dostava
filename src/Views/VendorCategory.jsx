@@ -8,7 +8,7 @@ import {
   Row,
   Col,
   Button,
-
+  Modal,
   Alert
 } from "reactstrap";
 import gql from "graphql-tag";
@@ -25,6 +25,7 @@ import { authLink } from '../library/authLink';
 import { Form, FormControl } from 'react-bootstrap';
 import { getItemPrice } from '../utils/pricing'
 import FlashAlert from "../Components/FlashAlert.jsx";
+import ProductDetail from '../Components/ProductDetail';
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -86,6 +87,8 @@ function VendorCategory(props) {
   const [lng,setLng] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lng ?? null : null)
   // const [lat, setLat] = useState(props.location?.state?.location?.lat.toString() ?? null);
   // const [lng, setLng] = useState(props.location?.state?.location?.lng.toString() ?? null);
+  const [editModal, setEditModal] = useState(false)
+const [ItemDetail , setItemDetail ] = useState([]);
 
   const {loading,error,data : dataVendorLocation} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :lng} ,client : newclient })
 
@@ -122,6 +125,14 @@ function VendorCategory(props) {
   async function onCompletedLike(data) {
     console.log("data onCompletedLike", data);
   }
+
+
+  const toggleModal = (row) => {
+    setEditModal(!editModal)
+    setItemDetail(row)
+  }
+
+  
 
   async function onErrorLike(data) {
     console.log("data onErrorLike", data);
@@ -232,6 +243,8 @@ function VendorCategory(props) {
     else {
         // props.navigation.navigate('ItemDetail', { product })
     }
+
+    
   }
 
   return (
@@ -342,7 +355,7 @@ function VendorCategory(props) {
                     {/* <img className="img-fluid" src={category.img_url} alt=""></img> */}
 
                     {category.img_url !== "" && category.img_url !== null ? 
-                      <img className="img-fluid" src={category.img_url} alt=""></img>
+                      <img className="img-fluid" src={category.img_url} alt="" ></img>
                     :  <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt=""></img>
                     }
                     </div>
@@ -401,7 +414,7 @@ function VendorCategory(props) {
                      <Col lg="4" md="6" sm="12" xs="12" key={index}>
                       <div className="product-list store-item">
                       {category.img_url !== "" && category.img_url !== null ?
-                          <img className="img-fluid" src={category.img_url} alt=""></img>
+                          <img className="img-fluid" src={category.img_url} alt="" onClick={() => toggleModal(category)}></img>
                         : <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt=""></img>
                          }
                          {category.brand_name}
@@ -456,6 +469,16 @@ function VendorCategory(props) {
           </Container>
         </Row>
       </Container>
+
+      <Modal
+            className="modal-dialog-centered"
+            size="lg"
+            isOpen={editModal}
+            toggle={() => { toggleModal()}}
+            >
+                
+              <ProductDetail item={ItemDetail} configuration={dataConfig}  />
+            </Modal>
 
       <Container className="app-area" fluid>
               <Row>

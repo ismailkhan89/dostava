@@ -2984,6 +2984,42 @@ font-size:20px;
     text-decoration: none;
     bottom: 15px;
 }
+.modal-product h2{
+margin-bottom:0;
+}
+.modal-product h3{
+    margin-bottom:20px;
+}
+.modal-product p{
+    min-height:auto;
+    margin-bottom:0;
+    line-height:26px;
+}
+.modal-product .add-to-cart{
+    right: auto;
+    position: relative;
+    left: 0;
+    display: inline-block;
+    bottom: 0;
+}
+.modal-product .product-list{
+    margin-bottom:0;
+}
+.modal-product p{
+    font-size:16px;
+    font-weight:600;
+}
+.modal-product p strong{
+    color:#000;
+    font-size:14px;
+    font-weight:700;
+}
+.product-list.store-item img{
+    cursor: pointer;
+}
+.modal-product .product-list.store-item img{
+    cursor:auto;
+}
 #dry-fruits .product-list img{
     min-height:320px;
     max-height:320px;
