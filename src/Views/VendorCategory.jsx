@@ -9,7 +9,8 @@ import {
   Col,
   Button,
   Pagination, PaginationItem, PaginationLink,
-  Alert
+  Alert,
+  Modal
 } from "reactstrap";
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
@@ -26,6 +27,7 @@ import { Form, FormControl } from 'react-bootstrap';
 import { getItemPrice } from '../utils/pricing'
 import FlashAlert from "../Components/FlashAlert.jsx";
 import ReactPaginate from 'react-paginate';
+import ProductDetail from "../Components/ProductDetail.jsx";
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
@@ -89,6 +91,9 @@ function VendorCategory(props) {
   const [pagination,setPagination] = useState(false);
   const [lat,setLat] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lat ?? null : null)
   const [lng,setLng] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lng ?? null : null)
+  const [editModal, setEditModal] = useState(false)
+  const [ItemDetail , setItemDetail ] = useState([]);
+
   // const [lat, setLat] = useState(props.location?.state?.location?.lat.toString() ?? null);
   // const [lng, setLng] = useState(props.location?.state?.location?.lng.toString() ?? null);
 
@@ -138,6 +143,12 @@ function VendorCategory(props) {
       }
   })
   }
+
+  const toggleModal = (row) => {
+    setEditModal(!editModal)
+    setItemDetail(row)
+  }
+
   async function onError(data) { 
     console.log("onError data", data)
   }
@@ -409,11 +420,12 @@ function VendorCategory(props) {
                     if(stripedHtml2.length > 60){
                       stripedHtml2 = stripedHtml2.substr(0, 60);
                     } 
+                    console.log('categorycategory',category)
                     return(
                      <Col lg="4" md="6" sm="12" xs="12" key={index}>
                       <div className="product-list store-item">
                       {category.img_url !== "" && category.img_url !== null ?
-                          <img className="img-fluid" src={category.img_url} alt=""></img>
+                          <img className="img-fluid" src={category.img_url} alt="" onClick={() => toggleModal(category)}></img>
                         : <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt=""></img>
                          }
                          {category.brand_name}
@@ -436,7 +448,6 @@ function VendorCategory(props) {
                           }
                           </strong></span>
                             </p>
-                          {console.log("category>>",category)}
 
                           <p className="price">  ${getItemPrice(category,dataConfig)}</p>
 
@@ -491,6 +502,16 @@ function VendorCategory(props) {
           </Container>
         </Row>
       </Container>
+
+         <Modal
+            className="modal-dialog-centered"
+            size="lg"
+            isOpen={editModal}
+            toggle={() => { toggleModal()}}
+            >
+                {/* <OrderDetails row={OrderDetail} configuration={configuration}  /> */}
+              <ProductDetail item={ItemDetail} configuration={dataConfig}  />
+            </Modal>
 
       <Container className="app-area" fluid>
               <Row>

@@ -3773,3 +3773,7 @@ font-size:20px;
 .issuesPagination .next {
     margin-left: 1rem;
 }
+
+.modal-forgot {
+    max-width:  500px;
+}

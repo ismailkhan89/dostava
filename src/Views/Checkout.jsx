@@ -89,6 +89,9 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
 
     const [aptSuite, setAptSuite] = useState('')
     const [buildingName, setBuildingName] = useState('')
+    const [orderDescription, setOrderDescription] = useState('')
+    const [streetName, setStreetName] = useState('')
+
 
     const COD_PAYMENT = {
       payment: "STRIPE",
@@ -230,7 +233,9 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                     vendor_ids: vendorIds,
                     card_status: CardStatus,
                     building_name : buildingName,
-                    floor_name : aptSuite
+                    floor_name : aptSuite,
+                    order_description:orderDescription,
+                    street_name:streetName
                 }
             })
 
@@ -701,6 +706,23 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                         onChange={(e) => setBuildingName(e.target.value)}
                        ></input>
                       </div>
+                      <div className="form-group full">
+                      <label>Street Name</label>
+                        <input type="text" 
+                        placeholder="Street Name (Optional)" 
+                        value={streetName}
+                        onChange={(e) => setStreetName(e.target.value)}
+                       ></input>
+                      </div>
+                      <div className="form-group full">
+                      <label>Order Description</label>
+                        <input type="text" 
+                        placeholder="Order Description (Optional)" 
+                        value={orderDescription}
+                        onChange={(e) => setOrderDescription(e.target.value)}
+                       ></input>
+                      </div>
+
                       {/* <div className="form-group full">
                         <input type="text" pattern="\d*" maxLength="16" placeholder="Card Number">
                         </input>

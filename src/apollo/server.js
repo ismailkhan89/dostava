@@ -747,10 +747,11 @@ export const savePaypalConfiguration = `mutation SavePaypalConfiguration($config
 export const placeOrder = `
 mutation PlaceOrder($orderInput:[OrderInput!]!,$paymentMethod:String!,$couponCode:String,$address:AddressInput!,$vendor_ids:[String],
    $lat:String
-  ,$long:String,$card_status:String,$building_name:String,$floor_name:String){
+  ,$long:String,$card_status:String,$building_name:String,$floor_name:String
+  ,$order_description:String,$street_name:String){
   placeOrder(orderInput: $orderInput,paymentMethod:$paymentMethod,couponCode:$couponCode,address:$address,vendor_ids:$vendor_ids
     ,lat:$lat, long:$long, card_status:$card_status,
-    building_name: $building_name,floor_name :$floor_name) {
+    building_name: $building_name,floor_name :$floor_name,order_description:$order_description,street_name:$street_name) {
     _id
     order_id
     delivery_address{
@@ -1291,6 +1292,7 @@ export const myOrders = `query Orders($offset:Int){
       delivered
       cancelled
     }
+   
     createdAt
     review{
       _id
@@ -1620,5 +1622,12 @@ export const getVendorsByLocationAndKeyword = `query getVendorsByLocationAndKeyw
       email
     }
     }
+  }
+}`
+
+
+export const forgotPassword = `mutation ForgotPassword($email:String!){
+  forgotPasswordUser(email:$email){
+    result
   }
 }`

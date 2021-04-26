@@ -62,6 +62,11 @@ const GET_CONFIGURATION = gql`${getConfiguration}`;
 
 function OrderDetails(props){
  
+    
+    React.useEffect(() => {
+        window.scrollTo(0, 0)
+      },[]);
+
     const [Order ,setOrder] = useState([])
     const [configuration ,setConfiguration] = useState([])
     const [discountPercent, setDiscountPercent] = useState(null)
@@ -72,6 +77,13 @@ function OrderDetails(props){
         getOrders();
     },[Order])
 
+
+    // order_description
+    // street_name
+    // building_name 
+    // floor_name
+
+    // need to add in orders query
     async function getOrders(){
         const userData = localStorage.getItem('user-dostava');
          const parsData = JSON.parse(userData);

@@ -194,7 +194,7 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 <Route path="/our-story" component={props => <OurStory {...props} />} />
 <Route path="/safety" component={props => <Safety {...props} />} />
 <Route path="/support" component={props => <Support {...props} />} />
-<Route path="/reset" component={props => <ResetPassword {...props} />} />
+{/* <Route path="/reset" component={props => <ResetPassword {...props} />} /> */}
 <Route path='*' exact={true} component={props => <NotFound {...props} />} />
 </Switch>
               {/* <Route path="/home" component={props => <AuthLayout {...props} ></AuthLayout>}  />
