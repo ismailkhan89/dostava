@@ -414,7 +414,7 @@ function Vendor(props) {
                     <FontAwesome 
 								// style={{position : 'absolute'}}
 								// onClick={() => onChangeIcon()}
-								name="search" size={20} />
+								name="search" size={'lg'} />
                   </Button>
             </Col>
         </Row>

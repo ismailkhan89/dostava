@@ -47,6 +47,8 @@ import ThankYouVendor from "./Views/ThankYouVendor";
 import OurStory from './Views/OurStory';
 import Safety from './Views/Safety';
 import Support from './Views/Support';
+import ResetPassword from "./Views/ResetPassword";
+import NotFound from "./Views/404";
 
 
 const httpLink = createUploadLink({
@@ -192,6 +194,8 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
 <Route path="/our-story" component={props => <OurStory {...props} />} />
 <Route path="/safety" component={props => <Safety {...props} />} />
 <Route path="/support" component={props => <Support {...props} />} />
+<Route path="/reset" component={props => <ResetPassword {...props} />} />
+<Route path='*' exact={true} component={props => <NotFound {...props} />} />
 </Switch>
               {/* <Route path="/home" component={props => <AuthLayout {...props} ></AuthLayout>}  />
                 <Redirect from="/" to="/test"  /> */}

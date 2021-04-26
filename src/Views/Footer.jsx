@@ -69,11 +69,11 @@ class Footer extends React.Component{
               <Link to="mailto:support@dostava.com.au">support@dostava.com.au</Link>
               <p className="pbold">Phone: +61 3 9028 4573,</p>
               <p className="pbold">0468 437851</p>
-              <ul class="Social-links">
-						<li><a href="https://www.facebook.com/dostavaApp/"><i class="fa fa-facebook-f"></i></a></li>
-						<li><a href="https://twitter.com/AppDostava"><i class="fa fa-twitter"></i></a></li>
-						<li><a href="https://www.youtube.com/channel/UC22i_fgulC5g-zJ_JSIH3SA"><i class="fa fa-youtube"></i></a></li>
-						<li><a href="https://www.instagram.com/dostavaapp/"><i class="fa fa-instagram"></i></a></li>
+              <ul className="Social-links">
+						<li><a href="https://www.facebook.com/dostavaApp/"><i className="fa fa-facebook-f"></i></a></li>
+						<li><a href="https://twitter.com/AppDostava"><i className="fa fa-twitter"></i></a></li>
+						<li><a href="https://www.youtube.com/channel/UC22i_fgulC5g-zJ_JSIH3SA"><i className="fa fa-youtube"></i></a></li>
+						<li><a href="https://www.instagram.com/dostavaapp/"><i className="fa fa-instagram"></i></a></li>
 					</ul>
             </Col>
           </Row>

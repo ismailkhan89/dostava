@@ -8,14 +8,14 @@ import {
   Row,
   Col,
   Button,
-
+  Pagination, PaginationItem, PaginationLink,
   Alert
 } from "reactstrap";
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import { Link, useParams } from 'react-router-dom';
 import { useQuery, useMutation  } from '@apollo/react-hooks';
-import { foods, like,foodbyVendorId ,getCategoriesByLocation , getConfiguration} from "../apollo/server";
+import { foods, like,foodbyVendorId ,getCategoriesByLocation , getConfiguration , foodbyVendorId_New} from "../apollo/server";
 import { getCartItems } from '../apollo/client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
@@ -25,6 +25,8 @@ import { authLink } from '../library/authLink';
 import { Form, FormControl } from 'react-bootstrap';
 import { getItemPrice } from '../utils/pricing'
 import FlashAlert from "../Components/FlashAlert.jsx";
+import ReactPaginate from 'react-paginate';
+
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -39,7 +41,8 @@ const newclient = new ApolloClient({
   cache
 });
 // const FOODS = gql`${foods}`; 
-const FOODS = gql`${foodbyVendorId}`; 
+// const FOODS = gql`${foodbyVendorId}`; 
+const FOODS = gql`${foodbyVendorId_New}`; 
 const LIKE_PRODUCT = gql`${like}`;
 const GETCARTITEMS = gql`${getCartItems}`;
 const getVendorbyLocation = gql`${getCategoriesByLocation}`
@@ -81,7 +84,9 @@ function VendorCategory(props) {
   const [filters, setFilter] = useState({ onSale: false, inStock: false, min: 0, max: 1000 });
   const [search, setSearch] = useState('');
   const [SearchText,setSearchText] = useState('');
-
+  const [page , setPage] = useState(0)
+  const [totalPage , setTotalPages] = useState(0)
+  const [pagination,setPagination] = useState(false);
   const [lat,setLat] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lat ?? null : null)
   const [lng,setLng] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lng ?? null : null)
   // const [lat, setLat] = useState(props.location?.state?.location?.lat.toString() ?? null);
@@ -326,20 +331,18 @@ function VendorCategory(props) {
                 }}
               </Query> */}
 
-          <Query query={FOODS} variables={{ vendor_id: _id ,lat : lat,long : lng}}>
+          <Query query={FOODS} variables={{ vendor_id: _id ,lat : lat,long : lng , page : 0 }}>
             {({ loading, error, data }) => {
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
-             
-            return data.foodsByVendor.length > 0 ? data.foodsByVendor.map((category, index) =>{
+            
+            return data.foodByVendorId_new.products.length > 0 ? data.foodByVendorId_new.products.map((category, index) =>{
              
                 if(index  <= 3){
                return  <Col lg="3" key={index}>
                   <div className="product">
-                    {/* <Link to="/"> */}
                     <div className="product-img">
                     
-                    {/* <img className="img-fluid" src={category.img_url} alt=""></img> */}
 
                     {category.img_url !== "" && category.img_url !== null ? 
                       <img className="img-fluid" src={category.img_url} alt=""></img>
@@ -351,7 +354,6 @@ function VendorCategory(props) {
                       <h3 className="product-title">{category.title}</h3>
                       <p className="product-content">{category.description}</p>
                     </div>
-                    {/* </Link> */}
                     </div>
                </Col>
                 }
@@ -381,12 +383,22 @@ function VendorCategory(props) {
                 <Row>
                   {!loadingConfig && !errorConfig && 
                 <Query query={FOODS} variables={{ vendor_id: _id , ...filters,
-                  search: search,lat : lat,long : lng}}>
+                  search: search,lat : lat,long : lng,page : page}}>
                 {({ loading, error, data }) => {
                 if (loading) return <div>{"Loading"}...</div>;
                 if (error) return <div>`${"Error"}! ${error.message}`</div>;
-                 console.log('loadingConfig',dataConfig)
-                  return data.foodsByVendor.length > 0 ? data.foodsByVendor.map((category, index) =>{
+
+                if(page === 0){
+                  setTotalPages(data.foodByVendorId_new.totalCount);
+                  if(data.foodByVendorId_new.totalCount > 0){
+                    setPagination(true)
+                  }
+                  
+                }
+
+                 console.log('FOODS_New',data)
+                  return data.foodByVendorId_new.products.length > 0 ? <React.Fragment> 
+                    {data.foodByVendorId_new.products.map((category, index) =>{
                     
                     var stripedHtml = category.title.replace(/<[^>]+>/g, '');
                     if(stripedHtml.length > 30){
@@ -444,11 +456,34 @@ function VendorCategory(props) {
                       </Col> 
                       )
                       }
-                    ) :<Col lg="6">No Product Available</Col>
+                    )} 
+                 
+                    
+                     </React.Fragment>  :<Col lg="6">No Product Available</Col>
                     
                   }}
                 </Query> 
                  }
+           
+
+           {pagination && <Col lg="12" className="issuesPagination pagination">
+                        <ReactPaginate
+                            forcePage={page}
+                            previousLabel="&larr;"
+                            nextLabel="&rarr;"
+                            // breakLabel={'...'}
+                            // breakClassName={'break-me'} 
+                            pageCount={Math.ceil(totalPage / 10)}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={(e) =>{
+                              setPage(e.selected)
+                              // window.scrollTo(50,50);
+                            }}
+                            // containerClassName={'pagination'}
+                            // activeClassName={'active'}
+                          />
+                    </Col> }
                 </Row>
             }
 

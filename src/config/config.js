@@ -1,5 +1,7 @@
 //export const server_url = "https://enatega.ninjascode.com/"
 export const server_url = "https://api.dostava.com.au/"
+// export const server_url = "http://192.168.88.131:8000/"
+
 export const shop_url =  "http://shop.dostava.com.au/"
 //export const server_url = "http://192.168.1.102:8000/"
 //export const cloudinary_upload_url = "https://api.cloudinary.com/v1_1/dgdpsy6t9/image/upload"

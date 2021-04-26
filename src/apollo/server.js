@@ -320,7 +320,95 @@ export const foods = `
       stock
     }
   }`
+
+  export const foodbyVendorId_New = `query foodByVendorId_new($vendor_id:String!,$onSale:Boolean,$inStock:Boolean,$min:Float,$max:Float,$search:String,$page:Int){
+    foodByVendorId_new(vendor_id:$vendor_id,onSale:$onSale,inStock:$inStock,min:$min,max:$max,search:$search,page:$page){
+        products{
+         _id
+      title
+      description
+      brand_name
+      packaging_unit
+      package_weight
+      dostava_commission
+      vendor_pricing
+      user{
+        _id
+        name
+        lat
+        long
+        picture
+      }
+      variations{
+        _id
+        title
+        price
+        discounted
+        addons{
+          _id
+          title
+          description
+          quantity_minimum
+          quantity_maximum
+          options{
+            _id
+            title
+            description
+            price
+          }
+        }
+      }
+      category{_id}
+      img_url
+      stock
+        }
+      totalCount
+    }
+  }`
   
+  export const foodbyFilters_new = `query foodByFilters_new($lat:String!,$long:String!$search:String!,$page:Int){
+    foodByFilters_new(lat:$lat,long:$long,search:$search,page:$page){
+     products{
+         _id
+      title
+      description
+      brand_name
+      packaging_unit
+      package_weight
+      dostava_commission
+      vendor_pricing
+      user{
+        _id
+        name
+        lat
+        long
+        picture
+      }
+      variations{
+        _id
+        title
+        price
+        discounted
+        addons{
+          _id
+          title
+          description
+          quantity_minimum
+          quantity_maximum
+          options{
+            _id
+            title
+            description
+            price
+          }
+        }
+      }
+      category{_id}
+      img_url
+      stock
+        }
+      totalCount
+    }`
   export const  getCategoriesByLocation = `query getCategoriesByLocation($lat:String,$long:String){
     getCategoriesByLocation(lat:$lat,long:$long){
       _id
