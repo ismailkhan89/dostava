@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect , useRef } from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
 
@@ -8,9 +8,8 @@ import {
   Row,
   Col,
   Button,
-  Pagination, PaginationItem, PaginationLink,
-  Alert,
-  Modal
+  Modal,
+  Alert
 } from "reactstrap";
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
@@ -27,7 +26,7 @@ import { Form, FormControl } from 'react-bootstrap';
 import { getItemPrice } from '../utils/pricing'
 import FlashAlert from "../Components/FlashAlert.jsx";
 import ReactPaginate from 'react-paginate';
-import ProductDetail from "../Components/ProductDetail.jsx";
+import ProductDetail from '../Components/ProductDetail';
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
@@ -50,12 +49,24 @@ const GETCARTITEMS = gql`${getCartItems}`;
 const getVendorbyLocation = gql`${getCategoriesByLocation}`
 const GET_CONFIGURATION = gql`${getConfiguration}`;
 
+
+const useMountEffect = fun => useEffect(fun, []);
+
 function VendorCategory(props) {
 
 
-    React.useEffect(() => {
+    useEffect(() => {
       window.scrollTo(0, 0)
     },[]);
+
+    const myRef = useRef(null);
+
+
+    function executeScroll() {
+      myRef.current.scrollIntoView()
+    }
+    // const executeScroll = () => myRef.current.scrollIntoView();
+
 
   // var lat = "24.893120";
   // var long = "67.063950"
@@ -91,11 +102,11 @@ function VendorCategory(props) {
   const [pagination,setPagination] = useState(false);
   const [lat,setLat] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lat ?? null : null)
   const [lng,setLng] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lng ?? null : null)
-  const [editModal, setEditModal] = useState(false)
-  const [ItemDetail , setItemDetail ] = useState([]);
 
   // const [lat, setLat] = useState(props.location?.state?.location?.lat.toString() ?? null);
   // const [lng, setLng] = useState(props.location?.state?.location?.lng.toString() ?? null);
+  const [editModal, setEditModal] = useState(false)
+const [ItemDetail , setItemDetail ] = useState([]);
 
   const {loading,error,data : dataVendorLocation} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :lng} ,client : newclient })
 
@@ -248,6 +259,8 @@ function VendorCategory(props) {
     else {
         // props.navigation.navigate('ItemDetail', { product })
     }
+
+    
   }
 
   return (
@@ -356,7 +369,7 @@ function VendorCategory(props) {
                     
 
                     {category.img_url !== "" && category.img_url !== null ? 
-                      <img className="img-fluid" src={category.img_url} alt=""></img>
+                      <img className="img-fluid" src={category.img_url} alt="" ></img>
                     :  <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt=""></img>
                     }
                     </div>
@@ -382,7 +395,7 @@ function VendorCategory(props) {
           
         </Row>
 
-        <Row>
+        <div  ref={myRef}>
           <Container id="dry-fruits" className="all-products">
           <Row>
                 <Col lg="12" >
@@ -489,6 +502,7 @@ function VendorCategory(props) {
                             pageRangeDisplayed={5}
                             onPageChange={(e) =>{
                               setPage(e.selected)
+                              executeScroll()
                               // window.scrollTo(50,50);
                             }}
                             // containerClassName={'pagination'}
@@ -500,16 +514,18 @@ function VendorCategory(props) {
 
 
           </Container>
-        </Row>
+        </div>
       </Container>
 
-         <Modal
+        
+      <Modal
             className="modal-dialog-centered"
             size="lg"
             isOpen={editModal}
             toggle={() => { toggleModal()}}
             >
                 {/* <OrderDetails row={OrderDetail} configuration={configuration}  /> */}
+                
               <ProductDetail item={ItemDetail} configuration={dataConfig}  />
             </Modal>
 

@@ -76,6 +76,10 @@ const MYORDERS = gql`${myOrders}`
 const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
   function Checkout(props) {
 
+    React.useEffect(() => {
+      window.scrollTo(0, 0)
+    },[])
+    
     const newcartItemsStr =  localStorage.getItem('cartItems')
     const newcartItems = newcartItemsStr ? JSON.parse(newcartItemsStr) : []
 

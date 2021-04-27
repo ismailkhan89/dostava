@@ -1294,6 +1294,10 @@ export const myOrders = `query Orders($offset:Int){
     }
    
     createdAt
+    floor_name
+    building_name
+    order_description
+    street_name
     review{
       _id
       rating

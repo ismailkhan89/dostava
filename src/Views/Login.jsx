@@ -624,7 +624,7 @@ class Login extends React.Component {
 
         <Modal
           className="modal-dialog-centered modal-forgot"
-          size={'lg'}
+          size={"lg"}
           isOpen={this.state.editModal}
           toggle={() => {
             this.toggleModal();
@@ -636,7 +636,6 @@ class Login extends React.Component {
           {/* <OrderDetails row={OrderDetail} configuration={configuration}  /> */}
           {/* <ProductDetail item={ItemDetail} configuration={dataConfig}  /> */}
 
-         
           <Card className="shadow">
             <CardHeader className="border-0">
               <Row className="align-items-center">
@@ -646,29 +645,23 @@ class Login extends React.Component {
               </Row>
             </CardHeader>
             <CardBody>
-            <Mutation
-                      mutation={FORGOT_PASSWORD}
-                      onCompleted={(data) => {
-                        console.log("forgot res", data);
-                      }}
-                      onError={(error) => {
-                        console.log("forgot Errorrrr :", error);
-                      }}
-                    >
-
-                {(forgotPasswordUser, { loading, error , data }) => {
-                      
-                        return (  
-              <Form>
-                
-                <Row>
-                  <Col lg="8">
-                    <label className="form-control-label">
-                      {"Email"}
-                    </label>
-                      <Input
-                            className="form-control-alternative"
-                            id="rider-name"
+              <Mutation
+                mutation={FORGOT_PASSWORD}
+                onCompleted={(data) => {
+                  console.log("forgot res", data);
+                }}
+                onError={(error) => {
+                  console.log("forgot Errorrrr :", error);
+                }}
+              >
+                {(forgotPasswordUser, { loading, error, data }) => {
+                  return (
+                    <Form>
+                      <Row>
+                        <Col lg="8">
+                          <Input
+                            className="form-control-alternative forgot-email"
+                            id="forgot-email"
                             type="text"
                             placeholder="Email"
                             onChange={(e) => {
@@ -677,20 +670,13 @@ class Login extends React.Component {
                                 forgotEmailError: false,
                               });
                             }}
-                            // value={row.order_status || ""}
                           />
-                    
-                      
-                  </Col>
-               
-                  <Col lg="4">
-                  
-                
-                          <>
-                          {!loading ? 
-                         
+                        </Col>
+
+                        <Col lg="4">
+                          {!loading ? (
                             <Button
-                              className="my-4"
+                              className="form-control-alternative form-control"
                               color="primary"
                               type="button"
                               size={"sm"}
@@ -704,42 +690,45 @@ class Login extends React.Component {
                                     },
                                   });
                                 }
-
-                                // adminLogin(this.state.email, this.state.password)
                               }}
                             >
                               Submit
-                            </Button>: 'Loading...' }
-                            <br />
-                          
-                          </>
-                      
-                  
-                  </Col>
-                </Row>
-                <Row>
-                  <Col lg="12">
+                            </Button>
+                          ) : (
+                            "Loading..."
+                          )}
+                          <br />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg="12">
+                          {data &&  (
+                            <div className="form-group">
+                              <span
+                                style={{ color: "green", fontSize: "15px" }}
+                              >
+                                Please Check your email for further..
+                              </span>
+                            </div>
+                          )}
+                          {this.state.forgotEmailError && (
+                            <div className="form-group">
+                              <span style={{ color: "red", fontSize: "13px" }}>
+                                Email Required
+                              </span>
+                            </div>
+                          )}
 
-                   {data && 
-                     <div className="form-group">
-                     <span style={{ color: "green" ,fontSize : '15px'}}>Please Check your email for further..</span>
-                   </div>} 
-                  {this.state.forgotEmailError && (
-                    <div className="form-group">
-                      <span style={{ color: "red" ,fontSize : '13px'}}>Email Required</span>
-                    </div>
-                    )}
-
-                  {!!error && (
-                      <span style={{ color: "red" ,fontSize : '13px'}}>
-                        {error.graphQLErrors[0].message}
-                      </span>
-                    )}
-                  </Col>
-                </Row>
-              </Form>
-               );
-              }}
+                          {!!error && (
+                            <span style={{ color: "red", fontSize: "13px" }}>
+                              {error.graphQLErrors[0].message}
+                            </span>
+                          )}
+                        </Col>
+                      </Row>
+                    </Form>
+                  );
+                }}
               </Mutation>
             </CardBody>
           </Card>

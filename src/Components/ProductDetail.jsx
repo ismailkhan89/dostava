@@ -1,4 +1,4 @@
-import React , { useState} from "react";
+import React, {useState} from "react";
 import {
   Card,
   CardHeader,
@@ -24,21 +24,14 @@ import { getItemPrice } from "../utils/pricing";
 import FlashAlert from "./FlashAlert";
 
 export default function ProductDetail({ item, configuration }) {
-      
-  const [messagealert , setMessage ] = useState('')
+    const [messagealert , setMessage ] = useState('')
   const [messagecolor , setMessagecolor ] = useState('')
 
 
+
   return item ? (
-    <Card className=" shadow">
-         <FlashAlert message={messagealert} color={messagecolor} />
-      <CardHeader className="bg-white border-0">
-        <Row className="align-items-center">
-          <Col xs="8">
-            <h3 className="mb-0">{item.brand_name}</h3>
-          </Col>
-        </Row>
-      </CardHeader>
+    <Card className="modal-product shadow">
+      <FlashAlert message={messagealert} color={messagecolor} />
       <CardBody>
         <Form>
           <Row>
@@ -47,24 +40,13 @@ export default function ProductDetail({ item, configuration }) {
                 <img className="img-fluid" src={item.img_url} alt=""></img>
               </div>
             </Col>{" "}
-            <Col lg="4" md="6" sm="12" xs="12">
+            <Col lg="8" md="6" sm="12" xs="12">
             <div className="product-list store-item">
-                {item.brand_name}
-                <h3>
-                  <span>
-                    <strong>{item.title}</strong>
-                  </span>
-                </h3>
-                <p>Stock {item.stock}</p>
-                <p>Package Weight : {item.package_weight}</p>
-                {/* <Text numberOfLines={1}>{category.title}</Text> */}
-                <p>
-                  {/* {category.description} */}
-                  <span>
-                    <strong>{item.title}</strong>
-                  </span>
-                </p>
-
+                <h2>{item.brand_name}</h2>
+                <h3><strong>{item.title}</strong></h3>
+                <p><strong>Description</strong>: {item.description}</p>
+                <p><strong>Stock</strong> : {item.stock}</p>
+                <p><strong>Package Weight</strong> : {item.package_weight}</p>
                 <p className="price"> ${getItemPrice(item, configuration)}</p>
 
                 <a className="add-to-cart" href="javascript:void" onClick={(e) => 
