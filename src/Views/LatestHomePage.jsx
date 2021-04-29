@@ -72,41 +72,49 @@ const GET_FEATURED_VENDORS = gql`${getFeaturedVendors}`;
 const SECTIONS = [
 	{
         head: 'What is Dostava?',
-        content: 'Dostava is a 100% Australian owned online platform based in the heart of Perth that connects stores to the customers living in the nearby area through a location based app. It is the ultimate solution to convenient shopping and effective business.',
+        content: 'Dostava is a 100% Australian-owned online shopping & delivery platform based in the heart of Perth. Dostava connects stores to the customers in their local area through a location-based app. It is the ultimate solution to convenient shopping and effective business.',
     },
 	{
         head: 'How does it work?',
-        content: 'Dostava works through an easy-to-use app available for your android and iOs devices. Through the app or the Dostava website, shopping is as easy as tapping on your mobile screen. Place your order by navigating through local stores in your area and let us arrange the delivery to your doorstep.',
-		content2:'If you’re a vendor looking to increase sales online, register through the Dostava application or through our website, accept the orders online, pack and prepare and our delivery drivers will take care of the rest.',
+        content: 'Dostava works through an easy-to-use app available on android and iOs devices. Through the App or the Dostava website, shopping is as easy as tapping on your mobile screen. Place your order by navigating through local stores in your area and let us arrange the delivery to your doorstep.',
+		    content2:'If you’re a vendor looking to increase sales online, register through the Dostava application or our website',
     },
     {
-        head: 'How much do I need to pay to register with dostava?',
-        content: 'Your friendly Dostava App is free for you to install and you can start using it and start earning.',
+        head: 'How do I place an order?',
+        content:'You just have to sign up on the Dostava application on your Smartphone, Allow the application to access your location or enter your desired location manually, our Dostava app will show you the stores nearby, select the store you like, or enter the product youre looking for, select the items you want to order, proceed to add a payment method, confirm your order and youre good to go.'
+    },
+    {
+        head: 'How much do I need to pay to register with Dostava?',
+        content: 'Your friendly Dostava App is free for you to install.',
 	},
     {
-      head: 'How much do I get paid for each delivery?',
-	  content: 'Your friendly Dostava App will show you your delivery fees. Your delivery fees starts from $9.99 for each delivery.',
+      head: 'Why is Dostava not showing in my current location?',
+	  content: 'Please download the app and we will send you a notification when we are in your area.',
 	},
 	{
-		head: 'Where do I pick up the groceries from?',
-		content: 'You will receive delivery request on your Dostava App with complete details of the pickup and drop off location of the package along with the amount you’ll be making on that particular delivery.',
+		head: 'What if I am having trouble downloading or using the App?',
+		content: 'Please contact our friendly support team on +61 3 9028 4573 for assistance.',
 	  },
 	  {
-		head: 'When do I deliver the groceries?',
-		content:'For your ultimate convenience after accepting the delivery request from our app, you can deliver the groceries within 2 hours. You don’t have to worry about quick deliveries anymore!'
+		head: 'Do we have to be a BIG Business to join Dostava?',
+		content:'Dostava is here to help every retailer through these uncertain times. Just register above and we will let you know when we are delivering in your area.'
     },
 	  {
-		head: 'How often do I get paid for the work?',
-		content: 'Dostava provides you with the luxury of getting paid per order. The Dostava mobile application will send complete cash details every time an order is placed or a transaction has been made.',
+		head: 'Does dostava deliver 24 hours?',
+		content: 'Yes, if a store is open we will deliver',
     },
     {
-      head: 'Do we have to be a BIG Business to join Dostava?',
-      content: 'Dostava appreciates all kinds of businesses. You may not be a big business yet, but we’ll surely help you get there.',
+      head: 'How much does dostava charge for delivery?',
+      content: 'Our fees range from $0 -$9.95 depending on promotions and what you order,  the larger the order the smaller the fee. Before you place your order you can see your exact fee on our App.',
     },
 	  {
-		head: 'Do we have to sign up any contract with Dostava?',
-		content: 'If you are looking to partner up as a delivery mate, Dostava offers you complete freedom. It is a no-contract, get paid as you go job. All you need is a smartphone and a vehicle and you’re set to go! Register now and start earning extra money.',
-	  }
+		head: 'Does dostava have a minimum order limit?',
+		content: 'No, there is no minimum order.',
+	  },
+    {
+      head:'How long will my order take to be delivered?',
+      content:'We will have your delivery to you within 2 hours'
+    }
   ];
 
 function SampleNextArrow(props) {
