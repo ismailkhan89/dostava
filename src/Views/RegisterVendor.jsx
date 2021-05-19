@@ -28,68 +28,51 @@ const VENDOR_REGISTER = gql`${createVendorWeb}`
 const SECTIONS = [
 	{
         head: 'Why should I choose Dostava?',
-		content:'Without spending big $$$ on any online platform, you can make Dostava your new online mate and start selling.',
-		content2:'Dostava charges you only $9.90/week and no other hidden charges. For a limited time, you can register for free and list products worth $300.',
-		content3:'Dostava is not an additional financial burden on you, but it’s an additional financial benefit.'
+		content:'Dostava can provide your business with more exposure in your local area with an easy-to-use online marketplace. Let us take care of all your deliveries so its business as usual even in the unfortunate situation of COVID lockdown.',
     },
 	{
-        head: 'What is my benefit for Choosing Dostava?',
-        content: 'With Dostava, you can increase your sales by simply receiving the order and making it ready for pick up. You can utilize your employees and the available manpower in their free time.',
-		content2:'With Dostava, you don’t need to spend more money on developing online platforms or increase your expenses to boost sales.',
+        head: 'What is the benefit of signing up with Dostava?',
+        content: 'With Dostava, you can increase your sales by selling to customers online. You will receive orders via your mobile App then get them ready for collection from one of our friendly drivers.',
     },
     {
         head: 'Do I have to pay any registration fees or ongoing fees?',
-        content: 'Normally, you only need to pay $9.99/week as a platform usage fee but, for a limited time period, we are offering FREE registration for 6 months. You can also avail product listing worth $300/- for FREE.'
+        content: 'Normally, you only need to pay $9.99 per week but for a limited period, we are offering FREE registration for 6 months.'
 	},
     {
       head: 'Do we have to be a BIG Business to join Dostava?',
-	  content: 'Dostava does not distinguish between any kind of business and is open for all, whether small or big.'
+	  content: 'Dostava welcomes all kinds of businesses big, small even home businesses are welcome to join.'
 	},
 	{
-		// head: 'Do we need to hire deliver drivers?',
 		head: 'Do we need to hire delivery drivers?',
-		content: 'Dostava organizes delivery drivers itself. All you have to do is keep the orders ready, and Dostava delivery drivers will pick them up.'
-	  },
-	//   {
-	// 	head: 'How many hours we have before we must keep the order ready?',
-	// 	content: 'We will send you your order details one day in advance, and you will have time to pack the order one day beforehand.'
-	//   },
-	  {
-		head: 'Do we require extra staff for Dostava orders?',
-		content: 'No, you don’t need extra manpower when you start working on Dostava.',
-		content2:'You can ask your employees to pack the orders in their free time, and our drivers will pick them up on the allotted time.'
+		content: 'Dostava will organize the delivery drivers. All you have to do is get the orders ready for pick up.'
 	  },
 	  {
 		head: 'How do I upload my products online?',
-		content: 'Our user-friendly online portal and expert team can guide you on how to upload your products on the Dostava platform.'
+		content: 'Our support team are here to help. Send us your stock lists or book an appointment with one of our account managers to come visit, take photos and upload your products for you.',
 	  },
 	  {
-		head: 'Do I need to download the Mobile application of Dostava?',
-		content: 'Yes, you have to download the Dostava app to receive the order details. Your team members can also download the Dostava app.',
+		head: 'Do I need to download the Mobile application?',
+		content: 'Yes, you have to download the Dostava app to start receiving your orders, our App is a multi-user platform so all the team can access it.'
 	  },
 	  {
-		head: 'When we will get paid for our product?',
-		content: 'Initially, you will get paid every week. Once your online sales go through the roof, we can pay you on a daily basis.',
+		head: 'How do I keep track of my orders?',
+		content: 'You can keep track of all your orders from the Dostava portal or App. Dostava invoices daily, some banks may take longer than others for payments to reach your account.',
 	  },
 	  {
-		head: 'What if we do not have all the products available from the order?',
-		content: 'You can simply update the order in the Dostava app. Once you update the order, your customer will get the notification too. You can also remove the product from your online platform anytime.'
+		head: 'What if I have sold out of an ordered item?',
+		content: 'You can simply delete the products you no longer have in stock from the App and continue with the other items on the order. The customer will receive a notification that the order has been adjusted and the product is no longer in stock.',
 	  },
 	  {
-		head: 'Can we change price of any product any time?',
-		content: 'Yes, you can change the price of your product any time you prefer.',
+		head: 'Can we change the price of any product?',
+		content: 'Yes, you can change the price of your product at any time. It’s your store, you control the prices and listed products.'
 	  },
 	  {
-		head: 'Do we have to sign up any contract with Dostava?',
-		content: 'Initially, you have to fill an online form, and then Dostava will contact you and ask you about your basic information.',
+		head: 'Do we have to sign a contract to become a Dostava Vendor?',
+		content: 'You can sign up online via our website and read through our terms and conditions.',
 	  },
 	  {
 		head: 'Do we require ABN to work with Dostava?',
-		content: 'Yes, you require an ABN to work with Dostava, and it also has to be GST registered.',
-	  },
-	  {
-		head: 'How GST works if our product is GST Free and we do not charge GST to the Customers?',
-		content: 'You can select the GST on your product yourself. Selling your product online will not make any changes to your GST on the sales.'
+		content: 'Yes, you require an ABN to work with Dostava and you will also need to register for GST.',
 	  }
   ];
 
