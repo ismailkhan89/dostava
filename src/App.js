@@ -49,6 +49,7 @@ import Safety from './Views/Safety';
 import Support from './Views/Support';
 import ResetPassword from "./Views/ResetPassword";
 import NotFound from "./Views/404";
+import { ConfigurationProvider } from "./context/Configuration";
 
 
 const httpLink = createUploadLink({
@@ -145,6 +146,7 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
     console.log('inside app', clientRef)
       return (
         <ApolloProvider client = {clientRef} >
+          <ConfigurationProvider>
             <BrowserRouter>
             {/* <Switch> */}
             <Switch>
@@ -202,6 +204,7 @@ const IS_LOGGED_IN = gql`${isLoggedIn}`
                 {/* <Redirect from="/" to="/homepage" /> */}
             {/* </Switch> */}
             </BrowserRouter>
+            </ConfigurationProvider>
             </ApolloProvider>
       );
    

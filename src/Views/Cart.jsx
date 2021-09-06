@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from "react";
+import React, {Component, useContext, useEffect, useState} from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
 import FontAwesome from 'react-fontawesome'
@@ -33,6 +33,9 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import Checkout from "./Checkout.jsx";
 import { getItemPrice } from '../utils/pricing'
 import { parse } from "graphql";
+import Spinner from "reactstrap/lib/Spinner";
+import ConfigurationContext from "../context/Configuration.js";
+ 
 const GETCARTITEMS = gql`${getCartItems}`;
 const GET_COUPON = gql`${getCoupon}`
 const FOOD_BY_IDS = gql`${foodByIds}`
@@ -51,6 +54,8 @@ const GET_CONFIGURATION = gql`${getConfiguration}`;
 
 function Cart(props) {
   
+  const config = useContext(ConfigurationContext)
+ 
   const { client, data, loading } = useQuery(GETCARTITEMS)
   const [cartItems, setCartItems] = useState([])
   const [configuration, setConfiguration] = useState([])
@@ -64,6 +69,7 @@ function Cart(props) {
   const [vendorIds, setVendorIds] = useState([])
   const [deliveryCharges, setdeliveryCharges] = useState(0)
   
+  const [loader,setLoader] = useState(false)
 	// const addressObj = props.route.params?.AddressObject ?? null
 
   const [newconfiguration ,setnewConfiguration] = useState('');
@@ -144,11 +150,12 @@ function Cart(props) {
           state: { cartItems: cartItems, 
             totalPriceExcDelivery: totalPriceExcDelivery, 
             totalPriceIncDelivery: totalPriceIncDelivery,
-            newTotalPrice : newTotalPrice,
+            newTotalPrice : (parseFloat(newTotalPrice) + parseFloat(ServiceCharges())).toFixed(2),
             newTotalDeliveryCharges: deliveryCharges,
             currency_symbol: configuration.currency_symbol,
             delivery_charges:configuration.delivery_charges,
             cartItemCount: cartItems.length,
+            services_charges : ServiceCharges()
            }
         })
       }
@@ -187,10 +194,11 @@ function Cart(props) {
               cartItem.quantity = food.stock
             }
 
-            let title = `${food.title}(${variation.title})`
-            let price = variation.price
+            // let title = `${food.title}${variation.title ? '('+variation.title+')' : ''}`
+            let title = `${food.title}`
+            let price =  parseFloat(food.vendor_pricing)
          
-            price = parseFloat(getItemPrice(food,dataConfig))
+            // price = parseFloat(getItemPrice(food,dataConfig))
             if (cartItem.addons)
               cartItem.addons.forEach(addon => {
                 const cartAddon = variation.addons.find(add => add._id === addon._id)
@@ -220,11 +228,13 @@ function Cart(props) {
             setLoadingData(false)
             setFoods(foodByIds)
             setVendorIdsArray(transformCart.filter(item => item))
+            setLoader(false)
           // }
         }
         else {
           if (props.navigation.isFocused()) {
             setLoadingData(false)
+            setLoader(false)
           }
         }
       } catch (e) {
@@ -247,6 +257,7 @@ function Cart(props) {
       if (withDiscount && discountPercent) {
         itemTotal = itemTotal - ((discountPercent / 100) * itemTotal)
       }
+    
       return (itemTotal + deliveryCharges).toFixed(2)
     }
 
@@ -260,7 +271,8 @@ function Cart(props) {
     } 
 
     async function addQuantityToCartItem (newItem) {
-
+   
+           setLoader(true)
           const cartItemsStr = localStorage.getItem('cartItems') || '[]'
           const cartItems = JSON.parse(cartItemsStr)
 
@@ -274,10 +286,12 @@ function Cart(props) {
           await localStorage.setItem('cartItems', JSON.stringify(cartItems))
           setCartItems(cartItems);
           didFocus()
+          
         
       }
       
       async function removeQuantityToCartItem (newItem) {
+          setLoader(true)
           const cartItemsStr = localStorage.getItem('cartItems') || '[]'
           const cartItems = JSON.parse(cartItemsStr)
           const index = cartItems.findIndex((product) => product._id === newItem._id)
@@ -289,10 +303,24 @@ function Cart(props) {
                 cartItems[index].vendor_quantity = cartItems[index].vendor_quantity - 1
               }
           }
-          await localStorage.setItem('cartItems', JSON.stringify(cartItems))
-          setCartItems(cartItems);
-          didFocus()
-      }
+
+          if(cartItems[index].quantity <= 0){
+            const items = cartItems.filter((product) => product._id !== newItem._id)
+            await localStorage.setItem('cartItems', JSON.stringify(items))
+            client.writeQuery({ query: GETCARTITEMS, data: { cartItems: items.length } })
+            setCartItems(items);
+            didFocus()
+          }
+          else{
+            await localStorage.setItem('cartItems', JSON.stringify(cartItems))
+            setCartItems(cartItems);
+            didFocus()
+          }
+
+         
+          
+         
+       }
     console.log("get config", configuration)
     console.log("get props", props)
 
@@ -348,6 +376,25 @@ function Cart(props) {
       
     }
 
+    function ServiceCharges(){
+      let newPrice = 0
+      let itemTotal = 0
+      cartItems.forEach(cartItem => {
+        itemTotal += parseFloat(cartItem.price) * parseInt(cartItem.quantity)
+      })
+      if(itemTotal < config.service_charges_c1){
+        newPrice = config.service_charges_one
+      }
+      else if(itemTotal >= config.service_charges_c1 && itemTotal <= config.service_charges_c2){
+        newPrice = (itemTotal * config.service_charges_two) / 100
+      }
+      else{
+        newPrice = config.service_charges_three
+      }
+      return (parseFloat(newPrice)).toFixed(2)
+    }
+
+
     return(
       
         <Container className="wrapper" fluid>
@@ -389,9 +436,10 @@ function Cart(props) {
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    { !loader ? <>
+                     <tbody>
                       {
-                        cartItems.length > 0 ?  cartItems.map((cartItem, idx) => (
+                     cartItems.length > 0 ?  cartItems.map((cartItem, idx) => (
                      
                             <tr key ={idx}>
                              {cartItem.img_url !== "" && cartItem.img_url !== null ? 
@@ -413,7 +461,7 @@ function Cart(props) {
                                 <FontAwesome name="plus"></FontAwesome>
                               </button>
                             </td>
-                        <td><strong> { (parseFloat(cartItem.quantity)* parseFloat(cartItem.price)).toFixed(2) }</strong></td>
+                        <td><strong> { (parseFloat(cartItem.quantity) * parseFloat(cartItem.price)).toFixed(2) }</strong></td>
                             <td><FontAwesome 
                             onClick={(e) => { const r = window.confirm("Do you really want to remove this product?"); if(r == true){ 
                               e.preventDefault()
@@ -422,7 +470,8 @@ function Cart(props) {
                             } 
                           }
                             name="trash" /></td>
-                        </tr>)) : <tr><td colspan="6" align="center">'No Item added yet!'</td></tr>
+                        </tr>)) : <tr><td colSpan="6" align="center">'No Item added yet!'</td></tr>
+                        
                       }
                        
                     </tbody>
@@ -437,9 +486,10 @@ function Cart(props) {
                             <td>&nbsp;</td>
                         </tr>
                     </tfoot>
+                    </> : <Spinner /> }
                 </Table>
                 <Row>
-                    <Col lg="8" md="7" sm="7" xs="12" className="voucher">
+                    <Col lg="7" md="7" sm="7" xs="12" className="voucher">
                         {/* <h2>VOUCHER</h2>
                         <p>Enter your coupon code if you have one.</p>
                         <input
@@ -455,18 +505,26 @@ function Cart(props) {
                         }}
                         /> */}
                     </Col>
-                    <Col lg="4" md="5" sm="5" xs="12" className="subtotal">
+                    <Col lg="5" md="5" sm="5" xs="12" className="subtotal">
                         <div>
                             <h4>Subtotal <span>{configuration.currency_symbol} {calculatePrice(0, false)}</span></h4>
-                      <h4>Shipping <span>{configuration.currency_symbol} 
+                      <h4>Delivery Charges <span>{configuration.currency_symbol} 
                       {/* {configuration.delivery_charges}  */}
                       {deliveryCharges}
                       </span></h4>
+                      <h4>Service Charges <span>{configuration.currency_symbol} 
+                      {/* {configuration.delivery_charges}  */}
+                      {(parseFloat(ServiceCharges()) + parseFloat(deliveryCharges)).toFixed(2)}
+                      </span></h4>
+
                       <h4 className="blue">Total <span>{configuration.currency_symbol}
                        {/* {calculatePrice(configuration.delivery_charges, false)} */}
-                       {calculatePrice(deliveryCharges, false)}
+                       {(parseFloat(calculatePrice(deliveryCharges, false)) + parseFloat(ServiceCharges())).toFixed(2)}
 
                        </span></h4>
+
+                     
+
                             <input type="submit" value="Checkout" onClick = {onCLickCheckout} />
                         </div>
                     </Col>

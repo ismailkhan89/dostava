@@ -336,6 +336,8 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
       const multiplier = stripeCurrencies
       .find(({ currency: curr }) => curr === Configuration.currency)
       .multiplier
+     
+      console.log('serviceCharges',data.placeOrder.order_amount)
       const amout = data.placeOrder.order_amount * multiplier
       const currency = Configuration.currency;
 
@@ -490,7 +492,8 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
     const [currency_symbol , setcurrency_symbol] = useState(props.location.state?.currency_symbol ?? null)
     const [newTotalDeliveryCharges , setnewTotalDeliveryCharges] = useState(props.location.state?.newTotalDeliveryCharges ?? 0)
     const [newTotalPrice , setnewTotalPrice] = useState(props.location.state?.newTotalPrice ?? 0)
-
+    const [serviceCharges , setServiceCharges] = useState(props.location.state?.services_charges ?? 0)
+    
     // const { cartItems, totalPriceExcDelivery, totalPriceIncDelivery,
     // currency_symbol, delivery_charges , newTotalDeliveryCharges, newTotalPrice } =  props.location.state;
     console.log("cartItems screen",cartItems)
@@ -796,12 +799,22 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                             <span>{currency_symbol} {totalPriceExcDelivery}</span>
                         </h6>
                         <h6>
-                          <strong>Shipping</strong>
+                          <strong>Delivery Charges</strong>
                           <span>{currency_symbol}
                            {/* {delivery_charges} */}
                            {newTotalDeliveryCharges}
                            </span>
                         </h6>
+
+                        <h6>
+                          <strong>Service Charges</strong>
+                          <span>{currency_symbol}
+                           {/* {delivery_charges} */}
+                           {serviceCharges}
+                           </span>
+                        </h6>
+
+                       
                         <h2>
                           <strong>Total</strong>
                           <span> {currency_symbol} 

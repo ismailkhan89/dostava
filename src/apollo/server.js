@@ -711,6 +711,15 @@ export const getConfiguration = `query GetConfiguration{
     one_vendor
     one_vendor_above_hundred
     free_delivery
+
+    service_charges_c1
+    service_charges_c2
+
+    service_charges_one
+    service_charges_two
+    service_charges_three
+
+    max_vendor
   }
 }`
 

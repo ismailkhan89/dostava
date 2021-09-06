@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect , useRef } from "react";
+import React, { Component, useState, useEffect , useRef , useContext} from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
 
@@ -27,6 +27,7 @@ import { getItemPrice } from '../utils/pricing'
 import FlashAlert from "../Components/FlashAlert.jsx";
 import ReactPaginate from 'react-paginate';
 import ProductDetail from '../Components/ProductDetail';
+import ConfigurationContext from "../context/Configuration.js";
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
@@ -53,6 +54,8 @@ const GET_CONFIGURATION = gql`${getConfiguration}`;
 const useMountEffect = fun => useEffect(fun, []);
 
 function VendorCategory(props) {
+
+  const config = useContext(ConfigurationContext)
 
 
     useEffect(() => {
@@ -210,9 +213,26 @@ const [ItemDetail , setItemDetail ] = useState([]);
     // setVendorIds(vendorIds);
   } 
 
+  async function isVendorLimitExceeds (product) {
+    let ids = await localStorage.getItem("vendorIds");
+    let vendorIds = ids === null ? [] : JSON.parse(ids);
+    console.log("isVendorLimitExceeds vendorIds", vendorIds.length)
+    if(vendorIds.length < config.max_vendor){
+        console.log("vendorIds.length < configuration.max_vendor", vendorIds.length)
+        if(product && !vendorIds.includes(product.user._id)){
+            vendorIds.push(product.user._id)
+            localStorage.setItem("vendorIds",JSON.stringify(vendorIds));
+        }
+        return vendorIds;
+    }        
+  }
+
+
   async function onAddToCart (product)  {
 
     console.log('onAddToCart>>> ', product);
+    let vIds = await localStorage.getItem("vendorIds");
+
     if (product.stock < 1) {
         // showMessage({
         //     message: 'Item out of stock',
@@ -222,6 +242,17 @@ const [ItemDetail , setItemDetail ] = useState([]);
         //     titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
         // })
         return 'Item out of stock';
+    }
+    let vendors = vIds === null ? [] : JSON.parse(vIds);
+    isVendorLimitExceeds(product)
+    if(vendors.length === config.max_vendor && !vendors.includes(product.user._id)){
+      if(window.confirm('Your cart already contains items from another shop. would you like to clear the cart and add items from this shop instead?')){
+        client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0 } })
+        await localStorage.removeItem('cartItems')
+        await localStorage.removeItem('vendorIds')
+        onAddToCart(product)
+      }
+      return
     }
 
     if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
@@ -420,7 +451,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
                   
                 }
 
-                 console.log('FOODS_New',data)
+              
                   return data.foodByVendorId_new.products.length > 0 ? <React.Fragment> 
                     {data.foodByVendorId_new.products.map((category, index) =>{
                     
@@ -428,6 +459,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
                     if(stripedHtml.length > 30){
                       stripedHtml = stripedHtml.substr(0, 30);
                     } 
+                    console.log('FOODS_New',category)
 
                     var stripedHtml2 = category.description.replace(/<[^>]+>/g, '');
                     if(stripedHtml2.length > 60){
@@ -462,7 +494,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
                           </strong></span>
                             </p>
 
-                          <p className="price">  ${getItemPrice(category,dataConfig)}</p>
+                          <p className="price">  ${category.vendor_pricing}</p>
 
                        
                          <a className="add-to-cart" href="javascript:void" onClick={(e) => 
