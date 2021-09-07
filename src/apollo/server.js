@@ -1250,6 +1250,7 @@ export const myOrders = `query Orders($offset:Int){
       label
     }
     delivery_charges
+    service_charges
     order_id
     user{
       _id

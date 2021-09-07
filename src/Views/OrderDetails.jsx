@@ -75,8 +75,11 @@ function OrderDetails(props) {
   const [configuration, setConfiguration] = useState([]);
   const [discountPercent, setDiscountPercent] = useState(null);
   const [deliveryCharges, setDeliveryCharges] = useState(0);
+  const [serviceCharges, setServiceCharges] = useState(0);
   const [title, setTitle] = useState("");
+
   const [TotalAmount, setTotalAmount] = useState(0);
+  const [SubTotal, setSubTotalAmount] = useState(0);
   const [deliveryAddress, setDeliveryAddress] = useState("");
   useEffect(() => {
     getOrders();
@@ -108,7 +111,9 @@ function OrderDetails(props) {
             setDeliveryAddress(order);
             setOrder(order.items);
             setDeliveryCharges(order.delivery_charges);
-            setTotalAmount(order.order_amount - order.delivery_charges);
+            setServiceCharges(order.service_charges)
+            setSubTotalAmount(order.order_amount - order.delivery_charges - order.service_charges);
+            setTotalAmount(order.order_amount)
             setTitle(order.order_id);
           }
 
@@ -172,23 +177,24 @@ function OrderDetails(props) {
                           <td> {cartItem.food.title}</td>
                           <td>
                             <strong>
-                              {/* {cartItem.food.vendor_pricing} */}$
-                              {getItemPriceOrderDetails(
+                              ${cartItem.food.vendor_pricing}
+                              {/* {getItemPriceOrderDetails(
                                 cartItem.food,
                                 configuration
-                              )}
+                              )} */}
                             </strong>
                           </td>
                           <td>{cartItem.quantity}</td>
                           <td>
                             <strong>
-                              {parseFloat(cartItem.quantity) *
+                            ${cartItem.food.vendor_pricing * cartItem.quantity}
+                              {/* {parseFloat(cartItem.quantity) *
                                 parseFloat(
                                   getItemPriceOrderDetails(
                                     cartItem.food,
                                     configuration
                                   )
-                                )}
+                                )} */}
                             </strong>
                           </td>
                           <td></td>
@@ -204,7 +210,7 @@ function OrderDetails(props) {
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
                   <td>
-                    <strong>Total {parseFloat(TotalAmount).toFixed(2)}</strong>
+                    <strong>Total {parseFloat(SubTotal).toFixed(2)}</strong>
                   </td>
                   <td>&nbsp;</td>
                 </tr>
@@ -256,23 +262,34 @@ function OrderDetails(props) {
                   <h4>
                     Subtotal{" "}
                     <span>
-                      {configuration.currency_symbol} {TotalAmount.toFixed(2)}
+                      {configuration.currency_symbol} {SubTotal.toFixed(2)}
                     </span>
                   </h4>
                   <h4>
-                    Shipping{" "}
+                    Delivery charges{" "}
                     <span>
                       {configuration.currency_symbol}
                       {/* {configuration.delivery_charges}  */}
                       {deliveryCharges}
                     </span>
                   </h4>
+                  <h4>
+                    Service charges{" "}
+                    <span>
+                      {configuration.currency_symbol}
+                      {/* {configuration.delivery_charges}  */}
+                      {serviceCharges}
+                    </span>
+                  </h4>
+
+
+                  
                   <h4 className="blue">
                     Total{" "}
                     <span>
                       {configuration.currency_symbol}
                       {/* {calculatePrice(configuration.delivery_charges, false)} */}
-                      {TotalAmount + deliveryCharges}
+                      {TotalAmount.toFixed(2)}
                     </span>
                   </h4>
                   {/* <input type="submit" value="Checkout" onClick = {onCLickCheckout} /> */}

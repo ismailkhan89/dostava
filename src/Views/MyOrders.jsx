@@ -112,6 +112,7 @@ function MyOrders(props){
             if(parsData.token !== undefined){
                 const result = await client.query({ query: MYORDERS, fetchPolicy: 'network-only' })
                 if(result.data !== undefined){
+                  console.log('result>>>>>',result)
                   setOrder(result.data.orders)
                   setuserId(parsData.userId)
                   // subscribeToMyOrders()
