@@ -197,7 +197,9 @@ function MyOrders(props){
                 </Col>
                 <Col lg="8" className="cart-section">
                 <h1 className="flashmessage text-center">My Orders</h1>
-                {loading ?  <Spinner /> : 
+                {loading ?  <h1 className="flashmessage text-center">
+                <Spinner />
+             </h1>: 
                 <>
                   <h3>My Orders</h3>
                     

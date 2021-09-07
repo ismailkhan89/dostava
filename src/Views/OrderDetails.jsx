@@ -27,6 +27,7 @@ import { server_url } from "../config/config";
 import { myOrders, getConfiguration } from "../apollo/server";
 import { getCartItems } from "../apollo/client";
 import { getItemPriceOrderDetails } from "../utils/pricing";
+import Spinner from "reactstrap/lib/Spinner";
 
 const authLink = setContext((_, { headers }) => {
   console.log("setContext", headers);
@@ -81,15 +82,19 @@ function OrderDetails(props) {
   const [TotalAmount, setTotalAmount] = useState(0);
   const [SubTotal, setSubTotalAmount] = useState(0);
   const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [loader, setLoader] = useState(true);
+
   useEffect(() => {
     getOrders();
   }, [Order]);
 
  
   async function getOrders() {
+    
     const userData = localStorage.getItem("user-dostava");
     const parsData = JSON.parse(userData);
     if (parsData !== null) {
+      setLoader(true)
       if (parsData.token !== undefined) {
         let order_id = await localStorage.getItem("order_id");
         let _id = JSON.parse(order_id);
@@ -125,7 +130,9 @@ function OrderDetails(props) {
           setConfiguration(config.data.configuration);
         }
       }
+      setLoader(false)
     }
+    setLoader(false)
     // else {alert('Please Login')}
   }
 
@@ -150,7 +157,8 @@ function OrderDetails(props) {
               ORDER DETAILS {title !== "" && ": " + title}
             </h1>
             {/* <h3>{title}</h3>    */}
-            <Table responsive>
+            {!loader ? <>
+             <Table responsive>
               <thead>
                 <tr>
                   <th>Image</th>
@@ -296,6 +304,9 @@ function OrderDetails(props) {
                 </div>
               </Col>
             </Row>
+             </> : <h1 className="flashmessage text-center">
+                <Spinner />
+             </h1> }
           </Col>
         </Row>
         <Row className="order-details-bottom">
