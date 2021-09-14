@@ -483,7 +483,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
                             {/* {category.title} */}
                             </h3>
                             {/* <p>Stock {category.stock}</p> */}
-                            <p>Package Weight : {category.package_weight}</p>  
+                            <p>Package Weight : {category.package_weight} {category.packaging_unit}</p>  
                           {/* <Text numberOfLines={1}>{category.title}</Text> */}
                           <p>
                             {/* {category.description} */}

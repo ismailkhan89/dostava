@@ -46,7 +46,7 @@ export default function ProductDetail({ item, configuration }) {
                 <h3><strong>{item.title}</strong></h3>
                 <p><strong>Description</strong>: {item.description}</p>
                 <p><strong>Stock</strong> : {item.stock}</p>
-                <p><strong>Package Weight</strong> : {item.package_weight}</p>
+                <p><strong>Package Weight</strong> : {item.package_weight}  {item.packaging_unit}</p>
                 <p className="price"> ${getItemPrice(item, configuration)}</p>
 
                 <a className="add-to-cart" href="javascript:void" onClick={(e) => 

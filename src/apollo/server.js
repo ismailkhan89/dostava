@@ -1594,6 +1594,8 @@ export const getVendorsByLocationAndKeyword = `query getVendorsByLocationAndKeyw
     vendor_available
     isNewUserClick
     picture
+    business_name
+    company_name
   }
    products{
     _id
