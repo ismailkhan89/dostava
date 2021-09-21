@@ -245,6 +245,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
     }
     let vendors = vIds === null ? [] : JSON.parse(vIds);
     isVendorLimitExceeds(product)
+
     if(vendors.length === config.max_vendor && !vendors.includes(product.user._id)){
       if(window.confirm('Your cart already contains items from another shop. would you like to clear the cart and add items from this shop instead?')){
         client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0 } })
@@ -395,13 +396,13 @@ const [ItemDetail , setItemDetail ] = useState([]);
              
                 if(index  <= 3){
                return  <Col lg="3" key={index}>
-                  <div className="product">
+                  <div className="product" onClick={() => toggleModal(category)}>
                     <div className="product-img">
                     
 
                     {category.img_url !== "" && category.img_url !== null ? 
-                      <img className="img-fluid" src={category.img_url} alt="" ></img>
-                    :  <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt=""></img>
+                      <img className="img-fluid" src={category.img_url} alt=""></img>
+                    :  <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt="" ></img>
                     }
                     </div>
                     <div className="product-desc">

@@ -66,7 +66,7 @@ const GETCARTITEMS = gql`
 const GET_CONFIGURATION = gql`
   ${getConfiguration}
 `;
-
+ 
 function OrderDetails(props) {
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -162,6 +162,7 @@ function OrderDetails(props) {
               <thead>
                 <tr>
                   <th>Image</th>
+                  <th>Vendor</th>
                   <th>Product</th>
                   <th>Price</th>
                   <th>Qty</th>
@@ -182,6 +183,7 @@ function OrderDetails(props) {
                               src={cartItem.food.img_url}
                             ></img>
                           </td>
+                          <td> {cartItem.food.user.business_name}</td>
                           <td> {cartItem.food.title}</td>
                           <td>
                             <strong>

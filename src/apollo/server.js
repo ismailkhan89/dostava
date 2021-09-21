@@ -254,6 +254,7 @@ export const foods = `
         lat
         long
         picture
+        business_name
       }
       variations{
         _id
@@ -338,6 +339,7 @@ export const foods = `
         lat
         long
         picture
+        business_name
       }
       variations{
         _id
@@ -1264,6 +1266,9 @@ export const myOrders = `query Orders($offset:Int){
         title
         dostava_commission
         vendor_pricing
+        user{
+          business_name
+        }
         category{
           _id
         }
@@ -1577,8 +1582,9 @@ export const getSingleBlogBySlug = `query getSingleBlogBySlug($slug:String){
   }
 }`
 
-export const getVendorsByLocationAndKeyword = `query getVendorsByLocationAndKeyword($keyword:String,$lat:String,$long:String){
-  getVendorsByLocationAndKeyword(keyword:$keyword,lat:$lat,long:$long){
+export const getVendorsByLocationAndKeyword = `query getVendorsByLocationAndKeyword($keyword:String,$lat:String,$long:String,$page:Int){
+  getVendorsByLocationAndKeyword(keyword:$keyword,lat:$lat,long:$long,
+    ,page :$page){
    vendors{
     _id
     name
@@ -1599,6 +1605,8 @@ export const getVendorsByLocationAndKeyword = `query getVendorsByLocationAndKeyw
   }
    products{
     _id
+    packaging_unit
+    package_weight
     title
     description
     vendor_pricing
@@ -1608,6 +1616,7 @@ export const getVendorsByLocationAndKeyword = `query getVendorsByLocationAndKeyw
       name
       lat
       long
+      business_name
     }
     variations{
       _id
@@ -1638,6 +1647,7 @@ export const getVendorsByLocationAndKeyword = `query getVendorsByLocationAndKeyw
       email
     }
     }
+    totalCount
   }
 }`
 

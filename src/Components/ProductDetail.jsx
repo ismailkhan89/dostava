@@ -28,6 +28,7 @@ export default function ProductDetail({ item, configuration }) {
   const [messagecolor , setMessagecolor ] = useState('')
 
 
+  console.log('itemitem>',item)
 
   return item ? (
     <Card className="modal-product shadow">
@@ -44,10 +45,13 @@ export default function ProductDetail({ item, configuration }) {
             <div className="product-list store-item">
                 <h2>{item.brand_name}</h2>
                 <h3><strong>{item.title}</strong></h3>
+                <p><strong>Store Name</strong>: {item.user.business_name}</p>
                 <p><strong>Description</strong>: {item.description}</p>
                 <p><strong>Stock</strong> : {item.stock}</p>
                 <p><strong>Package Weight</strong> : {item.package_weight}  {item.packaging_unit}</p>
-                <p className="price"> ${getItemPrice(item, configuration)}</p>
+                {/* <p className="price"> ${getItemPrice(item, configuration)}</p> */}
+                <p className="price"> ${item.vendor_pricing}</p>
+
 
                 <a className="add-to-cart" href="javascript:void" onClick={(e) => 
                           {onAddToCart(item)

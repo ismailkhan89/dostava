@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect ,useContext, useRef} from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
 
@@ -12,7 +12,8 @@ import {
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { foods, like,foodbyVendor ,getVendorByLocation , getConfiguration, foodbyFilter} from "../apollo/server";
+import { foods, like,foodbyVendor ,getVendorByLocation , getConfiguration, foodbyFilter
+,getVendorsByLocationAndKeyword} from "../apollo/server";
 import { getCartItems } from '../apollo/client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
@@ -22,12 +23,16 @@ import { authLink } from '../library/authLink';
 import { Form, FormControl } from 'react-bootstrap';
 import { Redirect , useHistory , Link  } from "react-router-dom";
 import { getItemPrice } from '../utils/pricing'
+import ReactPaginate from 'react-paginate';
 
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
 import FlashAlert from "../Components/FlashAlert.jsx";
+import Modal from "reactstrap/lib/Modal";
+import ProductDetail from "../Components/ProductDetail.jsx";
+import ConfigurationContext from "../context/Configuration.js";
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
@@ -49,6 +54,7 @@ const GETCARTITEMS = gql`${getCartItems}`;
 const getVendorbyLocation = gql`${getVendorByLocation}`
 const FOODSBYFILTER = gql`${foodbyFilter}`
 const GET_CONFIGURATION = gql`${getConfiguration}`;
+const FOODS_SEARCH = gql`${getVendorsByLocationAndKeyword}`; 
 
 function Vendor(props) {
 
@@ -181,9 +187,34 @@ function Vendor(props) {
     //  console.log("Vids??>>",vendorIds)
     // setVendorIds(vendorIds);
   } 
+  const [editModal, setEditModal] = useState(false)
+  const [ItemDetail , setItemDetail ] = useState([]);
 
+  const toggleModal = (row) => {
+    setEditModal(!editModal)
+    setItemDetail(row)
+  }
 
+  const config = useContext(ConfigurationContext)
+
+  async function isVendorLimitExceeds (product) {
+    let ids = await localStorage.getItem("vendorIds");
+    let vendorIds = ids === null ? [] : JSON.parse(ids);
+    console.log("isVendorLimitExceeds vendorIds", vendorIds.length)
+    if(vendorIds.length < config.max_vendor){
+        console.log("vendorIds.length < configuration.max_vendor", vendorIds.length)
+        if(product && !vendorIds.includes(product.user._id)){
+            vendorIds.push(product.user._id)
+            localStorage.setItem("vendorIds",JSON.stringify(vendorIds));
+        }
+        return vendorIds;
+    }        
+  }
+
+  
   async function onAddToCart (product)  {
+
+    let vIds = await localStorage.getItem("vendorIds");
 
     console.log('onAddToCart>>> ', product);
     if (product.stock < 1) {
@@ -196,6 +227,20 @@ function Vendor(props) {
         // })
         return 'Item out of stock';
     }
+
+    let vendors = vIds === null ? [] : JSON.parse(vIds);
+    isVendorLimitExceeds(product)
+
+    if(vendors.length === config.max_vendor && !vendors.includes(product.user._id)){
+      if(window.confirm('Your cart already contains items from another shop. would you like to clear the cart and add items from this shop instead?')){
+        client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0 } })
+        await localStorage.removeItem('cartItems')
+        await localStorage.removeItem('vendorIds')
+        onAddToCart(product)
+      }
+      return
+    }
+
 
     if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
       setVendorIdsArray(product)
@@ -256,6 +301,16 @@ function Vendor(props) {
   function onError(data){
     console.log(data)
   }
+
+  const [page , setPage] = useState(0)
+  const [pagination,setPagination] = useState(true);
+  const [totalPage , setTotalPages] = useState(0)
+
+  function executeScroll() {
+    myRef.current.scrollIntoView()
+  }
+
+   const myRef = useRef(null);
   return (
     <Container className="wrapper" fluid>
     <Header  {...props} title="Stores by Dostava" />
@@ -549,7 +604,112 @@ function Vendor(props) {
             <h2 className="title">Foods</h2>
           </Col>
         </Row>
+        <div ref={myRef}>
         <Row>
+
+          
+        <Query query={FOODS_SEARCH} variables={{ 
+        keyword: searchValue ,
+        lat : lat,
+        long : lng,
+        page : page}}>
+      {({ loading, error, data }) => {
+    
+      if (loading) return <div>{"Loading"}...</div>;
+      if (error) return <div>`${"Error"}! ${error.message}`</div>;
+       
+      if(page === 0){
+        setTotalPages(data.getVendorsByLocationAndKeyword.totalCount);
+        if(data.getVendorsByLocationAndKeyword.totalCount > 0){
+          setPagination(true)
+        }
+        
+      }
+
+      console.log('getVendorsByLocationAndKeyword',data)
+         
+        return data.getVendorsByLocationAndKeyword.products.length > 0 ?
+            data.getVendorsByLocationAndKeyword.products.map((category, index) =>{
+                    
+              var stripedHtml = category.title.replace(/<[^>]+>/g, '');
+              if(stripedHtml.length > 30){
+                stripedHtml = stripedHtml.substr(0, 30);
+              } 
+
+              var stripedHtml2 = category.description.replace(/<[^>]+>/g, '');
+              if(stripedHtml2.length > 60){
+                stripedHtml2 = stripedHtml2.substr(0, 60);
+              } 
+              console.log('categorycategory',data.getVendorsByLocationAndKeyword)
+              return(
+
+           <Col lg="4" md="6" sm="12" xs="12" key={index}>
+            <div className="product-list">
+                {
+                  category.img_url !== "" && category.img_url !== null ?
+                  <img className="img-fluid" src={category.img_url} alt=""  onClick={() => toggleModal(category)}></img>
+                  : <img className="img-fluid" src="../Assets/Img/store.png" alt=""></img>
+                }
+                <h3>
+                  <span>
+                    <strong>{stripedHtml}
+                            {stripedHtml.length === 30 && 
+                      <span>...</span>
+                        }
+                    </strong>
+                  </span>
+                  {/* {category.title} */}
+                  </h3>
+                <p>Package Weight : {category.package_weight} {category.packaging_unit}</p>  
+                <p>
+                  <span><strong>{stripedHtml2}
+                            {stripedHtml2.length === 60 && 
+                            <span>...</span>
+                          }
+                          </strong></span>
+                  {/* {category.description} */}
+                  </p>
+                <p className="price">  $ {category.vendor_pricing}</p>
+                {/* <p className="price">  ${getItemPrice(category,dataConfig)}</p> */}
+               <a className="add-to-cart" href="#" onClick={(e) => 
+                {onAddToCart(category)
+                  setMessage('Item Added!')
+                  setMessagecolor('success');
+                  setTimeout(() => {
+                  setMessage('')
+                  setMessagecolor('')}, 3000)
+                }
+                
+                }>Add to cart</a>
+             
+              </div>
+            </Col> 
+            )
+          }
+          )
+          :  <Col lg="6">{'Not Available'}</Col> 
+        }}
+       
+      </Query> 
+
+      {pagination &&
+            <Col lg="12" className="issuesPagination pagination">
+                <ReactPaginate
+                    forcePage={page}
+                    previousLabel="&larr;"
+                    nextLabel="&rarr;"
+                    // breakLabel={'...'}
+                    // breakClassName={'break-me'} 
+                    pageCount={Math.ceil(totalPage / 10)}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={(e) =>{
+                      setPage(e.selected)
+                      executeScroll()
+                    }}
+                  />
+            </Col> }
+{/* 
 <Query query={FOODSBYFILTER} variables={{  lat : lat,long : lng,search : searchValue}}>
                 {({ loading, error, data }) => {
                 if (loading) return <div>{"Loading"}...</div>;
@@ -569,7 +729,7 @@ function Vendor(props) {
                      <Col lg="4" md="6" sm="12" xs="12" key={index}>
                       <div className="product-list store-item">
                       {category.img_url !== "" && category.img_url !== null ?
-                          <img className="img-fluid" src={category.img_url} alt=""></img>
+                          <img className="img-fluid" src={category.img_url} alt="" onClick={() => toggleModal(category)}></img>
                         : <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt=""></img>
                          }
                          {category.brand_name}
@@ -579,13 +739,10 @@ function Vendor(props) {
                             <span>...</span>
                           }
                           </strong></span>
-                            {/* {category.title} */}
                             </h3>
                             <p>Stock {category.stock}</p>
                             <p>Package Weight : {category.package_weight}</p>  
-                          {/* <Text numberOfLines={1}>{category.title}</Text> */}
                           <p>
-                            {/* {category.description} */}
                             <span><strong>{stripedHtml2}
                             {stripedHtml2.length === 60 && 
                             <span>...</span>
@@ -594,7 +751,7 @@ function Vendor(props) {
                             </p>
                           {console.log("category>>",category)}
 
-                          <p className="price">  ${getItemPrice(category,dataConfig)}</p>
+                          <p className="price">  $ {category.vendor_pricing}</p>
 
                        
                          <a className="add-to-cart" href="javascript:void" onClick={(e) => 
@@ -615,7 +772,10 @@ function Vendor(props) {
                     ) :<Col lg="6">No Product Available</Col>
                     
                   }}
-                </Query></Row> </>
+                </Query> */}
+                </Row>
+                </div>
+                 </>
          </Container>       
         </Row> 
     </Container>}
@@ -641,6 +801,16 @@ function Vendor(props) {
               </Row>
         </Container>
 
+       <Modal
+            className="modal-dialog-centered"
+            size="lg"
+            isOpen={editModal}
+            toggle={() => { toggleModal()}}
+            >
+                {/* <OrderDetails row={OrderDetail} configuration={configuration}  /> */}
+                
+              <ProductDetail item={ItemDetail} configuration={dataConfig}  />
+        </Modal>
       <Footer />
 
 

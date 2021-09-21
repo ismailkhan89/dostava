@@ -267,8 +267,11 @@ function Cart(props) {
           console.log('items count', items)
           client.writeQuery({ query: GETCARTITEMS, data: { cartItems: items.length } })
           setCartItems(items);
-         
-    } 
+
+          if(items.length === 0){
+            localStorage.removeItem('vendorIds')
+          }
+   } 
 
     async function addQuantityToCartItem (newItem) {
    
@@ -316,7 +319,7 @@ function Cart(props) {
             setCartItems(cartItems);
             didFocus()
           }
-
+          setLoader(false)
          
           
          
@@ -447,7 +450,7 @@ function Cart(props) {
                             :  <td><img style ={{ width: "100px" }} src="../Assets/Img/product-detail-img.png" alt=""></img></td>
                             }
                             <td> {cartItem.title}</td>
-                            <td><strong>{cartItem.price}</strong></td>
+                            <td><strong>{config.currency_symbol}  {cartItem.price}</strong></td>
                             <td>
                               <button   onClick={e => {
                                         e.preventDefault()
@@ -461,7 +464,7 @@ function Cart(props) {
                                 <FontAwesome name="plus"></FontAwesome>
                               </button>
                             </td>
-                        <td><strong> { (parseFloat(cartItem.quantity) * parseFloat(cartItem.price)).toFixed(2) }</strong></td>
+                        <td><strong> {config.currency_symbol}  { (parseFloat(cartItem.quantity) * parseFloat(cartItem.price)).toFixed(2) }</strong></td>
                             <td><FontAwesome 
                             onClick={(e) => { const r = window.confirm("Do you really want to remove this product?"); if(r == true){ 
                               e.preventDefault()
@@ -482,7 +485,7 @@ function Cart(props) {
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td><strong>Total {(calculatePrice(0, false))}</strong></td>
+                            <td><strong>Total {config.currency_symbol} {(calculatePrice(0, false))}</strong></td>
                             <td>&nbsp;</td>
                         </tr>
                     </tfoot>

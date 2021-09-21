@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect , useRef } from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
 
@@ -24,6 +24,9 @@ import { authLink } from '../library/authLink';
 import { Form, FormControl } from 'react-bootstrap';
 import { getItemPrice } from '../utils/pricing'
 import FlashAlert from "../Components/FlashAlert.jsx";
+import Modal from "reactstrap/lib/Modal";
+import ProductDetail from "../Components/ProductDetail.jsx";
+import ReactPaginate from 'react-paginate';
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
@@ -47,7 +50,7 @@ const GET_CONFIGURATION = gql`${getConfiguration}`;
 
 function SearchProduct(props){
 
-
+ 
   React.useEffect(() => {
     window.scrollTo(0, 0)
 },[]);
@@ -92,13 +95,27 @@ function SearchProduct(props){
  const [message, setMessages] = useState('');
  const [VendorIds,setVendorIds] = useState([]);
  
+ const [editModal, setEditModal] = useState(false)
+ const [ItemDetail , setItemDetail ] = useState([]);
+
+ const [page , setPage] = useState(0)
+ const [pagination,setPagination] = useState(true);
+ const [totalPage , setTotalPages] = useState(0)
+
  async function setVendorIdsArray(product){
    const cartItemsStr = await localStorage.getItem('cartItems')
    const cartItems = cartItemsStr ? JSON.parse(cartItemsStr) : []
    let vendorIds = [];
    console.log("productproductproduct",product)
 
- } 
+ }
+ 
+ const toggleModal = (row) => {
+  setEditModal(!editModal)
+  setItemDetail(row)
+}
+
+
 
  const [productFilter,setProductFilter] = useState('both')
  async function onAddToCart (product)  {
@@ -152,6 +169,12 @@ function SearchProduct(props){
    }
  }
 
+ const myRef = useRef(null);
+
+ function executeScroll() {
+  myRef.current.scrollIntoView()
+}
+
  function getVendors(){
    return   <Row>
    <Container id="Product-carousel">
@@ -166,8 +189,10 @@ function SearchProduct(props){
      {({ loading, error, data }) => {
       if (loading) return <div>{"Loading"}...</div>;
       if (error) return <div>`${"Error"}! ${error.message}`</div>;
+      let counts = [];
      return data.getVendorsByLocationAndKeyword.vendors.map((category, index) =>{
-         if(index  <= 3){
+         if(counts.length  <= 3 && category.vendor_available){
+          counts.push(index)
         return   <Col lg="3" key={index}>
         <Link
             to={`/storesitem/${category._id}`}
@@ -195,7 +220,7 @@ function SearchProduct(props){
                 {console.log('category.picture',category.picture)}
                   {category.picture !== "" && category.picture !== null ?
                   <img className="img-fluid" src={category.picture} alt=""></img>
-                : <img className="img-fluid" src="../Assets/Img/store.png" alt=""></img>
+                : <img className="img-fluid" src="../Assets/Img/store.png" alt="" ></img>
                  }
 
                 {/* <img className="img-fluid" src={category.picture} alt=""></img> */}
@@ -223,7 +248,8 @@ function SearchProduct(props){
  }
 
  function getProduct(){
-   return <Row>
+   return <div ref={myRef}>
+   <Row >
    <Container id="dry-fruits" className="all-products">
      <Row>
            <Col lg="12" >
@@ -233,11 +259,29 @@ function SearchProduct(props){
  
       <Row>
         {!loadingConfig && !errorConfig && 
-      <Query query={FOODS} variables={{ keyword: keyword ,lat : lat,long : lng}}>
+      <Query query={FOODS} variables={{ 
+        keyword: keyword ,
+        lat : lat,
+        long : lng,
+        page : page}}>
       {({ loading, error, data }) => {
+         console.log('getVendorsByLocationAndKeyword',{ 
+          keyword: keyword ,
+          lat : lat,
+          long : lng,
+          page : page})
       if (loading) return <div>{"Loading"}...</div>;
       if (error) return <div>`${"Error"}! ${error.message}`</div>;
        
+      if(page === 0){
+        setTotalPages(data.getVendorsByLocationAndKeyword.totalCount);
+        if(data.getVendorsByLocationAndKeyword.totalCount > 0){
+          setPagination(true)
+        }
+        
+      }
+
+      console.log('getVendorsByLocationAndKeyword',data)
          
         return data.getVendorsByLocationAndKeyword.products.length > 0 ?
             data.getVendorsByLocationAndKeyword.products.map((category, index) =>{
@@ -251,13 +295,14 @@ function SearchProduct(props){
               if(stripedHtml2.length > 60){
                 stripedHtml2 = stripedHtml2.substr(0, 60);
               } 
+              console.log('categorycategory',data.getVendorsByLocationAndKeyword)
               return(
 
            <Col lg="4" md="6" sm="12" xs="12" key={index}>
             <div className="product-list">
                 {
                   category.img_url !== "" && category.img_url !== null ?
-                  <img className="img-fluid" src={category.img_url} alt=""></img>
+                  <img className="img-fluid" src={category.img_url} alt=""  onClick={() => toggleModal(category)}></img>
                   : <img className="img-fluid" src="../Assets/Img/store.png" alt=""></img>
                 }
                 <h3>
@@ -278,8 +323,8 @@ function SearchProduct(props){
                           </strong></span>
                   {/* {category.description} */}
                   </p>
-                <p className="price">  ${getItemPrice(category,dataConfig)}</p>
-             
+                <p className="price">  $ {category.vendor_pricing}</p>
+                {/* <p className="price">  ${getItemPrice(category,dataConfig)}</p> */}
                <a className="add-to-cart" href="#" onClick={(e) => 
                 {onAddToCart(category)
                   setMessage('Item Added!')
@@ -301,9 +346,30 @@ function SearchProduct(props){
        
       </Query> 
        }
+
+
+            {pagination &&
+            <Col lg="12" className="issuesPagination pagination">
+                <ReactPaginate
+                    forcePage={page}
+                    previousLabel="&larr;"
+                    nextLabel="&rarr;"
+                    // breakLabel={'...'}
+                    // breakClassName={'break-me'} 
+                    pageCount={Math.ceil(totalPage / 10)}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={(e) =>{
+                      setPage(e.selected)
+                      executeScroll()
+                    }}
+                  />
+            </Col> }
+
       </Row>
       </Container>
   </Row>
+  </div>
  }
  return (
    <Container className="wrapper" fluid>
@@ -394,6 +460,19 @@ function SearchProduct(props){
                </Col>
              </Row>
        </Container>
+
+
+   
+       <Modal
+            className="modal-dialog-centered"
+            size="lg"
+            isOpen={editModal}
+            toggle={() => { toggleModal()}}
+            >
+                {/* <OrderDetails row={OrderDetail} configuration={configuration}  /> */}
+                
+              <ProductDetail item={ItemDetail} configuration={dataConfig}  />
+            </Modal>
 
      <Footer />
 
