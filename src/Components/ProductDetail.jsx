@@ -47,7 +47,7 @@ export default function ProductDetail({ item, configuration }) {
                 <h3><strong>{item.title}</strong></h3>
                 <p><strong>Store Name</strong>: {item.user.business_name}</p>
                 <p><strong>Description</strong>: {item.description}</p>
-                <p><strong>Stock</strong> : {item.stock}</p>
+                {/* <p><strong>Stock</strong> : {item.stock}</p> */}
                 <p><strong>Package Weight</strong> : {item.package_weight}  {item.packaging_unit}</p>
                 {/* <p className="price"> ${getItemPrice(item, configuration)}</p> */}
                 <p className="price"> ${item.vendor_pricing}</p>

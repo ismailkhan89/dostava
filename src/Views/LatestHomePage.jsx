@@ -351,7 +351,7 @@ function LatestHomePage(props){
                           </>
                         )}
                       </PlacesAutocomplete>
-                      <Link className="outline-success" to={'javascript:;'}  onClick={(e) => {
+                      <Link className="outline-success" to={'javascript:void(0)'}  onClick={(e) => {
                         e.preventDefault();
                         if(location !== ""){
 
