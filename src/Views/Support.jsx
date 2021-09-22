@@ -61,21 +61,21 @@ function Support(props){
                 <Container className="support-cols" fluid>
                     <Container>
                     <Row>
-                    <Col lg="4" className="support-single" >
+                    <Col lg="6" className="support-single" >
                         <img class="img-fluid" src="../Assets/Img/live-chat.png" alt="faq"></img>
                         <h4>Live Chat</h4>
                         <p>With our customer support</p>
                     </Col>
-                    <Col lg="4" className="support-single">
+                    <Col lg="6" className="support-single">
                         <img class="img-fluid" src="../Assets/Img/email-icon.png" alt="faq"></img>
                         <h4>Email</h4>
                         <p>support@dostava.com.au</p>
                     </Col>
-                    <Col lg="4" className="support-single">
+                    {/* <Col lg="4" className="support-single">
                         <img class="img-fluid" src="../Assets/Img/phone-icon.png" alt="faq"></img>
                         <h4>Phone</h4>
                         <p>+61 3 9028 4573</p>
-                    </Col>
+                    </Col> */}
                 </Row>
                     </Container>
                 </Container>

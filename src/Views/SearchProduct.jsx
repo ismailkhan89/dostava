@@ -291,7 +291,7 @@ function SearchProduct(props){
                 stripedHtml = stripedHtml.substr(0, 30);
               } 
 
-              var stripedHtml2 = category.description.replace(/<[^>]+>/g, '');
+              var stripedHtml2 = category.user.business_name.replace(/<[^>]+>/g, '');
               if(stripedHtml2.length > 60){
                 stripedHtml2 = stripedHtml2.substr(0, 60);
               } 
@@ -313,7 +313,6 @@ function SearchProduct(props){
                         }
                     </strong>
                   </span>
-                  {/* {category.title} */}
                   </h3>
                 <p>
                   <span><strong>{stripedHtml2}

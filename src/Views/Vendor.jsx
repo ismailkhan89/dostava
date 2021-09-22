@@ -411,7 +411,7 @@ function Vendor(props) {
             {/* </Form> */}
           </Col>
           <Col sm={2}>
-               <Link className="outline-success" to={"javascript:;"}  onClick={(e) => {
+               <Link className="outline-success" to={"javascript:void(0)"}  onClick={(e) => {
                         e.preventDefault();
                         console.log('not inside condition')
                         console.log('latLng',latLng)
@@ -601,7 +601,7 @@ function Vendor(props) {
       <>
         <Row>
           <Col lg="12" >
-            <h2 className="title">Foods</h2>
+            <h2 className="title">Products</h2>
           </Col>
         </Row>
         <div ref={myRef}>
@@ -636,7 +636,7 @@ function Vendor(props) {
                 stripedHtml = stripedHtml.substr(0, 30);
               } 
 
-              var stripedHtml2 = category.description.replace(/<[^>]+>/g, '');
+              var stripedHtml2 = category.user.business_name.replace(/<[^>]+>/g, '');
               if(stripedHtml2.length > 60){
                 stripedHtml2 = stripedHtml2.substr(0, 60);
               } 
