@@ -28,6 +28,7 @@ import FlashAlert from "../Components/FlashAlert.jsx";
 import ReactPaginate from 'react-paginate';
 import ProductDetail from '../Components/ProductDetail';
 import ConfigurationContext from "../context/Configuration.js";
+import Spinner from "reactstrap/lib/Spinner";
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
@@ -113,6 +114,48 @@ const [ItemDetail , setItemDetail ] = useState([]);
 
   const {loading,error,data : dataVendorLocation} = useQuery(getVendorbyLocation, { variables:{ lat : lat,long :lng} ,client : newclient })
 
+  const [products,setProducts] = useState([])
+  const item = [];
+
+  const {loading : LoadingProduct,error : errorProduct,data : dataProduct} = 
+  useQuery(FOODS, { onCompleted : onCompletedProduct ,variables:{ vendor_id: _id , ...filters,
+    search: search,lat : lat,long : lng,page : page} ,client : newclient })
+
+
+    useEffect(() => {
+      if(SearchText === ''){
+        setSearch('')
+      }
+    },[SearchText])
+   
+    function onCompletedProduct(){
+
+    
+      if(page === 0){
+        setTotalPages(Math.ceil(dataProduct.foodByVendorId_new.totalCount / 10) - 1);
+        if(dataProduct.foodByVendorId_new.totalCount > 0){
+          setPagination(true)
+        }
+      }
+
+
+      console.log('pageCount',
+      (Math.ceil(dataProduct.foodByVendorId_new.totalCount / 10) - 1))
+
+      console.log('itemitem>old',dataProduct.foodByVendorId_new.totalCount / 10)
+
+      let newArray = products.concat(dataProduct.foodByVendorId_new.products)
+
+      console.log('itemitem>new',newArray)
+
+
+       setProducts([
+         ...newArray,
+         ])
+     
+    }
+    console.log('productsproducts',products)
+
   const [title ,setTitle] = useState(
    JSON.parse(localStorage.getItem('storeItem'))?.title ?? 'Single Categories'
     )
@@ -134,6 +177,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
   const [message, setMessages] = useState('');
   const [VendorIds,setVendorIds] = useState([]);
   
+
   // console.log("foodloading",loading)
 
   async function onLikeProduct(product) {
@@ -337,10 +381,11 @@ const [ItemDetail , setItemDetail ] = useState([]);
           </Col>
           <Col sm={2}>
           
-          <Link to={`/search-product?q=${SearchText}`}> 
-            <Button variant="outline-success">
+            <Button variant="outline-success" onClick={() => {
+              setProducts([])
+              setSearch(SearchText)
+            }}>
                 Search</Button>  
-          </Link>
           </Col>
         </Row>
       </Container>
@@ -353,7 +398,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
       </Container>
       <Container className="content-area" fluid>
 
-        <Row>
+      {search === '' && <Row>
           <Container id="Product-carousel">
             
           {_id && lat && lng && search === '' &&
@@ -425,48 +470,47 @@ const [ItemDetail , setItemDetail ] = useState([]);
             
           </Container>
           
-        </Row>
+        </Row> }  
 
         <div  ref={myRef}>
           <Container id="dry-fruits" className="all-products">
           <Row>
                 <Col lg="12" >
-                  <h2 className="title">All Products</h2>
+                  <h2 className="title"> {search ? "Search" : "All"} Products</h2>
                 </Col>
             </Row>
 
               {_id && lat && lng && 
                 <Row>
                   {!loadingConfig && !errorConfig && 
-                <Query query={FOODS} variables={{ vendor_id: _id , ...filters,
-                  search: search,lat : lat,long : lng,page : page}}>
-                {({ loading, error, data }) => {
-                if (loading) return <div>{"Loading"}...</div>;
-                if (error) return <div>`${"Error"}! ${error.message}`</div>;
+                // <Query query={FOODS} variables={{ vendor_id: _id , ...filters,
+                //   search: search,lat : lat,long : lng,page : page}}>
+                // {({ loading, error, data }) => {
+                // if (loading) return <div>{"Loading"}...</div>;
+                // if (error) return <div>`${"Error"}! ${error.message}`</div>;
 
-                if(page === 0){
-                  setTotalPages(data.foodByVendorId_new.totalCount);
-                  if(data.foodByVendorId_new.totalCount > 0){
-                    setPagination(true)
-                  }
+                // if(page === 0){
+                //   setTotalPages(data.foodByVendorId_new.totalCount);
+                //   if(data.foodByVendorId_new.totalCount > 0){
+                //     setPagination(true)
+                //   }
                   
-                }
+                // }
 
               
-                  return data.foodByVendorId_new.products.length > 0 ? <React.Fragment> 
-                    {data.foodByVendorId_new.products.map((category, index) =>{
+                 products.length > 0 ? 
+                  <React.Fragment> 
+                    {products.map((category, index) =>{
                     
                     var stripedHtml = category.title.replace(/<[^>]+>/g, '');
                     if(stripedHtml.length > 30){
                       stripedHtml = stripedHtml.substr(0, 30);
                     } 
-                    console.log('FOODS_New',category)
 
                     var stripedHtml2 = category.description.replace(/<[^>]+>/g, '');
                     if(stripedHtml2.length > 60){
                       stripedHtml2 = stripedHtml2.substr(0, 60);
                     } 
-                    console.log('categorycategory',category)
                     return(
                      <Col lg="4" md="6" sm="12" xs="12" key={index}>
                       <div className="product-list store-item">
@@ -516,14 +560,14 @@ const [ItemDetail , setItemDetail ] = useState([]);
                     )} 
                  
                     
-                     </React.Fragment>  :<Col lg="6">No Product Available</Col>
+                     </React.Fragment>  : !LoadingProduct && <Col lg="6">No Product Available</Col>
                     
-                  }}
-                </Query> 
-                 }
-           
+                  }
+                {/* </Query>  */}
+                 {/* } */}
+              
 
-           {pagination && <Col lg="12" className="issuesPagination pagination">
+           {/* {pagination && <Col lg="12" className="issuesPagination pagination">
                         <ReactPaginate
                             forcePage={page}
                             previousLabel="&larr;"
@@ -541,9 +585,29 @@ const [ItemDetail , setItemDetail ] = useState([]);
                             // containerClassName={'pagination'}
                             // activeClassName={'active'}
                           />
-                    </Col> }
+                    </Col> } */}
                 </Row>
+
+
+       
             }
+
+
+      {products.length > 0  &&  <Row>
+            <Col lg="12"  className="text-center">
+        {!LoadingProduct ? parseFloat(page) !== parseFloat(totalPage) &&  pagination && 
+         <Button 
+            onClick={() => {
+              if(parseFloat(page + 1) <= parseFloat(totalPage)){
+                setPage(page + 1)
+              }
+            }}
+          variant="outline-success">
+          Load More</Button>
+          : 
+          <Spinner />}
+          </Col>
+          </Row> } 
 
 
           </Container>
