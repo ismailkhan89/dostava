@@ -73,6 +73,10 @@ const SECTIONS = [
 	  {
 		head: 'Do we require ABN to work with Dostava?',
 		content: 'Yes, you require an ABN to work with Dostava and you will also need to register for GST.',
+	  },
+	  {
+		head: 'Do we need to hire deliver drivers?',
+		content: 'Dostava has their own delivery mates, all you have to do is get the orders ready, and a Dostava driver will collect and deliver to your customers doorstep.',
 	  }
   ];
 

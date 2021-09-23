@@ -93,7 +93,7 @@ const SECTIONS = [
 	},
 	{
 		head: 'What if I am having trouble downloading or using the App?',
-		content: 'Please contact our friendly support team on +61 3 9028 4573 for assistance.',
+		content: 'Please contact our friendly support team on email support@dostava.com.au for assistance.',
 	  },
 	  {
 		head: 'Do we have to be a BIG Business to join Dostava?',

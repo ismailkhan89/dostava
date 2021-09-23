@@ -773,7 +773,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                             <img src= {item.img_url}></img>
                           </Col>
                           <Col lg="6">
-                            <h3>{item.title}e</h3>
+                            <h3>{item.title}</h3>
                             <p>
                             <strong>{currency_symbol} {item.price}</strong>      
                               {/* <span>$12.49</span> */}

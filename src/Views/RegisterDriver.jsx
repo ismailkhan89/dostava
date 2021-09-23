@@ -76,7 +76,7 @@ const SECTIONS = [
 	  },
 	  {
 		head: 'Do I have to register for GST?',
-		content: 'Yes, you have to be GST registered to get paid.',
+		content: 'No drivers do not need to register for GST if they earn under 75k.',
 	  },
 	  {
 		head: 'Do we have to sign up any contract with Dostava?',

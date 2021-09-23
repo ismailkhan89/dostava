@@ -220,7 +220,7 @@ function OrderDetails(props) {
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
                   <td>
-                    <strong>Total {parseFloat(SubTotal).toFixed(2)}</strong>
+                    <strong>Total ${parseFloat(SubTotal).toFixed(2)}</strong>
                   </td>
                   <td>&nbsp;</td>
                 </tr>
