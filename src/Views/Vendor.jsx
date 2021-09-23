@@ -33,6 +33,7 @@ import FlashAlert from "../Components/FlashAlert.jsx";
 import Modal from "reactstrap/lib/Modal";
 import ProductDetail from "../Components/ProductDetail.jsx";
 import ConfigurationContext from "../context/Configuration.js";
+import Spinner from "reactstrap/lib/Spinner";
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
@@ -104,6 +105,35 @@ function Vendor(props) {
   const [messagecolor , setMessagecolor ] = useState('')
   const [searchValue , setsearchValue] = useState('')
   const [searchFlag , setSearchFlag] = useState(false)
+
+  const [products,setProducts] = useState([])
+
+  const [page , setPage] = useState(0)
+  const [pagination,setPagination] = useState(true);
+  const [totalPage , setTotalPages] = useState(0)
+
+  const {loading : LoadingProduct,error : errorProduct,data : dataProduct} = 
+  useQuery(FOODS_SEARCH, { onCompleted : onCompletedProduct ,variables:{    
+    keyword: searchValue ,
+    lat : lat,
+    long : lng,
+    page : page } ,client : newclient })
+
+ 
+  function onCompletedProduct(){
+    if(page === 0){
+      setTotalPages(Math.ceil(dataProduct.getVendorsByLocationAndKeyword.totalCount / 10) - 1);
+      if(dataProduct.getVendorsByLocationAndKeyword.totalCount > 0){
+        setPagination(true)
+      }
+    }
+
+    let newArray = products.concat(dataProduct.getVendorsByLocationAndKeyword.products)
+     setProducts([
+       ...newArray,
+       ])
+   
+  }
 
   function handleSelect(address){
     setLocation(address)
@@ -302,9 +332,7 @@ function Vendor(props) {
     console.log(data)
   }
 
-  const [page , setPage] = useState(0)
-  const [pagination,setPagination] = useState(true);
-  const [totalPage , setTotalPages] = useState(0)
+
 
   function executeScroll() {
     myRef.current.scrollIntoView()
@@ -601,35 +629,15 @@ function Vendor(props) {
       <>
         <Row>
           <Col lg="12" >
-            <h2 className="title">Products</h2>
+            <h2 className="title">Search Products</h2>
           </Col>
         </Row>
         <div ref={myRef}>
         <Row>
 
           
-        <Query query={FOODS_SEARCH} variables={{ 
-        keyword: searchValue ,
-        lat : lat,
-        long : lng,
-        page : page}}>
-      {({ loading, error, data }) => {
-    
-      if (loading) return <div>{"Loading"}...</div>;
-      if (error) return <div>`${"Error"}! ${error.message}`</div>;
-       
-      if(page === 0){
-        setTotalPages(data.getVendorsByLocationAndKeyword.totalCount);
-        if(data.getVendorsByLocationAndKeyword.totalCount > 0){
-          setPagination(true)
-        }
-        
-      }
-
-      console.log('getVendorsByLocationAndKeyword',data)
-         
-        return data.getVendorsByLocationAndKeyword.products.length > 0 ?
-            data.getVendorsByLocationAndKeyword.products.map((category, index) =>{
+        {products.length > 0 ?
+        products.map((category, index) =>{
                     
               var stripedHtml = category.title.replace(/<[^>]+>/g, '');
               if(stripedHtml.length > 30){
@@ -640,7 +648,7 @@ function Vendor(props) {
               if(stripedHtml2.length > 60){
                 stripedHtml2 = stripedHtml2.substr(0, 60);
               } 
-              console.log('categorycategory',data.getVendorsByLocationAndKeyword)
+              // console.log('categorycategory',data.getVendorsByLocationAndKeyword)
               return(
 
            <Col lg="4" md="6" sm="12" xs="12" key={index}>
@@ -687,28 +695,9 @@ function Vendor(props) {
             )
           }
           )
-          :  <Col lg="6">{'Not Available'}</Col> 
-        }}
+          :  <Col lg="6">{'Not Available'}</Col> }
        
-      </Query> 
-
-      {pagination &&
-            <Col lg="12" className="issuesPagination pagination">
-                <ReactPaginate
-                    forcePage={page}
-                    previousLabel="&larr;"
-                    nextLabel="&rarr;"
-                    // breakLabel={'...'}
-                    // breakClassName={'break-me'} 
-                    pageCount={Math.ceil(totalPage / 10)}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={5}
-                    onPageChange={(e) =>{
-                      setPage(e.selected)
-                      executeScroll()
-                    }}
-                  />
-            </Col> }
+ 
 {/* 
 <Query query={FOODSBYFILTER} variables={{  lat : lat,long : lng,search : searchValue}}>
                 {({ loading, error, data }) => {
@@ -774,6 +763,22 @@ function Vendor(props) {
                   }}
                 </Query> */}
                 </Row>
+
+                {products.length > 0  &&  <Row>
+            <Col lg="12"  className="text-center">
+        {!LoadingProduct ? parseFloat(page) !== parseFloat(totalPage) &&  pagination && 
+         <Button 
+            onClick={() => {
+              if(parseFloat(page + 1) <= parseFloat(totalPage)){
+                setPage(page + 1)
+              }
+            }}
+          variant="outline-success">
+          Load More</Button>
+          : 
+          <Spinner />}
+          </Col>
+          </Row> }
                 </div>
                  </>
          </Container>       

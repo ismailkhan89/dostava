@@ -36,10 +36,18 @@ function Header(props) {
     activeRoute()
   }, [])
 
+
+  console.log('datadata cart',data)
   async function getData() {
     const cartItems = await localStorage.getItem('cartItems')
     console.log("items in header ", JSON.parse(cartItems))
-    client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems ? JSON.parse(cartItems).length : 0 } })
+    var qty = 0;
+    
+    let totalItems = cartItems ? JSON.parse(cartItems).map(d => 
+      qty +=d.quantity
+    ) : 0
+
+    client.writeQuery({ query: GETCARTITEMS, data: { cartItems: qty } })
   }
   function activeRoute(routeName) {
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";

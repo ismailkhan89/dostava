@@ -129,8 +129,6 @@ const [ItemDetail , setItemDetail ] = useState([]);
     },[SearchText])
    
     function onCompletedProduct(){
-
-    
       if(page === 0){
         setTotalPages(Math.ceil(dataProduct.foodByVendorId_new.totalCount / 10) - 1);
         if(dataProduct.foodByVendorId_new.totalCount > 0){
@@ -138,23 +136,12 @@ const [ItemDetail , setItemDetail ] = useState([]);
         }
       }
 
-
-      console.log('pageCount',
-      (Math.ceil(dataProduct.foodByVendorId_new.totalCount / 10) - 1))
-
-      console.log('itemitem>old',dataProduct.foodByVendorId_new.totalCount / 10)
-
       let newArray = products.concat(dataProduct.foodByVendorId_new.products)
-
-      console.log('itemitem>new',newArray)
-
-
        setProducts([
          ...newArray,
          ])
      
     }
-    console.log('productsproducts',products)
 
   const [title ,setTitle] = useState(
    JSON.parse(localStorage.getItem('storeItem'))?.title ?? 'Single Categories'
