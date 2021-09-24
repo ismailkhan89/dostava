@@ -480,8 +480,15 @@ function Vendor(props) {
               <input 
                 value={searchValue}
                 type="text" 
-                placeholder="Search Food" 
+                placeholder="Search Product" 
                 className="mr-sm-2 col-lg-12" 
+                onKeyPress={(e) => {
+                    if(e.key==="Enter"){
+                      e.target.value === '' && setSearchFlag(false)
+                      setsearchValue(e.target.value)
+                      setSearchFlag(true)
+                    }
+                }}
                 onChange={(e) => {
                   e.target.value === '' && setSearchFlag(false)
                   setsearchValue(e.target.value)

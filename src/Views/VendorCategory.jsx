@@ -364,7 +364,17 @@ const [ItemDetail , setItemDetail ] = useState([]);
 
              
               <FormControl type="search" placeholder="Search Product ..." 
-              value={SearchText} onChange={(e) => setSearchText(e.target.value)} className="mr-sm-2 col-lg-12" />
+              value={SearchText} onChange={(e) => setSearchText(e.target.value)}
+              onKeyPress={(e) => {
+                if(e.key==="Enter"){
+                  //setProducts([])
+                  //setSearchText(e.target.value)
+                  //setSearchText(e.target.value)
+                  setProducts([])
+                  setSearch(e.target.value)
+                }
+            }}
+              className="mr-sm-2 col-lg-12" />
           </Col>
           <Col sm={2}>
           

@@ -316,7 +316,7 @@ function OrderDetails(props) {
           <Col lg="10">
             <h2>Thank you for shopping with dostava!</h2>
             <p>Your Order Status will be updated by the store</p>
-            <a href="#">Give Feedback</a>
+            {/* <a href="#">Give Feedback</a> */}
             <div className="follow-us">
               <span>Follow us</span>
               <Link to="/about">
@@ -331,7 +331,7 @@ function OrderDetails(props) {
               <Link to="/about">
                 <FontAwesome name="youtube-play" />
               </Link>
-              <Link to="#" className="continue-shopping">
+              <Link to="/" className="continue-shopping">
                 Continue Shopping
               </Link>
             </div>

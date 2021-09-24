@@ -217,7 +217,22 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
         // }
         const cartItemsStr = await localStorage.getItem('cartItems')
         const cartItems = cartItemsStr ? JSON.parse(cartItemsStr) : []
-        if(physicalAddress !== ''){
+
+        if(physicalAddress === ''){
+          alert('First you need to add item to cart.');
+          return;
+        }
+
+        if(aptSuite===''){
+          alert('Please enter your Appartment / Suite / Floor.');
+          return;
+        }
+        if(buildingName===''){
+          alert('Please enter your Building or Business Information.');
+          return;
+        }
+       
+
           if (checkPaymentMethod(dataConfig.configuration.currency)) {
             const items = transformOrder(cartItems)
             mutate({
@@ -254,10 +269,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
             //     titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
             // })
         }
-        }
-        else{
-          alert('First you need to add item to cart.')
-        }
+        
     }
 
     function checkPaymentMethod(currency) {
@@ -700,7 +712,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                       <div className="form-group full">
                       <label>Apt / Suite / Floor</label>
                         <input type="text" 
-                        placeholder="Apt / Suite / Floor (Optional)" 
+                        placeholder="Apt / Suite / Floor " 
                         value={aptSuite}
                         onChange={(e) => setAptSuite(e.target.value)}
                         ></input>
@@ -708,7 +720,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                       <div className="form-group full">
                       <label>Business or building name</label>
                         <input type="text" 
-                        placeholder="Business or building name (Optional)" 
+                        placeholder="Business or building name" 
                         value={buildingName}
                         onChange={(e) => setBuildingName(e.target.value)}
                        ></input>

@@ -303,6 +303,7 @@ function LatestHomePage(props){
                       searchOptions={searchOptions}
                         value={location}
                         onChange={(e) => setLocation(e)}
+                        // onKeyPress={(e) => e.key=== "Enter" ? setLocation(e) : console.log("ddddd")}
                         onSelect={handleSelect}
                       >
                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
