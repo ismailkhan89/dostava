@@ -15,7 +15,7 @@ import {
   forgotPassword,
 } from "../apollo/server";
 import { validateFunc } from "../constraints/constraints";
-
+import FlashAlert from "../Components/FlashAlert.jsx";
 import {
   Card,
   CardImg,
@@ -47,6 +47,7 @@ const FORGOT_PASSWORD = gql`
 `;
 
 class Login extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -72,6 +73,8 @@ class Login extends React.Component {
       editModal: false,
       forgotEmail: "",
       forgotEmailError: false,
+      messagealert: '',
+      messagecolor: ''
     };
   }
 
@@ -185,6 +188,8 @@ class Login extends React.Component {
       "Bakery",
       "and many more..",
     ];
+
+    
     const MenuList = MainMenu.map((items, keys) => <li key={keys}>{items}</li>);
 
     let { from } = this.props.location.state || { from: { pathname: "/" } };
@@ -196,7 +201,7 @@ class Login extends React.Component {
     return (
       <Container className="wrapper" fluid>
         <Header {...this.props} title="Login" />
-
+        <FlashAlert message={this.state.messagealert} color={this.state.messagecolor} />
         <Container className="breadcrumb-area" fluid>
           <Row>
             <Col lg="3"></Col>
@@ -649,8 +654,18 @@ class Login extends React.Component {
                 mutation={FORGOT_PASSWORD}
                 onCompleted={(data) => {
                   console.log("forgot res", data);
+                  this.setState({
+                    messagealert: 'Please Check your email to find new password',
+                    messagecolor: 'success',
+                    editModal: false
+                  })
+                 
                 }}
                 onError={(error) => {
+                  // this.setState({
+                  //   messagealert: 'Email Required',
+                  //   messagecolor: 'warning'
+                  // })
                   console.log("forgot Errorrrr :", error);
                 }}
               >
@@ -689,6 +704,9 @@ class Login extends React.Component {
                                       email: this.state.forgotEmail,
                                     },
                                   });
+                                  // this.setState({
+                                  //   editModal: false
+                                  // })
                                 }
                               }}
                             >
@@ -702,15 +720,6 @@ class Login extends React.Component {
                       </Row>
                       <Row>
                         <Col lg="12">
-                          {data &&  (
-                            <div className="form-group">
-                              <span
-                                style={{ color: "green", fontSize: "15px" }}
-                              >
-                                Please Check your email for further..
-                              </span>
-                            </div>
-                          )}
                           {this.state.forgotEmailError && (
                             <div className="form-group">
                               <span style={{ color: "red", fontSize: "13px" }}>

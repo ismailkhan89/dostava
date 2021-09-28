@@ -246,8 +246,7 @@ function Vendor(props) {
 
     let vIds = await localStorage.getItem("vendorIds");
 
-    console.log('onAddToCart>>> ', product);
-    if (product.stock < 1) {
+    if (parseInt(product.stock) === 0) {
         // showMessage({
         //     message: 'Item out of stock',
         //     type: 'warning',
@@ -255,9 +254,13 @@ function Vendor(props) {
         //     style: styles.alertbox,
         //     titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
         // })
-        return 'Item out of stock';
+        // alert('Item out of stock')
+        setEditModal(false)
+        setMessagecolor('warning');
+        setMessage('Item out of stock!')
+        // return 'Item out of stock';
+        return
     }
-
     let vendors = vIds === null ? [] : JSON.parse(vIds);
     isVendorLimitExceeds(product)
 
@@ -266,13 +269,13 @@ function Vendor(props) {
         client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0 } })
         await localStorage.removeItem('cartItems')
         await localStorage.removeItem('vendorIds')
+        setEditModal(false)
         onAddToCart(product)
       }
       return
     }
 
-
-    if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
+    if (parseInt(product.stock) > 0 && product.variations.length === 1 && product.variations[0].addons.length === 0) {
       setVendorIdsArray(product)
         const newItem = {
             // key: uuid.v4(),
@@ -301,12 +304,15 @@ function Vendor(props) {
         console.log("<<new item entered>>",cartItems)
         client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
-        // props.navigation.navigate('Cart')
-        return 'Item Added';
+        setEditModal(false)
+        setMessagecolor('success');
+        setMessage('Added!')
     }
     else {
         // props.navigation.navigate('ItemDetail', { product })
     }
+
+    
   }
 
    async function onCLickProudctDetails(product) {
@@ -688,8 +694,8 @@ function Vendor(props) {
                 {/* <p className="price">  ${getItemPrice(category,dataConfig)}</p> */}
                <a className="add-to-cart" href="#" onClick={(e) => 
                 {onAddToCart(category)
-                  setMessage('Item Added!')
-                  setMessagecolor('success');
+                  // setMessage('Item Added!')
+                  // setMessagecolor('success');
                   setTimeout(() => {
                   setMessage('')
                   setMessagecolor('')}, 3000)

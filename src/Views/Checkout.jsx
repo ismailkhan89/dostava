@@ -786,10 +786,9 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                           </Col>
                           <Col lg="6">
                             <h3>{item.title}</h3>
-                            <p>
-                            <strong>{currency_symbol} {item.price}</strong>      
-                              {/* <span>$12.49</span> */}
-                            </p>
+                            <p> <strong>{currency_symbol} {item.price}{' X '}{item.quantity}{' = '}{currency_symbol}{item.price*item.quantity}  </strong></p>
+                            
+                            
                           </Col>
                           {/* <Col lg="2">
                             <Button onClick={e => { 

@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useContext } from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
 
@@ -11,6 +11,8 @@ import {
   Alert
 } from "reactstrap";
 import gql from "graphql-tag";
+import ConfigurationContext from "../context/Configuration.js";
+import FlashAlert from "../Components/FlashAlert.jsx";
 import { Query, Mutation } from "react-apollo";
 import { Link, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
@@ -88,6 +90,9 @@ function Categories(props) {
   const { cartloading } = useQuery(GETCARTITEMS)
   const [message, setMessages] = useState('');
   const [VendorIds,setVendorIds] = useState([]);
+
+  const [messagealert , setMessage ] = useState('')
+  const [messagecolor , setMessagecolor ] = useState('')
   console.log("props.match.params?.id", props.match.params?.id);
 
    console.log("propspropsprops", props);
@@ -163,11 +168,25 @@ function Categories(props) {
     //  console.log("Vids??>>",vendorIds)
     // setVendorIds(vendorIds);
   } 
-
+  const config = useContext(ConfigurationContext)
+  async function isVendorLimitExceeds (product) {
+    let ids = await localStorage.getItem("vendorIds");
+    let vendorIds = ids === null ? [] : JSON.parse(ids);
+    console.log("isVendorLimitExceeds vendorIds", vendorIds.length)
+    if(vendorIds.length < config.max_vendor){
+        console.log("vendorIds.length < configuration.max_vendor", vendorIds.length)
+        if(product && !vendorIds.includes(product.user._id)){
+            vendorIds.push(product.user._id)
+            localStorage.setItem("vendorIds",JSON.stringify(vendorIds));
+        }
+        return vendorIds;
+    }        
+  }
   async function onAddToCart (product)  {
 
-    console.log('onAddToCart>>> ', product);
-    if (product.stock < 1) {
+    let vIds = await localStorage.getItem("vendorIds");
+
+    if (parseInt(product.stock) === 0) {
         // showMessage({
         //     message: 'Item out of stock',
         //     type: 'warning',
@@ -175,10 +194,26 @@ function Categories(props) {
         //     style: styles.alertbox,
         //     titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
         // })
-        return 'Item out of stock';
+        // alert('Item out of stock')
+        setMessagecolor('warning');
+        setMessage('Item out of stock!')
+        // return 'Item out of stock';
+        return
+    }
+    let vendors = vIds === null ? [] : JSON.parse(vIds);
+    isVendorLimitExceeds(product)
+
+    if(vendors.length === config.max_vendor && !vendors.includes(product.user._id)){
+      if(window.confirm('Your cart already contains items from another shop. would you like to clear the cart and add items from this shop instead?')){
+        client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0 } })
+        await localStorage.removeItem('cartItems')
+        await localStorage.removeItem('vendorIds')
+        onAddToCart(product)
+      }
+      return
     }
 
-    if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
+    if (parseInt(product.stock) > 0 && product.variations.length === 1 && product.variations[0].addons.length === 0) {
       setVendorIdsArray(product)
         const newItem = {
             // key: uuid.v4(),
@@ -207,16 +242,19 @@ function Categories(props) {
         console.log("<<new item entered>>",cartItems)
         client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
-        // props.navigation.navigate('Cart')
-        return 'Item Added';
+        setMessagecolor('success');
+        setMessage('Added!')
     }
     else {
         // props.navigation.navigate('ItemDetail', { product })
     }
+
+    
   }
   return (
     <Container className="wrapper" fluid>
       <Header  {...props} title={title +" by Dostava"} />
+      <FlashAlert message={messagealert} color={messagecolor} />
       <Container className="breadcrumb-area" style={{display:'none'}} fluid>
         <Row>
           <Col lg="3">

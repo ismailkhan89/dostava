@@ -1,3 +1,4 @@
+import React, {useState, useContext} from "react";
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { createUploadLink } from 'apollo-upload-client';
@@ -23,7 +24,6 @@ async function setVendorIdsArray(product){
     let vendorIds = [];
     console.log("productproductproduct",product)
 
-    // cartItems.map(food => {  
     //   if(vendorIds.length > 0){
     //     var cont = vendorIds.find(a => {
     //       if(a !== food.vendor) vendorIds.push(food.vendor)
@@ -37,11 +37,25 @@ async function setVendorIdsArray(product){
     // setVendorIds(vendorIds);
   } 
 
-  
-async function onAddToCart (product)  {
+  // async function isVendorLimitExceeds (product) {
+  //   let ids = await localStorage.getItem("vendorIds");
+  //   let vendorIds = ids === null ? [] : JSON.parse(ids);
+  //   console.log("isVendorLimitExceeds vendorIds", vendorIds.length)
+  //   if(vendorIds.length < config.max_vendor){
+  //       console.log("vendorIds.length < configuration.max_vendor", vendorIds.length)
+  //       if(product && !vendorIds.includes(product.user._id)){
+  //           vendorIds.push(product.user._id)
+  //           localStorage.setItem("vendorIds",JSON.stringify(vendorIds));
+  //       }
+  //       return vendorIds;
+  //   }        
+  // }
 
-    console.log('onAddToCart>>> ', product);
-    if (product.stock < 1) {
+  async function onAddToCart (product)  {
+
+    let vIds = await localStorage.getItem("vendorIds");
+
+    if (parseInt(product.stock) === 0) {
         // showMessage({
         //     message: 'Item out of stock',
         //     type: 'warning',
@@ -49,10 +63,26 @@ async function onAddToCart (product)  {
         //     style: styles.alertbox,
         //     titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
         // })
+        // alert('Item out of stock')
+        // setMessagecolor('warning');
+        // setMessage('Item out of stock!')
         return 'Item out of stock';
+        // return
+    }
+    let vendors = vIds === null ? [] : JSON.parse(vIds);
+    // isVendorLimitExceeds(product)
+
+    if( !vendors.includes(product.user._id)){
+      if(window.confirm('Your cart already contains items from another shop. would you like to clear the cart and add items from this shop instead?')){
+        client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0 } })
+        await localStorage.removeItem('cartItems')
+        await localStorage.removeItem('vendorIds')
+        onAddToCart(product)
+      }
+      return
     }
 
-    if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
+    if (parseInt(product.stock) > 0 && product.variations.length === 1 && product.variations[0].addons.length === 0) {
       setVendorIdsArray(product)
         const newItem = {
             // key: uuid.v4(),
@@ -81,12 +111,14 @@ async function onAddToCart (product)  {
         console.log("<<new item entered>>",cartItems)
         client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
-        // props.navigation.navigate('Cart')
-        return 'Item Added';
+        // setMessagecolor('success');
+        // setMessage('Added!')
     }
     else {
         // props.navigation.navigate('ItemDetail', { product })
     }
+
+    
   }
 
 

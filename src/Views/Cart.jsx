@@ -396,7 +396,9 @@ function Cart(props) {
       }
       return (parseFloat(newPrice)).toFixed(2)
     }
-
+    function goBack(){
+     props.history.goBack();
+    }
 
     return(
       
@@ -529,6 +531,7 @@ function Cart(props) {
                      
 
                             <input type="submit" value="Checkout" onClick = {onCLickCheckout} />
+                            <input type="submit" value="Go Back" onClick = {()=>{goBack()}} className="goback" />
                         </div>
                     </Col>
                 </Row>

@@ -846,6 +846,9 @@ margin-bottom:10px;
     height:40px;
     text-transform: uppercase;
 }
+.cart-section .subtotal div input[type="submit"].goback{
+    margin-top:20px;
+}
 .flashmessage{
     font-size:20px;
     color:#1385a7;
@@ -2850,6 +2853,8 @@ font-size:20px;
     width:100%;
 }
 
+
+
 #Product-carousel .productoffline .product-img img{
     width:100%; 
     height:auto;
@@ -2884,6 +2889,17 @@ font-size:20px;
 #Product-carousel .product .product-img{
     float:left;
     width:100%;
+}
+#Product-carousel .product .product-imgs{
+    float:left;
+    width: 100%;
+    height: 285px;
+}
+#Product-carousel .product .product-imgs img {
+    max-width: 100%;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
 }
 #Product-carousel .product > a{
     float:left;

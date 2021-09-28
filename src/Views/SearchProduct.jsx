@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect , useRef } from "react";
+import React, { Component, useState, useEffect , useRef, useContext } from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
 
@@ -14,6 +14,7 @@ import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import { Link, useParams } from 'react-router-dom';
 import { useQuery, useMutation  } from '@apollo/react-hooks';
+import ConfigurationContext from "../context/Configuration.js";
 import { foods, like,getVendorsByLocationAndKeyword ,getCategoriesByLocation , getConfiguration} from "../apollo/server";
 import { getCartItems } from '../apollo/client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -117,7 +118,22 @@ function SearchProduct(props){
 
 
 
+
  const [productFilter,setProductFilter] = useState('both')
+ const config = useContext(ConfigurationContext)
+ async function isVendorLimitExceeds (product) {
+  let ids = await localStorage.getItem("vendorIds");
+  let vendorIds = ids === null ? [] : JSON.parse(ids);
+  console.log("isVendorLimitExceeds vendorIds", vendorIds.length)
+  if(vendorIds.length < config.max_vendor){
+      console.log("vendorIds.length < configuration.max_vendor", vendorIds.length)
+      if(product && !vendorIds.includes(product.user._id)){
+          vendorIds.push(product.user._id)
+          localStorage.setItem("vendorIds",JSON.stringify(vendorIds));
+      }
+      return vendorIds;
+  }        
+}
  async function onAddToCart (product)  {
 
    console.log('onAddToCart>>> ', product);
@@ -131,6 +147,21 @@ function SearchProduct(props){
        // })
        return 'Item out of stock';
    }
+   let vIds = await localStorage.getItem("vendorIds");
+
+   let vendors = vIds === null ? [] : JSON.parse(vIds);
+   isVendorLimitExceeds(product)
+
+   if(vendors.length === config.max_vendor && !vendors.includes(product.user._id)){
+     if(window.confirm('Your cart already contains items from another shop. would you like to clear the cart and add items from this shop instead?')){
+       client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0 } })
+       await localStorage.setItem('cartItems','[]')
+       await localStorage.setItem('vendorIds','[]')
+       onAddToCart(product)
+     }
+     return
+   }
+
 
    if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
      setVendorIdsArray(product)
@@ -326,8 +357,9 @@ function SearchProduct(props){
                 {/* <p className="price">  ${getItemPrice(category,dataConfig)}</p> */}
                <a className="add-to-cart" href="#" onClick={(e) => 
                 {onAddToCart(category)
-                  setMessage('Item Added!')
-                  setMessagecolor('success');
+                  e.preventDefault()
+                  // setMessage('Item Added!')
+                  // setMessagecolor('success');
                   setTimeout(() => {
                   setMessage('')
                   setMessagecolor('')}, 3000)
