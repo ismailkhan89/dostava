@@ -356,7 +356,7 @@ function LatestHomePage(props){
                         e.preventDefault();
                         if(location !== ""){
 
-                        localStorage.removeItem('cartItems');
+                        // localStorage.removeItem('cartItems');
                         if(!!latLng){
                           var newlocation = {
                             lat : latLng.lat.toString(),

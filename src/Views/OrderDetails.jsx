@@ -184,8 +184,8 @@ function OrderDetails(props) {
                             ></img>
                           </td>
                           <td> {cartItem.food.user.business_name}</td>
-                          <td> {cartItem.food.title}</td>
-                          <td>
+                          <td width = "100"> {cartItem.food.title}</td>
+                          <td width = "100">
                             <strong>
                               ${cartItem.food.vendor_pricing}
                               {/* {getItemPriceOrderDetails(
@@ -194,8 +194,8 @@ function OrderDetails(props) {
                               )} */}
                             </strong>
                           </td>
-                          <td>{cartItem.quantity}</td>
-                          <td>
+                          <td width = "100">  <strong>{cartItem.quantity}  </strong></td>
+                          <td width = "100">
                             <strong>
                             ${cartItem.food.vendor_pricing * cartItem.quantity}
                               {/* {parseFloat(cartItem.quantity) *
@@ -219,7 +219,7 @@ function OrderDetails(props) {
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
                   <td>&nbsp;</td>
-                  <td>
+                  <td colSpan ="2" align="right" >
                     <strong>Total ${parseFloat(SubTotal).toFixed(2)}</strong>
                   </td>
                   <td>&nbsp;</td>
