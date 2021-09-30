@@ -80,9 +80,19 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
       window.scrollTo(0, 0)
     },[])
     
+
+    React.useEffect(()=>{
+      setStoreIdLocally()
+    },[])
+
+    async function setStoreIdLocally() {
+      let store_id = await localStorage.getItem('lastStoreId');
+      console.log("get store id", store_id)
+      setStoreId(JSON.parse(store_id))
+    }
     const newcartItemsStr =  localStorage.getItem('cartItems')
     const newcartItems = newcartItemsStr ? JSON.parse(newcartItemsStr) : []
-
+    const [storeId, setStoreId] = useState('')
     const [address] = useState(props.location.state?.address ?? null)
     const [coupon] = useState(props.location.state?.coupon ?? null)
     const [Configuration,setConfiguration] = useState(props.location.state?.coupon ?? null)
@@ -309,6 +319,14 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
         document.head.appendChild(script);
     } else {
     }
+}
+
+async function GoBackToStore(){
+  if(storeId){
+    props.history.push({pathname: "/storesitem/"+storeId})
+  }else{
+    props.history.push({pathname: "/stores"})
+  }
 }
 
   async function onCompleted(data) {
@@ -718,9 +736,9 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                         ></input>
                       </div>
                       <div className="form-group full">
-                      <label>Business or building name</label>
+                      <label>Street Number</label>
                         <input type="text" 
-                        placeholder="Business or building name" 
+                        placeholder="Street Number" 
                         value={buildingName}
                         onChange={(e) => setBuildingName(e.target.value)}
                        ></input>
@@ -832,8 +850,14 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
                           {/* {totalPriceIncDelivery} */}
                   {newTotalPrice}</span>
                         </h2>
-                        <div className="form-group half">
+                        {/* <div className="form-group half">
                         <Link to="/">Back to Shopping</Link>
+                      </div> */}
+                      <div className="form-group half">
+                        <Button className="btnbacktostore"  onClick={e => {
+                                e.preventDefault()
+                                GoBackToStore()
+                                }} value="Payment">Back to Shopping</Button>
                       </div>
                       <div className="form-group payment-button half">
                         <Button  onClick={e => {

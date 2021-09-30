@@ -53,9 +53,19 @@ const clients = new ApolloClient({
 const GET_CONFIGURATION = gql`${getConfiguration}`;
 
 function Cart(props) {
+
+  React.useEffect(()=>{
+    setStoreIdLocally()
+  },[])
+
+  async function setStoreIdLocally() {
+    let store_id = await localStorage.getItem('lastStoreId');
+    console.log("get store id", store_id)
+    setStoreId(JSON.parse(store_id))
+  }
   
   const config = useContext(ConfigurationContext)
- 
+  const [storeId, setStoreId] = useState('')
   const { client, data, loading } = useQuery(GETCARTITEMS)
   const [cartItems, setCartItems] = useState([])
   const [configuration, setConfiguration] = useState([])
@@ -136,6 +146,14 @@ function Cart(props) {
       //   titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
       // })
     }
+    async function GoBackToStore(){
+      if(storeId){
+        props.history.push({pathname: "/storesitem/"+storeId})
+      }else{
+        props.history.push({pathname: "/stores"})
+      }
+    }
+
      async function onCLickCheckout(){
       const getLogin = await localStorage.getItem('user-dostava');
       const loginData = getLogin ? JSON.parse(getLogin) : null
@@ -531,7 +549,7 @@ function Cart(props) {
                      
 
                             <input type="submit" value="Checkout" onClick = {onCLickCheckout} />
-                            <input type="submit" value="Go Back" onClick = {()=>{goBack()}} className="goback" />
+                            <input type="submit" value="Go Back" onClick = {GoBackToStore} className="goback" />
                         </div>
                     </Col>
                 </Row>

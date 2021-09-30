@@ -86,7 +86,8 @@ console.log("props.match.params?.id", props.match.params?.id)
     }
 
     if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
-        const newItem = {
+      localStorage.setItem('lastStoreId',JSON.stringify(product.user._id)); 
+      const newItem = {
             // key: uuid.v4(),
             __typename: 'CartItem',
             _id: product._id,

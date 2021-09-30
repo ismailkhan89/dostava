@@ -215,6 +215,7 @@ function Categories(props) {
 
     if (parseInt(product.stock) > 0 && product.variations.length === 1 && product.variations[0].addons.length === 0) {
       setVendorIdsArray(product)
+      localStorage.setItem('lastStoreId',JSON.stringify(product.user._id));
         const newItem = {
             // key: uuid.v4(),
             __typename: 'CartItem',

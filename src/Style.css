@@ -930,7 +930,8 @@ margin-bottom:30px;
     margin-top:15px;
 }
 .content-area.checkout-page .checkout-section .shipping form .half a, 
-.content-area.checkout-page .checkout-section .cart-items .button-form .half a{
+.content-area.checkout-page .checkout-section .cart-items .button-form .half a,
+.content-area.checkout-page .checkout-section .cart-items .button-form .half button.btnbacktostore{
     border:1px solid #1385a7;
     color:#1385a7;
     text-transform: uppercase;
@@ -941,6 +942,11 @@ margin-bottom:30px;
     line-height:45px;
     font-size:15px;
     font-weight:500;
+}
+.content-area.checkout-page .checkout-section .cart-items .button-form .half button.btnbacktostore
+{
+background-color: #fff;
+font-size:14px;
 }
 .content-area.checkout-page .checkout-section .cart-items .button-form .half a{
     font-size:12px;

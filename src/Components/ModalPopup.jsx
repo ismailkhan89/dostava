@@ -83,7 +83,7 @@ function Modal2(props){
 </Modal.Header>
 <Modal.Body>
 <Form inline className="text-right search-form">
-              {/* <FormControl type="text" placeholder="Enter Location here..." className="mr-sm-2" /> */}
+              {/* <FormControl type="text" placeholder="Enter delivery address here..." className="mr-sm-2" /> */}
               <PlacesAutocomplete
               searchOptions={searchOptions}
                 value={location}
@@ -96,17 +96,17 @@ function Modal2(props){
                     {/* <FormControl
                       {...getInputProps({
                         // placeholder: 'Search Places ...',
-                        placeholder:"Enter Location here...",
+                        placeholder:"Enter delivery address here...",
                         className: "mr-sm-2",
                       })}
                     type="text" 
-                    // placeholder="Enter Location here..." className="mr-sm-2"
+                    // placeholder="Enter delivery address here..." className="mr-sm-2"
                     /> */}
 
                     <input
                       {...getInputProps({
                         // placeholder: 'Search Places ...',
-                        placeholder:"Enter Location here...",
+                        placeholder:"Enter delivery address here...",
                         className: "mr-sm-2 form-control",
                       })}
                     />

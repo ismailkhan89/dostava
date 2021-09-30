@@ -121,17 +121,20 @@ function Vendor(props) {
 
  
   function onCompletedProduct(){
+    console.log("dataProduct>>>>",dataProduct)
+    console.log("page>>>>",page)
     if(page === 0){
       setTotalPages(Math.ceil(dataProduct.getVendorsByLocationAndKeyword.totalCount / 10) - 1);
       if(dataProduct.getVendorsByLocationAndKeyword.totalCount > 0){
         setPagination(true)
       }
-    }
-
-    let newArray = products.concat(dataProduct.getVendorsByLocationAndKeyword.products)
-     setProducts([
-       ...newArray,
-       ])
+      setProducts(dataProduct.getVendorsByLocationAndKeyword.products)
+    }else{
+      let newArray = products.concat(dataProduct.getVendorsByLocationAndKeyword.products)
+      setProducts([
+        ...newArray,
+        ])
+    }   
    
   }
 
@@ -277,6 +280,7 @@ function Vendor(props) {
 
     if (parseInt(product.stock) > 0 && product.variations.length === 1 && product.variations[0].addons.length === 0) {
       setVendorIdsArray(product)
+      localStorage.setItem('lastStoreId',JSON.stringify(product.user._id));
         const newItem = {
             // key: uuid.v4(),
             __typename: 'CartItem',
@@ -400,17 +404,17 @@ function Vendor(props) {
                             {/* <FormControl
                               {...getInputProps({
                                 // placeholder: 'Search Places ...',
-                                placeholder:"Enter Location here...",
+                                placeholder:"Enter delivery address here...",
                                 className: "mr-sm-2",
                               })}
                             type="text" 
-                            // placeholder="Enter Location here..." className="mr-sm-2"
+                            // placeholder="Enter delivery address here..." className="mr-sm-2"
                             /> */}
 
                             <input
                               {...getInputProps({
                                 // placeholder: 'Search Places ...',
-                                placeholder:"Enter Location here...",
+                                placeholder:"Enter delivery address here...",
                                 className: "mr-sm-2 col-lg-12",
                               })}
                             />
@@ -439,7 +443,7 @@ function Vendor(props) {
                           </>
                         )}
                       </PlacesAutocomplete>
-              {/* <FormControl type="search" placeholder="Enter Location here..." /> */}
+              {/* <FormControl type="search" placeholder="Enter delivery address here..." /> */}
               {/* <Button variant="outline-success">Search</Button> */}
              
             {/* </Form> */}
@@ -498,6 +502,7 @@ function Vendor(props) {
                 onChange={(e) => {
                   e.target.value === '' && setSearchFlag(false)
                   setsearchValue(e.target.value)
+                  setPage(0)
                 }}
                 />
             </Col>
@@ -552,6 +557,7 @@ function Vendor(props) {
                     to={`/storesitem/${category._id}`}
                     params="true"
                     onClick={e => {
+                      console.log("mall pressed", category._id)
                     e.preventDefault();
                     let news = {
                         title : category.business_name,

@@ -434,7 +434,7 @@ like every other ride-sharing app.</p>
                     <h3>Dostava</h3>
                     <h4>Stores in your area, now delivering</h4>
                     <Form inline className="text-right search-form">
-                      {/* <FormControl type="text" placeholder="Enter Location here..." className="mr-sm-2" /> */}
+                      {/* <FormControl type="text" placeholder="Enter delivery address here..." className="mr-sm-2" /> */}
                       <PlacesAutocomplete
                       searchOptions={searchOptions}
                         value={location}
@@ -447,17 +447,17 @@ like every other ride-sharing app.</p>
                             {/* <FormControl
                               {...getInputProps({
                                 // placeholder: 'Search Places ...',
-                                placeholder:"Enter Location here...",
+                                placeholder:"Enter delivery address here...",
                                 className: "mr-sm-2",
                               })}
                             type="text" 
-                            // placeholder="Enter Location here..." className="mr-sm-2"
+                            // placeholder="Enter delivery address here..." className="mr-sm-2"
                             /> */}
 
                             <input
                               {...getInputProps({
                                 // placeholder: 'Search Places ...',
-                                placeholder:"Enter Location here...",
+                                placeholder:"Enter delivery address here...",
                                 className: "mr-sm-2 form-control",
                               })}
                             />

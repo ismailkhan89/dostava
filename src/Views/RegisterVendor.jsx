@@ -316,7 +316,7 @@ function RegisterVendor(props){
 							 onBlur={() => address === "" && setAddressErr(true)}
 							 {...getInputProps({
                                 // placeholder: 'Search Places ...',
-                                // placeholder:"Enter Location here...",
+                                // placeholder:"Enter delivery address here...",
                                 className: "mr-sm-2 form-control",
                               })}
 								//  setContactno(e.target.value)

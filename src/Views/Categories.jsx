@@ -121,7 +121,8 @@ function Categories(props) {
     }
 
     if (product.variations.length === 1 && product.variations[0].addons.length === 0) {
-        const newItem = {
+      localStorage.setItem('lastStoreId',JSON.stringify(product.user._id));  
+      const newItem = {
             // key: uuid.v4(),
             __typename: 'CartItem',
             _id: product._id,
@@ -216,7 +217,7 @@ function Categories(props) {
                           </select>
                       )
             }}</Query>
-              <FormControl type="search" placeholder="Enter Location here..." />
+              <FormControl type="search" placeholder="Enter delivery address here..." />
               <Button variant="outline-success">Search</Button>
             </Form>
           </Col>
