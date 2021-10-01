@@ -853,13 +853,13 @@ async function GoBackToStore(){
                         {/* <div className="form-group half">
                         <Link to="/">Back to Shopping</Link>
                       </div> */}
-                      <div className="form-group half">
-                        <Button className="btnbacktostore"  onClick={e => {
+                      <div className="form-group full">
+                        <Button className="btnbacktostore goback"  onClick={e => {
                                 e.preventDefault()
                                 GoBackToStore()
                                 }} value="Payment">Back to Shopping</Button>
                       </div>
-                      <div className="form-group payment-button half">
+                      <div className="form-group payment-button full">
                         <Button  onClick={e => {
                                 e.preventDefault()
                                 if(payment !== null){

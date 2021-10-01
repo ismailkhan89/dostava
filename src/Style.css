@@ -837,7 +837,7 @@ margin-bottom:10px;
     color:#707070;
     float:right;
 }
-.cart-section .subtotal div input[type="submit"]{
+.cart-section .subtotal div input[type="submit"], .content-area.checkout-page .checkout-section .carts .button-form button[type="button"]{
     background-color:#1385a7;
     color:#fff;
     text-align: center;
@@ -846,8 +846,18 @@ margin-bottom:10px;
     height:40px;
     text-transform: uppercase;
 }
-.cart-section .subtotal div input[type="submit"].goback{
+.cart-section .subtotal div input[type=submit].goback, .content-area.checkout-page .checkout-section .carts .button-form button[type="button"].goback{
+    background-color:transparent;
+    border:1px solid #1385a7;
+    color:#1385a7;
+}
+.cart-section .subtotal div input[type="submit"].goback, .content-area.checkout-page .checkout-section .carts .button-form button[type="button"]{
     margin-top:20px;
+}
+.content-area.checkout-page .checkout-section .carts .button-form button[type="button"]{
+    padding:0;
+    line-height:40px;
+    border-radius:0;
 }
 .flashmessage{
     font-size:20px;
@@ -2347,9 +2357,9 @@ padding-left:70px;
     width:120%;
 }
 .categories-section{
-    background:url(Assets/Img/categories-section-bg.png);
+    /* background:url(Assets/Img/categories-section-bg.png);
     background-repeat:no-repeat;
-    background-position:top center;
+    background-position:top center; */
     padding:110px 15px 40px 15px;
     background-size:100%;
     background-color:#ffffff;

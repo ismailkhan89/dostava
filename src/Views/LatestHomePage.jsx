@@ -140,9 +140,25 @@ function SamplePrevArrow(props) {
 }
 
 function LatestHomePage(props){
+  const[slider, setSlider] = useState(false);
   useEffect(() => {
     fetchProducts(props)
   }, [])
+  useEffect(() =>{
+    sliderFunction();
+  }, [])
+
+  async function sliderFunction(){
+    let value= await localStorage.getItem("theme");
+    if(JSON.parse(value)){
+      
+      setSlider(true)
+      await localStorage.removeItem("theme");
+    } else{
+      await localStorage.setItem("theme", "true");
+    }
+    return
+  }
   const [count, setCount] = useState(0);
   const [featuredProductsItems, setFeaturedProductsItems] = useState([]);
   const [configuration, setConfiguration] = useState([]);
@@ -288,40 +304,34 @@ function LatestHomePage(props){
         
        
               <FlashAlert message={message} color={messagecolor} />
-        
-        
-        <Container className="home-slider home-bg" fluid>
-          <Row>
-              <Container>
-                <Row>
-                  <Col lg="6" md="6" sm="12" xs="12" className="home-slider-text">
-                    
-                    <h4>Stores in your area, now delivering</h4>
+        {slider ? <Container className="home-banner1" fluid>
+            <Row className="justify-content-center">
+              <Col lg="8" className="text-center">
+                <div className="banner-img-new">
+                  <img src='../Assets/Img/new-banner-img.png' ></img>
+                </div>
+                <div className="banner-text-new">
+                  <h4>Stores in your Area, Now Delivering</h4>
+                  <Row className="justify-content-center">
+                    <Col lg="8" className="new-search-area">
                     <Form inline className="text-right search-form">
-                      {/* <FormControl type="text" placeholder="Enter delivery address here..." className="mr-sm-2" /> */}
+                      <div className="input-area">
+                        <FontAwesome name="map-marker" />
                       <PlacesAutocomplete
                       searchOptions={searchOptions}
                         value={location}
                         onChange={(e) => setLocation(e)}
-                        // onKeyPress={(e) => e.key=== "Enter" ? setLocation(e) : console.log("ddddd")}
+                        
                         onSelect={handleSelect}
                       >
                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                           <>
 
-                            {/* <FormControl
-                              {...getInputProps({
-                                // placeholder: 'Search Places ...',
-                                placeholder:"Enter delivery address here...",
-                                className: "mr-sm-2",
-                              })}
-                            type="text" 
-                            // placeholder="Enter delivery address here..." className="mr-sm-2"
-                            /> */}
+                            
 
                             <input
                               {...getInputProps({
-                                // placeholder: 'Search Places ...',
+                                
                                 placeholder:"Enter delivery address here...",
                                 className: "mr-sm-2 form-control",
                               })}
@@ -332,7 +342,7 @@ function LatestHomePage(props){
                                 const className = suggestion.active
                                   ? 'suggestion-item--active'
                                   : 'suggestion-item';
-                                // inline style for demonstration purpose
+                                
                                 const style = suggestion.active
                                   ? { backgroundColor: '#fafafa', cursor: 'pointer' }
                                   : { backgroundColor: '#ffffff', cursor: 'pointer' };
@@ -352,6 +362,7 @@ function LatestHomePage(props){
                           </>
                         )}
                       </PlacesAutocomplete>
+                      </div>
                       <Link className="outline-success" to={'javascript:void(0)'}  onClick={(e) => {
                         e.preventDefault();
                         if(location !== ""){
@@ -381,14 +392,235 @@ function LatestHomePage(props){
                       }}><Button variant="outline-success">Show Stores</Button></Link>
                       
                     </Form>
-                  </Col>
-                  <Col lg="6" md="6" sm="12" xs="12" className="home-slider-img ">
-                  <img src='../Assets/Img/slider-img-new.png' ></img>
-                  </Col>
-                </Row>
-              </Container>
-          </Row>
-        </Container>
+                    <p>Sign In for your recent addresses</p>
+                    <div class="new-download-app">
+                      <span>Download Mobile App</span>
+                      <a href="https://apps.apple.com/us/app/dostava/id1543132324">
+                    
+                      <img src='../Assets/Img/banner-appstore-download.png' ></img>
+                  </a>
+                  <a href="https://play.google.com/store/apps/details?id=com.dostava">
+                  <img src='../Assets/Img/banner-gplay-download.png' ></img>
+                  </a>
+                      
+                      
+                    </div>
+                    </Col>
+                    </Row>
+                  </div>
+              </Col>
+            </Row>
+          </Container> :
+
+<Container className="home-banner1 home-banner2" fluid>
+<Row className="justify-content-center">
+  <Col lg="8" className="text-center">
+    <div className="banner-img-new">
+      <img src='../Assets/Img/new-banner-img3.png' ></img>
+    </div>
+    <div className="banner-text-new">
+      <h4>Stores in your Area, <span>Now Delivering</span></h4>
+      <Row className="justify-content-center">
+        <Col lg="8" className="new-search-area">
+        <Form inline className="text-right search-form">
+          <div className="input-area">
+            <FontAwesome name="map-marker" />
+          <PlacesAutocomplete
+          searchOptions={searchOptions}
+            value={location}
+            onChange={(e) => setLocation(e)}
+            
+            onSelect={handleSelect}
+          >
+            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+              <>
+
+                
+
+                <input
+                  {...getInputProps({
+                    
+                    placeholder:"Enter delivery address here...",
+                    className: "mr-sm-2 form-control",
+                  })}
+                />
+                <div className="autocomplete-dropdown-container">
+                  {loading && <div>Loading...</div>}
+                  {suggestions.map((suggestion,index) => {
+                    const className = suggestion.active
+                      ? 'suggestion-item--active'
+                      : 'suggestion-item';
+                    
+                    const style = suggestion.active
+                      ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                      : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                    return (
+                      <div
+                      key={index}
+                        {...getSuggestionItemProps(suggestion, {
+                          className,
+                          style,
+                        })}
+                      >
+                        <span>{suggestion.description}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </PlacesAutocomplete>
+          </div>
+          <Link className="outline-success" to={'javascript:void(0)'}  onClick={(e) => {
+            e.preventDefault();
+            if(location !== ""){
+              localStorage.removeItem("lastStoreId")
+            // localStorage.removeItem('cartItems');
+            if(!!latLng){
+              var newlocation = {
+                lat : latLng.lat.toString(),
+                lng : latLng.lng.toString(),
+                location : location
+              }
+              localStorage.setItem('location',JSON.stringify(newlocation));
+                props.history.push({
+                pathname: '/stores',
+                // state: {...props.history?.state,location: latLng}
+              })
+            }
+          }
+          else{
+            setMessage('Please Choose Location')
+            setMessagecolor('danger');
+            setTimeout(() => {
+            setMessage('')
+            setMessagecolor('')}, 5000)
+            //  alert('Please Choose Location')
+            }
+          }}><Button variant="outline-success">Show Stores</Button></Link>
+          
+        </Form>
+        <p>Sign In for your recent addresses</p>
+        <div class="new-download-app">
+          <span>Download Mobile App</span>
+          <a href="https://apps.apple.com/us/app/dostava/id1543132324">
+        
+          <img src='../Assets/Img/banner-appstore-download.png' ></img>
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.dostava">
+      <img src='../Assets/Img/banner-gplay-download.png' ></img>
+      </a>
+          
+          
+        </div>
+        </Col>
+        </Row>
+      </div>
+  </Col>
+</Row>
+</Container>
+        
+
+        // <Container className="home-slider home-bg" fluid>
+        //   <Row>
+        //       <Container>
+        //         <Row>
+        //           <Col lg="6" md="6" sm="12" xs="12" className="home-slider-text">
+                    
+        //             <h4>Stores in your area, now delivering</h4>
+        //             <Form inline className="text-right search-form">
+        //               {/* <FormControl type="text" placeholder="Enter delivery address here..." className="mr-sm-2" /> */}
+        //               <PlacesAutocomplete
+        //               searchOptions={searchOptions}
+        //                 value={location}
+        //                 onChange={(e) => setLocation(e)}
+        //                 // onKeyPress={(e) => e.key=== "Enter" ? setLocation(e) : console.log("ddddd")}
+        //                 onSelect={handleSelect}
+        //               >
+        //                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+        //                   <>
+
+        //                     {/* <FormControl
+        //                       {...getInputProps({
+        //                         // placeholder: 'Search Places ...',
+        //                         placeholder:"Enter delivery address here...",
+        //                         className: "mr-sm-2",
+        //                       })}
+        //                     type="text" 
+        //                     // placeholder="Enter delivery address here..." className="mr-sm-2"
+        //                     /> */}
+
+        //                     <input
+        //                       {...getInputProps({
+        //                         // placeholder: 'Search Places ...',
+        //                         placeholder:"Enter delivery address here...",
+        //                         className: "mr-sm-2 form-control",
+        //                       })}
+        //                     />
+        //                     <div className="autocomplete-dropdown-container">
+        //                       {loading && <div>Loading...</div>}
+        //                       {suggestions.map((suggestion,index) => {
+        //                         const className = suggestion.active
+        //                           ? 'suggestion-item--active'
+        //                           : 'suggestion-item';
+        //                         // inline style for demonstration purpose
+        //                         const style = suggestion.active
+        //                           ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+        //                           : { backgroundColor: '#ffffff', cursor: 'pointer' };
+        //                         return (
+        //                           <div
+        //                           key={index}
+        //                             {...getSuggestionItemProps(suggestion, {
+        //                               className,
+        //                               style,
+        //                             })}
+        //                           >
+        //                             <span>{suggestion.description}</span>
+        //                           </div>
+        //                         );
+        //                       })}
+        //                     </div>
+        //                   </>
+        //                 )}
+        //               </PlacesAutocomplete>
+        //               <Link className="outline-success" to={'javascript:void(0)'}  onClick={(e) => {
+        //                 e.preventDefault();
+        //                 if(location !== ""){
+        //                   localStorage.removeItem("lastStoreId")
+        //                 // localStorage.removeItem('cartItems');
+        //                 if(!!latLng){
+        //                   var newlocation = {
+        //                     lat : latLng.lat.toString(),
+        //                     lng : latLng.lng.toString(),
+        //                     location : location
+        //                   }
+        //                   localStorage.setItem('location',JSON.stringify(newlocation));
+        //                     props.history.push({
+        //                     pathname: '/stores',
+        //                     // state: {...props.history?.state,location: latLng}
+        //                   })
+        //                 }
+        //               }
+        //               else{
+        //                 setMessage('Please Choose Location')
+        //                 setMessagecolor('danger');
+        //                 setTimeout(() => {
+        //                 setMessage('')
+        //                 setMessagecolor('')}, 5000)
+        //                 //  alert('Please Choose Location')
+        //                 }
+        //               }}><Button variant="outline-success">Show Stores</Button></Link>
+                      
+        //             </Form>
+        //           </Col>
+        //           <Col lg="6" md="6" sm="12" xs="12" className="home-slider-img ">
+        //           <img src='../Assets/Img/slider-img-new.png' ></img>
+        //           </Col>
+        //         </Row>
+        //       </Container>
+        //   </Row>
+        // </Container>
+        }
         <Container className="categories-section" fluid>
           <Row>
             <Container>

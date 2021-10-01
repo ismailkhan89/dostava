@@ -549,7 +549,7 @@ function Cart(props) {
                      
 
                             <input type="submit" value="Checkout" onClick = {onCLickCheckout} />
-                            <input type="submit" value="Go Back" onClick = {GoBackToStore} className="goback" />
+                            <input type="submit" value="Back to Shopping" onClick = {GoBackToStore} className="goback" />
                         </div>
                     </Col>
                 </Row>
