@@ -197,7 +197,7 @@ function OrderDetails(props) {
                           <td width = "100">  <strong>{cartItem.quantity}  </strong></td>
                           <td width = "100">
                             <strong>
-                            ${cartItem.food.vendor_pricing * cartItem.quantity}
+                            ${parseFloat(cartItem.food.vendor_pricing * cartItem.quantity).toFixed(2)}
                               {/* {parseFloat(cartItem.quantity) *
                                 parseFloat(
                                   getItemPriceOrderDetails(
@@ -231,7 +231,7 @@ function OrderDetails(props) {
               <Col lg="8" md="7" sm="7" xs="12" className={deliveryAddress ? 'subtotal' : 'voucher'}>
                 <div>
                 {deliveryAddress && deliveryAddress.building_name !== "" &&  <h4>
-                    Building Name <span>{deliveryAddress?.building_name}</span>
+                    Street Number <span>{deliveryAddress?.building_name}</span>
                   </h4>} 
 
                   {deliveryAddress && deliveryAddress.floor_name !== "" &&    <h4>
@@ -247,7 +247,7 @@ function OrderDetails(props) {
                   </h4> }
 
                   {deliveryAddress &&  deliveryAddress.order_description !== "" &&  <h4>
-                  Order Description <span>{deliveryAddress.order_description} </span>
+                  Store Instruction <span>{deliveryAddress.order_description} </span>
                   </h4> }
                 </div>
               </Col>

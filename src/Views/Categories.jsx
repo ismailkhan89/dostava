@@ -108,7 +108,7 @@ function Categories(props) {
   }
   async function onAddToCart (product)  {
 
-    console.log('onAddToCart>>> ', product);
+
     if (product.stock < 1) {
         // showMessage({
         //     message: 'Item out of stock',

@@ -234,11 +234,11 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
         }
 
         if(aptSuite===''){
-          alert('Please enter your Appartment / Suite / Floor.');
+          alert('Please enter Appartment / Suite / Floor.');
           return;
         }
         if(buildingName===''){
-          alert('Please enter your Building or Business Information.');
+          alert('Please enter street number.');
           return;
         }
        
@@ -450,7 +450,8 @@ async function GoBackToStore(){
 
     async function onPaymentSuccess() {
 
-      await localStorage.setItem('cartItems', JSON.stringify([]))
+      await localStorage.setItem('cartItems', JSON.stringify([]));
+      await localStorage.setItem("vendorIds",JSON.stringify([]));
       props.history.push({
         pathname : '/orderdetails',
       })
@@ -560,7 +561,7 @@ async function GoBackToStore(){
             <Tabs>
               <TabList className="cart-tabs-head">
                 <Row>
-                <Tab> <FontAwesome name="check-circle-o" /> Confirmation</Tab>
+                <Tab>  Confirmation</Tab>
                 {/* <Tab> <FontAwesome name="check-circle-o" /> Shipping and Checkout</Tab>
                 <Tab> <FontAwesome name="check-circle-o" /> Confirmation</Tab> */}
                 </Row>
@@ -752,9 +753,9 @@ async function GoBackToStore(){
                        ></input>
                       </div>
                       <div className="form-group full">
-                      <label>Order Description</label>
+                      <label>Store instruction</label>
                         <input type="text" 
-                        placeholder="Order Description (Optional)" 
+                        placeholder="Store instruction (Optional)" 
                         value={orderDescription}
                         onChange={(e) => setOrderDescription(e.target.value)}
                        ></input>
@@ -804,7 +805,7 @@ async function GoBackToStore(){
                           </Col>
                           <Col lg="6">
                             <h3>{item.title}</h3>
-                            <p> <strong>{currency_symbol} {item.price}{' X '}{item.quantity}{' = '}{currency_symbol}{item.price*item.quantity}  </strong></p>
+                            <p> <strong>{currency_symbol} {item.price}{' X '}{item.quantity}{' = '}{currency_symbol}{parseFloat(item.price*item.quantity).toFixed(2)}  </strong></p>
                             
                             
                           </Col>

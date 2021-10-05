@@ -392,7 +392,7 @@ function LatestHomePage(props){
                       }}><Button variant="outline-success">Show Stores</Button></Link>
                       
                     </Form>
-                    <p>Sign In for your recent addresses</p>
+                    <p> </p>
                     <div class="new-download-app">
                       <span>Download Mobile App</span>
                       <a href="https://apps.apple.com/us/app/dostava/id1543132324">
@@ -500,7 +500,7 @@ function LatestHomePage(props){
           }}><Button variant="outline-success">Show Stores</Button></Link>
           
         </Form>
-        <p>Sign In for your recent addresses</p>
+        <p> </p>
         <div class="new-download-app">
           <span>Download Mobile App</span>
           <a href="https://apps.apple.com/us/app/dostava/id1543132324">
@@ -621,7 +621,7 @@ function LatestHomePage(props){
         //   </Row>
         // </Container>
         }
-        <Container className="categories-section" fluid>
+        {/* <Container className="categories-section" fluid>
           <Row>
             <Container>
               <Row>
@@ -655,7 +655,7 @@ function LatestHomePage(props){
               </Row>
             </Container>
           </Row>
-        </Container>
+        </Container> */}
         
         <Container className="coming-soon-section" fluid>
             <Row>

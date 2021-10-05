@@ -55,6 +55,7 @@ async function setVendorIdsArray(product){
 
     let vIds = await localStorage.getItem("vendorIds");
 
+
     if (parseInt(product.stock) === 0) {
         // showMessage({
         //     message: 'Item out of stock',

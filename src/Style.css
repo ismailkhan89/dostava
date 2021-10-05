@@ -2756,6 +2756,12 @@ font-size:20px;
     padding-top:40px;
     padding-bottom:50px;
 }
+#search-product > .row > div:first-child{
+    padding-right: 0;
+}
+#search-product > .row > div:last-child{
+    padding-left: 0;
+}
 /*=============== Product Carousel End ===============*/
 
 #Product-carousel {

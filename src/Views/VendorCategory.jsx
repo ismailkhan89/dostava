@@ -262,6 +262,15 @@ const [ItemDetail , setItemDetail ] = useState([]);
   async function onAddToCart (product)  {
 
     let vIds = await localStorage.getItem("vendorIds");
+    const cartItemsStr = await localStorage.getItem('cartItems') || '[]'
+    const cartItems = JSON.parse(cartItemsStr)
+     const selectedItem = cartItems.filter((itm) => itm._id === product._id)
+     if(selectedItem[0].quantity === product.stock || selectedItem[0].quantity > product.stock){
+      setEditModal(false)
+      setMessagecolor('warning');
+      setMessage('We have only '+product.stock+ ' '+ product.title +' in stock')
+      return null
+     }
 
     if (parseInt(product.stock) === 0) {
         // showMessage({
@@ -309,9 +318,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
             },
             addons: []
         }
-        const cartItemsStr = localStorage.getItem('cartItems') || '[]'
-        const cartItems = JSON.parse(cartItemsStr)
-        console.log("<<cartItems>>",cartItems)
+
         const index = cartItems.findIndex((product) => product._id === newItem._id)
         if (index < 0)
             cartItems.push(newItem)

@@ -313,9 +313,33 @@ function Cart(props) {
       
       async function removeQuantityToCartItem (newItem) {
           setLoader(true)
-          const cartItemsStr = localStorage.getItem('cartItems') || '[]'
+          let vIds = await localStorage.getItem("vendorIds");
+	        const vendorIds = vIds === null ? [] : JSON.parse(vIds);
+          console.log('vendorIds>>',vendorIds)
+          const cartItemsStr = await localStorage.getItem('cartItems') || '[]'
           const cartItems = JSON.parse(cartItemsStr)
+          console.log('cartItems>>',cartItems)
           const index = cartItems.findIndex((product) => product._id === newItem._id)
+          const filteredItem = cartItems.filter((product) => product._id === newItem._id)
+          
+          console.log('index>>',index)
+          // const selectedItemVendorId = index[0].vendor;
+          // console.log('selectedItemVendorId',selectedItemVendorId)
+          if(filteredItem && filteredItem[0].quantity === 1 ){
+            const isMoreItemsExistWithSelectedVendor = cartItems.filter(res => res.vendor === filteredItem[0].vendor && res.quantity < 2);
+            console.log('isMoreItemsExistWithSelectedVendor',isMoreItemsExistWithSelectedVendor)
+            if(isMoreItemsExistWithSelectedVendor && isMoreItemsExistWithSelectedVendor.length > 0 ){
+              const indexs = vendorIds.indexOf(filteredItem[0].vendor);
+              if (indexs > -1) {
+                vendorIds.splice(indexs,1)
+              }
+              localStorage.setItem("vendorIds", JSON.stringify(vendorIds))
+              // setVendorIds(vendorIds)
+            }
+          }
+         
+         
+         
           if (index < 0)
               cartItems.push(newItem)
           else {

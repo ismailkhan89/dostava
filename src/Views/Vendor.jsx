@@ -248,6 +248,15 @@ function Vendor(props) {
   async function onAddToCart (product)  {
 
     let vIds = await localStorage.getItem("vendorIds");
+    const cartItemsStr = await localStorage.getItem('cartItems') || '[]'
+    const cartItems = JSON.parse(cartItemsStr)
+     const selectedItem = cartItems.filter((itm) => itm._id === product._id)
+     if(selectedItem[0].quantity === product.stock || selectedItem[0].quantity > product.stock){
+      setEditModal(false)
+      setMessagecolor('warning');
+      setMessage('We have only '+product.stock+ ' '+ product.title +' in stock')
+      return null
+     }
 
     if (parseInt(product.stock) === 0) {
         // showMessage({
@@ -378,115 +387,9 @@ function Vendor(props) {
       </Container>
       <Container id="search-product">
         <Row>
-        <Col sm={4}>
-            {/* <Form inline > */}
-            {/* <Query query={getVendorbyLocation} variables={{ lat : lat,long :lng}}>
-                  {({ loading, error, data }) => {
-                      if (loading) return <option>Loading...</option>
-                      if (error) return <option>Error...</option>
-                      return (
-                        <select name="select-category">
-                            <option>Select Vendor</option>
-                             {data.getVendorsByLocation.map(category => <option key={category._id} value={category._id}>{category.name}</option>)}
-                          </select>
-                      )
-            }}</Query> */}
 
-                      <PlacesAutocomplete
-                        searchOptions={searchOptions}
-                        value={location}
-                        onChange={(e) => setLocation(e)}
-                        onSelect={handleSelect}
-                      >
-                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                          <>
 
-                            {/* <FormControl
-                              {...getInputProps({
-                                // placeholder: 'Search Places ...',
-                                placeholder:"Enter delivery address here...",
-                                className: "mr-sm-2",
-                              })}
-                            type="text" 
-                            // placeholder="Enter delivery address here..." className="mr-sm-2"
-                            /> */}
-
-                            <input
-                              {...getInputProps({
-                                // placeholder: 'Search Places ...',
-                                placeholder:"Enter delivery address here...",
-                                className: "mr-sm-2 col-lg-12",
-                              })}
-                            />
-                            <div className="autocomplete-dropdown-container-vendor">
-                              {loading && <div>Loading...</div>}
-                              {suggestions.map((suggestion,index) => {
-                                const className = suggestion.active
-                                  ? 'suggestion-item--active'
-                                  : 'suggestion-item';
-                                // inline style for demonstration purpose
-                                const style = suggestion.active
-                                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                return (
-                                  <div key={index}
-                                    {...getSuggestionItemProps(suggestion, {
-                                      className,
-                                      style,
-                                    })}
-                                  >
-                                    <span>{suggestion.description}</span>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </>
-                        )}
-                      </PlacesAutocomplete>
-              {/* <FormControl type="search" placeholder="Enter delivery address here..." /> */}
-              {/* <Button variant="outline-success">Search</Button> */}
-             
-            {/* </Form> */}
-          </Col>
-          <Col sm={2}>
-               <Link className="outline-success" to={"javascript:void(0)"}  onClick={(e) => {
-                        e.preventDefault();
-                        console.log('not inside condition')
-                        console.log('latLng',latLng)
-                        if(location !== ""){
-                        localStorage.removeItem('cartItems');
-                        if(!!latLng){
-                          var newlocation = {
-                            lat : latLng.lat.toString(),
-                            lng : latLng.lng.toString(),
-                            location : location
-                          }
-                          console.log('inside condition')
-                          localStorage.setItem('location',JSON.stringify(newlocation));
-                          window.location.reload();
-                          //   props.history.push({
-                          //   pathname: '/stores',
-                          // })
-                        }
-                      }
-                      else{
-                        setMessage('Please Choose Location')
-                        setMessagecolor('danger');
-                        setTimeout(() => {
-                        setMessage('')
-                        setMessagecolor('')}, 5000)
-                      }
-                        // window.location.reload();
-                      }}>
-
-           
-                <Button variant="outline-success">   
-                <FontAwesome 
-								name="map-marker" size={'lg'} /></Button>
-              </Link>
-              </Col>
-
-              <Col sm={4}>
+              <Col sm={10}>
               <input 
                 value={searchValue}
                 type="text" 
