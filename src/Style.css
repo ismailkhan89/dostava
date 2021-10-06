@@ -859,6 +859,9 @@ margin-bottom:10px;
     line-height:40px;
     border-radius:0;
 }
+.content-area.checkout-page .checkout-section .carts .button-form .dark-grey-bg button[type="button"]{
+    background-color: darkgrey;
+}
 .flashmessage{
     font-size:20px;
     color:#1385a7;

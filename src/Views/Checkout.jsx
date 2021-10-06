@@ -105,7 +105,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
     const [buildingName, setBuildingName] = useState('')
     const [orderDescription, setOrderDescription] = useState('')
     const [streetName, setStreetName] = useState('')
-
+    const [orderLoading, setOrderLoading] =useState(false)
 
     const COD_PAYMENT = {
       payment: "STRIPE",
@@ -298,6 +298,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
   
   function onError(error) {
     console.log(error.message)
+    setOrderLoading(false)
     alert(error.message)
       // showMessage({
       //     message: error.networkError.result.errors[0].message,
@@ -331,6 +332,7 @@ async function GoBackToStore(){
 
   async function onCompleted(data) {
     console.log("onCompletedonCompletedonCompleted",data)
+
     // localStorage.setItem("cartItems",JSON.stringify([]))
     // localStorage.removeItem("cartItems");   
     // client.writeQuery({ query: GETCARTITEMS, data: { cartItems: 0} })
@@ -395,6 +397,7 @@ async function GoBackToStore(){
                 .then(response => response.json())
                 .then(result => {
                   if(result.redirect === 'stripe/success'){
+                    setOrderLoading(false)
                     alert('Order Submitted')
                     onPaymentSuccess()
                   }
@@ -435,6 +438,7 @@ async function GoBackToStore(){
           .then(response => response.json())
           .then(result => {
             if(result.success === true){
+              setOrderLoading(false)
               alert('Order Submitted')
               onPaymentSuccess()
             }
@@ -544,9 +548,9 @@ async function GoBackToStore(){
             <Col lg="11" md="12" sm="12" xs="12" className="breadcrumb-section">
               <h3>My Checkout</h3>
               <ul>
-                <li><Link>Home</Link></li>
+                <li><Link to='/'>Home</Link></li>
 
-                <li><Link>My Checkout</Link></li>
+                <li><Link to='/'>My Checkout</Link></li>
               </ul>
             </Col>
           </Row>
@@ -860,17 +864,25 @@ async function GoBackToStore(){
                                 GoBackToStore()
                                 }} value="Payment">Back to Shopping</Button>
                       </div>
-                      <div className="form-group payment-button full">
-                        <Button  onClick={e => {
-                                e.preventDefault()
-                                if(payment !== null){
-                                  onPayment() 
-                                }
-                                else{
-                                  alert('Please Select Payment Options')
-                                }
-                                }} value="Payment">Checkout</Button>
-                      </div>
+                      {
+                        !orderLoading && orderLoading === false ?
+                        <div className="form-group payment-button full">
+                          <Button  onClick={e => {
+                                  e.preventDefault()
+                                  if(payment !== null){
+                                    setOrderLoading(true)
+                                    onPayment() 
+                                  }
+                                  else{
+                                    alert('Please Select Payment Options')
+                                  }
+                                  }} value="Payment">Checkout</Button>
+                        </div> :
+                        <div className="form-group payment-button full dark-grey-bg">
+                           <Button  onClick={e => { e.preventDefault()} } value="Payment">Checking out...</Button>
+                        </div>
+                      }
+                      
                       </Col>
                     </Row>
                     </div>

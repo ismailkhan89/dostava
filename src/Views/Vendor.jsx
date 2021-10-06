@@ -251,11 +251,13 @@ function Vendor(props) {
     const cartItemsStr = await localStorage.getItem('cartItems') || '[]'
     const cartItems = JSON.parse(cartItemsStr)
      const selectedItem = cartItems.filter((itm) => itm._id === product._id)
-     if(selectedItem[0].quantity === product.stock || selectedItem[0].quantity > product.stock){
-      setEditModal(false)
-      setMessagecolor('warning');
-      setMessage('We have only '+product.stock+ ' '+ product.title +' in stock')
-      return null
+     if(selectedItem && selectedItem.length > 0 ){
+      if(selectedItem[0].quantity === product.stock || selectedItem[0].quantity > product.stock){
+        setEditModal(false)
+        setMessagecolor('warning');
+        setMessage('We are out stock, we only have '+product.stock+ ' '+ product.title +' in stock')
+        return null
+      }
      }
 
     if (parseInt(product.stock) === 0) {
