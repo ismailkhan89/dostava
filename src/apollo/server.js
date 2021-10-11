@@ -1607,6 +1607,7 @@ export const getVendorsByLocationAndKeyword = `query getVendorsByLocationAndKeyw
     _id
     packaging_unit
     package_weight
+    brand_name
     title
     description
     vendor_pricing

@@ -244,6 +244,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
        
 
           if (checkPaymentMethod(dataConfig.configuration.currency)) {
+            setOrderLoading(true)
             const items = transformOrder(cartItems)
             mutate({
                 variables: {
@@ -323,8 +324,9 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
 }
 
 async function GoBackToStore(){
-  if(storeId){
-    props.history.push({pathname: "/storesitem/"+storeId})
+  console.log("GoBackToStore vendorIds",vendorIds)
+  if(vendorIds){
+    props.history.push({pathname: "/storesitem/"+vendorIds[0]})
   }else{
     props.history.push({pathname: "/stores"})
   }
@@ -870,7 +872,6 @@ async function GoBackToStore(){
                           <Button  onClick={e => {
                                   e.preventDefault()
                                   if(payment !== null){
-                                    setOrderLoading(true)
                                     onPayment() 
                                   }
                                   else{

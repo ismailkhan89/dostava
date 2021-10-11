@@ -147,8 +147,8 @@ function Cart(props) {
       // })
     }
     async function GoBackToStore(){
-      if(storeId){
-        props.history.push({pathname: "/storesitem/"+storeId})
+      if(vendorIds){
+        props.history.push({pathname: "/storesitem/"+vendorIds[0]})
       }else{
         props.history.push({pathname: "/stores"})
       }

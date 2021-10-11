@@ -383,7 +383,7 @@ function Vendor(props) {
         <Row>
           <Col lg="12">
           <h2 className="title text-center">Stores</h2>
-					 <p className="content text-center">Pick out the nearby store you usually buy groceries from, select the items you want and proceed to checkout.</p>
+					 <p className="content text-center">Stores delivering in your area.</p>
           </Col>
         </Row>
       </Container>
@@ -572,7 +572,7 @@ function Vendor(props) {
               if(stripedHtml2.length > 60){
                 stripedHtml2 = stripedHtml2.substr(0, 60);
               } 
-              // console.log('categorycategory',data.getVendorsByLocationAndKeyword)
+              console.log('category>>>>>>>12345',category)
               return(
 
            <Col lg="4" md="6" sm="12" xs="12" key={index}>
@@ -582,6 +582,7 @@ function Vendor(props) {
                   <img className="img-fluid" src={category.img_url} alt=""  onClick={() => toggleModal(category)}></img>
                   : <img className="img-fluid" src="../Assets/Img/store.png" alt=""></img>
                 }
+                <p><strong> Brand Name : {category.brand_name}</strong></p>  
                 <h3>
                   <span>
                     <strong>{stripedHtml}
