@@ -456,7 +456,7 @@ function Vendor(props) {
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
              {console.log('data',data)}
               return data.getVendorsByLocation.length > 0 ? data.getVendorsByLocation.map((category, index) =>
-                <Col lg="3" key={index}>
+                <Col lg="4" key={index}>
                   {category.vendor_available ? 
                 <Link
                     to={`/storesitem/${category._id}`}
@@ -482,6 +482,10 @@ function Vendor(props) {
                     }}
                   > 
                   <div className="product">
+                  <div className="productmsg">   
+                          {/* <h5 style={{  color: 'white',fontWeight : 'bold'}}>This shop is offline</h5> */}
+                          <FontAwesome name="circle" /> 
+                      </div>
                         <div className="product-img">
                         {console.log('category.picture',category.picture)}
                           {category.picture !== "" && category.picture !== null ?
@@ -501,7 +505,8 @@ function Vendor(props) {
                     :   
                     <div className="productoffline">
                       <div className="productmsg">   
-                          <h5 style={{  color: 'white',fontWeight : 'bold'}}>This shop is offline</h5> 
+                          {/* <h5 style={{  color: 'white',fontWeight : 'bold'}}>This shop is offline</h5> */}
+                          <FontAwesome name="circle" /> 
                       </div>
 
                       <div className="product-img">
