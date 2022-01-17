@@ -21,6 +21,7 @@ import {
 } from "reactstrap";
 import { onAddToCart } from "../utils/addtoCart";
 import { getItemPrice } from "../utils/pricing";
+import FontAwesome from 'react-fontawesome'
 
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
@@ -50,7 +51,7 @@ const newclient = new ApolloClient({
   cache
 });
 const GETCARTITEMS = gql`${getCartItems}`;
-export default function ProductDetail({ item, configuration }) {
+export default function ProductDetail({ item, configuration, close }) {
 
     const [messagealert , setMessage ] = useState('')
     const [showSuccess , setshowSuccess ] = useState(true)
@@ -71,6 +72,7 @@ export default function ProductDetail({ item, configuration }) {
         return vendorIds;
     }        
   }
+
 
   async function onAddToCart (product)  {
 
@@ -114,6 +116,7 @@ export default function ProductDetail({ item, configuration }) {
         // setEditModal(false)
         onAddToCart(product)
       }
+      
       return 
     }
 
@@ -153,10 +156,16 @@ export default function ProductDetail({ item, configuration }) {
           setMessage('Added!')
         // }
        
+        setTimeout(() => {
+          close()
+        }, 500);
     }
     else {
         // props.navigation.navigate('ItemDetail', { product })
     }
+
+
+
 
     
   }
@@ -196,6 +205,28 @@ export default function ProductDetail({ item, configuration }) {
                           }>
                   Add to cart
                 </a>
+                <div cassName="display-flex">
+                <button   
+                  // onClick={e => {
+                  //   e.preventDefault()
+                  //   removeQuantityToCartItem(item)
+                  // }} 
+                >
+                  <FontAwesome name="minus"></FontAwesome>
+                </button> 
+                <span>
+                  {item.quantity}
+                  
+                  </span> 
+                <button 
+                  // onClick={e => {
+                  //   e.preventDefault()
+                  //   addQuantityToCartItem(cartItem)
+                  // }}
+                  >
+                      <FontAwesome name="plus"></FontAwesome>
+                  </button>
+                </div>
               </div>
             </Col>
           </Row>

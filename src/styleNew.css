@@ -1867,3 +1867,17 @@ right:40px;
     top: 37%;
     right: 40px;
 }
+#Product-carousel.border-head h2.title:before{
+    width:80%;
+}
+#dry-fruits.border-head h2.title:before{
+position: absolute;
+    content:'';
+    background-color:#ccc;
+    width:80%;
+    height:2px;
+    right:0;
+    top:0;
+    bottom:0;
+    margin:auto;
+}

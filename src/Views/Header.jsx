@@ -119,7 +119,7 @@ function Header(props) {
           
           {userObj ?
           
-          <Col lg="7" md="5" sm="5" xs="5" className="display-none"></Col> :
+          <Col lg="6" md="5" sm="5" xs="5" className="display-none"></Col> :
           <Col lg="3" md="2" sm="5" xs="5" className="display-none"></Col>
           }
 
@@ -159,7 +159,7 @@ function Header(props) {
           </Col>
 
           { userObj ?
-            <Col lg="1" md="2" sm="2" xs="2" className="login text-right">
+            <Col lg="2" md="2" sm="2" xs="2" className="login text-right">
         
             <Nav className="align-items-center  d-md-flex" navbar>
                   <UncontrolledDropdown nav>
