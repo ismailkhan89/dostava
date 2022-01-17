@@ -301,6 +301,9 @@ export default function ProductDetail({ item, configuration, close  }) {
                   onClick={e => {
                     e.preventDefault()
                     onAddToCart(item,false)
+                    setTimeout(() => {
+                      setMessage('')
+                      setMessagecolor('')}, 3000)
                   }}
                   >
                       <FontAwesome name="plus"></FontAwesome>
