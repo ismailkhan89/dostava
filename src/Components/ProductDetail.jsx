@@ -283,7 +283,7 @@ export default function ProductDetail({ item, configuration, close  }) {
                           }>
                   Add to cart
                 </a>
-                <div cassName="display-flex">
+                <div className="display-flex popup-btns">
                 <button   
                   onClick={e => {
                     e.preventDefault()

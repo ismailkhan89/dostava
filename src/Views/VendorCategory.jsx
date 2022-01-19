@@ -407,10 +407,11 @@ const [ItemDetail , setItemDetail ] = useState([]);
         <Row>
           <Col lg="12">
             <h4>{message}</h4>
+            
           </Col>
         </Row>
       </Container>
-      <Container className="content-area" fluid>
+      <Container className="content-area " fluid>
 
       {search === '' && <Row>
           <Container id="Product-carousel" className="border-head">
