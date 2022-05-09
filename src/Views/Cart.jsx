@@ -147,7 +147,8 @@ function Cart(props) {
       // })
     }
     async function GoBackToStore(){
-      if(vendorIds){
+      console.log('GoBackToStore vendorIds',vendorIds)
+      if(vendorIds.length > 0){
         props.history.push({pathname: "/storesitem/"+vendorIds[0]})
       }else{
         props.history.push({pathname: "/stores"})
@@ -227,7 +228,12 @@ function Cart(props) {
               })
               console.log("<<cartItems>>>ready to push",cartItem)
             
-              validatedItems.push(cartItem)
+              validatedItems.push({
+                ...cartItem,
+                img_url: food.img_url,
+                title: title,
+                price: price.toFixed(2)
+              })
 
             console.log("<<validatedItems pushed>>>",validatedItems)
             return {
@@ -293,7 +299,7 @@ function Cart(props) {
 
     async function addQuantityToCartItem (newItem) {
    
-           setLoader(true)
+          //  setLoader(true)
           const cartItemsStr = localStorage.getItem('cartItems') || '[]'
           const cartItems = JSON.parse(cartItemsStr)
 
@@ -304,9 +310,11 @@ function Cart(props) {
               cartItems[index].quantity = cartItems[index].quantity + 1
               cartItems[index].vendor_quantity = cartItems[index].vendor_quantity + 1
           }
+
+          
           await localStorage.setItem('cartItems', JSON.stringify(cartItems))
           setCartItems(cartItems);
-          didFocus()
+          // didFocus()
           
         
       }
@@ -354,12 +362,12 @@ function Cart(props) {
             await localStorage.setItem('cartItems', JSON.stringify(items))
             client.writeQuery({ query: GETCARTITEMS, data: { cartItems: items.length } })
             setCartItems(items);
-            didFocus()
+            // didFocus()
           }
           else{
             await localStorage.setItem('cartItems', JSON.stringify(cartItems))
             setCartItems(cartItems);
-            didFocus()
+            // didFocus()
           }
           setLoader(false)
          

@@ -322,8 +322,10 @@ export const foods = `
     }
   }`
 
-  export const foodbyVendorId_New = `query foodByVendorId_new($vendor_id:String!,$onSale:Boolean,$inStock:Boolean,$min:Float,$max:Float,$search:String,$page:Int){
-    foodByVendorId_new(vendor_id:$vendor_id,onSale:$onSale,inStock:$inStock,min:$min,max:$max,search:$search,page:$page){
+  export const foodbyVendorId_New = `query foodByVendorId_new($vendor_id:String!,$onSale:Boolean,$inStock:Boolean,$min:Float,$max:Float,$search:String,$page:Int,
+    $sort_by:String){
+    foodByVendorId_new(vendor_id:$vendor_id,onSale:$onSale,inStock:$inStock,min:$min,max:$max,search:$search,page:$page,
+      sort_by:$sort_by){
         products{
          _id
       title

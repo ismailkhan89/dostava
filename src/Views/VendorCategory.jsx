@@ -10,13 +10,16 @@ import {
   Button,
   Modal,
   ModalHeader,
-  Alert
+  Alert,
+  
+  Dropdown, DropdownToggle, DropdownMenu, DropdownItem
+
 } from "reactstrap";
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import { Link, useParams } from 'react-router-dom';
 import { useQuery, useMutation  } from '@apollo/react-hooks';
-import { foods, like,foodbyVendorId ,getCategoriesByLocation , getConfiguration , foodbyVendorId_New} from "../apollo/server";
+import { foods, like,foodByIds ,getCategoriesByLocation , getConfiguration , foodbyVendorId_New} from "../apollo/server";
 import { getCartItems } from '../apollo/client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
@@ -51,7 +54,7 @@ const LIKE_PRODUCT = gql`${like}`;
 const GETCARTITEMS = gql`${getCartItems}`;
 const getVendorbyLocation = gql`${getCategoriesByLocation}`
 const GET_CONFIGURATION = gql`${getConfiguration}`;
-
+const FOOD_BY_IDS = gql`${foodByIds}`
 
 const useMountEffect = fun => useEffect(fun, []);
 
@@ -108,6 +111,8 @@ function VendorCategory(props) {
   const [lat,setLat] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lat ?? null : null)
   const [lng,setLng] = useState(localStorage.getItem('location')? JSON.parse(localStorage.getItem('location'))?.lng ?? null : null)
 
+  const [filterddl , setFilterDdl] = useState(false)
+  const [sort , setSort] = useState('');
   // const [lat, setLat] = useState(props.location?.state?.location?.lat.toString() ?? null);
   // const [lng, setLng] = useState(props.location?.state?.location?.lng.toString() ?? null);
   const [editModal, setEditModal] = useState(false)
@@ -120,27 +125,45 @@ const [ItemDetail , setItemDetail ] = useState([]);
 
   const {loading : LoadingProduct,error : errorProduct,data : dataProduct} = 
   useQuery(FOODS, { onCompleted : onCompletedProduct ,variables:{ vendor_id: _id , ...filters,
-    search: search,lat : lat,long : lng,page : page} ,client : newclient })
+    search: search.toLowerCase(),lat : lat,long : lng,page : page,
+    sort_by : sort } ,client : newclient })
 
+  const [cartItems, setCartItems] = useState([])
 
+    useEffect(() => {
+      didFocus()
+    },[])
     useEffect(() => {
       if(SearchText === ''){
         setSearch('')
       }
     },[SearchText])
    
-    function onCompletedProduct(){
+    function onCompletedProduct({ foodByVendorId_new }){
+      console.log('foodByVendorId_new',foodByVendorId_new)
+     
       if(page === 0){
         setTotalPages(Math.ceil(dataProduct.foodByVendorId_new.totalCount / 10) - 1);
         if(dataProduct.foodByVendorId_new.totalCount > 0){
           setPagination(true)
         }
+        setProducts(dataProduct.foodByVendorId_new.products)
+      }
+      else{
+        if(dataProduct.foodByVendorId_new.products.length > 0){
+          let newArray = products.concat(dataProduct.foodByVendorId_new.products)
+          setProducts([
+            ...newArray,
+            ])
+        }
+        else{
+          setProducts([])
+        }
+
+
       }
 
-      let newArray = products.concat(dataProduct.foodByVendorId_new.products)
-       setProducts([
-         ...newArray,
-         ])
+      
      
     }
 
@@ -259,6 +282,92 @@ const [ItemDetail , setItemDetail ] = useState([]);
     }        
   }
 
+  // useEffect(() => {
+  //   didFocus()
+  // },[])
+
+  async function didFocus() {
+    try {
+      const cartItemsStr = await localStorage.getItem('cartItems')
+      console.log("cartItemsStr>>>",cartItemsStr)
+      const cartItems = JSON.parse(cartItemsStr)
+      console.log("<<cartItems>>>",cartItems)
+      const validatedItems = []
+      if (cartItems && cartItems.length) {
+        const ids = cartItems.map(({ _id }) => _id)
+        console.log("<<cartItems>>>ids",ids)
+        const { data: { foodByIds } } = await client.query({ query: FOOD_BY_IDS, variables: { ids }, fetchPolicy: 'network-only' })
+        const transformCart = cartItems.map(cartItem => {
+          console.log(foodByIds)
+          const food = foodByIds.find(food => food._id === cartItem._id)
+          console.log(" ",food)
+          if (!food)
+            return null
+          const variation = food.variations.find(variation => variation._id === cartItem.variation._id)
+          if (!variation)
+            return null
+          if (!food.stock)
+            return null
+          if (food.stock < cartItem.quantity) {
+            cartItem.quantity = food.stock
+          }
+
+          // let title = `${food.title}${variation.title ? '('+variation.title+')' : ''}`
+          let title = `${food.title}`
+          let price =  parseFloat(food.vendor_pricing)
+       
+          // price = parseFloat(getItemPrice(food,dataConfig))
+          if (cartItem.addons)
+            cartItem.addons.forEach(addon => {
+              const cartAddon = variation.addons.find(add => add._id === addon._id)
+              addon.options.forEach(option => {
+                const optionfound = cartAddon.options.find(opt => opt._id === option._id)
+                price += optionfound.price
+              })
+            })
+            console.log("<<cartItems>>>ready to push",cartItem)
+          
+            validatedItems.push({
+              ...cartItem,
+              img_url: food.img_url,
+              title: title,
+              price: price.toFixed(2)
+            })
+
+          console.log("<<validatedItems pushed>>>",validatedItems)
+          return {
+            ...cartItem,
+            img_url: food.img_url,
+            title: title,
+            price: price.toFixed(2)
+          }
+        })
+        console.log("<<updating client cart items>>>",validatedItems)
+        client.writeQuery({ query: GETCARTITEMS, data: { cartItems: validatedItems.length } })
+        await localStorage.setItem('cartItems', JSON.stringify(validatedItems))
+
+        // if (props.navigation.isFocused()) {
+          setCartItems(transformCart.filter(item => item))
+          setVendorIdsArray(transformCart.filter(item => item))
+        // }
+      }
+      else{
+        setCartItems([])
+      }
+      
+    } catch (e) {
+     
+      // showMessage({
+      //   message: 'Error occured',
+      //   duration: 3000,
+      //   type: 'warning',
+      //   floating: true,
+      //   style: styles.alertboxRed,
+      //   titleStyle: { fontSize: scale(14), fontFamily: fontStyles.MuseoSans500 }
+      // })
+    }
+  }
+
 
   async function onAddToCart (product)  {
 
@@ -333,6 +442,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
         console.log("<<new item entered>>",cartItems)
         client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
+        setCartItems(cartItems)
         setEditModal(false)
         setMessagecolor('success');
         setMessage('Added!')
@@ -340,9 +450,83 @@ const [ItemDetail , setItemDetail ] = useState([]);
     else {
         // props.navigation.navigate('ItemDetail', { product })
     }
-
+    getAddedQty(product)
     
   }
+
+
+   function getAddedQty(item){
+     const selectedItem = cartItems.find((itm) => itm._id === item._id)
+     if(selectedItem){
+      return selectedItem.quantity
+     }
+     return '0'
+    }
+
+    async function addQuantityToCartItem (newItem) {
+   
+      //  setLoader(true)
+      const cartItemsStr = localStorage.getItem('cartItems') || '[]'
+      const cartItems = JSON.parse(cartItemsStr)
+
+      const index = cartItems.findIndex((product) => product._id === newItem._id)
+      if (index < 0){
+          onAddToCart(newItem)
+           setTimeout(() => {
+            setMessage('')
+            setMessagecolor('')}, 3000)
+            return
+          }
+          // cartItems.push(newItem)
+      else {
+          cartItems[index].quantity = cartItems[index].quantity + 1
+          cartItems[index].vendor_quantity = cartItems[index].vendor_quantity + 1
+      }
+
+      
+      await localStorage.setItem('cartItems', JSON.stringify(cartItems))
+      setCartItems(cartItems);
+      getAddedQty(newItem)
+      // didFocus()
+      
+    
+  }
+
+  async function removeQuantityToCartItem (newItem) {
+    let vIds = await localStorage.getItem("vendorIds");
+    const vendorIds = vIds === null ? [] : JSON.parse(vIds);
+    console.log('vendorIds>>',vendorIds)
+    const cartItemsStr = await localStorage.getItem('cartItems') || '[]'
+    const cartItems = JSON.parse(cartItemsStr)
+    console.log('cartItems>>',cartItems)
+    const index = cartItems.findIndex((product) => product._id === newItem._id)
+    const filteredItem = cartItems.find((product) => product._id === newItem._id)
+    
+    console.log('index>>',index)
+    if(filteredItem){
+    // const selectedItemVendorId = index[0].vendor;
+    // console.log('selectedItemVendorId',selectedItemVendorId)
+   
+
+      if(cartItems[index].quantity > 0){
+        cartItems[index].quantity = cartItems[index].quantity - 1
+        cartItems[index].vendor_quantity = cartItems[index].vendor_quantity - 1
+      }
+
+    if(cartItems[index]?.quantity <= 0){
+      const items = cartItems.filter((product) => product._id !== newItem._id)
+      await localStorage.setItem('cartItems', JSON.stringify(items))
+      client.writeQuery({ query: GETCARTITEMS, data: { cartItems: items.length } })
+      setCartItems(items);
+    }
+    else{
+      await localStorage.setItem('cartItems', JSON.stringify(cartItems))
+      setCartItems(cartItems);
+    }
+    getAddedQty(newItem)
+  }
+
+ }
 
   return (
     <Container className="wrapper" fluid>
@@ -384,12 +568,13 @@ const [ItemDetail , setItemDetail ] = useState([]);
               <FormControl type="search" placeholder="Search Product ..." 
               value={SearchText} onChange={(e) => setSearchText(e.target.value)}
               onKeyPress={(e) => {
-                if(e.key==="Enter"){
+                if(e.key=== "Enter"){
                   //setProducts([])
                   //setSearchText(e.target.value)
                   //setSearchText(e.target.value)
-                  setProducts([])
-                  setSearch(e.target.value)
+                    // setProducts(search !== e.target.value ?[] : products)
+                    setSearch('')
+                    setSearch(e.target.value)
                 }
             }}
               className="mr-sm-2 col-lg-12" />
@@ -397,7 +582,11 @@ const [ItemDetail , setItemDetail ] = useState([]);
           <Col sm={2}>
           
             <Button variant="outline-success" onClick={() => {
-              setProducts([])
+              // if(SearchText !== search){
+              //   setProducts([])
+              //   setSearch(SearchText)
+              // }
+              setSearch('')
               setSearch(SearchText)
             }}>
                 Search</Button>  
@@ -490,14 +679,49 @@ const [ItemDetail , setItemDetail ] = useState([]);
         </Row> }  
 
         <div  ref={myRef}>
-          <Container id="dry-fruits" className="all-products border-head">
+          <Container id="dry-fruits" className="all-products search-Product border-head">
           <Row>
                 <Col lg="12" >
                   <h2 className="title"> {search ? "Search" : "All"} Products</h2>
                 </Col>
+
+                <Dropdown isOpen={filterddl} toggle={() => {
+                  setFilterDdl(!filterddl)
+                }}>
+                  <DropdownToggle caret>
+                  {sort ? sort : 'Sort by'}  
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem 
+                    onClick={() => {
+                      setSort('asc')
+                      setPage(0)
+                    }}>
+                      <div>
+                        <div>
+                          Asc
+                        </div>
+                     {sort === 'asc' &&
+                      <FontAwesome name="check" size={20} />
+                     }   
+                      </div>
+
+                    </DropdownItem>
+                    <DropdownItem 
+                     onClick={() => {
+                      setSort('desc')
+                      setPage(0)
+                    }}>  <div>
+                    Desc
+                 {sort === 'desc' &&
+                  <FontAwesome name="check" size={20} />
+                 }   
+                  </div></DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
             </Row>
 
-              {_id && lat && lng && 
+              { _id && lat && lng && 
                 <Row>
                   {!loadingConfig && !errorConfig && 
                 // <Query query={FOODS} variables={{ vendor_id: _id , ...filters,
@@ -518,7 +742,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
                  products.length > 0 ? 
                   <React.Fragment> 
                     {products.map((category, index) =>{
-                    
+                      console.log('category',category)
                     var stripedHtml = category.title.replace(/<[^>]+>/g, '');
                     if(stripedHtml.length > 30){
                       stripedHtml = stripedHtml.substr(0, 30);
@@ -558,9 +782,34 @@ const [ItemDetail , setItemDetail ] = useState([]);
 
                           <p className="price">  ${category.vendor_pricing}</p>
 
-                       
+                          <div className="display-flex">
+                          {/* <ButtonToolbar className="mb-3" aria-label="Toolbar with Button groups">
+                            <InputGroup>
+                              <InputGroup.Text id="btnGroupAddon">@</InputGroup.Text>
+                              <FormControl
+                                type="text"
+                                placeholder="Input group example"
+                                aria-label="Input group example"
+                                aria-describedby="btnGroupAddon"
+                              />
+                            </InputGroup>
+                          </ButtonToolbar> */}
+                          <button onClick={e => {
+                                        e.preventDefault()
+                                        removeQuantityToCartItem(category)
+                                        }} >
+                                <FontAwesome name="minus"></FontAwesome>
+                              </button> <span>{getAddedQty(category)}</span> <button onClick={e => {
+                                        e.preventDefault()
+                                        addQuantityToCartItem(category)
+                                        }}>
+                                <FontAwesome name="plus"></FontAwesome>
+                              </button>
+                          </div>
+
                          <a className="add-to-cart" href="#" onClick={(e) => 
                           {onAddToCart(category)
+                        
                             e.preventDefault()
                             setTimeout(() => {
                             setMessage('')
@@ -603,15 +852,13 @@ const [ItemDetail , setItemDetail ] = useState([]);
                           />
                     </Col> } */}
                 </Row>
-
-
-       
             }
 
 
-      {products.length > 0  &&  <Row>
+      {parseFloat(page) < parseFloat(totalPage) && products.length > 0  &&  <Row>
             <Col lg="12"  className="text-center">
-        {!LoadingProduct ? parseFloat(page) !== parseFloat(totalPage) &&  pagination && 
+        {parseFloat(page) < parseFloat(totalPage) &&  pagination && 
+        !LoadingProduct ?
          <Button 
             onClick={() => {
               if(parseFloat(page + 1) <= parseFloat(totalPage)){
@@ -621,7 +868,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
           variant="outline-success">
           Load More</Button>
           : 
-          <Spinner />}
+        <Spinner />}
           </Col>
           </Row> } 
 
@@ -635,11 +882,18 @@ const [ItemDetail , setItemDetail ] = useState([]);
             className="modal-dialog-centered"
             size="lg"
             isOpen={editModal}
-            toggle={() => { toggleModal()}}
+            toggle={() => { toggleModal()
+              didFocus()
+              getAddedQty(ItemDetail)
+            }}
             >
              
               <ProductDetail item={ItemDetail}
-              toggle={() => { toggleModal()}}
+              toggle={() => { 
+                toggleModal()
+                didFocus()
+                getAddedQty(ItemDetail)
+              }}
               close={()=>setEditModal(!editModal)}
               configuration={dataConfig}  />
             </Modal>

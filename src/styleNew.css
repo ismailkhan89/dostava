@@ -1937,3 +1937,7 @@ position: absolute;
     bottom:0;
     margin:auto;
 }
+
+#dry-fruits.search-Product.border-head h2.title:before { 
+    width:75%;
+}
