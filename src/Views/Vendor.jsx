@@ -739,12 +739,13 @@ function Vendor(props) {
        <Modal
             className="modal-dialog-centered"
             size="lg"
+            
             isOpen={editModal}
             toggle={() => { toggleModal()}}
             >
                 {/* <OrderDetails row={OrderDetail} configuration={configuration}  /> */}
                 
-              <ProductDetail item={ItemDetail} configuration={dataConfig}  />
+              <ProductDetail item={ItemDetail} close={()=>setEditModal(!editModal)} configuration={dataConfig}  />
         </Modal>
       <Footer />
 

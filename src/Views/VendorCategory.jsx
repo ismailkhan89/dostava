@@ -408,13 +408,15 @@ const [ItemDetail , setItemDetail ] = useState([]);
         <Row>
           <Col lg="12">
             <h4>{message}</h4>
+            
           </Col>
         </Row>
       </Container>
       <Container className="content-area new-products-addition" fluid>
+      
 
       {search === '' && <Row>
-          <Container id="Product-carousel">
+          <Container id="Product-carousel" className="border-head">
             
           {_id && lat && lng && search === '' &&
           <>
@@ -488,7 +490,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
         </Row> }  
 
         <div  ref={myRef}>
-          <Container id="dry-fruits" className="all-products">
+          <Container id="dry-fruits" className="all-products border-head">
           <Row>
                 <Col lg="12" >
                   <h2 className="title"> {search ? "Search" : "All"} Products</h2>
@@ -635,7 +637,11 @@ const [ItemDetail , setItemDetail ] = useState([]);
             isOpen={editModal}
             toggle={() => { toggleModal()}}
             >
-              <ProductDetail toggle={() => { toggleModal()}} item={ItemDetail} configuration={dataConfig}  />
+             
+              <ProductDetail item={ItemDetail}
+              toggle={() => { toggleModal()}}
+              close={()=>setEditModal(!editModal)}
+              configuration={dataConfig}  />
             </Modal>
 
       <Container className="app-area" fluid>

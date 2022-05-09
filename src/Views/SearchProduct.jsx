@@ -514,7 +514,7 @@ function SearchProduct(props){
             >
                 {/* <OrderDetails row={OrderDetail} configuration={configuration}  /> */}
                 
-              <ProductDetail item={ItemDetail} configuration={dataConfig}  />
+              <ProductDetail item={ItemDetail} close={()=>setEditModal(!editModal)} configuration={dataConfig}  />
             </Modal>
 
      <Footer />

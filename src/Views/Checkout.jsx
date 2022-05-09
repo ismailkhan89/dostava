@@ -233,6 +233,11 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
           return;
         }
 
+        if(streetName === ''){
+          alert('Please enter street name.');
+          return;
+        }
+
         if(aptSuite===''){
           alert('Please enter Appartment / Suite / Floor.');
           return;
@@ -735,8 +740,8 @@ async function GoBackToStore(){
                       </div>
 
                       <div className="form-group full">
-                      <label>Apt / Suite / Floor</label>
-                        <input type="text" 
+                      <label>Apt / Floor / Suite</label>
+                        <input type="text"
                         placeholder="Apt / Suite / Floor " 
                         value={aptSuite}
                         onChange={(e) => setAptSuite(e.target.value)}

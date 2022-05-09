@@ -22,6 +22,7 @@ import {
 import FontAwesome from 'react-fontawesome';
 import { onAddToCart } from "../utils/addtoCart";
 import { getItemPrice } from "../utils/pricing";
+import FontAwesome from 'react-fontawesome'
 
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
@@ -36,6 +37,7 @@ import { server_url } from  "../config/config";
 import { authLink } from '../library/authLink';
 import FlashAlert from "../Components/FlashAlert.jsx";
 import ConfigurationContext from "../context/Configuration.js";
+import { useEffect } from "react";
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
@@ -51,7 +53,7 @@ const newclient = new ApolloClient({
   cache
 });
 const GETCARTITEMS = gql`${getCartItems}`;
-export default function ProductDetail({ item, configuration, toggle }) {
+export default function ProductDetail({ item, configuration, toggle, close }) {
 
     const [messagealert , setMessage ] = useState('')
     const [showSuccess , setshowSuccess ] = useState(true)
@@ -73,7 +75,8 @@ export default function ProductDetail({ item, configuration, toggle }) {
     }        
   }
 
-  async function onAddToCart (product)  {
+
+  async function onAddToCart (product,btn)  {
 
     let vIds = await localStorage.getItem("vendorIds");
     const cartItemsStr = await localStorage.getItem('cartItems') || '[]'
@@ -113,8 +116,9 @@ export default function ProductDetail({ item, configuration, toggle }) {
         await localStorage.removeItem('vendorIds')
         setshowSuccess(false);
         // setEditModal(false)
-        onAddToCart(product)
+        onAddToCart(product ,btn)
       }
+      
       return 
     }
 
@@ -153,15 +157,98 @@ export default function ProductDetail({ item, configuration, toggle }) {
           setMessagecolor('success');
           setMessage('Added!')
         // }
-       
+       if(btn){
+        setTimeout(() => {
+          close()
+        }, 500);
+       }
+       else{
+        cartItemFunction()
+        totalQty(item)
+       }
     }
     else {
         // props.navigation.navigate('ItemDetail', { product })
     }
 
+
+
+
     
   }
-  console.log('itemitem>',item)
+
+  const [cartItem,setCartItems] = useState([])
+
+  useEffect(() => {
+    if(item){
+      cartItemFunction()
+    }
+  },[item])
+
+   async function cartItemFunction(){
+    const cartItemsStr = await localStorage.getItem('cartItems') || '[]'
+    const cartItems = JSON.parse(cartItemsStr)
+    setCartItems(cartItems)
+   }
+
+   function totalQty(item){
+     let qty = 0
+    if(cartItem){
+      let findItem = cartItem.find(d => d._id === item._id)
+      qty = findItem ? findItem.quantity : 0
+    }
+    return qty
+  }
+ 
+  async function removeQuantityToCartItem (newItem) {
+    let vIds = await localStorage.getItem("vendorIds");
+    const vendorIds = vIds === null ? [] : JSON.parse(vIds);
+    console.log('vendorIds>>',vendorIds)
+    const cartItemsStr = await localStorage.getItem('cartItems') || '[]'
+    const cartItems = JSON.parse(cartItemsStr)
+    console.log('cartItems>>',cartItems)
+    const index = cartItems.findIndex((product) => product._id === newItem._id)
+    const filteredItem = cartItems.filter((product) => product._id === newItem._id)
+    
+    console.log('index>>',index)
+    // const selectedItemVendorId = index[0].vendor;
+    // console.log('selectedItemVendorId',selectedItemVendorId)
+    if(filteredItem && filteredItem[0].quantity === 1 ){
+      const isMoreItemsExistWithSelectedVendor = cartItems.filter(res => res.vendor === filteredItem[0].vendor && res.quantity < 2);
+      console.log('isMoreItemsExistWithSelectedVendor',isMoreItemsExistWithSelectedVendor)
+      if(isMoreItemsExistWithSelectedVendor && isMoreItemsExistWithSelectedVendor.length > 0 ){
+        const indexs = vendorIds.indexOf(filteredItem[0].vendor);
+        if (indexs > -1) {
+          vendorIds.splice(indexs,1)
+        }
+        localStorage.setItem("vendorIds", JSON.stringify(vendorIds))
+        // setVendorIds(vendorIds)
+      }
+    }
+   
+   
+   
+    if (index < 0)
+        cartItems.push(newItem)
+    else {
+        if(cartItems[index].quantity > 0){
+          cartItems[index].quantity = cartItems[index].quantity - 1
+          cartItems[index].vendor_quantity = cartItems[index].vendor_quantity - 1
+        }
+    }
+
+    if(cartItems[index].quantity <= 0){
+      const items = cartItems.filter((product) => product._id !== newItem._id)
+      await localStorage.setItem('cartItems', JSON.stringify(items))
+      client.writeQuery({ query: GETCARTITEMS, data: { cartItems: items.length } })
+      setCartItems(items);
+    }
+    else{
+      await localStorage.setItem('cartItems', JSON.stringify(cartItems))
+      setCartItems(cartItems);
+    }
+    totalQty(item)
+  }
 
   return item ? (
     <Card className="modal-product shadow">
@@ -190,7 +277,7 @@ export default function ProductDetail({ item, configuration, toggle }) {
 
 
                 <a className="add-to-cart" href="#" onClick={(e) => 
-                          {onAddToCart(item)
+                          {onAddToCart(item,true)
                             e.preventDefault()
                             setTimeout(() => {
                             setMessage('')
@@ -200,6 +287,32 @@ export default function ProductDetail({ item, configuration, toggle }) {
                           }>
                   Add to cart
                 </a>
+                <div className="display-flex popup-btns">
+                <button   
+                  onClick={e => {
+                    e.preventDefault()
+                    if(totalQty(item) > 0){
+                      removeQuantityToCartItem(item)
+                    }
+                  }} 
+                >
+                  <FontAwesome name="minus"></FontAwesome>
+                </button> 
+                <span>
+                          {totalQty(item)}
+                  </span> 
+                <button 
+                  onClick={e => {
+                    e.preventDefault()
+                    onAddToCart(item,false)
+                    setTimeout(() => {
+                      setMessage('')
+                      setMessagecolor('')}, 3000)
+                  }}
+                  >
+                      <FontAwesome name="plus"></FontAwesome>
+                  </button>
+                </div>
               </div>
             </Col>
           </Row>
