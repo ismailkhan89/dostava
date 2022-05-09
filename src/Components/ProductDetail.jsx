@@ -19,7 +19,7 @@ import {
   DropdownToggle,
   Modal,
 } from "reactstrap";
-import FontAwesome from 'react-fontawesome';
+
 import { onAddToCart } from "../utils/addtoCart";
 import { getItemPrice } from "../utils/pricing";
 import FontAwesome from 'react-fontawesome'
