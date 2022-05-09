@@ -405,6 +405,61 @@ div#features {
 #how-it-works .col-md-4 {
     margin-bottom: 34px;
 }
+#dry-fruits .title{
+    position: relative;
+}
+.new-products-addition #dry-fruits .title:before {
+    position: absolute;
+    content: '';
+    background-color: #ccc;
+    width: 90%;
+    height: 2px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.new-products-addition #Product-carousel .title:before,
+.new-products-addition #dry-fruits .title:before{
+    width:80%;
+}
+.new-products-addition #Product-carousel .product .product-imgs img{
+    cursor:pointer;
+}
+.user-form .form-area form .form-group{
+    position:relative;
+    margin-bottom:35px;
+}
+.user-form .form-area form .form-group .register-err{
+    position: absolute;
+    left:0;
+    bottom:-20px;
+}
+.user-form .form-area form .form-group span.fa{
+    position: absolute;
+    top:20px;
+    right:20px;
+}
+.user-form .form-area{
+    height:100%;
+}
+.close-button-popup{
+    position: absolute;
+    top:-20px;
+    right:-20px;
+    background-color: #29BEEB;
+    width:40px;
+    height:40px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer
+}
+.close-button-popup span{
+    color:#fff;
+    ;
+}
 /* ========== 1200 ======== */
 
 @media only screen and (max-width: 1200px) {
@@ -862,6 +917,7 @@ form#Reg-form label {
     font-weight: 700;
     margin-bottom: 0;
 }
+
 
 
 form#Reg-form .form-control {

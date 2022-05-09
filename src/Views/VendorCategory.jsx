@@ -9,6 +9,7 @@ import {
   Col,
   Button,
   Modal,
+  ModalHeader,
   Alert
 } from "reactstrap";
 import gql from "graphql-tag";
@@ -410,7 +411,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
           </Col>
         </Row>
       </Container>
-      <Container className="content-area" fluid>
+      <Container className="content-area new-products-addition" fluid>
 
       {search === '' && <Row>
           <Container id="Product-carousel">
@@ -634,7 +635,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
             isOpen={editModal}
             toggle={() => { toggleModal()}}
             >
-              <ProductDetail item={ItemDetail} configuration={dataConfig}  />
+              <ProductDetail toggle={() => { toggleModal()}} item={ItemDetail} configuration={dataConfig}  />
             </Modal>
 
       <Container className="app-area" fluid>

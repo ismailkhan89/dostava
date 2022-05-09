@@ -761,6 +761,9 @@ margin-bottom:10px;
 .cart-section table tbody tr td img{
     border:1px solid #eee;
     padding:10px;
+    width:100px;
+    height:100px;
+    object-fit:cover;
 }
 .cart-section table tfoot{
     background:#1385a7;

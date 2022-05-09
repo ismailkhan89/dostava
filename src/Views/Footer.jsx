@@ -66,7 +66,7 @@ class Footer extends React.Component{
             <Col lg="3" md="12" sm="12" xs="12" className="quickmenu social">
               <h3>Contact us</h3>
               <p>Perth, Australia</p>
-              <Link to="mailto:support@dostava.com.au">support@dostava.com.au</Link>
+              <a href="mailto:support@dostava.com.au">support@dostava.com.au</a>
               {/* <p className="pbold">Phone: +61 3 9028 4573,</p>
               <p className="pbold">0468 437851</p> */}
               <ul className="Social-links">

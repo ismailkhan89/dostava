@@ -220,15 +220,14 @@ class Login extends React.Component {
           </Row>
         </Container>
 
-        <Container className="content-area" fluid>
+        <Container className="content-area user-form" fluid>
           <Row>
             <Col lg="2"></Col>
             <Col lg="4" md="6" sm="6" xs="12">
               <div className="form-area">
                 <h2>Login your Account</h2>
                 <h3>
-                  Login to your account to discovery all great features in this
-                  item
+                Login to your account to discover all the great features of Dostava
                 </h3>
                 <form>
                   <div className="form-group">
@@ -262,11 +261,7 @@ class Login extends React.Component {
                   </div>
                   <div className="form-group">
                     <FontAwesome
-                      style={{
-                        position: "absolute",
-                        right: "48px",
-                        top: "230px",
-                      }}
+                      
                       onClick={() => this.onChangeIcon()}
                       name={this.state.iconEye}
                       size={"sm"}
@@ -391,8 +386,7 @@ class Login extends React.Component {
               <div className="form-area register">
                 <h2>Register Account Now</h2>
                 <h3>
-                  Register to your account to discovery all great features in
-                  this item
+                Register your account to discovery all the great features of Dostava
                 </h3>
                 <form>
                   <div className="form-group half">
@@ -444,11 +438,7 @@ class Login extends React.Component {
                       }
                     ></input>
                     <FontAwesome
-                      style={{
-                        position: "absolute",
-                        right: "65px",
-                        top: "158px",
-                      }}
+                      
                       onClick={() => this.CreateonChangeIcon()}
                       name={this.state.RegiconEye}
                       size={"sm"}
@@ -527,8 +517,8 @@ class Login extends React.Component {
 
                   <div className="form-group">
                     <label>
-                      <input type="checkbox"></input>I accept the terms and
-                      conditions, including the Privacy Policy
+                      <input type="checkbox"></input>I accept the <a href="/terms-of-use">terms and
+                      conditions</a>, including the <a href="/privacy-policy">Privacy Policy</a>
                     </label>
                   </div>
                   <div className="text-center">

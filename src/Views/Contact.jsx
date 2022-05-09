@@ -262,7 +262,7 @@ function Contact(props){
                                  <a href="/register-vendor/#vendor-form" >Add your store</a>
 
                             </div>
-                            <a className="download" href="javascript;">Download App <i className="fa fa-long-arrow-alt-right"></i></a>
+                            <a className="download" href="javascript::void(0)">Download App <i className="fa fa-long-arrow-alt-right"></i></a>
                         </div>
                         <div className="col-md-2">
                             

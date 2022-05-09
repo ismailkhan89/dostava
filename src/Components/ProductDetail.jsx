@@ -19,6 +19,7 @@ import {
   DropdownToggle,
   Modal,
 } from "reactstrap";
+import FontAwesome from 'react-fontawesome';
 import { onAddToCart } from "../utils/addtoCart";
 import { getItemPrice } from "../utils/pricing";
 
@@ -50,7 +51,7 @@ const newclient = new ApolloClient({
   cache
 });
 const GETCARTITEMS = gql`${getCartItems}`;
-export default function ProductDetail({ item, configuration }) {
+export default function ProductDetail({ item, configuration, toggle }) {
 
     const [messagealert , setMessage ] = useState('')
     const [showSuccess , setshowSuccess ] = useState(true)
@@ -164,6 +165,9 @@ export default function ProductDetail({ item, configuration }) {
 
   return item ? (
     <Card className="modal-product shadow">
+      <div className="close-button-popup" onClick={toggle}>
+        <FontAwesome name="close"></FontAwesome>
+      </div>
       <FlashAlert message={messagealert} color={messagecolor} />
       <CardBody>
         <Form>

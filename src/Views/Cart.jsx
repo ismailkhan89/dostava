@@ -469,7 +469,7 @@ function Cart(props) {
 
             </Col>
             <Col lg="8" className="cart-section">
-              <h1 className="flashmessage text-center"> My Cart {data ? ': '+data.cartItems : ': '+ 0}</h1>
+              <h1 className="flashmessage text-center"> My Cart {data ? ': items '+data.cartItems : ': '+ 0}</h1>
                 <h3>My Cart</h3>
                 <Table responsive>
                     <thead>
