@@ -683,9 +683,8 @@ const [ItemDetail , setItemDetail ] = useState([]);
           <Row>
                 <Col lg="12" >
                   <h2 className="title"> {search ? "Search" : "All"} Products</h2>
-                </Col>
-
-                <Dropdown isOpen={filterddl} toggle={() => {
+                  <hr/>
+                  <Dropdown isOpen={filterddl} toggle={() => {
                   setFilterDdl(!filterddl)
                 }}>
                   <DropdownToggle caret>
@@ -719,6 +718,10 @@ const [ItemDetail , setItemDetail ] = useState([]);
                   </div></DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
+                </Col>
+
+
+                
             </Row>
 
               { _id && lat && lng && 
@@ -782,7 +785,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
 
                           <p className="price">  ${category.vendor_pricing}</p>
 
-                          <div className="display-flex">
+                          <div className="popup-btns display-flex">
                           {/* <ButtonToolbar className="mb-3" aria-label="Toolbar with Button groups">
                             <InputGroup>
                               <InputGroup.Text id="btnGroupAddon">@</InputGroup.Text>
