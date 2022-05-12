@@ -697,9 +697,9 @@ const [ItemDetail , setItemDetail ] = useState([]);
                       setPage(0)
                     }}>
                       <div>
-                        <div>
+                        
                           Asc
-                        </div>
+                        
                      {sort === 'asc' &&
                       <FontAwesome name="check" size={20} />
                      }   
