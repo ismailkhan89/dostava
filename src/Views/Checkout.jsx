@@ -424,7 +424,9 @@ async function GoBackToStore(){
           email: `${data.placeOrder.user.email}`,
           closed: function() {
             if(!paymentStatus)
-            window.location=`${shop_url}checkout`
+            handler.close()
+            setOrderLoading(false)
+            // window.location=`${shop_url}checkout`
             }
           });
       }
