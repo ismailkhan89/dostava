@@ -129,7 +129,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
     sort_by : sort } ,client : newclient })
 
   const [cartItems, setCartItems] = useState([])
-
+  const [totalProducts,setTotalProducts] = useState(0)
     useEffect(() => {
       didFocus()
     },[])
@@ -140,9 +140,10 @@ const [ItemDetail , setItemDetail ] = useState([]);
     },[SearchText])
    
     function onCompletedProduct({ foodByVendorId_new }){
-      console.log('foodByVendorId_new',foodByVendorId_new)
+      console.log('foodByVendorId_new',dataProduct.foodByVendorId_new)
      
       if(page === 0){
+        setTotalProducts(dataProduct.foodByVendorId_new.totalCount)
         setTotalPages(Math.ceil(dataProduct.foodByVendorId_new.totalCount / 10) - 1);
         if(dataProduct.foodByVendorId_new.totalCount > 0){
           setPagination(true)
@@ -573,6 +574,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
                   //setSearchText(e.target.value)
                   //setSearchText(e.target.value)
                     // setProducts(search !== e.target.value ?[] : products)
+                    setPage(0)
                     setSearch('')
                     setSearch(e.target.value)
                 }
@@ -586,6 +588,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
               //   setProducts([])
               //   setSearch(SearchText)
               // }
+              setPage(0)
               setSearch('')
               setSearch(SearchText)
             }}>
@@ -683,9 +686,8 @@ const [ItemDetail , setItemDetail ] = useState([]);
           <Row>
                 <Col lg="12" >
                   <h2 className="title"> {search ? "Search" : "All"} Products</h2>
-                </Col>
-
-                <Dropdown isOpen={filterddl} toggle={() => {
+                  <hr/>
+                  <Dropdown isOpen={filterddl} toggle={() => {
                   setFilterDdl(!filterddl)
                 }}>
                   <DropdownToggle caret>
@@ -698,9 +700,9 @@ const [ItemDetail , setItemDetail ] = useState([]);
                       setPage(0)
                     }}>
                       <div>
-                        <div>
+                        
                           Asc
-                        </div>
+                        
                      {sort === 'asc' &&
                       <FontAwesome name="check" size={20} />
                      }   
@@ -719,6 +721,10 @@ const [ItemDetail , setItemDetail ] = useState([]);
                   </div></DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
+                </Col>
+
+
+                
             </Row>
 
               { _id && lat && lng && 
@@ -782,7 +788,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
 
                           <p className="price">  ${category.vendor_pricing}</p>
 
-                          <div className="display-flex">
+                          <div className="popup-btns display-flex">
                           {/* <ButtonToolbar className="mb-3" aria-label="Toolbar with Button groups">
                             <InputGroup>
                               <InputGroup.Text id="btnGroupAddon">@</InputGroup.Text>
@@ -855,7 +861,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
             }
 
 
-      {parseFloat(page) < parseFloat(totalPage) && products.length > 0  &&  <Row>
+      {products.length < totalProducts && parseFloat(page) < parseFloat(totalPage) && products.length > 0  &&  <Row>
             <Col lg="12"  className="text-center">
         {parseFloat(page) < parseFloat(totalPage) &&  pagination && 
         !LoadingProduct ?

@@ -238,14 +238,14 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
           return;
         }
 
-        if(aptSuite===''){
-          alert('Please enter Appartment / Suite / Floor.');
-          return;
-        }
-        if(buildingName===''){
-          alert('Please enter street number.');
-          return;
-        }
+        // if(aptSuite===''){
+        //   alert('Please enter Appartment / Suite / Floor.');
+        //   return;
+        // }
+        // if(buildingName===''){
+        //   alert('Please enter street number.');
+        //   return;
+        // }
        
 
           if (checkPaymentMethod(dataConfig.configuration.currency)) {
