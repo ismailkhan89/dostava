@@ -1842,6 +1842,26 @@ body h1 {
 	#slider .download{
 		padding:20px 18px;
 	}
+    .banner-text-new form.form-inline .input-area{
+        width:100%;
+        margin-bottom:20px;
+    }
+    .banner-text-new .new-search-area .new-download-app{
+        display: flex;
+        flex-direction: column;
+    }
+    .banner-text-new .new-search-area .new-download-app span{
+        margin-right:0;
+    }
+    .banner-text-new .new-search-area .new-download-app span:before{
+        display: none;
+    }
+    .banner-text-new .new-search-area .new-download-app a{
+        margin-bottom:20px;
+    }
+    .home-banner2 .banner-text-new .new-search-area > p{
+        margin-bottom: 30px;
+    }
 }
 
 @media only screen and (max-width:480px){
