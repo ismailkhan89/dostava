@@ -437,15 +437,16 @@ function Vendor(props) {
         </Row>
       </Container>
       {!searchFlag &&
-      <Container className="content-area" fluid>
+      <Container className="content-area new-products-addition" fluid>
    
         <Row>
-          <Container id="Product-carousel">
+          <Container id="Product-carousel" className="border-head">
             
 
             <Row>
                 <Col lg="12" >
                   <h2 className="title">Stores</h2>
+                  <hr/>
                 </Col>
             </Row>
 

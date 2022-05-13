@@ -612,6 +612,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
             <Row>
                 <Col lg="12" >
                   <h2 className="title">New Products</h2>
+                  <hr/>
                 </Col>
             </Row>
            
@@ -859,7 +860,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
 
 
       {parseFloat(page) < parseFloat(totalPage) && products.length > 0  &&  <Row>
-            <Col lg="12"  className="text-center">
+            <Col lg="12"  className="text-center load-more-button">
         {parseFloat(page) < parseFloat(totalPage) &&  pagination && 
         !LoadingProduct ?
          <Button 
