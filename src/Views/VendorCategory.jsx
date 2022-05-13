@@ -129,7 +129,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
     sort_by : sort } ,client : newclient })
 
   const [cartItems, setCartItems] = useState([])
-
+  const [totalProducts,setTotalProducts] = useState(0)
     useEffect(() => {
       didFocus()
     },[])
@@ -140,9 +140,10 @@ const [ItemDetail , setItemDetail ] = useState([]);
     },[SearchText])
    
     function onCompletedProduct({ foodByVendorId_new }){
-      console.log('foodByVendorId_new',foodByVendorId_new)
+      console.log('foodByVendorId_new',dataProduct.foodByVendorId_new)
      
       if(page === 0){
+        setTotalProducts(dataProduct.foodByVendorId_new.totalCount)
         setTotalPages(Math.ceil(dataProduct.foodByVendorId_new.totalCount / 10) - 1);
         if(dataProduct.foodByVendorId_new.totalCount > 0){
           setPagination(true)
@@ -573,6 +574,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
                   //setSearchText(e.target.value)
                   //setSearchText(e.target.value)
                     // setProducts(search !== e.target.value ?[] : products)
+                    setPage(0)
                     setSearch('')
                     setSearch(e.target.value)
                 }
@@ -586,6 +588,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
               //   setProducts([])
               //   setSearch(SearchText)
               // }
+              setPage(0)
               setSearch('')
               setSearch(SearchText)
             }}>
@@ -859,7 +862,7 @@ const [ItemDetail , setItemDetail ] = useState([]);
             }
 
 
-      {parseFloat(page) < parseFloat(totalPage) && products.length > 0  &&  <Row>
+      {products.length < totalProducts && parseFloat(page) < parseFloat(totalPage) && products.length > 0  &&  <Row>
             <Col lg="12"  className="text-center load-more-button">
         {parseFloat(page) < parseFloat(totalPage) &&  pagination && 
         !LoadingProduct ?
