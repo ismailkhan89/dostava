@@ -722,7 +722,7 @@ function Vendor(props) {
                   <img src='../Assets/Img/bottom_img.png' ></img>
                 </Col>
                 <Col lg="6" className="app-area-text">
-                  <h3>Dostava is Available for your Android or Apple</h3>
+                  <h3>Dostava is Available for your Android or Apple Device</h3>
                   <a href="https://apps.apple.com/us/app/dostava/id1543132324">
                     
                   <img src='../Assets/Img/appstore.png' ></img>

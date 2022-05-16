@@ -227,6 +227,27 @@ span.navbar-toggler-icon.fa.fa-bars {
             margin-bottom:0;
         }
 
+
+        .privacy-check{
+            height: 100px;
+            overflow-y: scroll;
+            border: 1px solid #d7d7d7;
+        }
+        .user-form .form-area form .form-group.privacy-check{
+            margin-bottom:10px;
+        }
+
+        .privacy-check::-webkit-scrollbar {
+            width: 5px;
+          }
+          .privacy-check::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          }
+          .privacy-check::-webkit-scrollbar-thumb {
+            /* background: linear-gradient(#a87110, #d8b650, #f2dd75, #ac7614) */
+            background-color: #073451;
+            border-radius: 30px;
+          }
         
 
 @media only screen and (max-width: 991px) {

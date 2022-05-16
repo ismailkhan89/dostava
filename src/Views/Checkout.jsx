@@ -122,6 +122,7 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
     const [vendorIds, setVendorIds] = useState([])
     const [deliveryCharges, setdeliveryCharges] = useState(0)
     const [items,setItems] = useState(props.location.state?.cartItems ?? null)
+    const [adressCheck, setadressCheck] = useState(false)
 
     
       useEffect(() => {
@@ -233,10 +234,10 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
           return;
         }
 
-        if(streetName === ''){
-          alert('Please enter street name.');
-          return;
-        }
+        // if(streetName === ''){
+        //   alert('Please enter street name.');
+        //   return;
+        // }
 
         // if(aptSuite===''){
         //   alert('Please enter Appartment / Suite / Floor.');
@@ -246,6 +247,11 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
         //   alert('Please enter street number.');
         //   return;
         // }
+
+        if(!adressCheck){
+             alert('Please Accept the Address Checkbox');
+             return;
+           }
        
 
           if (checkPaymentMethod(dataConfig.configuration.currency)) {
@@ -741,6 +747,8 @@ async function GoBackToStore(){
                         <input type="text" placeholder="Address" disabled value={!!Address ? Address.location : ''}></input>
                       </div>
 
+                     
+
                       <div className="form-group full">
                       <label>Apt / Floor / Suite</label>
                         <input type="text"
@@ -772,6 +780,15 @@ async function GoBackToStore(){
                         value={orderDescription}
                         onChange={(e) => setOrderDescription(e.target.value)}
                        ></input>
+                      </div>
+
+                      <div className="form-group">
+                        <label>
+                          <input type="checkbox" value={adressCheck} onChange={()=> {
+                            // alert('babuji' + !adressCheck);
+                            setadressCheck(!adressCheck )
+                          } }></input> I confirm the address is correct
+                        </label>
                       </div>
 
                       {/* <div className="form-group full">
