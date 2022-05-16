@@ -1472,6 +1472,8 @@ section#work-with-freedom p.pbold {
 
 
 
+
+
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
 
 .col-md-6.first-div {
@@ -1993,6 +1995,19 @@ body h1 {
     #download-app h2{
         font-size:15px;
     }
+    .new-products-addition .all-products .product-list.store-item,
+    #dry-fruits .product-list{
+        padding-bottom:30px;
+        padding-right:30px;
+    }
+    .new-products-addition .all-products .product-list .add-to-cart{
+        position:relative;
+        right:0;
+        bottom:0;
+    }
+    .new-products-addition .all-products .popup-btns{
+        margin-bottom:20px;
+    }
 }
 
 .register-err {
@@ -2041,4 +2056,33 @@ position: absolute;
 
 #dry-fruits.search-Product.border-head h2.title:before { 
     width:75%;
+}
+
+@media screen and (min-width:1466px){
+    .home-banner1{
+        background-size:cover;
+    }
+    .banner-text-new form.form-inline .input-area{
+        width:73%;
+    }
+}
+
+@media screen and (min-width:1600px){
+    
+    .banner-text-new form.form-inline .input-area{
+        width:75%;
+    }
+}
+
+@media screen and (min-width:1800px){
+    
+    .banner-text-new form.form-inline .input-area{
+        width:78%;
+    }
+}
+@media screen and (min-width:1920px){
+    
+    .banner-text-new form.form-inline .input-area{
+        width:80%;
+    }
 }

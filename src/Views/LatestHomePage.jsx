@@ -308,7 +308,7 @@ function LatestHomePage(props){
             <Row className="justify-content-center">
               <Col lg="8" className="text-center">
                 <div className="banner-img-new">
-                  <img src='../Assets/Img/new-banner-img.png' ></img>
+                  <img src='../Assets/Img/new-banner-img.png' className="responsive-banner-img" ></img>
                 </div>
                 <div className="banner-text-new">
                   <h4>Stores in your Area, Now Delivering</h4>

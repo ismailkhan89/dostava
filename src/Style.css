@@ -1562,6 +1562,7 @@ padding-left:70px;
     color:#223852;
 }
 
+
 /* ========== 1279 ======== */
 
 @media only screen and (max-width: 1279px) {
@@ -3732,6 +3733,9 @@ margin-bottom:0;
     }
     .display-none{
         max-width:40%;
+    }
+    .responsive-banner-img{
+        max-height:300px;
     }
 }
 @media screen and (max-width:480px){
