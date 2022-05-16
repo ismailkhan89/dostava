@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect } from "react";
+import React, {Component, useState, useEffect, useRef } from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
  import { Query, Mutation } from "react-apollo";
@@ -110,6 +110,16 @@ function RegisterVendor(props){
 	const [succcess , setSuccess] = React.useState('')
 	const [Errors , setErrors] = React.useState('')
 	const[iconEye,setIconEye] = React.useState('eye-slash')
+
+	const formRef = useRef(null)
+
+	useEffect(() => {
+		if(formRef.current){
+			// console.log('babuji', formRef.current)
+			// formRef.current.focus();
+			window.location.hash = "vendor-form"
+		}
+	},[formRef])
 
 	function clearErrorField(){
 		setStoreNameErr(false)
@@ -224,7 +234,7 @@ function RegisterVendor(props){
         <title>Dostava Vendor Registration | Signup & Start Selling</title>
         <meta name="description" content="Register your store in a few steps and start selling grocery with Dostava right away! New avenue of earning in Australia." />
       		</Helmet>
-			  <div style={{display:'none'}}>{window.location.hash = "vendor-form"}</div>
+			  {/* <div style={{display:'none'}}>{window.location.hash = "vendor-form"}</div> */}
             <Header  {...props} title="Dostava Vendor Registration | Signup & Start Selling"/>
             <section id="slider" class="driver-page register-vend"> 
                 <div class="container">
@@ -284,10 +294,11 @@ function RegisterVendor(props){
 					<h2><strong>REGISTRATION </strong>VENDOR</h2>
 					<div id="successMessage"></div>
 					<div id="errorMessage"></div>
-					<form id="Reg-form">
+					<form id="Reg-form" ref={formRef}>
 						<div class="form-part1">
 						<FormGroup>
 							<Label>Store Name</Label>
+							
 							<Input 
 							onBlur={() => storeName === "" && setStoreNameErr(true)}
 							onChange={(e) => {
@@ -297,7 +308,7 @@ function RegisterVendor(props){
 							invalid={storeNameErr}
 							value={storeName}
 							/>
-							<FormFeedback>Store Name is Required</FormFeedback>
+							{/* <FormFeedback>Store Name is Required</FormFeedback> */}
 						</FormGroup>
 						<FormGroup className="store-address">
 							<Label>Store Address</Label>

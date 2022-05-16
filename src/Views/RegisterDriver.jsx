@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect } from "react";
+import React, {Component, useState, useEffect, useRef } from "react";
 import Footer from '../Views/Footer.jsx';
 import Header from '../Views/Header';
 import { Query, Mutation } from "react-apollo"; 
@@ -120,6 +120,16 @@ function RegisterDriver(props){
 	const [Errors , setErrors] = React.useState('')
 	const[iconEye,setIconEye] = React.useState('eye-slash')
 	const [latLng, setlatLng] = useState('');
+
+	const formRef = useRef(null)
+
+	useEffect(() => {
+		if(formRef.current){
+			// console.log('babuji', formRef.current)
+			// formRef.current.focus();
+			window.location.hash = "driver-form"
+		}
+	},[formRef])
 
 	function clearErrorField(){
 		setFirstnameErr(false)
@@ -247,7 +257,7 @@ function RegisterDriver(props){
         <title>Deliver with Dostava | Become a Delivery Partner</title>
         <meta name="description" content="Become Dostava delivery partner. Register now to earn money making deliveries with us. Work on your own time and decide how much you make." />
       		</Helmet>
-			  <div style={{display:'none'}}>{window.location.hash = "driver-form"}</div>
+			  {/* <div style={{display:'none'}}>{window.location.hash = "driver-form"}</div> */}
 		    <Header  {...props} title="Register Driver"/>
             <section id="slider" class="driver-page register-driver"> 
                 <div class="container">
@@ -314,7 +324,7 @@ function RegisterDriver(props){
                             <h2><strong>REGISTRATION </strong>DRIVER</h2>
                             <div id="successMessage"></div>
                             <div id="errorMessage"></div>
-                            <form id="Reg-form">
+                            <form id="Reg-form" ref={formRef}>
 					            <div class="form-part1">
                         <FormGroup>
 							<Label>First Name</Label>
