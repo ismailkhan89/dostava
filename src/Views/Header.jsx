@@ -255,7 +255,8 @@ function Header(props) {
               
                 <span>
                   <FontAwesome name="user-circle-o" />
-                  <Link to="/login">Login</Link>
+                  <Link to="/login">Login/Signup</Link>
+                  <a href="https://vendor.dostava.com.au/">Login as vendor</a>
                   </span>
 
               }
