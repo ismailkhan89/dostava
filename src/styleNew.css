@@ -248,6 +248,9 @@ span.navbar-toggler-icon.fa.fa-bars {
             background-color: #073451;
             border-radius: 30px;
           }
+          .privacy-checkbox-new label input{
+              margin-right:10px;
+          }
         
 
 @media only screen and (max-width: 991px) {

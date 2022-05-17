@@ -252,12 +252,32 @@ function Header(props) {
               //   props.history.push("/login")
               // }}   >Logout <FontAwesome name="user" /></Link>
               :
-              
-                <span>
-                  <FontAwesome name="user-circle-o" />
-                  <Link to="/login">Login/Signup</Link>
-                  <a href="https://vendor.dostava.com.au/">Login as vendor</a>
-                  </span>
+              <Nav className="align-items-center  d-md-flex" navbar>
+              <UncontrolledDropdown nav>
+                <DropdownToggle className="pr-0" nav>
+                  <FontAwesome name="user-circle-o" /> 
+                </DropdownToggle>
+                <DropdownMenu className="dropdown-menu-arrow" right>
+                  <DropdownItem >
+                    <Link to="/login"> Login/Signup </Link>
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem>
+                  
+                  <a href="https://vendor.dostava.com.au/">Login as Vendor</a>
+                    {/* <i className="ni ni-user-run" />
+                    <span>{'Logout'}</span> */}
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+          </Nav>
+                // <span>
+                //   <FontAwesome name="user-circle-o" />
+                //   <div>
+                //   <Link to="/login">Login/Signup</Link>
+                //   <a href="https://vendor.dostava.com.au/">Login as vendor</a>
+                //   </div>
+                //   </span>
 
               }
           </Col>

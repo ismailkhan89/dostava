@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useRef  } from "react";
 import Footer from "../Views/Footer.jsx";
 import Header from "../Views/Header";
 import FontAwesome from "react-fontawesome";
@@ -75,8 +75,11 @@ class Login extends React.Component {
       forgotEmail: "",
       forgotEmailError: false,
       messagealert: '',
-      messagecolor: ''
+      messagecolor: '',
+      AcceptPP: false,
+      AcceptCheck: false
     };
+    this.listInnerRef = React.createRef();
   }
 
   onBlur = (event, field) => {
@@ -139,6 +142,9 @@ class Login extends React.Component {
       this.setState({ phoneErr: "Phone is Required" });
       status = false;
     }
+    if (this.state.AcceptCheck === false){
+     alert('Please Accept The Privacy Policy')
+    }
     return status;
   };
 
@@ -174,8 +180,23 @@ class Login extends React.Component {
     }
     return true;
   };
+
+  
+   onScroll = () => {
+     console.log('babuji agaye', 'babuji agaye')
+    if (this.listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = this.listInnerRef.current;
+      if (scrollTop + clientHeight === scrollHeight) {
+        this.setState({AcceptPP: true})
+      }
+    }
+  };
+
+  
+
   render() {
     console.log("asd>>>", this.props);
+    
     console.log("inside HomePage");
     const MenuItems = ["About us", "Contact Us", "Gallery", "My Account"];
     const listItems = MenuItems.map((items, keys) => (
@@ -198,6 +219,9 @@ class Login extends React.Component {
     console.log("fromfrom", from);
     let { redirectToReferrer } = this.state;
     if (redirectToReferrer) return <Redirect to={from} />;
+
+
+    //const listInnerRef = useRef();
 
     return (
       <Container className="wrapper" fluid>
@@ -516,7 +540,9 @@ class Login extends React.Component {
                     <span className="register-err">{this.state.phoneErr}</span>
                   </div>
 
-                  <div className="form-group privacy-check">
+                  <div className="form-group privacy-check" 
+                  onScroll={this.onScroll}
+                      ref={this.listInnerRef}>
                   <div class="how-it-work-content terms-condition">
 			<div class="container">
 				<div class="row">
@@ -607,7 +633,7 @@ class Login extends React.Component {
 
                   <div className="form-group">
                     <label>
-                      <input type="checkbox"></input>I accept the <a href="/terms-of-use">terms and
+                      <input type="checkbox" disabled={!this.state.AcceptPP}></input>I accept the <a href="/terms-of-use">terms and
                       conditions</a>, including the <a href="/privacy-policy">Privacy Policy</a>
                     </label>
                   </div>
