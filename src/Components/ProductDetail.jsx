@@ -38,7 +38,7 @@ import { authLink } from '../library/authLink';
 import FlashAlert from "../Components/FlashAlert.jsx";
 import ConfigurationContext from "../context/Configuration.js";
 import { useEffect } from "react";
-
+import { ButtonGroup, ButtonToolbar } from "react-bootstrap";
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
   uri: `${server_url}graphql`,
@@ -76,14 +76,21 @@ export default function ProductDetail({ item, configuration, toggle, close }) {
   }
 
 
-  async function onAddToCart (product,btn)  {
+  async function onAddToCart (product,btn,qty = 1)  {
 
     let vIds = await localStorage.getItem("vendorIds");
     const cartItemsStr = await localStorage.getItem('cartItems') || '[]'
     const cartItems = JSON.parse(cartItemsStr)
      const selectedItem = cartItems.filter((itm) => itm._id === product._id)
      if(selectedItem && selectedItem.length > 0 ){
-      if(selectedItem[0].quantity === product.stock || selectedItem[0].quantity > product.stock){
+      // if(selectedItem[0].quantity === product.stock || selectedItem[0].quantity > product.stock){
+      //   // setEditModal(false)
+      //   setMessagecolor('warning');
+      //   setMessage('We are out stock, we only have '+product.stock+ ' '+ product.title +' in stock')
+      //   return null
+      // }
+
+      if(selectedItem[0].quantity === product.stock || parseInt(qty) > product.stock){
         // setEditModal(false)
         setMessagecolor('warning');
         setMessage('We are out stock, we only have '+product.stock+ ' '+ product.title +' in stock')
@@ -91,19 +98,19 @@ export default function ProductDetail({ item, configuration, toggle, close }) {
       }
      }
 
+     if(parseInt(qty) > product.stock) {
+      // setEditModal(false)
+      setMessagecolor('warning');
+      setMessage('We are out stock, we only have '+product.stock+ ' '+ product.title +' in stock')
+      return null
+   }
+
+
+
     if (parseInt(product.stock) === 0) {
-        // showMessage({
-        //     message: 'Item out of stock',
-        //     type: 'warning',
-        //     floating: true,
-        //     style: styles.alertbox,
-        //     titleStyle: { fontSize: scale(14), fontFamily: fontStyles.PoppinsRegular, paddingTop: 6 }
-        // })
-        // alert('Item out of stock')
-        // setEditModal(false)
+      
         setMessagecolor('warning');
         setMessage('Item out of stock!')
-        // return 'Item out of stock';
         return
     }
     let vendors = vIds === null ? [] : JSON.parse(vIds);
@@ -130,8 +137,8 @@ export default function ProductDetail({ item, configuration, toggle, close }) {
             __typename: 'CartItem',
             _id: product._id,
             vendor: product.user._id,
-            quantity: 1,
-            vendor_quantity : 1,
+            quantity: parseInt(qty),
+            vendor_quantity : parseInt(qty),
             vendor_price : product.vendor_pricing,
             variation: {
                 __typename: 'ItemVariation',
@@ -146,8 +153,11 @@ export default function ProductDetail({ item, configuration, toggle, close }) {
         if (index < 0)
             cartItems.push(newItem)
         else {
-            cartItems[index].quantity = cartItems[index].quantity + 1
-            cartItems[index].vendor_quantity = cartItems[index].vendor_quantity + 1
+          cartItems[index].quantity = parseInt(cartItems[index].quantity) + parseInt(qty)
+          cartItems[index].vendor_quantity = parseInt(cartItems[index].vendor_quantity) + parseInt(qty)
+
+            // cartItems[index].quantity = cartItems[index].quantity + 1
+            // cartItems[index].vendor_quantity = cartItems[index].vendor_quantity + 1
         }
         console.log("<<new item entered>>",cartItems)
         client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
@@ -250,6 +260,8 @@ export default function ProductDetail({ item, configuration, toggle, close }) {
     totalQty(item)
   }
 
+  const [ inputQty , setInputQty] = useState(0);
+
   return item ? (
     <Card className="modal-product shadow">
       <div className="close-button-popup" onClick={toggle}>
@@ -261,7 +273,11 @@ export default function ProductDetail({ item, configuration, toggle, close }) {
           <Row>
             <Col lg="4" md="6" sm="12" xs="12">
               <div className="product-list store-item">
-                <img className="img-fluid" src={item.img_url} alt=""></img>
+                {/* <img className="img-fluid" src={item.img_url} alt=""></img> */}
+                {item.img_url !== "" && item.img_url !== null ?
+                  <img className="img-fluid" src={item.img_url} alt="" ></img>
+                : <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt=""></img>
+                }
               </div>
             </Col>{" "}
             <Col lg="8" md="6" sm="12" xs="12">
@@ -276,8 +292,52 @@ export default function ProductDetail({ item, configuration, toggle, close }) {
                 <p className="price"> ${item.vendor_pricing}</p>
 
 
-                <a className="add-to-cart" href="#" onClick={(e) => 
-                          {onAddToCart(item,true)
+                <ButtonToolbar aria-label="Toolbar with button groups">
+            <ButtonGroup className="me-2" aria-label="First group">
+              <Button 
+              className={'themeBg'}
+              onClick={e => {
+                      e.preventDefault()
+                      if(inputQty > 0) {
+                        setInputQty(inputQty - 1)
+                      }
+                    }}>  
+                  <FontAwesome name="minus"></FontAwesome>
+                </Button> 
+              <input 
+                    onKeyPress={(event) => {
+                      if (!/[0-9]/.test(event.key)) {
+                        event.preventDefault();
+                      }
+                    }}
+                    style={{
+                      width: '37px',
+                      justifyContent :'center',
+                      alignItems :'center'
+                    }}
+                  maxLength={2}
+                  type="text"
+                  pattern="[0-9]*"
+                  value={inputQty}
+                  onChange={(e) => e.target.value > 0 ?
+                    setInputQty(parseInt(e.target.value))
+                    : setInputQty(0)
+                      // setInputQty(0)
+                    }
+                  />
+              <Button   
+              className={'themeBg'}
+              onClick={e => {
+                    e.preventDefault()
+                    setInputQty(inputQty + 1)
+                    }}>  
+                  <FontAwesome name="plus"></FontAwesome>
+                </Button> 
+            </ButtonGroup>
+      </ButtonToolbar>
+
+                <a className="add-to-cart" style={{marginTop : '5px'}} href="#" onClick={(e) => 
+                          {onAddToCart(item,true,inputQty)
                             e.preventDefault()
                             setTimeout(() => {
                             setMessage('')
@@ -287,7 +347,7 @@ export default function ProductDetail({ item, configuration, toggle, close }) {
                           }>
                   Add to cart
                 </a>
-                <div className="display-flex popup-btns">
+                {/* <div className="display-flex popup-btns">
                 <button   
                   onClick={e => {
                     e.preventDefault()
@@ -312,7 +372,11 @@ export default function ProductDetail({ item, configuration, toggle, close }) {
                   >
                       <FontAwesome name="plus"></FontAwesome>
                   </button>
-                </div>
+                </div> */}
+
+
+               
+
               </div>
             </Col>
           </Row>

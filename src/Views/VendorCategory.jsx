@@ -26,7 +26,7 @@ import { ApolloClient } from 'apollo-client';
 import { createUploadLink } from 'apollo-upload-client';
 import { server_url } from  "../config/config";
 import { authLink } from '../library/authLink';
-import { Form, FormControl } from 'react-bootstrap';
+import { ButtonGroup, ButtonToolbar, Form, FormControl } from 'react-bootstrap';
 import { getItemPrice } from '../utils/pricing'
 import FlashAlert from "../Components/FlashAlert.jsx";
 import ReactPaginate from 'react-paginate';
@@ -130,6 +130,8 @@ const [ItemDetail , setItemDetail ] = useState([]);
 
   const [cartItems, setCartItems] = useState([])
   const [totalProducts,setTotalProducts] = useState(0)
+
+  const [inputQty , setInputQty] = useState(0)
     useEffect(() => {
       didFocus()
     },[])
@@ -370,7 +372,8 @@ const [ItemDetail , setItemDetail ] = useState([]);
   }
 
 
-  async function onAddToCart (product)  {
+  async function onAddToCart (product ,qty = 1)  {
+    console.log('qtyqtyqtyqtyonAddToCart....',qty)
 
     let vIds = await localStorage.getItem("vendorIds");
     const cartItemsStr = await localStorage.getItem('cartItems') || '[]'
@@ -378,12 +381,20 @@ const [ItemDetail , setItemDetail ] = useState([]);
      const selectedItem = cartItems.filter((itm) => itm._id === product._id)
      console.log("selectedItem>>>>>>>>>>123456>",selectedItem)
      if(selectedItem && selectedItem.length > 0 ){
-        if(selectedItem[0].quantity === product.stock || selectedItem[0].quantity > product.stock){
+        // if(selectedItem[0].quantity === product.stock || selectedItem[0].quantity > product.stock){
+        if(selectedItem[0].quantity === product.stock || parseInt(qty) > product.stock){
           setEditModal(false)
           setMessagecolor('warning');
           setMessage('We are out stock, we only have '+product.stock+ ' '+ product.title +' in stock')
           return null
         }
+     }
+
+     if(parseInt(qty) > product.stock) {
+        setEditModal(false)
+        setMessagecolor('warning');
+        setMessage('We are out stock, we only have '+product.stock+ ' '+ product.title +' in stock')
+        return null
      }
 
     if (parseInt(product.stock) === 0) {
@@ -423,8 +434,8 @@ const [ItemDetail , setItemDetail ] = useState([]);
             __typename: 'CartItem',
             _id: product._id,
             vendor: product.user._id,
-            quantity: 1,
-            vendor_quantity : 1,
+            quantity: parseInt(qty) ,
+            vendor_quantity : parseInt(qty),
             vendor_price : product.vendor_pricing,
             variation: {
                 __typename: 'ItemVariation',
@@ -437,11 +448,16 @@ const [ItemDetail , setItemDetail ] = useState([]);
         if (index < 0)
             cartItems.push(newItem)
         else {
-            cartItems[index].quantity = cartItems[index].quantity + 1
-            cartItems[index].vendor_quantity = cartItems[index].vendor_quantity + 1
+
+          cartItems[index].quantity = parseInt(cartItems[index].quantity) + parseInt(qty)
+          cartItems[index].vendor_quantity = parseInt(cartItems[index].vendor_quantity) + parseInt(qty)
+
+            // cartItems[index].quantity = cartItems[index].quantity + 1
+            // cartItems[index].vendor_quantity = cartItems[index].vendor_quantity + 1
         }
+
         console.log("<<new item entered>>",cartItems)
-        client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
+        // client.writeQuery({ query: GETCARTITEMS, data: { cartItems: cartItems.length } })
         localStorage.setItem('cartItems', JSON.stringify(cartItems))
         setCartItems(cartItems)
         setEditModal(false)
@@ -759,74 +775,86 @@ const [ItemDetail , setItemDetail ] = useState([]);
                     if(stripedHtml2.length > 60){
                       stripedHtml2 = stripedHtml2.substr(0, 60);
                     } 
-                    return(
-                     <Col lg="4" md="6" sm="12" xs="12" key={index}>
-                      <div className="product-list store-item">
-                      {category.img_url !== "" && category.img_url !== null ?
-                          <img className="img-fluid" src={category.img_url} alt="" onClick={() => toggleModal(category)}></img>
-                        : <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt=""></img>
-                         }
-                         {category.brand_name}
-                          <h3>
-                          <span><strong>{stripedHtml}
-                            {stripedHtml.length === 30 && 
-                            <span>...</span>
-                          }
-                          </strong></span>
-                            {/* {category.title} */}
-                            </h3>
-                            {/* <p>Stock {category.stock}</p> */}
-                            <p>Package Weight : {category.package_weight} {category.packaging_unit}</p>  
-                          {/* <Text numberOfLines={1}>{category.title}</Text> */}
-                          <p>
-                            {/* {category.description} */}
-                            <span><strong>{stripedHtml2}
-                            {stripedHtml2.length === 60 && 
-                            <span>...</span>
-                          }
-                          </strong></span>
-                            </p>
+                    return( <ProductComponent 
+                         category={category}
+                         stripedHtml={stripedHtml}
+                         toggleModal={toggleModal}
+                         stripedHtml2={stripedHtml2}
+                         getAddedQty={getAddedQty}
+                         onAddToCart={(c,q) => onAddToCart(c,q)}
+                         index={index}
+                         setMessage={setMessage}
+                         setMessagecolor={setMessagecolor}
+                        />
 
-                          <p className="price">  ${category.vendor_pricing}</p>
+                    //  <Col lg="4" md="6" sm="12" xs="12" key={index}>
+                    //   <div className="product-list store-item">
+                    //   {category.img_url !== "" && category.img_url !== null ?
+                    //       <img className="img-fluid" src={category.img_url} alt="" onClick={() => toggleModal(category)}></img>
+                    //     : <img className="img-fluid" src="../Assets/Img/placeholder-img.png" alt=""></img>
+                    //      }
+                    //      {category.brand_name}
+                    //       <h3>
+                    //       <span><strong>{stripedHtml}
+                    //         {stripedHtml.length === 30 && 
+                    //         <span>...</span>
+                    //       }
+                    //       </strong></span>
+                    //         </h3>
+                    //         <p>Package Weight : {category.package_weight} {category.packaging_unit}</p>  
+                    //       <p>
+                    //         <span><strong>{stripedHtml2}
+                    //         {stripedHtml2.length === 60 && 
+                    //         <span>...</span>
+                    //       }
+                    //       </strong></span>
+                    //         </p>
 
-                          <div className="popup-btns display-flex">
-                          {/* <ButtonToolbar className="mb-3" aria-label="Toolbar with Button groups">
-                            <InputGroup>
-                              <InputGroup.Text id="btnGroupAddon">@</InputGroup.Text>
-                              <FormControl
-                                type="text"
-                                placeholder="Input group example"
-                                aria-label="Input group example"
-                                aria-describedby="btnGroupAddon"
-                              />
-                            </InputGroup>
-                          </ButtonToolbar> */}
-                          <button onClick={e => {
-                                        e.preventDefault()
-                                        removeQuantityToCartItem(category)
-                                        }} >
-                                <FontAwesome name="minus"></FontAwesome>
-                              </button> <span>{getAddedQty(category)}</span> <button onClick={e => {
-                                        e.preventDefault()
-                                        addQuantityToCartItem(category)
-                                        }}>
-                                <FontAwesome name="plus"></FontAwesome>
-                              </button>
-                          </div>
+                    //       <p className="price">  ${category.vendor_pricing}</p>
 
-                         <a className="add-to-cart" href="#" onClick={(e) => 
-                          {onAddToCart(category)
+                    //       <div className="popup-btns display-flex">
+                         
+                    //       <button onClick={e => {
+                    //                     e.preventDefault()
+                    //                     removeQuantityToCartItem(category)
+                    //                     }} >
+                    //             <FontAwesome name="minus"></FontAwesome>
+                    //           </button> 
+                    //           <input 
+                    //             onKeyPress={(event) => {
+                    //               if (!/[0-9]/.test(event.key)) {
+                    //                 event.preventDefault();
+                    //               }
+                    //             }}
+                    //             maxLength={2}
+                    //           type="text"
+                    //           pattern="[0-9]*"
+                    //           value={inputQty}
+                    //           onChange={(e) => setInputQty(e.target.value)}
+                    //           />
+                              
+                    //           <span>{getAddedQty(category)}</span> 
+                    //           <button onClick={e => {
+                    //                     e.preventDefault()
+                    //                     addQuantityToCartItem(category)
+                    //                     }}>
+                    //             <FontAwesome name="plus"></FontAwesome>
+                    //           </button>
+                    //       </div>
+
+                    //      <a className="add-to-cart" href="#" onClick={(e) => 
+                    //       {onAddToCart(category)
                         
-                            e.preventDefault()
-                            setTimeout(() => {
-                            setMessage('')
-                            setMessagecolor('')}, 3000)
-                          }
+                    //         e.preventDefault()
+                    //         setTimeout(() => {
+                    //         setMessage('')
+                    //         setMessagecolor('')}, 3000)
+                    //       }
                           
-                          }>Add to cart</a>
+                    //       }>Add to cart</a>
                        
-                        </div>
-                      </Col> 
+                    //     </div>
+                    //   </Col> 
                       )
                       }
                     )} 
@@ -932,6 +960,151 @@ const [ItemDetail , setItemDetail ] = useState([]);
     </Container>
 
 
+  )
+}
+
+function ProductComponent({
+  category,
+  stripedHtml,
+  toggleModal,
+  stripedHtml2,
+  getAddedQty,
+  onAddToCart,
+  index,
+  setMessage,
+  setMessagecolor
+}){
+
+  const [inputQty , setInputQty ] = useState(0)
+
+  return (
+    <Col lg="4" md="6" sm="12" xs="12" key={index}>
+    <div className="product-list store-item">
+    {category.img_url !== "" && category.img_url !== null ?
+        <img className="img-fluid" src={category.img_url} alt="" onClick={() => toggleModal(category)}></img>
+      : <img className="img-fluid" src="../Assets/Img/placeholder-img.png" onClick={() => toggleModal(category)} alt=""></img>
+       }
+       {category.brand_name}
+        <h3>
+        <span><strong>{stripedHtml}
+          {stripedHtml.length === 30 && 
+          <span>...</span>
+        }
+        </strong></span>
+          </h3>
+          <p>Package Weight : {category.package_weight} {category.packaging_unit}</p>  
+        <p>
+          <span><strong>{stripedHtml2}
+          {stripedHtml2.length === 60 && 
+          <span>...</span>
+        }
+        </strong></span>
+          </p>
+
+        <p className="price">  ${category.vendor_pricing}</p>
+
+
+        <ButtonToolbar aria-label="Toolbar with button groups">
+      <ButtonGroup className="me-2" aria-label="First group">
+        <Button 
+        className={'themeBg'}
+        onClick={e => {
+                e.preventDefault()
+                if(inputQty > 0) {
+                  setInputQty(inputQty - 1)
+                }
+              }}>  
+            <FontAwesome name="minus"></FontAwesome>
+          </Button> 
+         <input 
+              onKeyPress={(event) => {
+                if (!/[0-9]/.test(event.key)) {
+                  event.preventDefault();
+                }
+              }}
+              style={{
+                width: '37px',
+                justifyContent :'center',
+                alignItems :'center'
+              }}
+            maxLength={2}
+            type="text"
+            pattern="[0-9]*"
+            value={inputQty}
+            onChange={(e) => e.target.value > 0 ?
+               setInputQty(parseInt(e.target.value))
+               : setInputQty(0)
+                // setInputQty(0)
+              }
+            />
+        <Button   
+         className={'themeBg'}
+         onClick={e => {
+              e.preventDefault()
+              setInputQty(inputQty + 1)
+              }}>  
+            <FontAwesome name="plus"></FontAwesome>
+          </Button> 
+      </ButtonGroup>
+
+    </ButtonToolbar>
+
+        {/* <div className="popup-btns display-flex">
+      
+        <button onClick={e => {
+                      e.preventDefault()
+                      if(inputQty > 0) {
+                        setInputQty(inputQty - 1)
+                      }
+                      }} >
+              <FontAwesome name="minus"></FontAwesome>
+            </button> 
+           
+            <input 
+              onKeyPress={(event) => {
+                if (!/[0-9]/.test(event.key)) {
+                  event.preventDefault();
+                }
+              }}
+              style={{
+                width: '37px',
+                height: '25px',
+                justifyContent :'center',
+                alignItems :'center'
+              }}
+            maxLength={2}
+            type="text"
+            pattern="[0-9]*"
+            value={inputQty}
+            onChange={(e) => e.target.value > 0 ?
+               setInputQty(parseInt(e.target.value))
+               : setInputQty(0)
+              }
+            />
+            <button onClick={e => {
+                      e.preventDefault()
+                      setInputQty(inputQty + 1)
+                      }}>
+              <FontAwesome name="plus"></FontAwesome>
+            </button>
+        </div> */}
+
+       <a className="add-to-cart" href="#" onClick={(e) => 
+        {   
+            e.preventDefault()
+          if(inputQty > 0) {
+            onAddToCart(category , inputQty)
+            setTimeout(() => {
+            setMessage('')
+            setMessagecolor('')
+            setInputQty(0)}, 3000)
+          }
+        }
+        
+        }>Add to cart</a>
+     
+      </div>
+    </Col> 
   )
 }
 
