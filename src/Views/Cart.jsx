@@ -54,6 +54,10 @@ const GET_CONFIGURATION = gql`${getConfiguration}`;
 
 function Cart(props) {
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  },[])
+
   React.useEffect(()=>{
     setStoreIdLocally()
   },[])
