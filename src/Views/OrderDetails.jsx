@@ -226,6 +226,7 @@ function OrderDetails(props) {
                 </tr>
               </tfoot>
             </Table>
+            <p style={{color: 'red', fontSize: 13, marginTop: -15, fontWeight:700, textAlign: 'left', marginBottom: 35, lineHeight: '30px'}}> * Please check your emails for any order modifications</p>
 
             <Row>
               <Col lg="8" md="7" sm="7" xs="12" className={deliveryAddress ? 'subtotal' : 'voucher'}>
@@ -250,6 +251,7 @@ function OrderDetails(props) {
                   Store Instruction <span>{deliveryAddress.order_description} </span>
                   </h4> }
                 </div>
+                
               </Col>
               {/*  <Col lg="0" md="7" sm="7" xs="12" className="voucher">
                       <h2>VOUCHER</h2>
