@@ -422,22 +422,60 @@ export const foods = `
     }
   }`
 
-  export const getVendorByLocation = `query getVendorsByLocation($lat:String,$long:String){
-    getVendorsByLocation(lat:$lat,long:$long){
-        _id
-        name
-        email
-        picture
-        business_name
-        company_name
-        city
-        state
-        lat
-        long
-        physical_address
-        vendor_available
+// export const getVendorByLocation = `query getVendorsByLocation($lat:String,$long:String){
+//   getVendorsByLocation(lat:$lat,long:$long){
+//       _id
+//       name
+//       email
+//       picture
+//       business_name
+//       company_name
+//       city
+//       state
+//       lat
+//       long
+//       physical_address
+//       vendor_available
+//   }
+// }`
+
+
+export const getVendorByLocation = `query getVendorsByLocation($lat:String,$long:String){
+  getVendorsByLocation(lat:$lat,long:$long){
+    _id
+    name
+    last_name
+    phone
+    is_shop_keeper
+    email
+    is_active
+    business_type
+    photo_id
+    is_popular
+    is_featured
+    shop_type
+    vendor_available
+    business_name
+    company_name
+    physical_address
+    lat
+    long
+    createdAt
+    updatedAt
+    picture
+    bsb_number
+    city
+    state
+    timeTable{
+      _id
+      start_time
+      end_time
+      off_day
+      day_name
+      last_order_time
     }
-  }`
+  }
+}`
 
 export const getFeaturedProducts = `
         query getFeaturedProducts{
@@ -1658,5 +1696,29 @@ export const getVendorsByLocationAndKeyword = `query getVendorsByLocationAndKeyw
 export const forgotPassword = `mutation ForgotPassword($email:String!){
   forgotPasswordUser(email:$email){
     result
+  }
+}`
+
+export const getVendorDetailsForApp = `query getVendorDetailsForApp($vendor_id:String!){
+  getVendorDetailsForApp(vendor_id:$vendor_id){
+    _id
+    name
+    last_name
+    phone
+    email
+    is_active
+    is_shop_keeper
+    business_name
+    company_name
+    timeTable{
+      _id
+      start_time
+      end_time
+      off_day
+      day_name
+      last_order_time
+      createdAt
+      updatedAt
+    }
   }
 }`

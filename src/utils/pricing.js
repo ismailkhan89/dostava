@@ -1,3 +1,5 @@
+import moment from "moment";
+
 function getItemPrice (product,configuration){
     console.log('configuration Price',configuration)
     console.log('getItemPrice product Price',product)
@@ -44,4 +46,19 @@ function getItemPriceOrderDetails (product,configuration){
 //     return product_price
 // }
 
-export { getItemPrice,getItemPriceOrderDetails }
+function isTimeBetween(startTime, endTime, serverTime) {
+
+
+    let start = moment(startTime, "H:mm")
+    let end = moment(endTime, "H:mm")
+    let server = moment(serverTime, "H:mm")
+
+    if (end < start) {
+        return server >= start && server <= moment('23:59:59', "h:mm:ss") || server >= moment('0:00:00', "h:mm:ss") && server < end;
+    }
+    // console.log('server >= start && server < end',server >= start && server < end)
+    return server >= start && server < end
+  }
+
+
+export { getItemPrice,getItemPriceOrderDetails ,isTimeBetween }
