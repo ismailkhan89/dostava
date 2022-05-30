@@ -1024,7 +1024,7 @@ function ProductComponent({
               }}
               style={{
                 width: '37px',
-                justifyContent :'center',
+                textAlign :'center',
                 alignItems :'center'
               }}
             maxLength={2}
