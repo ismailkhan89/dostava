@@ -312,7 +312,7 @@ export default function ProductDetail({ item, configuration, toggle, close }) {
                     }}
                     style={{
                       width: '37px',
-                      justifyContent :'center',
+                      textAlign :'center',
                       alignItems :'center'
                     }}
                   maxLength={2}

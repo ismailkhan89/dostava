@@ -313,7 +313,7 @@ function LatestHomePage(props){
                 <div className="banner-text-new">
                   <h4>Stores in your Area, Now Delivering</h4>
                   <Row className="justify-content-center">
-                    <Col lg="8" className="new-search-area">
+                    <Col xl="9" lg="10" className="new-search-area">
                     <Form inline className="text-right search-form">
                       <div className="input-area">
                         <FontAwesome name="map-marker" />
@@ -421,7 +421,7 @@ function LatestHomePage(props){
     <div className="banner-text-new">
       <h4>Stores in your Area, <span>Now Delivering</span></h4>
       <Row className="justify-content-center">
-        <Col lg="8" className="new-search-area">
+        <Col xl="9" lg="10" className="new-search-area">
         <Form inline className="text-right search-form">
           <div className="input-area">
             <FontAwesome name="map-marker" />

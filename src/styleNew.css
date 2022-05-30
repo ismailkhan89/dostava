@@ -780,8 +780,8 @@ div#features {
     padding: 21px 0 15px;
 }
 #faq .row .col-md-6 {
-    vertical-align: middle;
-    margin: auto;
+   /* vertical-align: middle;
+    margin: auto; */
 }
 /* ========== 767 ======== */
 
