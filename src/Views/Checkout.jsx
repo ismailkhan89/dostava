@@ -33,9 +33,12 @@ import { setContext } from 'apollo-link-context'
 import { createUploadLink } from 'apollo-upload-client';
 import { ApolloClient } from 'apollo-client';
 import {Link, useRouteMatch, useParams } from 'react-router-dom';
-import { getConfiguration, placeOrder, like ,getUserStripeCards , myOrders} from "../apollo/server";
+import { getConfiguration, placeOrder, like ,getUserStripeCards , myOrders,
+  getVendorDetailsForApp} from "../apollo/server";
 // import { authLink } from '../library/authLink'
 import { getCartItems } from '../apollo/client';
+import { isTimeBetween } from "../utils/pricing.js";
+import moment from "moment";
 const authLink = setContext((_, { headers }) => {
   console.log("setContext",headers)
   // get the authentication token from local storage if it exists
@@ -71,6 +74,9 @@ const GETCONFIGURATION = gql`${getConfiguration}`
 const PLACEORDER = gql`${placeOrder}`
 const GETUSERSTRIPECARDS = gql`${getUserStripeCards}`
 const MYORDERS = gql`${myOrders}`
+
+const GET_VENODR_DETAILS = gql`${getVendorDetailsForApp}`
+
 
 
 const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
@@ -212,8 +218,16 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
     async function onErrorLike(data) {
       console.log("data onErrorLike", data);
     }
+
+    console.log('vendorIdsvendorIds',vendorIds)
+
+
+    const m = moment(new Date());
+    const curentTime = m.format('HH:mm')
+
     async function onPayment() {
       console.log("on payemnt called")
+
         //check payment method
         // if (activeRadio === null) {
         //     showMessage({
@@ -252,9 +266,25 @@ const PAYMENT_METHOD = ['STRIPE', 'PAYPAL', 'COD']
              alert('Please Accept the Address Checkbox');
              return;
            }
+
+      let vendor_details = await client.query({
+        query : GET_VENODR_DETAILS ,
+        variables : {
+          vendor_id : vendorIds[0]
+        }
+      })
+
+      const vendorDetails = vendor_details.data.getVendorDetailsForApp.timeTable;
+
+      if(!vendor_details){
+        return 
+      }
+
+      let shopClosTimeIsBeforeCurntTime = vendorDetails.off_day ? false : isTimeBetween(
+        vendorDetails.start_time, vendorDetails.last_order_time, curentTime);
        
 
-          if (checkPaymentMethod(dataConfig.configuration.currency)) {
+          if (checkPaymentMethod(dataConfig.configuration.currency) && shopClosTimeIsBeforeCurntTime) {
             setOrderLoading(true)
             const items = transformOrder(cartItems)
             mutate({

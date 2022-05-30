@@ -22,7 +22,7 @@ import { server_url } from  "../config/config";
 import { authLink } from '../library/authLink';
 import { Form, FormControl } from 'react-bootstrap';
 import { Redirect , useHistory , Link  } from "react-router-dom";
-import { getItemPrice } from '../utils/pricing'
+import { getItemPrice, isTimeBetween } from '../utils/pricing'
 import ReactPaginate from 'react-paginate';
 
 import PlacesAutocomplete, {
@@ -34,6 +34,7 @@ import Modal from "reactstrap/lib/Modal";
 import ProductDetail from "../Components/ProductDetail.jsx";
 import ConfigurationContext from "../context/Configuration.js";
 import Spinner from "reactstrap/lib/Spinner";
+import moment, { now } from "moment";
 
 const cache = new InMemoryCache()
 const httpLink = createUploadLink({
@@ -359,6 +360,14 @@ function Vendor(props) {
     myRef.current.scrollIntoView()
   }
 
+
+  const m = moment(new Date());
+  const curentTime = m.format('HH:mm');
+
+   
+
+// let shopClosTimeIsBeforeCurntTime = offday === true ? false : isTimeBetween(startTime, lastOrderTime, curentTime);
+
    const myRef = useRef(null);
   return (
     <Container className="wrapper" fluid>
@@ -456,9 +465,15 @@ function Vendor(props) {
              if (loading) return <div>{"Loading"}...</div>;
              if (error) return <div>`${"Error"}! ${error.message}`</div>;
              {console.log('data',data)}
+
               return data.getVendorsByLocation.length > 0 ? data.getVendorsByLocation.map((category, index) =>
-                <Col lg="4" key={index}>
-                  {category.vendor_available ? 
+                {
+
+                let shopClosTimeIsBeforeCurntTime = category.timeTable.off_day === true ? false : isTimeBetween(category.timeTable.start_time, category.timeTable.last_order_time, curentTime);
+                console.log('category category',category)
+                // console.log('shopClosTimeIsBeforeCurntTime',shopClosTimeIsBeforeCurntTime)
+                return  <Col lg="4" key={index}>
+                  {shopClosTimeIsBeforeCurntTime ? 
                 <Link
                     to={`/storesitem/${category._id}`}
                     params="true"
@@ -511,7 +526,6 @@ function Vendor(props) {
                       </div>
 
                       <div className="product-img">
-                      {console.log('category.vendor_available',category.vendor_available)}
                         {category.picture !== "" && category.picture !== null ?
                         <img className="img-fluid" src={category.picture} alt=""></img>
                       : <img className="img-fluid" src="../Assets/Img/store.png" alt=""></img>
@@ -524,6 +538,7 @@ function Vendor(props) {
                     </div>
                     }
                   </Col>
+                }
                 )
 
                 :   <React.Fragment>
