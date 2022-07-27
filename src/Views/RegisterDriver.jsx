@@ -197,7 +197,7 @@ function RegisterDriver(props){
 			setpostalFlagErr(true)
 			result = false
 		}
-		if(!CheckedAccept){
+		if(!AcceptPP){
 			alert('Please Accept The Privacy Policy')
 		}
 		return result
@@ -536,8 +536,8 @@ function RegisterDriver(props){
 
 
 	<div className="form-group privacy-check" 
-		onScroll={onScroll}
-		ref={listInnerRef}
+		// onScroll={onScroll}
+		// ref={listInnerRef}
 	>
 		<div class="how-it-work-content terms-condition">
 			<div class="container">
@@ -629,8 +629,10 @@ function RegisterDriver(props){
 					 
 						<div className="form-group privacy-checkbox-new">
 							<label>
-							<input type="checkbox" onChange={()=> setAcceptPP(!AcceptPP)} disabled={!CheckedAccept}></input>I accept the <a href="/terms-of-use">terms and
-							conditions</a>, including the <a href="/privacy-policy">Privacy Policy</a>
+							<input type="checkbox" onChange={()=> setAcceptPP(!AcceptPP)} 
+							// disabled={!CheckedAccept}
+							></input>I accept the <a href="/terms-of-use" target="_blank">terms and
+							conditions</a>, including the <a href="/privacy-policy" target="_blank">Privacy Policy</a>
 							</label>
 						</div>
 
