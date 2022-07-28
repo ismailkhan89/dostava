@@ -491,7 +491,7 @@ function RegisterVendor(props){
 
 					 
 						
-						<div className="form-group privacy-check" 
+						<div className="form-group privacy-check  d-none" 
 		// onScroll={onScroll}
 		// ref={listInnerRef}
 	>

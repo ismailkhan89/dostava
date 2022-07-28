@@ -535,7 +535,7 @@ function RegisterDriver(props){
 						</FormGroup>
 
 
-	<div className="form-group privacy-check" 
+	<div className="form-group privacy-check d-none" 
 		// onScroll={onScroll}
 		// ref={listInnerRef}
 	>
